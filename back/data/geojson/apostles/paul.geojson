@@ -1,0 +1,879 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [36.7667, 34.5333]
+      },
+      "properties": {
+        "apostle": "Paul",
+        "name": "Chemin de Damas",
+        "dates": [34, 36],
+        "type": "visited_place",
+        "fiability": 0.95,
+        "biblical_reference": ["Ac 9:1-19"],
+        "source": ["Bible AELF", "Saint Augustin - Confessions (Livre X)", "Raymond E. Brown - Introduction au Nouveau Testament"],
+        "description": "Conversion de Paul (Saül) sur le chemin de Damas.",
+        "events": [
+          { "name": "Vision de Jésus" },
+          { "name": "Cécité temporaire" },
+          { "name": "Baptême par Ananias" }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [36.1667, 36.2000]
+      },
+      "properties": {
+        "apostle": "Paul",
+        "name": "Antioche de Syrie",
+        "dates": [46, 48, 52, 53],
+        "type": "visited_place",
+        "fiability": 0.95,
+        "biblical_reference": ["Ac 13:1-3", "Ac 14:26-28", "Ac 15:36-41", "Ac 18:22-23"],
+        "source": ["Bible AELF", "Actes des Apôtres (École biblique de Jérusalem)", "Fernand Prat - Dictionnaire de la Bible"],
+        "description": "Base des voyages missionnaires de Paul. Départ des 1er, 2e et 3e voyages.",
+        "events": [
+          { "name": "Départ du 1er voyage missionnaire avec Barnabé", "date": 46 },
+          { "name": "Retour du 1er voyage", "date": 48 },
+          { "name": "Départ du 2e voyage avec Silas", "date": 49 },
+          { "name": "Retour du 2e voyage", "date": 52 },
+          { "name": "Départ du 3e voyage", "date": 53 }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [36.0833, 36.1333]
+      },
+      "properties": {
+        "apostle": "Paul",
+        "name": "Séleucie",
+        "dates": [46],
+        "type": "visited_place",
+        "fiability": 0.95,
+        "biblical_reference": ["Ac 13:4"],
+        "source": ["Bible AELF", "Eusèbe de Césarée - Histoire ecclésiastique"],
+        "description": "Port d'embarquement pour Chypre lors du 1er voyage missionnaire."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [33.9167, 35.1833]
+      },
+      "properties": {
+        "apostle": "Paul",
+        "name": "Chypre (Salamine, Paphos)",
+        "dates": [46, 47],
+        "type": "visited_place",
+        "fiability": 0.95,
+        "biblical_reference": ["Ac 13:4-12"],
+        "source": ["Bible AELF", "Saint Jérôme - Commentaire sur les Actes des Apôtres"],
+        "description": "Prédication à Salamine et Paphos. Rencontre avec le proconsul Sergius Paulus.",
+        "events": [
+          { "name": "Conversion du proconsul Sergius Paulus" },
+          { "name": "Opposition d'Élymas le magicien" }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [30.8500, 36.9500]
+      },
+      "properties": {
+        "apostle": "Paul",
+        "name": "Perge",
+        "dates": [47],
+        "type": "visited_place",
+        "fiability": 0.95,
+        "biblical_reference": ["Ac 13:13-14"],
+        "source": ["Bible AELF", "Catéchisme de l'Église Catholique §642"],
+        "description": "Jean-Marc quitte l'équipe de Paul et Barnabé.",
+        "events": [
+          { "name": "Départ de Jean-Marc" }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [30.7167, 38.6167]
+      },
+      "properties": {
+        "apostle": "Paul",
+        "name": "Antioche de Pisidie",
+        "dates": [47],
+        "type": "visited_place",
+        "fiability": 0.95,
+        "biblical_reference": ["Ac 13:14-52"],
+        "source": ["Bible AELF", "Joseph Ratzinger (Benoît XVI) - Jésus de Nazareth"],
+        "description": "Prédication dans la synagogue, conversion de nombreux Gentils.",
+        "events": [
+          { "name": "Discours de Paul dans la synagogue" },
+          { "name": "Opposition des Juifs, expulsion de la région" }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [32.5000, 37.8667]
+      },
+      "properties": {
+        "apostle": "Paul",
+        "name": "Iconium",
+        "dates": [47],
+        "type": "visited_place",
+        "fiability": 0.95,
+        "biblical_reference": ["Ac 14:1-7"],
+        "source": ["Bible AELF", "Concile de Trente - Décret sur les Écritures saintes"],
+        "description": "Prédication et persécution. Paul et Barnabé fuient la ville.",
+        "events": [
+          { "name": "Prédication dans la synagogue" },
+          { "name": "Guérisons et signes miraculeux" },
+          { "name": "Complot des Juifs et des Gentils pour les lapider" }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [32.5000, 37.5000]
+      },
+      "properties": {
+        "apostle": "Paul",
+        "name": "Lystre",
+        "dates": [47],
+        "type": "visited_place",
+        "fiability": 0.95,
+        "biblical_reference": ["Ac 14:8-20"],
+        "source": ["Bible AELF", "Saint Augustin - Sermons sur les Actes des Apôtres"],
+        "description": "Guérison d'un boiteux de naissance. Paul lapidé et laissé pour mort.",
+        "events": [
+          { "name": "Guérison d'un homme boiteux" },
+          { "name": "Paul et Barnabé pris pour des dieux (Zeus et Hermès)" },
+          { "name": "Paul lapidé par la foule" }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [33.0000, 37.3333]
+      },
+      "properties": {
+        "apostle": "Paul",
+        "name": "Derbe",
+        "dates": [47, 49],
+        "type": "visited_place",
+        "fiability": 0.95,
+        "biblical_reference": ["Ac 14:20-21", "Ac 16:1-2"],
+        "source": ["Bible AELF", "Jean-Paul II - Redemptoris Missio"],
+        "description": "Fin du 1er voyage missionnaire. Rencontre avec Timothée lors du 2e voyage.",
+        "events": [
+          { "name": "Retour après la lapidation à Lystre", "date": 47 },
+          { "name": "Timothée rejoint Paul et Silas", "date": 49 }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [34.9167, 36.9167]
+      },
+      "properties": {
+        "apostle": "Paul",
+        "name": "Tarse",
+        "dates": [49],
+        "type": "visited_place",
+        "fiability": 0.9,
+        "biblical_reference": ["Ac 15:41"],
+        "source": ["Bible AELF", "Catéchisme de l'Église Catholique §858"],
+        "description": "Visite rapide lors du 2e voyage missionnaire."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [26.2500, 39.9667]
+      },
+      "properties": {
+        "apostle": "Paul",
+        "name": "Troas",
+        "dates": [50, 57],
+        "type": "visited_place",
+        "fiability": 0.95,
+        "biblical_reference": ["Ac 16:8-10", "Ac 20:6-12"],
+        "source": ["Bible AELF", "Raymond E. Brown - Les Épîtres de Paul"],
+        "description": "Vision de l'homme de Macédoine (50). Résurrection d'Eutychus (57).",
+        "events": [
+          { "name": "Vision de l'homme de Macédoine (appel à évangéliser l'Europe)", "date": 50 },
+          { "name": "Résurrection d'Eutychus (jeune homme tombé du 3e étage)", "date": 57 }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [25.5000, 40.4667]
+      },
+      "properties": {
+        "apostle": "Paul",
+        "name": "Samothrace",
+        "dates": [50],
+        "type": "visited_place",
+        "fiability": 0.9,
+        "biblical_reference": ["Ac 16:11"],
+        "source": ["Bible AELF"],
+        "description": "Escale pendant le voyage vers la Macédoine."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [24.1667, 40.9333]
+      },
+      "properties": {
+        "apostle": "Paul",
+        "name": "Neapolis",
+        "dates": [50],
+        "type": "visited_place",
+        "fiability": 0.9,
+        "biblical_reference": ["Ac 16:11"],
+        "source": ["Bible AELF"],
+        "description": "Débarquement en Macédoine."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [24.2833, 41.0167]
+      },
+      "properties": {
+        "apostle": "Paul",
+        "name": "Philippes",
+        "dates": [50, 57],
+        "type": "visited_place",
+        "fiability": 0.95,
+        "biblical_reference": ["Ac 16:12-40", "Ac 20:6"],
+        "source": ["Bible AELF", "Saint Paul - Épître aux Philippiens", "Catéchisme de l'Église Catholique §199"],
+        "description": "Fondation de l'église. Emprisonnement de Paul et Silas. Passage lors du 3e voyage.",
+        "events": [
+          { "name": "Conversion de Lydie (marchande de pourpre)" },
+          { "name": "Emprisonnement de Paul et Silas, tremblement de terre, conversion du geôlier" },
+          { "name": "Épître aux Philippiens écrite depuis Rome", "date": 60 }
+        ],
+        "associated_letter": {
+          "name": ["Épître aux Philippiens"],
+          "dates": [60, 62],
+          "reference": ["Ph 1:1"],
+          "source": ["Nouveau Testament (Bible AELF)"]
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [23.8333, 40.8333]
+      },
+      "properties": {
+        "apostle": "Paul",
+        "name": "Amphipolis",
+        "dates": [50],
+        "type": "visited_place",
+        "fiability": 0.9,
+        "biblical_reference": ["Ac 17:1"],
+        "source": ["Bible AELF"],
+        "description": "Passage rapide lors du 2e voyage missionnaire."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [23.3333, 40.6667]
+      },
+      "properties": {
+        "apostle": "Paul",
+        "name": "Apollonie",
+        "dates": [50],
+        "type": "visited_place",
+        "fiability": 0.9,
+        "biblical_reference": ["Ac 17:1"],
+        "source": ["Bible AELF"],
+        "description": "Passage rapide lors du 2e voyage missionnaire."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [22.9500, 40.6333]
+      },
+      "properties": {
+        "apostle": "Paul",
+        "name": "Thessalonique",
+        "dates": [50],
+        "type": "visited_place",
+        "fiability": 0.95,
+        "biblical_reference": ["Ac 17:1-9"],
+        "source": ["Bible AELF", "Saint Jean Chrysostome - Homélies sur les Actes des Apôtres"],
+        "description": "Prédication et fondation de l'église. Écriture de 1 et 2 Thessaloniciens.",
+        "events": [
+          { "name": "Prédication dans la synagogue pendant 3 sabbats" },
+          { "name": "Conversion de plusieurs Grecs et femmes de qualité" },
+          { "name": "Opposition des Juifs, émeute, départ pour Bérée" }
+        ],
+        "associated_letter": {
+          "name": ["1 Thessaloniciens", "2 Thessaloniciens"],
+          "dates": [51],
+          "reference": ["1 Th 1:1", "2 Th 1:1"],
+          "source": ["Nouveau Testament (Bible AELF)"]
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [22.1667, 40.3333]
+      },
+      "properties": {
+        "apostle": "Paul",
+        "name": "Bérée",
+        "dates": [50],
+        "type": "visited_place",
+        "fiability": 0.95,
+        "biblical_reference": ["Ac 17:10-15"],
+        "source": ["Bible AELF", "Saint Thomas d'Aquin - Somme Théologique (II-II, Q. 1, Art. 5)"],
+        "description": "Prédication et accueil favorable. Les Béréens examinent les Écritures.",
+        "events": [
+          { "name": "Prédication dans la synagogue" },
+          { "name": "Les Béréens recherchent dans les Écritures" }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [23.7333, 37.9833]
+      },
+      "properties": {
+        "apostle": "Paul",
+        "name": "Athènes",
+        "dates": [50, 51],
+        "type": "visited_place",
+        "fiability": 0.95,
+        "biblical_reference": ["Ac 17:15-34"],
+        "source": ["Bible AELF", "Saint Augustin - La Cité de Dieu (Livre XVIII)"],
+        "description": "Discours à l'Aréopage. Paul prêche aux philosophes grecs.",
+        "events": [
+          { "name": "Discours à l'Aréopage (mention de l'autel 'Au dieu inconnu')" },
+          { "name": "Quelques conversions (Dionysius, Damaris)" }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [22.9333, 37.9500]
+      },
+      "properties": {
+        "apostle": "Paul",
+        "name": "Corinthe",
+        "dates": [51, 52, 57],
+        "type": "visited_place",
+        "fiability": 0.95,
+        "biblical_reference": ["Ac 18:1-18", "Ac 20:2-3"],
+        "source": ["Bible AELF", "Saint Jean Chrysostome - Homélies sur les Actes des Apôtres"],
+        "description": "Séjour de 18 mois (1er séjour), fondation de l'église. Écriture de 1 et 2 Corinthiens. Séjour de 3 mois (2e séjour).",
+        "events": [
+          { "name": "Rencontre avec Aquilas et Priscille (tisserands)" },
+          { "name": "Prédication dans la synagogue, puis dans la maison de Justus" },
+          { "name": "Vision du Seigneur : 'Je suis avec toi, et personne ne te fera de mal'" },
+          { "name": "Écriture de 1 Corinthiens", "date": 55 },
+          { "name": "Écriture de 2 Corinthiens", "date": 57 }
+        ],
+        "associated_letter": {
+          "name": ["1 Corinthiens", "2 Corinthiens"],
+          "dates": [55, 57],
+          "reference": ["1 Co 1:1-2", "2 Co 1:1-2"],
+          "source": ["Nouveau Testament (Bible AELF)"]
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [22.9667, 37.6333]
+      },
+      "properties": {
+        "apostle": "Paul",
+        "name": "Cenchrées",
+        "dates": [52],
+        "type": "visited_place",
+        "fiability": 0.9,
+        "biblical_reference": ["Ac 18:18"],
+        "source": ["Bible AELF"],
+        "description": "Port d'embarquement pour Éphèse. Paul fait vœu de naziréat.",
+        "events": [
+          { "name": "Paul se fait couper les cheveux à Cenchrées à cause d'un vœu" }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [27.9667, 37.9500]
+      },
+      "properties": {
+        "apostle": "Paul",
+        "name": "Éphèse",
+        "dates": [52, 54, 57],
+        "type": "visited_place",
+        "fiability": 0.95,
+        "biblical_reference": ["Ac 18:19-21", "Ac 19:1-41", "Ac 20:17-38"],
+        "source": ["Bible AELF", "Raymond E. Brown - Les Épîtres de Paul", "Catéchisme de l'Église Catholique §756"],
+        "description": "Brève visite (52), puis séjour de 3 ans (54 à 57). Fondation de l'église. Émeute des orfèvres (Démétrius). Discours aux anciens d'Éphèse à Milèt.",
+        "events": [
+          { "name": "Rencontre avec Apollos", "date": 52 },
+          { "name": "Baptême des disciples de Jean-Baptiste", "date": 54 },
+          { "name": "Prédication quotidienne dans l'école de Tyranne pendant 2 ans" },
+          { "name": "Guérisons et miracles (mouchoirs et linges de Paul)" },
+          { "name": "Émeute des orfèvres (Démétrius) contre Paul" },
+          { "name": "Épître aux Éphésiens écrite depuis Rome", "date": 60 },
+          { "name": "Discours aux anciens d'Éphèse à Milèt", "date": 57 }
+        ],
+        "associated_letter": {
+          "name": ["Épître aux Éphésiens"],
+          "dates": [60, 62],
+          "reference": ["Ep 1:1-2"],
+          "source": ["Nouveau Testament (Bible AELF)"]
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [29.2167, 37.7667]
+      },
+      "properties": {
+        "apostle": "Paul",
+        "name": "Colosses",
+        "dates": [60, 62],
+        "type": "visited_place",
+        "fiability": 0.8,
+        "biblical_reference": ["Col 1:1-2"],
+        "source": ["Bible AELF", "Saint Jean Chrysostome - Homélies sur l'Épître aux Colossiens"],
+        "description": "Destination de l'Épître aux Colossiens, écrite par Paul depuis Rome.",
+        "associated_letter": {
+          "name": ["Épître aux Colossiens", "Épître à Philémon"],
+          "dates": [60, 62],
+          "reference": ["Col 1:1-2", "Phm 1:1-3"],
+          "source": ["Nouveau Testament (Bible AELF)"]
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [24.8333, 35.3333]
+      },
+      "properties": {
+        "apostle": "Paul",
+        "name": "Crète",
+        "dates": [62, 64],
+        "type": "visited_place",
+        "fiability": 0.7,
+        "biblical_reference": ["Tt 1:1-4"],
+        "source": ["Bible AELF", "Saint Jean Chrysostome - Homélies sur l'Épître à Tite"],
+        "description": "Destination de l'Épître à Tite, écrite par Paul.",
+        "associated_letter": {
+          "name": ["Épître à Tite"],
+          "dates": [62, 64],
+          "reference": ["Tt 1:1-4"],
+          "source": ["Nouveau Testament (Bible AELF)"]
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [35.2000, 33.2667]
+      },
+      "properties": {
+        "apostle": "Paul",
+        "name": "Tyr",
+        "dates": [57],
+        "type": "visited_place",
+        "fiability": 0.9,
+        "biblical_reference": ["Ac 21:3-7"],
+        "source": ["Bible AELF", "Eusèbe de Césarée - Histoire ecclésiastique"],
+        "description": "Séjour de 7 jours. Les disciples avertissent Paul de ne pas aller à Jérusalem.",
+        "events": [
+          { "name": "Avertissement des disciples : 'Ne va pas à Jérusalem'" }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [35.1500, 32.9167]
+      },
+      "properties": {
+        "apostle": "Paul",
+        "name": "Ptolémaïs",
+        "dates": [57],
+        "type": "visited_place",
+        "fiability": 0.9,
+        "biblical_reference": ["Ac 21:7"],
+        "source": ["Bible AELF"],
+        "description": "Escale pendant le voyage vers Jérusalem."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [34.9000, 32.5000]
+      },
+      "properties": {
+        "apostle": "Paul",
+        "name": "Césaré de Palestine",
+        "dates": [57, 60],
+        "type": "visited_place",
+        "fiability": 0.95,
+        "biblical_reference": ["Ac 21:8-16", "Ac 24:1-26:32"],
+        "source": ["Bible AELF", "Saint Augustin - Sermons sur les Actes des Apôtres"],
+        "description": "Emprisonnement de 2 ans. Comparution devant Félix, Festus et Agrippa.",
+        "events": [
+          { "name": "Rencontre avec Philippe l'évangéliste" },
+          { "name": "Emprisonnement sous Félix", "date": 57 },
+          { "name": "Comparution devant Félix, Festus et le roi Agrippa" },
+          { "name": "Appel à César (Néron)" }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [35.2167, 31.7667]
+      },
+      "properties": {
+        "apostle": "Paul",
+        "name": "Jérusalem",
+        "dates": [57, 58],
+        "type": "visited_place",
+        "fiability": 0.95,
+        "biblical_reference": ["Ac 21:17-40", "Ac 22:1-23:35"],
+        "source": ["Bible AELF", "Catéchisme de l'Église Catholique §675", "Saint Jérôme - Commentaire sur Isaïe"],
+        "description": "Arrestation de Paul au Temple. Transfert à Césarée.",
+        "events": [
+          { "name": "Rencontre avec Jacques et les anciens" },
+          { "name": "Purification au Temple (accusation de profanation)" },
+          { "name": "Arrestation par les Romains (sauvé de la foule)" },
+          { "name": "Discours devant la foule", "date": 57 },
+          { "name": "Discours devant le Sanhédrin", "date": 58 }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [14.5000, 35.8333]
+      },
+      "properties": {
+        "apostle": "Paul",
+        "name": "Malte",
+        "dates": [60],
+        "type": "visited_place",
+        "fiability": 0.95,
+        "biblical_reference": ["Ac 28:1-10"],
+        "source": ["Bible AELF", "Saint Luc - Actes des Apôtres"],
+        "description": "Naufrage. Séjour de 3 mois. Guérison du père de Publius.",
+        "events": [
+          { "name": "Naufrage du navire (tempête d'Adriatique)" },
+          { "name": "Guérison du père de Publius (chef de l'île)" },
+          { "name": "Séjour de 3 mois à Malte" }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [15.2833, 37.0667]
+      },
+      "properties": {
+        "apostle": "Paul",
+        "name": "Syracuse",
+        "dates": [60],
+        "type": "visited_place",
+        "fiability": 0.9,
+        "biblical_reference": ["Ac 28:12"],
+        "source": ["Bible AELF"],
+        "description": "Escale de 3 jours pendant le voyage vers Rome."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [15.6500, 38.1167]
+      },
+      "properties": {
+        "apostle": "Paul",
+        "name": "Rhegium",
+        "dates": [60],
+        "type": "visited_place",
+        "fiability": 0.9,
+        "biblical_reference": ["Ac 28:13"],
+        "source": ["Bible AELF"],
+        "description": "Escale pendant le voyage vers Rome."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [14.0667, 40.8333]
+      },
+      "properties": {
+        "apostle": "Paul",
+        "name": "Puteoli",
+        "dates": [60],
+        "type": "visited_place",
+        "fiability": 0.9,
+        "biblical_reference": ["Ac 28:13-14"],
+        "source": ["Bible AELF"],
+        "description": "Débarquement en Italie. Séjour de 7 jours avec les frères."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [12.4964, 41.9028]
+      },
+      "properties": {
+        "apostle": "Paul",
+        "name": "Rome",
+        "dates": [60, 62],
+        "type": "visited_place",
+        "fiability": 0.95,
+        "biblical_reference": ["Ac 28:16-31"],
+        "source": ["Bible AELF", "Catéchisme de l'Église Catholique §440", "Saint Augustin - La Cité de Dieu"],
+        "description": "Emprisonnement à domicile. Prédication sous surveillance. Écriture des épîtres de la captivité (Éphésiens, Philippiens, Colossiens, Philémon).",
+        "events": [
+          { "name": "Emprisonnement à domicile sous garde romaine" },
+          { "name": "Prédication aux Juifs et aux païens" },
+          { "name": "Écriture des épîtres de la captivité", "date": 60 }
+        ],
+        "associated_letter": {
+          "name": ["Épître aux Romains", "Épître aux Éphésiens", "Épître aux Philippiens", "Épître aux Colossiens", "Épître à Philémon"],
+          "dates": [57, 62],
+          "reference": ["Rm 1:1-7", "Ep 1:1-2", "Ph 1:1", "Col 1:1-2", "Phm 1:1-3"],
+          "source": ["Nouveau Testament (Bible AELF)"]
+        }
+      }
+    },
+
+
+{
+  "type": "Feature",
+  "geometry": {
+    "type": "LineString",
+    "coordinates": [
+      [36.7667, 34.5333],
+      [36.1667, 36.2000]
+    ]
+  },
+  "properties": {
+    "apostle": "Paul",
+    "type": "journey",
+    "start_date": 34,
+    "end_date": 36,
+    "fiability": 0.95,
+    "biblical_reference": ["Ac 9:1-30"],
+    "source": ["Bible AELF", "Saint Augustin - Confessions"],
+    "description": "Voyage de Saül (Paul) vers Damas et retour à Antioche après sa conversion."
+  }
+},
+{
+  "type": "Feature",
+  "geometry": {
+    "type": "LineString",
+    "coordinates": [
+      [36.1667, 36.2000],
+      [36.0833, 36.1333],
+      [33.9167, 35.1833],
+      [30.8500, 36.9500],
+      [30.7167, 38.6167],
+      [32.5000, 37.8667],
+      [32.5000, 37.5000],
+      [33.0000, 37.3333],
+      [36.1667, 36.2000]
+    ]
+  },
+  "properties": {
+    "apostle": "Paul",
+    "type": "journey",
+    "start_date": 46,
+    "end_date": 48,
+    "fiability": 0.95,
+    "biblical_reference": ["Ac 13:1-14:28"],
+    "source": ["Bible AELF", "Fernand Prat - Dictionnaire de la Bible"],
+    "description": "1er voyage missionnaire de Paul et Barnabé."
+  }
+},
+{
+  "type": "Feature",
+  "geometry": {
+    "type": "LineString",
+    "coordinates": [
+      [36.1667, 36.2000],
+      [34.9167, 36.9167],
+      [33.0000, 37.3333],
+      [32.5000, 37.5000],
+      [30.5000, 38.5000],
+      [26.2500, 39.9667],
+      [25.5000, 40.4667],
+      [24.1667, 40.9333],
+      [24.2833, 41.0167],
+      [23.8333, 40.8333],
+      [23.3333, 40.6667],
+      [22.9500, 40.6333],
+      [22.1667, 40.3333],
+      [23.7333, 37.9833],
+      [22.9333, 37.9500],
+      [22.9667, 37.6333],
+      [27.9667, 37.9500],
+      [36.1667, 36.2000]
+    ]
+  },
+  "properties": {
+    "apostle": "Paul",
+    "type": "journey",
+    "start_date": 49,
+    "end_date": 52,
+    "fiability": 0.95,
+    "biblical_reference": ["Ac 15:36-18:22"],
+    "source": ["Bible AELF", "Joseph Ratzinger (Benoît XVI) - Jésus de Nazareth"],
+    "description": "2e voyage missionnaire de Paul et Silas."
+  }
+},
+{
+  "type": "Feature",
+  "geometry": {
+    "type": "LineString",
+    "coordinates": [
+      [36.1667, 36.2000],
+      [30.5000, 38.5000],
+      [27.9667, 37.9500],
+      [22.0000, 41.0000],
+      [22.9333, 37.9500],
+      [24.2833, 41.0167],
+      [26.2500, 39.9667],
+      [26.3333, 39.4833],
+      [26.5500, 39.1167],
+      [26.1333, 38.3667],
+      [26.9667, 37.7500],
+      [27.8500, 37.8333],
+      [27.2833, 36.8833],
+      [28.0000, 36.1667],
+      [29.3167, 36.2833],
+      [35.2000, 33.2667],
+      [35.1500, 32.9167],
+      [34.9000, 32.5000],
+      [35.2167, 31.7667]
+    ]
+  },
+  "properties": {
+    "apostle": "Paul",
+    "type": "journey",
+    "start_date": 53,
+    "end_date": 57,
+    "fiability": 0.95,
+    "biblical_reference": ["Ac 18:23-21:16"],
+    "source": ["Bible AELF", "Jean-Paul II - Redemptoris Missio"],
+    "description": "3e voyage missionnaire de Paul."
+  }
+},
+{
+  "type": "Feature",
+  "geometry": {
+    "type": "LineString",
+    "coordinates": [
+      [35.2167, 31.7667],
+      [34.9000, 32.5000],
+      [14.5000, 35.8333],
+      [15.2833, 37.0667],
+      [15.6500, 38.1167],
+      [14.0667, 40.8333],
+      [12.4964, 41.9028]
+    ]
+  },
+  "properties": {
+    "apostle": "Paul",
+    "type": "journey",
+    "start_date": 58,
+    "end_date": 60,
+    "fiability": 0.95,
+    "biblical_reference": ["Ac 21:17-28:16"],
+    "source": ["Bible AELF", "Catéchisme de l'Église Catholique §675"],
+    "description": "Voyage de Paul vers Rome (après son arrestation à Jérusalem)."
+  }
+}
+
+  ],
+  "metadata": {
+    "title": "Voyages, lettres et événements marquants de l'apôtre Paul",
+    "description": "Carte complète des voyages missionnaires de Paul, des lieux visités, des lettres envoyées, et des événements marquants, avec des sources catholiques et des références bibliques au format AELF.",
+    "creation_date": "2026-05-13",
+    "main_sources": [
+      "Bible AELF",
+      "Actes des Apôtres (École biblique de Jérusalem)",
+      "Fernand Prat - Dictionnaire de la Bible",
+      "Catéchisme de l'Église Catholique",
+      "Saint Augustin - La Cité de Dieu",
+      "Saint Jérôme - Commentaires bibliques",
+      "Saint Jean Chrysostome - Homélies sur les Actes des Apôtres",
+      "Raymond E. Brown - Les Épîtres de Paul",
+      "Eusèbe de Césarée - Histoire ecclésiastique",
+      "Joseph Ratzinger (Benoît XVI) - Jésus de Nazareth",
+      "Jean-Paul II - Redemptoris Missio"
+    ]
+  }
+}

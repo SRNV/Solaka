@@ -1,0 +1,12 @@
+FROM oven/bun:1
+WORKDIR /app
+
+COPY package.json bun.lock* ./
+RUN bun install
+
+COPY tsconfig.json ./
+COPY src ./src
+
+ENV PORT=3001
+EXPOSE 3001
+CMD ["bun", "src/index.ts"]

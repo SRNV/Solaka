@@ -1,0 +1,60 @@
+services:
+  back:
+    build:
+      context: ./back
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    healthcheck:
+      test: ["CMD", "bun", "--eval", "fetch('http://localhost:3001/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+    environment:
+      PORT: 3001
+      DATA_PATH: /app/data/objections.json
+      BIBLE_PATH: /app/data/bible.json
+      KINGS_PATH: /app/data/kings.json
+      PERIODS_PATH: /app/data/periods.json
+      EVENTS_PATH: /app/data/events.json
+      GEOMAP_PATH: /app/data/geojson
+      BIBLICAL_DATA_PATH: /app/data/biblical-geocoding
+      PLEIADES_PATH: /app/data/pleiades
+      CORS_ORIGIN: "*"
+    volumes:
+      - ../objections.json:/app/data/objections.json:ro
+      - ../scrapp/output/bible.json:/app/data/bible.json:ro
+      - ../scrapp/output/kings.json:/app/data/kings.json:ro
+      - ../scrapp/output/periods.json:/app/data/periods.json:ro
+      - ../scrapp/output/events.json:/app/data/events.json:ro
+      - ./back/data/geojson:/app/data/geojson:ro
+      - ./front/exemples/Bible-Geocoding-Data:/app/data/biblical-geocoding:ro
+      - ./front/exemples/pleiades-geojson/geojson:/app/data/pleiades:ro
+    restart: unless-stopped
+
+  front:
+    image: node:20-alpine
+    working_dir: /app
+    command: >
+      sh -c "
+        echo 'Waiting for back to be ready...' &&
+        until wget -qO- http://back:3001/api/health > /dev/null 2>&1; do
+          echo 'Back not ready, retrying in 3s...' && sleep 3;
+        done &&
+        echo 'Back is ready, starting front...' &&
+        npm install && npx vite optimize --force && npm run dev
+      "
+    ports:
+      - "5173:5173"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    volumes:
+      - ./front:/app
+      - front_node_modules:/app/node_modules
+    depends_on:
+      - back
+    restart: unless-stopped
+
+volumes:
+  front_node_modules:

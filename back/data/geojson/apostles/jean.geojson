@@ -1,0 +1,106 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [35.2167, 31.7667]
+      },
+      "properties": {
+        "apostle": "Jean",
+        "name": "Jérusalem",
+        "dates": [30, 44],
+        "type": "visited_place",
+        "fiability": 0.95,
+        "biblical_reference": ["Ac 1:1-12:25", "Ac 3:1-4:31"],
+        "source": ["Bible AELF", "Saint Augustin - Sermon 293"],
+        "description": "Présent à la Pentecôte. Mission avec Pierre (Ac 3-4).",
+        "events": [
+          { "name": "Présent à la Pentecôte", "date": 30 },
+          { "name": "Guérison du boiteux avec Pierre", "date": 30 }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [27.9667, 37.9500]
+      },
+      "properties": {
+        "apostle": "Jean",
+        "name": "Éphèse",
+        "dates": [44, 100],
+        "type": "visited_place",
+        "fiability": 0.9,
+        "biblical_reference": ["Jn 21:20-24", "Ap 1:1-22"],
+        "source": ["Bible AELF", "Saint Irénée - Contre les hérésies (Livre III)", "Eusèbe de Césarée - Histoire ecclésiastique"],
+        "description": "Séjour prolongé. Écriture de l'Évangile, des Épîtres et de l'Apocalypse (vers 90).",
+        "events": [
+          { "name": "Écriture de l'Évangile de Jean", "date": 90 },
+          { "name": "Exil à Patmos et vision de l'Apocalypse", "date": 90 }
+        ],
+        "associated_letter": {
+          "name": ["Évangile de Jean", "1 Jean", "2 Jean", "3 Jean", "Apocalypse"],
+          "dates": [90, 100],
+          "reference": ["Jn 1:1-21:25", "1 Jn 1:1-5:21", "2 Jn 1:1-13", "3 Jn 1:1-14", "Ap 1:1-22:21"],
+          "source": ["Nouveau Testament (Bible AELF)"]
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [26.4333, 36.8500]
+      },
+      "properties": {
+        "apostle": "Jean",
+        "name": "Patmos",
+        "dates": [90],
+        "type": "visited_place",
+        "fiability": 0.85,
+        "biblical_reference": ["Ap 1:9"],
+        "source": ["Bible AELF", "Saint Jérôme - De Viris Illustribus"],
+        "description": "Exil pendant lequel il écrit l'Apocalypse.",
+        "events": [
+          { "name": "Vision de l'Apocalypse", "date": 90 }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [35.2167, 31.7667],
+          [27.9667, 37.9500],
+          [26.4333, 36.8500]
+        ]
+      },
+      "properties": {
+        "apostle": "Jean",
+        "type": "journey",
+        "start_date": 44,
+        "end_date": 90,
+        "fiability": 0.85,
+        "biblical_reference": ["Ac 1:1-12:25", "Jn 21:20-24", "Ap 1:9"],
+        "source": ["Bible AELF", "Saint Irénée - Contre les hérésies"],
+        "description": "Voyages de Jean : Jérusalem → Éphèse → Patmos."
+      }
+    }
+  ],
+  "metadata": {
+    "title": "Voyages et missions de l'apôtre Jean",
+    "description": "Carte des voyages de Jean avec des sources catholiques.",
+    "creation_date": "2026-05-13",
+    "main_sources": [
+      "Bible AELF",
+      "Saint Augustin - Sermon 293",
+      "Saint Irénée - Contre les hérésies",
+      "Eusèbe de Césarée - Histoire ecclésiastique",
+      "Saint Jérôme - De Viris Illustribus"
+    ]
+  }
+}

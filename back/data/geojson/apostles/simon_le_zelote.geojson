@@ -1,0 +1,35 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [31.2333, 30.0500]
+      },
+      "properties": {
+        "apostle": "Simon le Zélote",
+        "name": "Égypte",
+        "dates": [40, 60],
+        "type": "visited_place",
+        "fiability": 0.4,
+        "biblical_reference": [],
+        "source": ["Actes de Simon et Jude (apocryphe)", "Tradition copte"],
+        "description": "Missionnaire en Égypte. Martyre avec Jude Thaddée.",
+        "events": [
+          { "name": "Prédication en Égypte", "date": 40 },
+          { "name": "Martyre en Égypte", "date": 60 }
+        ]
+      }
+    }
+  ],
+  "metadata": {
+    "title": "Voyages et missions de l'apôtre Simon le Zélote",
+    "description": "Carte des voyages de Simon le Zélote avec des sources catholiques.",
+    "creation_date": "2026-05-13",
+    "main_sources": [
+      "Actes de Simon et Jude (apocryphe)",
+      "Tradition copte"
+    ]
+  }
+}

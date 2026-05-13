@@ -1,0 +1,539 @@
+.page {
+  position: relative;
+  width: 100%;
+  height: calc(100dvh - 59px);
+  overflow: hidden;
+}
+
+.canvasContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Planet canvas — full-size background layer */
+.bibleMapWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60%;
+  z-index: 0;
+    mask-image: linear-gradient(to bottom, white 85%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, white 85%, transparent 100%);
+}
+
+/* Graph + frises — bottom portion, overlaid on planet */
+.graphWrapper {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  z-index: 1;
+}
+
+.markersCanvasWrapper {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 240px;
+  z-index: 5;
+  pointer-events: none;
+  /*background: linear-gradient(to top, #f7f8fc 30%, #f7f8fc00 60%);*/
+  background: transparent;
+      mask-image: linear-gradient(to top, white 95%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to top, white 95%, transparent 100%);
+}
+
+.mainCanvasWrapper {
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Overlay controls ──────────────────────────────────────── */
+
+.controls {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  max-width: calc(100% - 28px);
+}
+
+.pill {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 99px;
+  border: 1.5px solid color-mix(in srgb, var(--secondary) 35%, transparent);
+  background: color-mix(in srgb, #f7f8fc 80%, transparent);
+  color: color-mix(in srgb, var(--secondary) 75%, var(--title));
+  cursor: pointer;
+  transition: background 0.14s, color 0.14s, border-color 0.14s;
+  backdrop-filter: blur(6px);
+  letter-spacing: 0.4px;
+  white-space: nowrap;
+}
+
+.pill:hover {
+  background: color-mix(in srgb, var(--secondary) 12%, transparent);
+}
+
+.pillActive {
+  background: var(--secondary);
+  color: #fff;
+  border-color: var(--secondary);
+}
+
+/* ── Smaller tradition pills ───────────────────────────────── */
+
+.pillSm {
+  font-size: 11px;
+  padding: 4px 11px;
+}
+
+.pillCathActive {
+  background: var(--secondary);
+  color: #fff;
+  border-color: var(--secondary);
+}
+
+.pillProtActive {
+  background: #888;
+  color: #fff;
+  border-color: #888;
+}
+
+/* ── Loading ───────────────────────────────────────────────── */
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100dvh - 59px);
+  color: var(--text-muted);
+}
+
+.spinner {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border: 2.5px solid var(--border);
+  border-top-color: var(--secondary);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Sort panel (bottom-right) ─────────────────────────────── */
+
+.sortPanel {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: color-mix(in srgb, #f7f8fc 85%, transparent);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  padding: 4px 8px 4px 12px;
+  box-shadow: var(--shadow-md);
+}
+
+.sortLabel {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-right: 2px;
+  white-space: nowrap;
+}
+
+.sortBtn {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 99px;
+  color: var(--text-muted);
+  transition: background var(--transition), color var(--transition);
+  white-space: nowrap;
+}
+
+.sortBtn:hover {
+  background: color-mix(in srgb, var(--secondary) 10%, transparent);
+  color: var(--secondary);
+}
+
+.sortBtnActive {
+  background: var(--secondary);
+  color: #fff;
+}
+
+/* ── Historical sub-mode dropup ────────────────────────────────── */
+
+/* ── Bottom bar (hover panel + search) ─────────────────────── */
+
+.bottomBar {
+  position: absolute;
+  bottom: 16px;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.bottomBar > * { pointer-events: auto; }
+
+.hoverPanel {
+  position: absolute;
+  left: 0;
+  bottom: 16px;
+  width: 260px;
+  padding: 24px 32px 24px 24px;
+  z-index: 10;
+  pointer-events: none;
+  min-width: 320px;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 4px;
+}
+
+.hoverRefRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 2px;
+}
+
+.hoverRef {
+  font-family: var(--font-display);
+  font-size: 16pt;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0;
+  line-height: 1.15;
+  flex: 1;
+}
+
+.hoverContext {
+  font-size: 10px;
+  color: var(--text-muted);
+  margin: 0 0 8px;
+  letter-spacing: 0.2px;
+  line-height: 1.4;
+  font-style: italic;
+}
+
+.hoverColumns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.hoverCol {
+  min-width: 0;
+}
+
+.hoverMeta {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin: 0 0 2px;
+  text-transform: capitalize;
+  letter-spacing: 0.2px;
+}
+
+.hoverVerse {
+  font-size: 11px;
+  color: var(--text);
+  line-height: 1.55;
+  margin: 0;
+  font-style: italic;
+}
+
+.hoverMapBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  opacity: 0.5;
+  pointer-events: auto;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: opacity var(--transition), color var(--transition), background var(--transition);
+}
+
+.hoverMapBtn:hover {
+  opacity: 1;
+  color: var(--secondary);
+  background: color-mix(in srgb, var(--secondary) 10%, transparent);
+}
+
+/* ── Graph search bar ──────────────────────────────────────── */
+
+.graphSearch {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  width: min(480px, calc(100% - 340px));
+  background: color-mix(in srgb, #f7f8fc 90%, transparent);
+  backdrop-filter: blur(10px);
+  border: 1.5px solid var(--border);
+  border-radius: 99px;
+  box-shadow: var(--shadow-md);
+  padding: 0 14px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.graphSearch:focus-within {
+  border-color: var(--secondary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--secondary) 15%, transparent);
+}
+
+.graphSearchIcon {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  color: var(--text-muted);
+  margin-right: 10px;
+}
+
+.graphSearchInput {
+  flex: 5;
+  height: 40px;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 13px;
+  color: var(--title);
+  min-width: 0;
+}
+
+.graphSearchInput::placeholder { color: var(--text-muted); }
+
+.graphSearchInput::-webkit-search-cancel-button { display: none; }
+
+.graphSearchClear {
+  font-size: 11px;
+  color: var(--text-muted);
+  padding: 2px 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: color 0.12s;
+  flex-shrink: 0;
+}
+
+.graphSearchClear:hover { color: var(--title); }
+
+/* ── Tradition confirmation modal ──────────────────────────── */
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0, 0, 0, 0.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.modal {
+  background: #fff;
+  border-radius: 16px;
+  padding: 22px 24px 18px;
+  max-width: 340px;
+  width: 100%;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+}
+
+.modalTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--title);
+  margin: 0 0 8px;
+}
+
+.modalText {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text-muted);
+  margin: 0 0 18px;
+}
+
+.modalActions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.modalCancel {
+  font-size: 13px;
+  font-weight: 600;
+  padding: 7px 15px;
+  border-radius: 9px;
+  border: 1.5px solid var(--border);
+  color: var(--text-muted);
+  background: transparent;
+  cursor: pointer;
+  transition: border-color 0.12s, color 0.12s;
+}
+
+.modalCancel:hover {
+  border-color: var(--secondary);
+  color: var(--secondary);
+}
+
+.modalConfirm {
+  font-size: 13px;
+  font-weight: 700;
+  padding: 7px 17px;
+  border-radius: 9px;
+  background: var(--secondary);
+  color: #fff;
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.12s;
+}
+
+.modalConfirm:hover { opacity: 0.85; }
+
+.searchBadge {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 8px;
+  background: var(--secondary);
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.15s, background 0.15s;
+  pointer-events: auto;
+  border: 1.5px solid #fff;
+  font-size: 10px;
+  font-weight: 800;
+  white-space: nowrap;
+  letter-spacing: 0.3px;
+  margin-bottom: 6px;
+  box-shadow: none !important;
+  animation: badgePop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes badgePop {
+  0%   { transform: scale(0);    opacity: 0; }
+  55%  { transform: scale(1.25); opacity: 1; }
+  78%  { transform: scale(0.92);             }
+  100% { transform: scale(1);                }
+}
+
+.searchBadge::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  bottom: -6px;
+  border-top: 6px solid var(--secondary);
+  z-index: 2;
+}
+
+.searchBadge::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 7.5px solid transparent;
+  border-right: 7.5px solid transparent;
+  bottom: -7.5px;
+  border-top: 7.5px solid #fff;
+  z-index: 1;
+}
+
+.searchBadgeAuthority {
+  background: var(--warning) !important;
+  color: #000 !important;
+}
+
+.searchBadgeAuthority::after {
+  border-top-color: var(--warning) !important;
+}
+
+.searchBadgeAuthority:hover {
+  background: color-mix(in srgb, var(--warning) 85%, #000) !important;
+}
+
+.searchBadgeAuthority:hover::after {
+  border-top-color: color-mix(in srgb, var(--warning) 85%, #000) !important;
+}
+
+.searchBadge:hover::after {
+  border-top-color: #C87AFF;
+}
+
+.searchBadge:hover {
+  transform: scale(1.15);
+  background: #C87AFF;
+}
+
+/* ── Historical sub-mode dropup ────────────────────────────────── */
+
+.histDropup {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: color-mix(in srgb, #f7f8fc 92%, transparent);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 6px;
+  box-shadow: var(--shadow-md);
+  white-space: nowrap;
+}
+
+/* ── Frise selector (historical mode, right side) ───────────────── */
+
+.friseSelector {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: color-mix(in srgb, #f7f8fc 85%, transparent);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 6px;
+  box-shadow: var(--shadow-md);
+}

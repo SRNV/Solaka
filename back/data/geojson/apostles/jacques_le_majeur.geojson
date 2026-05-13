@@ -1,0 +1,76 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [35.2167, 31.7667]
+      },
+      "properties": {
+        "apostle": "Jacques le Majeur",
+        "name": "Jérusalem",
+        "dates": [30, 44],
+        "type": "visited_place",
+        "fiability": 0.95,
+        "biblical_reference": ["Ac 12:1-2"],
+        "source": ["Bible AELF", "Eusèbe de Césarée - Histoire ecclésiastique"],
+        "description": "Martyre sous Hérode Agrippa I (vers 44).",
+        "events": [
+          { "name": "Martyre par l'épée sous Hérode Agrippa I", "date": 44 }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.5167, 42.8833]
+      },
+      "properties": {
+        "apostle": "Jacques le Majeur",
+        "name": "Saint-Jacques-de-Compostelle",
+        "dates": [40],
+        "type": "visited_place",
+        "fiability": 0.5,
+        "biblical_reference": [],
+        "source": ["Saint Isidore de Séville - De Ortu et Obitu Patrum", "Légende dorée (Jacques de Voragine)"],
+        "description": "Tradition : prédication en Espagne. Son corps aurait été transporté à Saint-Jacques-de-Compostelle.",
+        "events": [
+          { "name": "Prédication en Espagne (tradition)" }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [35.2167, 31.7667],
+          [-8.5167, 42.8833]
+        ]
+      },
+      "properties": {
+        "apostle": "Jacques le Majeur",
+        "type": "journey",
+        "start_date": 40,
+        "end_date": 44,
+        "fiability": 0.5,
+        "biblical_reference": [],
+        "source": ["Saint Isidore de Séville - De Ortu et Obitu Patrum"],
+        "description": "Voyage traditionnel de Jacques le Majeur : Jérusalem → Espagne."
+      }
+    }
+  ],
+  "metadata": {
+    "title": "Voyages et missions de l'apôtre Jacques le Majeur",
+    "description": "Carte des voyages de Jacques le Majeur avec des sources catholiques.",
+    "creation_date": "2026-05-13",
+    "main_sources": [
+      "Bible AELF",
+      "Eusèbe de Césarée - Histoire ecclésiastique",
+      "Saint Isidore de Séville - De Ortu et Obitu Patrum",
+      "Légende dorée (Jacques de Voragine)"
+    ]
+  }
+}

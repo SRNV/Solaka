@@ -1,0 +1,55 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [44.5000, 40.1667]
+      },
+      "properties": {
+        "apostle": "Barthélemy",
+        "name": "Arménie",
+        "dates": [40, 60],
+        "type": "visited_place",
+        "fiability": 0.7,
+        "biblical_reference": [],
+        "source": ["Saint Nersès le Grand - Histoire de l'Arménie", "Actes de Barthélemy (apocryphe)"],
+        "description": "Missionnaire en Arménie. Martyre écorché vif.",
+        "events": [
+          { "name": "Prédication en Arménie", "date": 40 },
+          { "name": "Martyre écorché vif", "date": 60 }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [75.8333, 22.3000]
+      },
+      "properties": {
+        "apostle": "Barthélemy",
+        "name": "Inde",
+        "dates": [50],
+        "type": "visited_place",
+        "fiability": 0.4,
+        "biblical_reference": [],
+        "source": ["Actes de Barthélemy (apocryphe)"],
+        "description": "Prédication possible en Inde (confondu avec Thomas dans certaines traditions).",
+        "events": [
+          { "name": "Prédication en Inde (tradition)" }
+        ]
+      }
+    }
+  ],
+  "metadata": {
+    "title": "Voyages et missions de l'apôtre Barthélemy",
+    "description": "Carte des voyages de Barthélemy avec des sources catholiques.",
+    "creation_date": "2026-05-13",
+    "main_sources": [
+      "Saint Nersès le Grand - Histoire de l'Arménie",
+      "Actes de Barthélemy (apocryphe)"
+    ]
+  }
+}

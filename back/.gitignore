@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+
+# Build
+dist/
+
+# Environment / secrets
+.env
+.env.local
+.env.*.local
+
+# Données volumineuses (montées via Docker volume)
+data/pleiades/
+
+# Logs
+*.log
+
+# Bun
+bun.lockb
+
+# OS
+.DS_Store

@@ -1,0 +1,107 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [35.2167, 31.7667]
+      },
+      "properties": {
+        "apostle": "Pierre",
+        "name": "Jérusalem",
+        "dates": [30, 44],
+        "type": "visited_place",
+        "fiability": 0.95,
+        "biblical_reference": ["Ac 1:1-12:25", "Ac 15:1-21"],
+        "source": ["Bible AELF", "Catéchisme de l'Église Catholique §552-553", "Eusèbe de Césarée - Histoire ecclésiastique"],
+        "description": "Chef des Apôtres. Discours à la Pentecôte (Ac 2), guérisons (Ac 3-5), et participation au Concile de Jérusalem (Ac 15).",
+        "events": [
+          { "name": "Discours de la Pentecôte", "date": 30 },
+          { "name": "Guérison du boiteux à la porte Belle", "date": 30 },
+          { "name": "Emprisonnement et libération par un ange", "date": 42 },
+          { "name": "Participation au Concile de Jérusalem", "date": 49 }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [36.1667, 36.2000]
+      },
+      "properties": {
+        "apostle": "Pierre",
+        "name": "Antioche de Syrie",
+        "dates": [44],
+        "type": "visited_place",
+        "fiability": 0.9,
+        "biblical_reference": ["Ga 2:11-14"],
+        "source": ["Bible AELF", "Saint Jean Chrysostome - Homélies sur Galates"],
+        "description": "Conflit avec Paul sur la question des païens et de la circoncision.",
+        "events": [
+          { "name": "Conflit avec Paul et Barnabé", "date": 44 }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [12.4964, 41.9028]
+      },
+      "properties": {
+        "apostle": "Pierre",
+        "name": "Rome",
+        "dates": [44, 67],
+        "type": "visited_place",
+        "fiability": 0.95,
+        "biblical_reference": ["1 P 5:13"],
+        "source": ["Bible AELF", "Catéchisme de l'Église Catholique §882", "Eusèbe de Césarée - Histoire ecclésiastique"],
+        "description": "Fondation de l'Église de Rome. Martyre sous Néron (vers 64 ou 67).",
+        "events": [
+          { "name": "Fondation de l'Église de Rome", "date": 44 },
+          { "name": "Martyre sous Néron (crucifié la tête en bas)", "date": 67 }
+        ],
+        "associated_letter": {
+          "name": ["1 Pierre", "2 Pierre"],
+          "dates": [60, 68],
+          "reference": ["1 P 1:1-5:14", "2 P 1:1-3:18"],
+          "source": ["Nouveau Testament (Bible AELF)"]
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [35.2167, 31.7667],
+          [36.1667, 36.2000],
+          [12.4964, 41.9028]
+        ]
+      },
+      "properties": {
+        "apostle": "Pierre",
+        "type": "journey",
+        "start_date": 44,
+        "end_date": 67,
+        "fiability": 0.9,
+        "biblical_reference": ["Ac 15:1-21", "Ga 2:11-14", "1 P 5:13"],
+        "source": ["Bible AELF", "Catéchisme de l'Église Catholique §552-553"],
+        "description": "Voyages de Pierre : Jérusalem → Antioche → Rome."
+      }
+    }
+  ],
+  "metadata": {
+    "title": "Voyages et missions de l'apôtre Pierre",
+    "description": "Carte des voyages de Pierre avec des sources catholiques et des références bibliques au format AELF.",
+    "creation_date": "2026-05-13",
+    "main_sources": [
+      "Bible AELF",
+      "Catéchisme de l'Église Catholique",
+      "Saint Jean Chrysostome - Homélies sur Galates",
+      "Eusèbe de Césarée - Histoire ecclésiastique"
+    ]
+  }
+}

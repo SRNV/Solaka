@@ -1,0 +1,145 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+.header {
+  padding: 24px 24px 16px;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  color: var(--title);
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+/* ── Board ── */
+.board {
+  display: flex;
+  gap: 14px;
+  padding: 20px 24px 24px;
+  overflow-x: auto;
+  flex: 1;
+  align-items: flex-start;
+}
+
+.board::-webkit-scrollbar { height: 6px; }
+
+/* ── Column ── */
+.column {
+  min-width: 210px;
+  width: 210px;
+  flex-shrink: 0;
+  background: var(--surface);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
+}
+
+.colHeader {
+  padding: 12px 14px 10px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.colName {
+  flex: 1;
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--title);
+  line-height: 1.35;
+}
+
+.colCount {
+  font-size: 11px;
+  color: var(--text-muted);
+  background: var(--border);
+  border-radius: 99px;
+  padding: 1px 7px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ── Cards ── */
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 9px 11px;
+  text-align: left;
+  font-size: 12px;
+  color: var(--text);
+  line-height: 1.45;
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition), color var(--transition);
+  box-shadow: var(--shadow);
+  font-family: var(--font-body);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card:hover {
+  border-color: color-mix(in srgb, var(--primary) 60%, transparent);
+  color: var(--title);
+}
+
+.cardActive {
+  border-color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 8%, transparent);
+  color: var(--title);
+  font-weight: 600;
+}
+
+/* ── States ── */
+.skeleton {
+  display: flex;
+  gap: 14px;
+  padding: 20px 24px;
+}
+
+.skeletonCol {
+  min-width: 210px;
+  height: 320px;
+  border-radius: var(--radius);
+  background: linear-gradient(90deg, var(--surface) 25%, var(--border) 50%, var(--surface) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.error {
+  padding: 48px 24px;
+  color: var(--error);
+  font-size: 14px;
+}

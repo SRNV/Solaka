@@ -1,0 +1,65 @@
+import 'reflect-metadata';
+import express from 'express';
+import cors from 'cors';
+import compression from 'compression';
+import path from 'path';
+import { createServer } from 'http';
+import type { IBibleRepository } from './domain/repositories/IBibleRepository';
+import type { IGeoMapRepository } from './domain/repositories/IGeoMapRepository';
+import type { IBiblicalPlaceRepository } from './domain/BiblicalPlace';
+import type { ICategoryRepository } from './domain/repositories/ICategoryRepository';
+import type { IObjectionRepository } from './domain/repositories/IObjectionRepository';
+import { createContainer } from './container/container';
+import type { AppConfig } from './container/config';
+import { TYPES } from './container/types';
+import { StompServer } from './infrastructure/StompServer';
+import bibleRouter from './api/routes/bible';
+import categoriesRouter from './api/routes/categories';
+import objectionsRouter from './api/routes/objections';
+import geomapRouter from './api/routes/geomap';
+import biblicalPlacesRouter from './api/routes/biblicalPlaces';
+
+const config: AppConfig = {
+  dataPath:         process.env.DATA_PATH          ?? path.resolve(__dirname, '../../../objections.json'),
+  biblePath:        process.env.BIBLE_PATH         ?? path.resolve(__dirname, '../../../scrapp/output/bible.json'),
+  kingsPath:        process.env.KINGS_PATH         ?? path.resolve(__dirname, '../../../scrapp/output/kings.json'),
+  periodsPath:      process.env.PERIODS_PATH       ?? path.resolve(__dirname, '../../../scrapp/output/periods.json'),
+  eventsPath:       process.env.EVENTS_PATH        ?? path.resolve(__dirname, '../../../scrapp/output/events.json'),
+  geomapPath:       process.env.GEOMAP_PATH        ?? path.resolve(__dirname, '../data/geojson'),
+  biblicalDataPath: process.env.BIBLICAL_DATA_PATH ?? path.resolve(__dirname, '../../../front/exemples/Bible-Geocoding-Data'),
+  port:             Number(process.env.PORT ?? 3001),
+  corsOrigin:       process.env.CORS_ORIGIN        ?? '*',
+};
+
+const app = express();
+app.use(compression());
+app.use(cors({ origin: config.corsOrigin }));
+app.use(express.json());
+
+const httpServer = createServer(app);
+const container  = createContainer(config, httpServer);
+
+const bible  = container.get<IBibleRepository>(TYPES.IBibleRepository);
+const catRepo = container.get<ICategoryRepository>(TYPES.ICategoryRepository);
+const objRepo = container.get<IObjectionRepository>(TYPES.IObjectionRepository);
+const geomap  = container.get<IGeoMapRepository>(TYPES.IGeoMapRepository);
+const bgd     = container.get<IBiblicalPlaceRepository>(TYPES.IBiblicalPlaceRepository);
+
+app.use('/api/bible',            bibleRouter(bible));
+app.use('/api/categories',       categoriesRouter(catRepo, objRepo));
+app.use('/api/objections',       objectionsRouter(objRepo));
+app.use('/api/geomap',           geomapRouter(geomap));
+app.use('/api/biblical-places',  biblicalPlacesRouter(bgd));
+
+app.get('/api/health', (_req, res) => {
+  if (!bible.ready) return res.status(503).json({ status: 'warming up' });
+  res.json({ status: 'ok' });
+});
+
+// Instancie StompServer (effet de bord : démarre le WebSocket)
+container.get<StompServer>(TYPES.StompServer);
+
+httpServer.listen(config.port, () => {
+  console.log(`API listening on :${config.port}`);
+  bible.warmupChapterCache();
+});

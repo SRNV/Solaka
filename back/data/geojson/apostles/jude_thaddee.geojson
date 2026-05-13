@@ -1,0 +1,61 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [31.2333, 30.0500]
+      },
+      "properties": {
+        "apostle": "Jude Thaddée",
+        "name": "Égypte",
+        "dates": [40, 60],
+        "type": "visited_place",
+        "fiability": 0.5,
+        "biblical_reference": [],
+        "source": ["Actes de Simon et Jude (apocryphe)", "Saint Nersès le Grand"],
+        "description": "Missionnaire en Égypte avec Simon le Zélote. Martyre.",
+        "events": [
+          { "name": "Prédication en Égypte avec Simon", "date": 40 },
+          { "name": "Martyre en Égypte", "date": 60 }
+        ],
+        "associated_letter": {
+          "name": ["Épître de Jude"],
+          "dates": [60, 80],
+          "reference": ["Jd 1:1-25"],
+          "source": ["Nouveau Testament (Bible AELF)"]
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [35.2167, 31.7667],
+          [31.2333, 30.0500]
+        ]
+      },
+      "properties": {
+        "apostle": ["Simon le Zélote", "Jude Thaddée"],
+        "type": "journey",
+        "start_date": 40,
+        "end_date": 60,
+        "fiability": 0.4,
+        "biblical_reference": [],
+        "source": ["Actes de Simon et Jude (apocryphe)"],
+        "description": "Voyage de Simon et Jude : Jérusalem → Égypte."
+      }
+    }
+  ],
+  "metadata": {
+    "title": "Voyages et missions de l'apôtre Jude Thaddée",
+    "description": "Carte des voyages de Jude Thaddée avec des sources catholiques.",
+    "creation_date": "2026-05-13",
+    "main_sources": [
+      "Actes de Simon et Jude (apocryphe)",
+      "Saint Nersès le Grand"
+    ]
+  }
+}

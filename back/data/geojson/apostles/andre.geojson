@@ -1,0 +1,76 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [21.7833, 38.2500]
+      },
+      "properties": {
+        "apostle": "André",
+        "name": "Achaïe (Grèce)",
+        "dates": [40, 60],
+        "type": "visited_place",
+        "fiability": 0.75,
+        "biblical_reference": [],
+        "source": ["Saint Grégoire de Nysse - Vie de saint André", "Théodoret de Cyr - Histoire ecclésiastique"],
+        "description": "Missionnaire en Grèce. Martyre à Patras (crucifié en X).",
+        "events": [
+          { "name": "Missionnaire en Achaïe", "date": 40 },
+          { "name": "Martyre à Patras (crucifié en X)", "date": 60 }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [28.9667, 41.0167]
+      },
+      "properties": {
+        "apostle": "André",
+        "name": "Byzance (Constantinople)",
+        "dates": [50],
+        "type": "visited_place",
+        "fiability": 0.7,
+        "biblical_reference": [],
+        "source": ["Théodoret de Cyr - Histoire ecclésiastique"],
+        "description": "Fondation de l'Église de Byzance.",
+        "events": [
+          { "name": "Fondation de l'Église de Byzance", "date": 50 }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [35.2167, 31.7667],
+          [21.7833, 38.2500],
+          [28.9667, 41.0167]
+        ]
+      },
+      "properties": {
+        "apostle": "André",
+        "type": "journey",
+        "start_date": 40,
+        "end_date": 60,
+        "fiability": 0.7,
+        "biblical_reference": [],
+        "source": ["Saint Grégoire de Nysse - Vie de saint André"],
+        "description": "Voyages d'André : Jérusalem → Achaïe → Byzance."
+      }
+    }
+  ],
+  "metadata": {
+    "title": "Voyages et missions de l'apôtre André",
+    "description": "Carte des voyages d'André avec des sources catholiques.",
+    "creation_date": "2026-05-13",
+    "main_sources": [
+      "Saint Grégoire de Nysse - Vie de saint André",
+      "Théodoret de Cyr - Histoire ecclésiastique"
+    ]
+  }
+}

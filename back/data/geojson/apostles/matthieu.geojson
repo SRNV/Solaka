@@ -1,0 +1,81 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [35.5333, 32.8167]
+      },
+      "properties": {
+        "apostle": "Matthieu",
+        "name": "Capharnaüm",
+        "dates": [30, 40],
+        "type": "visited_place",
+        "fiability": 0.95,
+        "biblical_reference": ["Mt 9:9-13"],
+        "source": ["Bible AELF", "Saint Jean Chrysostome - Homélies sur Matthieu"],
+        "description": "Appel de Jésus. Collecteur d'impôts avant sa conversion.",
+        "events": [
+          { "name": "Appel par Jésus", "date": 30 },
+          { "name": "Banquet avec les publicains", "date": 30 }
+        ],
+        "associated_letter": {
+          "name": ["Évangile de Matthieu"],
+          "dates": [50, 70],
+          "reference": ["Mt 1:1-28:20"],
+          "source": ["Nouveau Testament (Bible AELF)"]
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [37.0000, 15.0000]
+      },
+      "properties": {
+        "apostle": "Matthieu",
+        "name": "Éthiopie ou Perse",
+        "dates": [40, 60],
+        "type": "visited_place",
+        "fiability": 0.5,
+        "biblical_reference": [],
+        "source": ["Saint Jean Chrysostome - Homélies sur Matthieu", "Tradition syriaque"],
+        "description": "Missionnaire possible en Éthiopie ou en Perse.",
+        "events": [
+          { "name": "Prédication en Éthiopie ou Perse (tradition)" }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [35.5333, 32.8167],
+          [37.0000, 15.0000]
+        ]
+      },
+      "properties": {
+        "apostle": "Matthieu",
+        "type": "journey",
+        "start_date": 30,
+        "end_date": 60,
+        "fiability": 0.5,
+        "biblical_reference": ["Mt 9:9-13"],
+        "source": ["Saint Jean Chrysostome - Homélies sur Matthieu"],
+        "description": "Voyages de Matthieu : Capharnaüm → Éthiopie/Perse."
+      }
+    }
+  ],
+  "metadata": {
+    "title": "Voyages et missions de l'apôtre Matthieu",
+    "description": "Carte des voyages de Matthieu avec des sources catholiques.",
+    "creation_date": "2026-05-13",
+    "main_sources": [
+      "Bible AELF",
+      "Saint Jean Chrysostome - Homélies sur Matthieu"
+    ]
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [35.2167, 31.7667]
+      },
+      "properties": {
+        "apostle": "Thomas",
+        "name": "Jérusalem",
+        "dates": [30, 40],
+        "type": "visited_place",
+        "fiability": 0.95,
+        "biblical_reference": ["Jn 20:24-29"],
+        "source": ["Bible AELF", "Saint Ephrem - Hymnes sur Thomas"],
+        "description": "Doute sur la résurrection de Jésus, puis foi.",
+        "events": [
+          { "name": "Doute sur la résurrection", "date": 30 },
+          { "name": "Foi après avoir touché les plaies du Christ", "date": 30 }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [55.0000, 32.0000]
+      },
+      "properties": {
+        "apostle": "Thomas",
+        "name": "Parthie (Iran)",
+        "dates": [40, 50],
+        "type": "visited_place",
+        "fiability": 0.7,
+        "biblical_reference": [],
+        "source": ["Actes de Thomas (apocryphe)", "Saint Ephrem - Hymnes sur Thomas"],
+        "description": "Missionnaire en Parthie.",
+        "events": [
+          { "name": "Prédication en Parthie", "date": 40 }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [80.2833, 13.0833]
+      },
+      "properties": {
+        "apostle": "Thomas",
+        "name": "Inde (Madras)",
+        "dates": [52, 72],
+        "type": "visited_place",
+        "fiability": 0.8,
+        "biblical_reference": [],
+        "source": ["Actes de Thomas (apocryphe)", "Saint Thomas d'Aquin - Somme Théologique", "Tradition syriaque"],
+        "description": "Missionnaire en Inde. Martyre à Madras (Chennai). Tombe à San Thome.",
+        "events": [
+          { "name": "Prédication en Inde (Kerala)", "date": 52 },
+          { "name": "Martyre à Madras (percé par une lance)", "date": 72 }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [35.2167, 31.7667],
+          [55.0000, 32.0000],
+          [80.2833, 13.0833]
+        ]
+      },
+      "properties": {
+        "apostle": "Thomas",
+        "type": "journey",
+        "start_date": 40,
+        "end_date": 72,
+        "fiability": 0.75,
+        "biblical_reference": ["Jn 20:24-29"],
+        "source": ["Actes de Thomas (apocryphe)", "Saint Ephrem - Hymnes sur Thomas"],
+        "description": "Voyages de Thomas : Jérusalem → Parthie → Inde."
+      }
+    }
+  ],
+  "metadata": {
+    "title": "Voyages et missions de l'apôtre Thomas",
+    "description": "Carte des voyages de Thomas avec des sources catholiques.",
+    "creation_date": "2026-05-13",
+    "main_sources": [
+      "Bible AELF",
+      "Actes de Thomas (apocryphe)",
+      "Saint Ephrem - Hymnes sur Thomas",
+      "Saint Thomas d'Aquin - Somme Théologique"
+    ]
+  }
+}

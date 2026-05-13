@@ -1,0 +1,35 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [30.5000, 38.5000]
+      },
+      "properties": {
+        "apostle": "Philippe",
+        "name": "Phrygie (Hiérapolis)",
+        "dates": [40, 80],
+        "type": "visited_place",
+        "fiability": 0.6,
+        "biblical_reference": [],
+        "source": ["Actes de Philippe (apocryphe, cité par Eusèbe)", "Saint Polycarpe - Lettre aux Philippiens"],
+        "description": "Missionnaire en Phrygie. Martyre à Hiérapolis.",
+        "events": [
+          { "name": "Prédication en Phrygie", "date": 40 },
+          { "name": "Martyre à Hiérapolis", "date": 80 }
+        ]
+      }
+    }
+  ],
+  "metadata": {
+    "title": "Voyages et missions de l'apôtre Philippe",
+    "description": "Carte des voyages de Philippe avec des sources catholiques.",
+    "creation_date": "2026-05-13",
+    "main_sources": [
+      "Actes de Philippe (apocryphe)",
+      "Saint Polycarpe - Lettre aux Philippiens"
+    ]
+  }
+}

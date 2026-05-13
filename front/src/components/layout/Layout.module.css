@@ -1,0 +1,37 @@
+.wrapper {
+  display: flex;
+  min-height: 100dvh;
+  background: var(--bg);
+}
+
+/* Column that holds the top bar + main content */
+.mainCol {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.mainColMobile {
+  padding-bottom: var(--bottom-nav-h);
+}
+
+/* Sticky search bar */
+.topBar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+  overflow-x: hidden;
+  position: relative;
+}

@@ -1,0 +1,43 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [35.2167, 31.7667]
+      },
+      "properties": {
+        "apostle": "Jacques le Mineur",
+        "name": "Jérusalem",
+        "dates": [30, 62],
+        "type": "visited_place",
+        "fiability": 0.9,
+        "biblical_reference": ["Ac 15:13-21", "Jc 1:1"],
+        "source": ["Bible AELF", "Saint Jérôme - Commentaire sur l'Épître de Jacques", "Eusèbe de Césarée - Histoire ecclésiastique"],
+        "description": "Chef de l'Église de Jérusalem. Martyre en 62 (selon Eusèbe).",
+        "events": [
+          { "name": "Chef de l'Église de Jérusalem", "date": 30 },
+          { "name": "Participation au Concile de Jérusalem", "date": 49 },
+          { "name": "Martyre (jeté du Temple)", "date": 62 }
+        ],
+        "associated_letter": {
+          "name": ["Épître de Jacques"],
+          "dates": [50, 60],
+          "reference": ["Jc 1:1-5:20"],
+          "source": ["Nouveau Testament (Bible AELF)"]
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "title": "Voyages et missions de l'apôtre Jacques le Mineur",
+    "description": "Carte des voyages de Jacques le Mineur avec des sources catholiques.",
+    "creation_date": "2026-05-13",
+    "main_sources": [
+      "Bible AELF",
+      "Saint Jérôme - Commentaire sur l'Épître de Jacques",
+      "Eusèbe de Césarée - Histoire ecclésiastique"
+    ]
+  }
+}

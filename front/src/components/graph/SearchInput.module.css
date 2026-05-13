@@ -1,0 +1,53 @@
+.graphSearch {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  width: min(480px, calc(100% - 340px));
+  background: color-mix(in srgb, #f7f8fc 90%, transparent);
+  backdrop-filter: blur(10px);
+  border: 1.5px solid var(--border);
+  border-radius: 99px;
+  box-shadow: var(--shadow-md);
+  padding: 0 14px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.graphSearch:focus-within {
+  border-color: var(--secondary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--secondary) 15%, transparent);
+}
+
+.graphSearchIcon {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  color: var(--text-muted);
+  margin-right: 10px;
+}
+
+.graphSearchInput {
+  flex: 5;
+  height: 40px;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 13px;
+  color: var(--title);
+  min-width: 0;
+}
+
+.graphSearchInput::placeholder { color: var(--text-muted); }
+.graphSearchInput::-webkit-search-cancel-button { display: none; }
+
+.graphSearchClear {
+  font-size: 11px;
+  color: var(--text-muted);
+  padding: 2px 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: color 0.12s;
+  flex-shrink: 0;
+}
+
+.graphSearchClear:hover { color: var(--title); }

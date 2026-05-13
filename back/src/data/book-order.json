@@ -1,0 +1,1499 @@
+[
+  {
+    "number": 0,
+    "name": "Genèse",
+    "authorPeriod": [
+      -950,
+      -850
+    ],
+    "mainComposition": [
+      -700,
+      -550
+    ],
+    "finalRedaction": [
+      -500,
+      -450
+    ],
+    "datation_sources": [
+      "Bible de Jérusalem",
+      "TOB",
+      "Thomas Römer",
+      "Richard Elliott Friedman"
+    ]
+  },
+  {
+    "number": 1,
+    "name": "Exode",
+    "authorPeriod": [
+      -950,
+      -850
+    ],
+    "mainComposition": [
+      -700,
+      -550
+    ],
+    "finalRedaction": [
+      -500,
+      -450
+    ],
+    "datation_sources": [
+      "Bible de Jérusalem",
+      "TOB",
+      "Thomas Römer",
+      "Richard Elliott Friedman"
+    ]
+  },
+  {
+    "number": 2,
+    "name": "Lévitique",
+    "authorPeriod": [
+      -650,
+      -550
+    ],
+    "mainComposition": [
+      -600,
+      -500
+    ],
+    "finalRedaction": [
+      -500,
+      -450
+    ],
+    "datation_sources": [
+      "Bible de Jérusalem",
+      "TOB",
+      "Jacob Milgrom"
+    ]
+  },
+  {
+    "number": 3,
+    "name": "Nombres",
+    "authorPeriod": [
+      -700,
+      -550
+    ],
+    "mainComposition": [
+      -600,
+      -500
+    ],
+    "finalRedaction": [
+      -500,
+      -450
+    ],
+    "datation_sources": [
+      "Bible de Jérusalem",
+      "TOB",
+      "Thomas Römer"
+    ]
+  },
+  {
+    "number": 4,
+    "name": "Deutéronome",
+    "authorPeriod": [
+      -650,
+      -620
+    ],
+    "mainComposition": [
+      -620,
+      -580
+    ],
+    "finalRedaction": [
+      -560,
+      -540
+    ],
+    "datation_sources": [
+      "Bible de Jérusalem",
+      "TOB",
+      "Martin Noth"
+    ]
+  },
+  {
+    "number": 5,
+    "name": "Josué",
+    "authorPeriod": [
+      -620,
+      -580
+    ],
+    "mainComposition": [
+      -600,
+      -550
+    ],
+    "finalRedaction": [
+      -550,
+      -530
+    ],
+    "datation_sources": [
+      "Martin Noth",
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 6,
+    "name": "Juges",
+    "authorPeriod": [
+      -620,
+      -580
+    ],
+    "mainComposition": [
+      -600,
+      -550
+    ],
+    "finalRedaction": [
+      -550,
+      -530
+    ],
+    "datation_sources": [
+      "Martin Noth",
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 7,
+    "name": "Ruth",
+    "authorPeriod": [
+      -500,
+      -400
+    ],
+    "mainComposition": [
+      -450,
+      -400
+    ],
+    "finalRedaction": [
+      -400,
+      -350
+    ],
+    "datation_sources": [
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 8,
+    "name": "1 Samuel",
+    "authorPeriod": [
+      -620,
+      -580
+    ],
+    "mainComposition": [
+      -600,
+      -550
+    ],
+    "finalRedaction": [
+      -550,
+      -530
+    ],
+    "datation_sources": [
+      "Martin Noth",
+      "TOB"
+    ]
+  },
+  {
+    "number": 9,
+    "name": "2 Samuel",
+    "authorPeriod": [
+      -620,
+      -580
+    ],
+    "mainComposition": [
+      -600,
+      -550
+    ],
+    "finalRedaction": [
+      -550,
+      -530
+    ],
+    "datation_sources": [
+      "Martin Noth",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 10,
+    "name": "1 Rois",
+    "authorPeriod": [
+      -620,
+      -560
+    ],
+    "mainComposition": [
+      -580,
+      -550
+    ],
+    "finalRedaction": [
+      -550,
+      -530
+    ],
+    "datation_sources": [
+      "Martin Noth",
+      "TOB"
+    ]
+  },
+  {
+    "number": 11,
+    "name": "2 Rois",
+    "authorPeriod": [
+      -620,
+      -550
+    ],
+    "mainComposition": [
+      -580,
+      -540
+    ],
+    "finalRedaction": [
+      -540,
+      -530
+    ],
+    "datation_sources": [
+      "Bible de Jérusalem",
+      "TOB"
+    ]
+  },
+  {
+    "number": 12,
+    "name": "1 Chroniques",
+    "authorPeriod": [
+      -450,
+      -400
+    ],
+    "mainComposition": [
+      -400,
+      -350
+    ],
+    "finalRedaction": [
+      -350,
+      -300
+    ],
+    "datation_sources": [
+      "Bible de Jérusalem",
+      "Sara Japhet"
+    ]
+  },
+  {
+    "number": 13,
+    "name": "2 Chroniques",
+    "authorPeriod": [
+      -450,
+      -400
+    ],
+    "mainComposition": [
+      -400,
+      -350
+    ],
+    "finalRedaction": [
+      -350,
+      -300
+    ],
+    "datation_sources": [
+      "TOB",
+      "Sara Japhet"
+    ]
+  },
+  {
+    "number": 14,
+    "name": "Esdras",
+    "authorPeriod": [
+      -450,
+      -400
+    ],
+    "mainComposition": [
+      -400,
+      -350
+    ],
+    "finalRedaction": [
+      -350,
+      -300
+    ],
+    "datation_sources": [
+      "Bible de Jérusalem",
+      "TOB"
+    ]
+  },
+  {
+    "number": 15,
+    "name": "Néhémie",
+    "authorPeriod": [
+      -450,
+      -400
+    ],
+    "mainComposition": [
+      -400,
+      -350
+    ],
+    "finalRedaction": [
+      -350,
+      -300
+    ],
+    "datation_sources": [
+      "Bible de Jérusalem",
+      "TOB"
+    ]
+  },
+  {
+    "number": 16,
+    "name": "Tobie",
+    "authorPeriod": [
+      -250,
+      -200
+    ],
+    "mainComposition": [
+      -225,
+      -175
+    ],
+    "finalRedaction": [
+      -175,
+      -150
+    ],
+    "datation_sources": [
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 17,
+    "name": "Judith",
+    "authorPeriod": [
+      -200,
+      -150
+    ],
+    "mainComposition": [
+      -175,
+      -150
+    ],
+    "finalRedaction": [
+      -150,
+      -100
+    ],
+    "datation_sources": [
+      "Bible de Jérusalem",
+      "TOB"
+    ]
+  },
+  {
+    "number": 18,
+    "name": "Esther",
+    "authorPeriod": [
+      -400,
+      -350
+    ],
+    "mainComposition": [
+      -350,
+      -300
+    ],
+    "finalRedaction": [
+      -300,
+      -150
+    ],
+    "datation_sources": [
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 19,
+    "name": "1 Maccabées",
+    "authorPeriod": [
+      -120,
+      -100
+    ],
+    "mainComposition": [
+      -110,
+      -100
+    ],
+    "finalRedaction": [
+      -100,
+      -90
+    ],
+    "datation_sources": [
+      "Bible de Jérusalem",
+      "TOB"
+    ]
+  },
+  {
+    "number": 20,
+    "name": "2 Maccabées",
+    "authorPeriod": [
+      -150,
+      -120
+    ],
+    "mainComposition": [
+      -130,
+      -120
+    ],
+    "finalRedaction": [
+      -120,
+      -100
+    ],
+    "datation_sources": [
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 21,
+    "name": "Job",
+    "authorPeriod": [
+      -600,
+      -500
+    ],
+    "mainComposition": [
+      -500,
+      -450
+    ],
+    "finalRedaction": [
+      -450,
+      -400
+    ],
+    "datation_sources": [
+      "Bible de Jérusalem",
+      "TOB",
+      "John E. Hartley"
+    ]
+  },
+  {
+    "number": 22,
+    "name": "Psaumes",
+    "authorPeriod": [
+      -1000,
+      -300
+    ],
+    "mainComposition": [
+      -700,
+      -300
+    ],
+    "finalRedaction": [
+      -300,
+      -200
+    ],
+    "datation_sources": [
+      "Bible de Jérusalem",
+      "TOB",
+      "Compilation progressive"
+    ]
+  },
+  {
+    "number": 23,
+    "name": "Proverbes",
+    "authorPeriod": [
+      -950,
+      -300
+    ],
+    "mainComposition": [
+      -700,
+      -400
+    ],
+    "finalRedaction": [
+      -350,
+      -250
+    ],
+    "datation_sources": [
+      "Bible de Jérusalem",
+      "TOB"
+    ]
+  },
+  {
+    "number": 24,
+    "name": "Qohéleth",
+    "authorPeriod": [
+      -300,
+      -250
+    ],
+    "mainComposition": [
+      -275,
+      -250
+    ],
+    "finalRedaction": [
+      -250,
+      -200
+    ],
+    "datation_sources": [
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 25,
+    "name": "Cantique",
+    "authorPeriod": [
+      -500,
+      -400
+    ],
+    "mainComposition": [
+      -450,
+      -350
+    ],
+    "finalRedaction": [
+      -350,
+      -250
+    ],
+    "datation_sources": [
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 26,
+    "name": "Sagesse",
+    "authorPeriod": [
+      -75,
+      -25
+    ],
+    "mainComposition": [
+      -50,
+      -25
+    ],
+    "finalRedaction": [
+      -25,
+      0
+    ],
+    "datation_sources": [
+      "Bible de Jérusalem",
+      "TOB",
+      "Alexandrie hellénistique"
+    ]
+  },
+  {
+    "number": 27,
+    "name": "Siracide",
+    "authorPeriod": [
+      -200,
+      -175
+    ],
+    "mainComposition": [
+      -190,
+      -180
+    ],
+    "finalRedaction": [
+      -180,
+      -130
+    ],
+    "datation_sources": [
+      "Jésus ben Sira",
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 28,
+    "name": "Isaïe",
+    "authorPeriod": [
+      -740,
+      -700
+    ],
+    "mainComposition": [
+      -540,
+      -500
+    ],
+    "finalRedaction": [
+      -450,
+      -400
+    ],
+    "datation_sources": [
+      "Bible de Jérusalem",
+      "TOB",
+      "John J. Collins",
+      "Joseph Blenkinsopp"
+    ]
+  },
+  {
+    "number": 29,
+    "name": "Jérémie",
+    "authorPeriod": [
+      -627,
+      -580
+    ],
+    "mainComposition": [
+      -600,
+      -550
+    ],
+    "finalRedaction": [
+      -550,
+      -500
+    ],
+    "datation_sources": [
+      "Bible de Jérusalem",
+      "TOB",
+      "Jack R. Lundbom"
+    ]
+  },
+  {
+    "number": 30,
+    "name": "Lamentations",
+    "authorPeriod": [
+      -587,
+      -550
+    ],
+    "mainComposition": [
+      -580,
+      -550
+    ],
+    "finalRedaction": [
+      -550,
+      -500
+    ],
+    "datation_sources": [
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 31,
+    "name": "Baruch",
+    "authorPeriod": [
+      -200,
+      -100
+    ],
+    "mainComposition": [
+      -150,
+      -100
+    ],
+    "finalRedaction": [
+      -100,
+      -50
+    ],
+    "datation_sources": [
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 32,
+    "name": "Ézéchiel",
+    "authorPeriod": [
+      -593,
+      -570
+    ],
+    "mainComposition": [
+      -570,
+      -550
+    ],
+    "finalRedaction": [
+      -550,
+      -500
+    ],
+    "datation_sources": [
+      "Bible de Jérusalem",
+      "TOB"
+    ]
+  },
+  {
+    "number": 33,
+    "name": "Daniel",
+    "authorPeriod": [
+      -175,
+      -165
+    ],
+    "mainComposition": [
+      -170,
+      -165
+    ],
+    "finalRedaction": [
+      -165,
+      -160
+    ],
+    "datation_sources": [
+      "John J. Collins",
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 34,
+    "name": "Osée",
+    "authorPeriod": [
+      -760,
+      -722
+    ],
+    "mainComposition": [
+      -740,
+      -720
+    ],
+    "finalRedaction": [
+      -700,
+      -650
+    ],
+    "datation_sources": [
+      "TOB",
+      "Bible de Jérusalem",
+      "Francis Andersen"
+    ]
+  },
+  {
+    "number": 35,
+    "name": "Joël",
+    "authorPeriod": [
+      -500,
+      -400
+    ],
+    "mainComposition": [
+      -450,
+      -400
+    ],
+    "finalRedaction": [
+      -400,
+      -350
+    ],
+    "datation_sources": [
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 36,
+    "name": "Amos",
+    "authorPeriod": [
+      -762,
+      -745
+    ],
+    "mainComposition": [
+      -750,
+      -730
+    ],
+    "finalRedaction": [
+      -700,
+      -650
+    ],
+    "datation_sources": [
+      "TOB",
+      "Bible de Jérusalem",
+      "Francis Andersen"
+    ]
+  },
+  {
+    "number": 37,
+    "name": "Abdias",
+    "authorPeriod": [
+      -587,
+      -530
+    ],
+    "mainComposition": [
+      -580,
+      -550
+    ],
+    "finalRedaction": [
+      -550,
+      -500
+    ],
+    "datation_sources": [
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 38,
+    "name": "Jonas",
+    "authorPeriod": [
+      -400,
+      -350
+    ],
+    "mainComposition": [
+      -380,
+      -350
+    ],
+    "finalRedaction": [
+      -350,
+      -300
+    ],
+    "datation_sources": [
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 39,
+    "name": "Michée",
+    "authorPeriod": [
+      -742,
+      -700
+    ],
+    "mainComposition": [
+      -730,
+      -700
+    ],
+    "finalRedaction": [
+      -700,
+      -650
+    ],
+    "datation_sources": [
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 40,
+    "name": "Nahoum",
+    "authorPeriod": [
+      -660,
+      -612
+    ],
+    "mainComposition": [
+      -640,
+      -612
+    ],
+    "finalRedaction": [
+      -612,
+      -600
+    ],
+    "datation_sources": [
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 41,
+    "name": "Habaquq",
+    "authorPeriod": [
+      -615,
+      -600
+    ],
+    "mainComposition": [
+      -610,
+      -600
+    ],
+    "finalRedaction": [
+      -600,
+      -590
+    ],
+    "datation_sources": [
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 42,
+    "name": "Sophonie",
+    "authorPeriod": [
+      -640,
+      -620
+    ],
+    "mainComposition": [
+      -630,
+      -620
+    ],
+    "finalRedaction": [
+      -620,
+      -610
+    ],
+    "datation_sources": [
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 43,
+    "name": "Aggée",
+    "authorPeriod": [
+      -520,
+      -516
+    ],
+    "mainComposition": [
+      -520,
+      -516
+    ],
+    "finalRedaction": [
+      -516,
+      -510
+    ],
+    "datation_sources": [
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 44,
+    "name": "Zacharie",
+    "authorPeriod": [
+      -520,
+      -480
+    ],
+    "mainComposition": [
+      -520,
+      -480
+    ],
+    "finalRedaction": [
+      -480,
+      -400
+    ],
+    "datation_sources": [
+      "TOB",
+      "Bible de Jérusalem",
+      "David Petersen"
+    ]
+  },
+  {
+    "number": 45,
+    "name": "Malachie",
+    "authorPeriod": [
+      -470,
+      -450
+    ],
+    "mainComposition": [
+      -460,
+      -450
+    ],
+    "finalRedaction": [
+      -450,
+      -440
+    ],
+    "datation_sources": [
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 46,
+    "name": "Matthieu",
+    "authorPeriod": [
+      80,
+      90
+    ],
+    "mainComposition": [
+      80,
+      90
+    ],
+    "finalRedaction": [
+      90,
+      100
+    ],
+    "datation_sources": [
+      "Raymond E. Brown",
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 47,
+    "name": "Marc",
+    "authorPeriod": [
+      65,
+      70
+    ],
+    "mainComposition": [
+      65,
+      70
+    ],
+    "finalRedaction": [
+      70,
+      75
+    ],
+    "datation_sources": [
+      "Raymond E. Brown",
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 48,
+    "name": "Luc",
+    "authorPeriod": [
+      80,
+      90
+    ],
+    "mainComposition": [
+      80,
+      90
+    ],
+    "finalRedaction": [
+      90,
+      100
+    ],
+    "datation_sources": [
+      "Raymond E. Brown",
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 49,
+    "name": "Jean",
+    "authorPeriod": [
+      90,
+      100
+    ],
+    "mainComposition": [
+      90,
+      100
+    ],
+    "finalRedaction": [
+      100,
+      110
+    ],
+    "datation_sources": [
+      "Raymond E. Brown",
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 50,
+    "name": "Actes",
+    "authorPeriod": [
+      80,
+      90
+    ],
+    "mainComposition": [
+      80,
+      90
+    ],
+    "finalRedaction": [
+      90,
+      100
+    ],
+    "datation_sources": [
+      "Raymond E. Brown",
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 51,
+    "name": "Romains",
+    "authorPeriod": [
+      57,
+      58
+    ],
+    "mainComposition": [
+      57,
+      58
+    ],
+    "finalRedaction": [
+      58,
+      60
+    ],
+    "datation_sources": [
+      "Murphy-O'Connor",
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 52,
+    "name": "1 Corinthiens",
+    "authorPeriod": [
+      54,
+      55
+    ],
+    "mainComposition": [
+      54,
+      55
+    ],
+    "finalRedaction": [
+      55,
+      56
+    ],
+    "datation_sources": [
+      "Murphy-O'Connor",
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 53,
+    "name": "2 Corinthiens",
+    "authorPeriod": [
+      55,
+      56
+    ],
+    "mainComposition": [
+      55,
+      56
+    ],
+    "finalRedaction": [
+      56,
+      57
+    ],
+    "datation_sources": [
+      "Murphy-O'Connor",
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 54,
+    "name": "Galates",
+    "authorPeriod": [
+      54,
+      55
+    ],
+    "mainComposition": [
+      54,
+      55
+    ],
+    "finalRedaction": [
+      55,
+      57
+    ],
+    "datation_sources": [
+      "Murphy-O'Connor",
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 55,
+    "name": "Éphésiens",
+    "authorPeriod": [
+      61,
+      63
+    ],
+    "mainComposition": [
+      61,
+      63
+    ],
+    "finalRedaction": [
+      63,
+      80
+    ],
+    "datation_sources": [
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 56,
+    "name": "Philippiens",
+    "authorPeriod": [
+      61,
+      62
+    ],
+    "mainComposition": [
+      61,
+      62
+    ],
+    "finalRedaction": [
+      62,
+      63
+    ],
+    "datation_sources": [
+      "Murphy-O'Connor",
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 57,
+    "name": "Colossiens",
+    "authorPeriod": [
+      61,
+      63
+    ],
+    "mainComposition": [
+      61,
+      63
+    ],
+    "finalRedaction": [
+      63,
+      80
+    ],
+    "datation_sources": [
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 58,
+    "name": "1 Thessaloniciens",
+    "authorPeriod": [
+      50,
+      51
+    ],
+    "mainComposition": [
+      50,
+      51
+    ],
+    "finalRedaction": [
+      51,
+      52
+    ],
+    "datation_sources": [
+      "Murphy-O'Connor",
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 59,
+    "name": "2 Thessaloniciens",
+    "authorPeriod": [
+      51,
+      52
+    ],
+    "mainComposition": [
+      51,
+      52
+    ],
+    "finalRedaction": [
+      52,
+      53
+    ],
+    "datation_sources": [
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 60,
+    "name": "1 Timothée",
+    "authorPeriod": [
+      65,
+      100
+    ],
+    "mainComposition": [
+      80,
+      100
+    ],
+    "finalRedaction": [
+      100,
+      110
+    ],
+    "datation_sources": [
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 61,
+    "name": "2 Timothée",
+    "authorPeriod": [
+      65,
+      100
+    ],
+    "mainComposition": [
+      80,
+      100
+    ],
+    "finalRedaction": [
+      100,
+      110
+    ],
+    "datation_sources": [
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 62,
+    "name": "Tite",
+    "authorPeriod": [
+      65,
+      100
+    ],
+    "mainComposition": [
+      80,
+      100
+    ],
+    "finalRedaction": [
+      100,
+      110
+    ],
+    "datation_sources": [
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 63,
+    "name": "Philémon",
+    "authorPeriod": [
+      61,
+      62
+    ],
+    "mainComposition": [
+      61,
+      62
+    ],
+    "finalRedaction": [
+      62,
+      63
+    ],
+    "datation_sources": [
+      "Murphy-O'Connor",
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 64,
+    "name": "Hébreux",
+    "authorPeriod": [
+      70,
+      90
+    ],
+    "mainComposition": [
+      75,
+      90
+    ],
+    "finalRedaction": [
+      90,
+      100
+    ],
+    "datation_sources": [
+      "TOB",
+      "Bible de Jérusalem",
+      "Harold Attridge"
+    ]
+  },
+  {
+    "number": 65,
+    "name": "Jacques",
+    "authorPeriod": [
+      60,
+      90
+    ],
+    "mainComposition": [
+      70,
+      90
+    ],
+    "finalRedaction": [
+      90,
+      100
+    ],
+    "datation_sources": [
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 66,
+    "name": "1 Pierre",
+    "authorPeriod": [
+      75,
+      90
+    ],
+    "mainComposition": [
+      80,
+      90
+    ],
+    "finalRedaction": [
+      90,
+      100
+    ],
+    "datation_sources": [
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 67,
+    "name": "2 Pierre",
+    "authorPeriod": [
+      100,
+      120
+    ],
+    "mainComposition": [
+      110,
+      120
+    ],
+    "finalRedaction": [
+      120,
+      130
+    ],
+    "datation_sources": [
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 68,
+    "name": "1 Jean",
+    "authorPeriod": [
+      90,
+      100
+    ],
+    "mainComposition": [
+      90,
+      100
+    ],
+    "finalRedaction": [
+      100,
+      110
+    ],
+    "datation_sources": [
+      "Raymond E. Brown",
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 69,
+    "name": "2 Jean",
+    "authorPeriod": [
+      90,
+      100
+    ],
+    "mainComposition": [
+      90,
+      100
+    ],
+    "finalRedaction": [
+      100,
+      110
+    ],
+    "datation_sources": [
+      "Raymond E. Brown",
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 70,
+    "name": "3 Jean",
+    "authorPeriod": [
+      90,
+      100
+    ],
+    "mainComposition": [
+      90,
+      100
+    ],
+    "finalRedaction": [
+      100,
+      110
+    ],
+    "datation_sources": [
+      "Raymond E. Brown",
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 71,
+    "name": "Jude",
+    "authorPeriod": [
+      90,
+      110
+    ],
+    "mainComposition": [
+      100,
+      110
+    ],
+    "finalRedaction": [
+      110,
+      120
+    ],
+    "datation_sources": [
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  },
+  {
+    "number": 72,
+    "name": "Apocalypse",
+    "authorPeriod": [
+      90,
+      96
+    ],
+    "mainComposition": [
+      90,
+      96
+    ],
+    "finalRedaction": [
+      96,
+      100
+    ],
+    "datation_sources": [
+      "Adela Yarbro Collins",
+      "TOB",
+      "Bible de Jérusalem"
+    ]
+  }
+]
