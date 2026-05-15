@@ -1,18 +1,18 @@
 import type { IMagisteriumRepository } from '../../domain/repositories/IMagisteriumRepository';
 
-export class GetMagisteriumAuthors {
+export class GetMagisteriumPersons {
   constructor(private repo: IMagisteriumRepository) {}
-  execute() { return this.repo.getAuthors(); }
+  execute() { return this.repo.getPersons(); }
 }
 
-export class GetMagisteriumAuthorBySlug {
+export class GetMagisteriumPersonBySlug {
   constructor(private repo: IMagisteriumRepository) {}
-  execute(slug: string) { return this.repo.getAuthorBySlug(slug); }
+  execute(slug: string) { return this.repo.getPersonBySlug(slug); }
 }
 
 export class GetMagisteriumDocuments {
   constructor(private repo: IMagisteriumRepository) {}
-  execute(authorSlug?: string) { return this.repo.getDocuments(authorSlug); }
+  execute(personSlug?: string) { return this.repo.getDocuments(personSlug); }
 }
 
 export class GetMagisteriumCommentsByVerse {

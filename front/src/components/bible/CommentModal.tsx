@@ -35,17 +35,17 @@ function CommentRow({ comment }: { comment: PatristicCommentResult }) {
   return (
     <div className={styles.commentRow}>
       <a
-        className={`${styles.avatar} ${comment.author.type === 'magistere' ? styles.avatarMag : styles.avatarPat}`}
-        style={avatarStyle(comment.author.slug)}
+        className={`${styles.avatar} ${comment.person.type === 'magistere' ? styles.avatarMag : styles.avatarPat}`}
+        style={avatarStyle(comment.person.slug)}
         href={comment.sourceUrl || undefined}
         target="_blank"
         rel="noreferrer"
-        title={comment.author.nameFr}
+        title={comment.person.nameFr}
       />
       <div className={styles.commentBody}>
-        <span className={styles.authorName}>{comment.author.nameFr}</span>
-        {comment.author.born && comment.author.died && (
-          <span className={styles.authorDates}>{comment.author.born}–{comment.author.died}</span>
+        <span className={styles.authorName}>{comment.person.nameFr}</span>
+        {comment.person.born && comment.person.died && (
+          <span className={styles.authorDates}>{comment.person.born}–{comment.person.died}</span>
         )}
         <p className={styles.commentText}>{trimmed}</p>
         {text.length > MAX_CHARS && (
@@ -123,19 +123,19 @@ export function CommentModal() {
   }, [target, verseIdx]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Authors list for filter dropdown
-  const authors = useMemo(() => {
+  const persons = useMemo(() => {
     const seen = new Map<string, string>();
-    for (const c of rawComments) seen.set(c.author.slug, c.author.nameFr);
+    for (const c of rawComments) seen.set(c.person.slug, c.person.nameFr);
     return [...seen.entries()].sort((a, b) => a[1].localeCompare(b[1]));
   }, [rawComments]);
 
   // Sort + filter — magistere always first within each sort
   const comments = useMemo(() => {
-    let list = filterSlug ? rawComments.filter(c => c.author.slug === filterSlug) : rawComments;
-    if (sort === 'alpha')  list = [...list].sort((a, b) => a.author.nameFr.localeCompare(b.author.nameFr));
+    let list = filterSlug ? rawComments.filter(c => c.person.slug === filterSlug) : rawComments;
+    if (sort === 'alpha')  list = [...list].sort((a, b) => a.person.nameFr.localeCompare(b.person.nameFr));
     if (sort === 'length') list = [...list].sort((a, b) => b.text.length - a.text.length);
-    if (sort === 'date')   list = [...list].sort((a, b) => (a.author.born ?? 9999) - (b.author.born ?? 9999));
-    return [...list].sort((a, b) => (b.author.type === 'magistere' ? 1 : 0) - (a.author.type === 'magistere' ? 1 : 0));
+    if (sort === 'date')   list = [...list].sort((a, b) => (a.person.born ?? 9999) - (b.person.born ?? 9999));
+    return [...list].sort((a, b) => (b.person.type === 'magistere' ? 1 : 0) - (a.person.type === 'magistere' ? 1 : 0));
   }, [rawComments, sort, filterSlug]);
 
   const verseRef = target && verse
@@ -200,7 +200,7 @@ export function CommentModal() {
                 onChange={e => setFilterSlug(e.target.value)}
               >
                 <option value="">Tous les auteurs</option>
-                {authors.map(([slug, name]) => (
+                {persons.map(([slug, name]) => (
                   <option key={slug} value={slug}>{name}</option>
                 ))}
               </select>
@@ -212,8 +212,8 @@ export function CommentModal() {
                 <p className={styles.empty}>Aucun commentaire disponible.</p>
               )}
               {!loading && (() => {
-                const mag = comments.filter(c => c.author.type === 'magistere');
-                const pat = comments.filter(c => c.author.type !== 'magistere');
+                const mag = comments.filter(c => c.person.type === 'magistere');
+                const pat = comments.filter(c => c.person.type !== 'magistere');
                 return (
                   <>
                     {mag.length > 0 && (

@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import type { IMagisteriumRepository } from '../../domain/repositories/IMagisteriumRepository';
 import {
-  GetMagisteriumAuthors,
-  GetMagisteriumAuthorBySlug,
+  GetMagisteriumPersons,
+  GetMagisteriumPersonBySlug,
   GetMagisteriumDocuments,
   GetMagisteriumCommentsByVerse,
   GetMagisteriumCommentsByDocument,
@@ -11,8 +11,8 @@ import {
 export default function magistereRouter(repo: IMagisteriumRepository): Router {
   const router = Router();
 
-  const getAuthors             = new GetMagisteriumAuthors(repo);
-  const getAuthorBySlug        = new GetMagisteriumAuthorBySlug(repo);
+  const getPersons             = new GetMagisteriumPersons(repo);
+  const getPersonBySlug        = new GetMagisteriumPersonBySlug(repo);
   const getDocuments           = new GetMagisteriumDocuments(repo);
   const getCommentsByVerse     = new GetMagisteriumCommentsByVerse(repo);
   const getCommentsByDocument  = new GetMagisteriumCommentsByDocument(repo);
@@ -22,28 +22,28 @@ export default function magistereRouter(repo: IMagisteriumRepository): Router {
     offset: parseInt(req.query.offset as string) || 0,
   });
 
-  // GET /api/magistere/authors
-  router.get('/authors', (_req, res) => {
-    res.json({ data: getAuthors.execute() });
+  // GET /api/magistere/persons
+  router.get('/persons', (_req, res) => {
+    res.json({ data: getPersons.execute() });
   });
 
-  // GET /api/magistere/authors/:slug
-  router.get('/authors/:slug', (req, res) => {
-    const author = getAuthorBySlug.execute(req.params.slug);
-    if (!author) return res.status(404).json({ error: 'Author not found' });
-    res.json(author);
+  // GET /api/magistere/persons/:slug
+  router.get('/persons/:slug', (req, res) => {
+    const person = getPersonBySlug.execute(req.params.slug);
+    if (!person) return res.status(404).json({ error: 'Person not found' });
+    res.json(person);
   });
 
-  // GET /api/magistere/authors/:slug/documents
-  router.get('/authors/:slug/documents', (req, res) => {
+  // GET /api/magistere/persons/:slug/documents
+  router.get('/persons/:slug/documents', (req, res) => {
     res.json({ data: getDocuments.execute(req.params.slug) });
   });
 
   // GET /api/magistere/documents
-  // ?author=slug  filter by author
+  // ?person=slug  filter by person
   router.get('/documents', (req, res) => {
-    const authorSlug = typeof req.query.author === 'string' ? req.query.author : undefined;
-    res.json({ data: getDocuments.execute(authorSlug) });
+    const personSlug = typeof req.query.person === 'string' ? req.query.person : undefined;
+    res.json({ data: getDocuments.execute(personSlug) });
   });
 
   // GET /api/magistere/documents/:abbr/comments

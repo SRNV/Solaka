@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { mountScene, type CameraState, type SceneControls, type AuthorPin } from './scene.ts';
+import { mountScene, type CameraState, type SceneControls } from './scene.ts';
 import { useApi } from '../../hooks/useApi.ts';
 import { GeoMap } from '../../types/api.ts';
 import { useBibleDrawer } from '../../contexts/BibleDrawerContext.tsx';
@@ -8,14 +8,15 @@ import { biblicalPlacesService } from '../../services/biblicalPlacesService.ts';
 import { useStompMapFeatures } from '../../hooks/useStompMapFeatures.ts';
 import { useStompPlaces } from '../../hooks/useStompPlaces.ts';
 import { usePatristicCommentStore } from '../../store/comment.store.ts';
-import authorPositions from '../../data/authorPositions.json';
+import personPositions from '../../data/personPositions.json';
+
 import atlasIndex from '../../data/atlas.json';
 
 type PosEntry   = { lon: number; lat: number; nameFr: string; tradition: string; type?: 'patristic' | 'magistere' };
 type AtlasEntry = { x: number; y: number; width: number; height: number };
 
-const authorPins: AuthorPin[] = Object.entries(
-  authorPositions as Record<string, PosEntry>
+const personPins = Object.entries(
+  personPositions as Record<string, PosEntry>
 ).map(([slug, pos]) => {
   const tile = (atlasIndex as Record<string, AtlasEntry>)[slug];
   return {
@@ -75,26 +76,26 @@ export function BibleMap({ activeVerseUuids }: { activeVerseUuids: ReadonlySet<s
     const ctrl = mountScene(containerRef.current, setCam);
     ctrlRef.current = ctrl;
     ctrl.setDisplacement(0);
-    ctrl.setAuthors([]);
+    ctrl.setPersons([]);
     return ctrl.cleanup;
   }, []);
 
-  const summaries      = usePatristicCommentStore(s => s.summaries);
-  const authorTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const summaries       = usePatristicCommentStore(s => s.summaries);
+  const personTimerRef  = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    if (authorTimerRef.current) clearTimeout(authorTimerRef.current);
-    authorTimerRef.current = setTimeout(() => {
+    if (personTimerRef.current) clearTimeout(personTimerRef.current);
+    personTimerRef.current = setTimeout(() => {
       if (!ctrlRef.current) return;
-      if (!activeVerseUuids) { ctrlRef.current.setAuthors([]); return; }
+      if (!activeVerseUuids) { ctrlRef.current.setPersons([]); return; }
       const visibleSlugs = new Set<string>();
       for (const uuid of activeVerseUuids) {
         const s = summaries.get(uuid);
-        if (s) for (const a of s.authors) visibleSlugs.add(a.slug);
+        if (s) for (const a of s.persons) visibleSlugs.add(a.slug);
       }
-      ctrlRef.current.setAuthors(authorPins.filter(p => visibleSlugs.has(p.slug)));
+      ctrlRef.current.setPersons(personPins.filter(p => visibleSlugs.has(p.slug)));
     }, 120);
-    return () => { if (authorTimerRef.current) clearTimeout(authorTimerRef.current); };
+    return () => { if (personTimerRef.current) clearTimeout(personTimerRef.current); };
   }, [activeVerseUuids, summaries]);
 
   useEffect(() => {

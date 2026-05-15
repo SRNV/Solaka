@@ -1,4 +1,4 @@
-export interface PatristicAuthorSnippet {
+export interface PatristicPersonSnippet {
   slug:      string;
   nameFr:    string;
   tradition: string;
@@ -7,21 +7,21 @@ export interface PatristicAuthorSnippet {
 
 export interface CommentSummary {
   count:   number;
-  authors: PatristicAuthorSnippet[];
+  persons: PatristicPersonSnippet[];
 }
 
 export type CommentBatchResult = Record<string, CommentSummary>;
 
 export interface PatristicCommentResult {
   uuid:          string;
-  authorUuid:    string;
+  personUuid:    string;
   collection:    string;
   sourceUrl:     string;
   sourceWork?:   string;
   text:          string;
   verseFromUuid: string;
   verseToUuid:   string;
-  author: {
+  person: {
     uuid:      string;
     slug:      string;
     nameFr:    string;

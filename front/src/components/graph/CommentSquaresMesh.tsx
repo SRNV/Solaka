@@ -4,7 +4,7 @@ import { useThree } from '@react-three/fiber';
 import { usePatristicCommentStore } from '@/store/comment.store.ts';
 import type { LayoutResult } from '@/utils/graphLayout.ts';
 import atlasIndex from '@/data/atlas.json';
-import authorPositions from '@/data/authorPositions.json';
+import personPositions from '@/data/personPositions.json';
 
 const BRACE_BOTTOM_Y = -2.0;
 const GAP            = 1.5;
@@ -81,7 +81,7 @@ type AtlasEntry = { x: number; y: number; width: number; height: number };
 type PosEntry   = { type: 'patristic' | 'magistere' };
 
 const atlas   = atlasIndex       as Record<string, AtlasEntry>;
-const posMap  = authorPositions  as Record<string, PosEntry>;
+const posMap  = personPositions  as Record<string, PosEntry>;
 
 function atlasUV(slug: string): [number, number] {
   const entry = atlas[slug];
@@ -162,7 +162,7 @@ export function CommentSquaresMesh({ layout, hoverRange, extraVisibleXSet }: Com
       if (summary.count === 0) continue;
       const pos = layout.uuidPosMap.get(uuid);
       if (!pos) continue;
-      if (!byX.has(pos.x)) byX.set(pos.x, summary.authors[0]?.slug ?? '');
+      if (!byX.has(pos.x)) byX.set(pos.x, summary.persons[0]?.slug ?? '');
     }
     return [...byX.entries()]
       .filter(([x]) => {

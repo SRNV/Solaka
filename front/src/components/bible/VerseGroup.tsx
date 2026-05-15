@@ -6,7 +6,7 @@ import type { ChildResult, LeanVerse, VerseListItem } from '@/types/bibleDrawer.
 import { EMPTY_SET, badgeLabel, collectVerses, fetchVersesByRel } from '@/utils/bibleDrawer.ts';
 import { usePatristicCommentStore } from '@/store/comment.store.ts';
 import { useCommentModalStore } from '@/store/commentModal.store.ts';
-import type { CommentSummary, PatristicAuthorSnippet } from '@/types/patristic.ts';
+import type { CommentSummary, PatristicPersonSnippet } from '@/types/patristic.ts';
 import { MapIconSvg } from './MapIconSvg.tsx';
 import { VerseRow } from './VerseRow.tsx';
 import { VerseCommentBar } from './VerseCommentBar.tsx';
@@ -43,17 +43,17 @@ export function VerseGroup({ items, sharedRels, highlightVerseNum, ancestors = E
 
   const groupSummary = useMemo<CommentSummary | null>(() => {
     let count = 0;
-    const authorMap = new Map<string, PatristicAuthorSnippet>();
+    const personMap = new Map<string, PatristicPersonSnippet>();
     for (const v of allVerses) {
       const s = summaries.get(v.uuid);
       if (!s) continue;
       count += s.count;
-      for (const a of s.authors) {
-        if (!authorMap.has(a.slug)) authorMap.set(a.slug, a);
+      for (const a of s.persons) {
+        if (!personMap.has(a.slug)) personMap.set(a.slug, a);
       }
     }
     if (count === 0) return null;
-    return { count, authors: [...authorMap.values()].slice(0, 3) };
+    return { count, persons: [...personMap.values()].slice(0, 3) };
   }, [allVerses, summaries]);
 
   const groupAncestors = useMemo(() => {

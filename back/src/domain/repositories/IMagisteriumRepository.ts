@@ -1,11 +1,11 @@
-import type { MagisteriumAuthor, MagisteriumCommentResult, MagisteriumDocument } from '../Magisterium';
+import type { MagisteriumPerson, MagisteriumCommentResult, MagisteriumDocument } from '../Magisterium';
 import type { PaginatedResponse } from '../Pagination';
 
 export interface IMagisteriumRepository {
-  getAuthors(): MagisteriumAuthor[];
-  getAuthorBySlug(slug: string): MagisteriumAuthor | null;
+  getPersons(): MagisteriumPerson[];
+  getPersonBySlug(slug: string): MagisteriumPerson | null;
 
-  getDocuments(authorSlug?: string): MagisteriumDocument[];
+  getDocuments(personSlug?: string): MagisteriumDocument[];
 
   getCommentsByVerse(
     verseUuid: string,

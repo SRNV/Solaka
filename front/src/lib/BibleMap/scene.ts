@@ -7,7 +7,7 @@ import earthNormal   from './assets/earth_normal_8k.png';
 import earthSpecular from './assets/earth_specular_8k.png';
 import { bordersFromData, createBorders, computeFeatureCentroids } from './borders.ts';
 import { BordersVertexShader, BordersFragmentShader, createBordersTexture } from './BordersShader.ts';
-import { buildBillboards, type BillboardHandle } from './AuthorBillboardService.ts';
+import { buildBillboards, type BillboardHandle } from './PersonBillboardService.ts';
 import { buildPersonJourney, type PersonJourneyHandle } from './PersonJourneyService.ts';
 
 import mc3 from './assets/matcaps/8D8D8D_DDDDDD_CCCCCC_B7B7B7-64px.png';
@@ -47,12 +47,12 @@ export type SceneControls = {
   setBGDPlaces:      (places: PlaceItem[]) => void;
   setBiblicalPlaces: (places: import('../../services/biblicalPlacesService.ts').BiblicalPlace[]) => void;
   flyTo:             (lon: number, lat: number, zoom?: number) => void;
-  setAuthors:        (authors: AuthorPin[]) => void;
+  setPersons:        (persons: PersonPin[]) => void;
   setApostles:       (data: { type: string; features: any[] } | null, atlasIndex?: Record<string, { x: number; y: number }>) => void;
   setJourneyDate:    (year: number | null) => void;
 };
 
-export interface AuthorPin {
+export interface PersonPin {
   slug:       string;
   lon:        number;
   lat:        number;
@@ -238,8 +238,8 @@ export function mountScene(
     return atlasTexture;
   };
 
-  // ── Author billboards ─────────────────────────────────────────────────────
-  let authorBillboards: BillboardHandle | null = null;
+  // ── Person billboards ─────────────────────────────────────────────────────
+  let personBillboards: BillboardHandle | null = null;
 
   // ── Per-apostle journey handles (one per slug) ────────────────────────────
   let journeyHandles: PersonJourneyHandle[] = [];
@@ -471,7 +471,7 @@ export function mountScene(
     uniforms.resolution.value.set(nw, nh);
     labelsCanvas.width  = nw;
     labelsCanvas.height = nh;
-    authorBillboards?.setViewport(nw, nh);
+    personBillboards?.setViewport(nw, nh);
     for (const h of journeyHandles) h.setViewport(nw, nh);
   };
   const ro = new ResizeObserver(onResize);
@@ -580,13 +580,13 @@ export function mountScene(
         return { name: p.name, pos: new THREE.Vector3(x, y, z), priority: 200 };
       });
     },
-    setAuthors: (pins) => {
-      if (authorBillboards) { scene.remove(authorBillboards.mesh); authorBillboards.dispose(); authorBillboards = null; }
+    setPersons: (pins: PersonPin[]) => {
+      if (personBillboards) { scene.remove(personBillboards.mesh); personBillboards.dispose(); personBillboards = null; }
       if (pins.length === 0) return;
       const nw = containerEl.clientWidth  || w;
       const nh = containerEl.clientHeight || h;
-      authorBillboards = buildBillboards(pins, { w: nw, h: nh }, getAtlasTexture());
-      scene.add(authorBillboards.mesh);
+      personBillboards = buildBillboards(pins, { w: nw, h: nh }, getAtlasTexture());
+      scene.add(personBillboards.mesh);
     },
     flyTo: (lon, lat, zoom) => {
       const [x, y, z] = lonLatToXYZ(lon, lat, 5);

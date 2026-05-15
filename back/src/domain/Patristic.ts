@@ -1,6 +1,6 @@
 export { PaginatedResponse } from './Pagination';
 
-export interface PatristicAuthor {
+export interface PatristicPerson {
   uuid: string;
   slug: string;
   nameFr: string;
@@ -22,7 +22,7 @@ export interface PatristicCommentSource {
 
 export interface PatristicComment {
   uuid: string;
-  authorUuid: string;
+  personUuid: string;
   collection: string;
   sourceUrl: string;
   sourceWork?: string;
@@ -33,10 +33,10 @@ export interface PatristicComment {
 }
 
 export interface PatristicCommentResult extends PatristicComment {
-  author: PatristicAuthor;
+  person: PatristicPerson;
 }
 
-export interface PatristicAuthorSnippet {
+export interface PatristicPersonSnippet {
   slug: string;
   nameFr: string;
   tradition: string;
@@ -45,5 +45,5 @@ export interface PatristicAuthorSnippet {
 
 export interface CommentSummary {
   count: number;
-  authors: PatristicAuthorSnippet[];
+  persons: PatristicPersonSnippet[];
 }

@@ -443,11 +443,11 @@ describe('GET /api/biblical-places', () => {
   });
 });
 
-// ── Patristic / authors ───────────────────────────────────────────────────────
+// ── Patristic / persons ───────────────────────────────────────────────────────
 
-describe('GET /api/patristic/authors', () => {
-  it('retourne une liste paginée d\'auteurs', async () => {
-    const { data, ms } = await get<any>('/api/patristic/authors?limit=50');
+describe('GET /api/patristic/persons', () => {
+  it('retourne une liste paginée de personnes', async () => {
+    const { data, ms } = await get<any>('/api/patristic/persons?limit=50');
     expect(data.data).toBeArray();
     expect(data.total).toBeGreaterThan(0);
     expect(data.limit).toBe(50);
@@ -455,8 +455,8 @@ describe('GET /api/patristic/authors', () => {
     expect(ms).toBeLessThan(300);
   });
 
-  it('chaque auteur a les champs attendus', async () => {
-    const { data } = await get<any>('/api/patristic/authors?limit=50');
+  it('chaque personne a les champs attendus', async () => {
+    const { data } = await get<any>('/api/patristic/persons?limit=50');
     for (const author of data.data) {
       expect(author).toMatchObject({
         uuid:          expect.any(String),
@@ -472,14 +472,14 @@ describe('GET /api/patristic/authors', () => {
   });
 
   it('total correspond au nombre réel d\'auteurs (≈48)', async () => {
-    const { data } = await get<any>('/api/patristic/authors?limit=100');
+    const { data } = await get<any>('/api/patristic/persons?limit=100');
     expect(data.total).toBeGreaterThanOrEqual(40);
     expect(data.total).toBeLessThanOrEqual(100);
   });
 
   it('respecte limit et offset', async () => {
-    const { data: p1 } = await get<any>('/api/patristic/authors?limit=3&offset=0');
-    const { data: p2 } = await get<any>('/api/patristic/authors?limit=3&offset=3');
+    const { data: p1 } = await get<any>('/api/patristic/persons?limit=3&offset=0');
+    const { data: p2 } = await get<any>('/api/patristic/persons?limit=3&offset=3');
     expect(p1.data).toHaveLength(3);
     expect(p2.data.length).toBeGreaterThan(0);
     expect(p2.data[0].slug).not.toBe(p1.data[0].slug);
@@ -488,9 +488,9 @@ describe('GET /api/patristic/authors', () => {
 
 // ── Patristic / author by slug ────────────────────────────────────────────────
 
-describe('GET /api/patristic/authors/:slug', () => {
+describe('GET /api/patristic/persons/:slug', () => {
   it('retourne l\'auteur "augustine" avec tous ses champs', async () => {
-    const { data, ms } = await get<any>('/api/patristic/authors/augustine');
+    const { data, ms } = await get<any>('/api/patristic/persons/augustine');
     expect(data.slug).toBe('augustine');
     expect(typeof data.nameFr).toBe('string');
     expect(typeof data.nameEn).toBe('string');
@@ -502,22 +502,22 @@ describe('GET /api/patristic/authors/:slug', () => {
   });
 
   it('retourne l\'auteur "chrysostom"', async () => {
-    const { data } = await get<any>('/api/patristic/authors/chrysostom');
+    const { data } = await get<any>('/api/patristic/persons/chrysostom');
     expect(data.slug).toBe('chrysostom');
     expect(data.born).toBeLessThan(400);
   });
 
   it('retourne 404 pour un slug inconnu', async () => {
-    const res = await fetch(`${BASE}/api/patristic/authors/inconnu-zzz`);
+    const res = await fetch(`${BASE}/api/patristic/persons/inconnu-zzz`);
     expect(res.status).toBe(404);
   });
 });
 
 // ── Patristic / comments by author ───────────────────────────────────────────
 
-describe('GET /api/patristic/authors/:slug/comments', () => {
+describe('GET /api/patristic/persons/:slug/comments', () => {
   it('retourne des commentaires paginés pour "augustine"', async () => {
-    const { data, ms } = await get<any>('/api/patristic/authors/augustine/comments?limit=10');
+    const { data, ms } = await get<any>('/api/patristic/persons/augustine/comments?limit=10');
     expect(data.data).toBeArray();
     expect(data.total).toBeGreaterThan(0);
     expect(data.limit).toBe(10);
@@ -525,23 +525,23 @@ describe('GET /api/patristic/authors/:slug/comments', () => {
   });
 
   it('chaque commentaire a l\'auteur embedé et les champs obligatoires', async () => {
-    const { data } = await get<any>('/api/patristic/authors/augustine/comments?limit=20');
+    const { data } = await get<any>('/api/patristic/persons/augustine/comments?limit=20');
     for (const c of data.data) {
       expect(c).toMatchObject({
         uuid:          expect.any(String),
-        authorUuid:    expect.any(String),
+        personUuid:    expect.any(String),
         collection:    expect.any(String),
         text:          expect.any(String),
         verseFromUuid: expect.any(String),
         verseToUuid:   expect.any(String),
       });
       // Auteur embedé
-      expect(c.author).toMatchObject({ slug: 'augustine', nameFr: expect.any(String) });
+      expect(c.person).toMatchObject({ slug: 'augustine', nameFr: expect.any(String) });
     }
   });
 
   it('le champ "source" quand présent a la bonne shape', async () => {
-    const { data } = await get<any>('/api/patristic/authors/augustine/comments?limit=50');
+    const { data } = await get<any>('/api/patristic/persons/augustine/comments?limit=50');
     const withSource = data.data.filter((c: any) => c.source != null);
     for (const c of withSource) {
       expect(typeof c.source.name).toBe('string');
@@ -552,15 +552,15 @@ describe('GET /api/patristic/authors/:slug/comments', () => {
   });
 
   it('respecte limit et offset', async () => {
-    const { data: p1 } = await get<any>('/api/patristic/authors/augustine/comments?limit=5&offset=0');
-    const { data: p2 } = await get<any>('/api/patristic/authors/augustine/comments?limit=5&offset=5');
+    const { data: p1 } = await get<any>('/api/patristic/persons/augustine/comments?limit=5&offset=0');
+    const { data: p2 } = await get<any>('/api/patristic/persons/augustine/comments?limit=5&offset=5');
     expect(p1.data).toHaveLength(5);
     expect(p2.data.length).toBeGreaterThan(0);
     expect(p2.data[0].uuid).not.toBe(p1.data[0].uuid);
   });
 
   it('retourne vide (pas 404) pour un auteur sans commentaires ou inconnu', async () => {
-    const res = await fetch(`${BASE}/api/patristic/authors/slug-inconnu-zzz/comments`);
+    const res = await fetch(`${BASE}/api/patristic/persons/slug-inconnu-zzz/comments`);
     expect(res.status).toBe(200);
     const body = await res.json() as any;
     expect(body.total).toBe(0);
@@ -575,7 +575,7 @@ describe('GET /api/patristic/verses/:uuid/comments', () => {
   let verseUuid = '';
 
   beforeAll(async () => {
-    const { data } = await get<any>('/api/patristic/authors/chrysostom/comments?limit=1');
+    const { data } = await get<any>('/api/patristic/persons/chrysostom/comments?limit=1');
     verseUuid = data.data[0]?.verseFromUuid ?? '';
   });
 
@@ -599,7 +599,7 @@ describe('GET /api/patristic/verses/:uuid/comments', () => {
     if (!verseUuid) return;
     const { data } = await get<any>(`/api/patristic/verses/${verseUuid}/comments?limit=20`);
     for (const c of data.data) {
-      expect(c.author).toMatchObject({
+      expect(c.person).toMatchObject({
         uuid:   expect.any(String),
         slug:   expect.any(String),
         nameFr: expect.any(String),
@@ -617,25 +617,25 @@ describe('GET /api/patristic/verses/:uuid/comments', () => {
   it('plusieurs auteurs différents peuvent commenter le même verset', async () => {
     if (!verseUuid) return;
     const { data } = await get<any>(`/api/patristic/verses/${verseUuid}/comments?limit=100`);
-    const slugs = new Set(data.data.map((c: any) => c.author?.slug).filter(Boolean));
+    const slugs = new Set(data.data.map((c: any) => c.person?.slug).filter(Boolean));
     // Un verset important peut avoir des commentaires de plusieurs Pères
     expect(slugs.size).toBeGreaterThanOrEqual(1);
   });
 });
 
-// ── Magistère / authors ───────────────────────────────────────────────────────
+// ── Magistère / persons ───────────────────────────────────────────────────────
 // Note : ces tests passent même si scrape:magistere n'a pas encore été lancé
 // (le store retourne des listes vides sans erreur).
 
-describe('GET /api/magistere/authors', () => {
+describe('GET /api/magistere/persons', () => {
   it('retourne 200 avec { data: [] } (même si pas encore scrapé)', async () => {
-    const { data, ms } = await get<any>('/api/magistere/authors');
+    const { data, ms } = await get<any>('/api/magistere/persons');
     expect(data.data).toBeArray();
     expect(ms).toBeLessThan(200);
   });
 
   it('si des auteurs existent, chacun a les champs obligatoires', async () => {
-    const { data } = await get<any>('/api/magistere/authors');
+    const { data } = await get<any>('/api/magistere/persons');
     for (const a of data.data) {
       expect(a).toMatchObject({
         slug:      expect.any(String),
@@ -647,7 +647,7 @@ describe('GET /api/magistere/authors', () => {
   });
 
   it('les papes ont pontificate_start', async () => {
-    const { data } = await get<any>('/api/magistere/authors');
+    const { data } = await get<any>('/api/magistere/persons');
     const popes = data.data.filter((a: any) => a.type === 'pope');
     for (const p of popes) {
       expect(typeof p.pontificate_start).toBe('number');
@@ -655,7 +655,7 @@ describe('GET /api/magistere/authors', () => {
   });
 
   it('les conciles ont council_start et council_end', async () => {
-    const { data } = await get<any>('/api/magistere/authors');
+    const { data } = await get<any>('/api/magistere/persons');
     const councils = data.data.filter((a: any) => a.type === 'council');
     for (const c of councils) {
       expect(typeof c.council_start).toBe('number');
@@ -666,16 +666,16 @@ describe('GET /api/magistere/authors', () => {
 
 // ── Magistère / author by slug ────────────────────────────────────────────────
 
-describe('GET /api/magistere/authors/:slug', () => {
+describe('GET /api/magistere/persons/:slug', () => {
   it('retourne 404 pour un slug inconnu', async () => {
-    const res = await fetch(`${BASE}/api/magistere/authors/inconnu-zzz`);
+    const res = await fetch(`${BASE}/api/magistere/persons/inconnu-zzz`);
     expect(res.status).toBe(404);
   });
 
   it('si "francois" existe, retourne ses infos', async () => {
-    const { data: authors } = await get<any>('/api/magistere/authors');
+    const { data: authors } = await get<any>('/api/magistere/persons');
     if (!authors.data.find((a: any) => a.slug === 'francois')) return;
-    const { data } = await get<any>('/api/magistere/authors/francois');
+    const { data } = await get<any>('/api/magistere/persons/francois');
     expect(data.slug).toBe('francois');
     expect(data.type).toBe('pope');
     expect(data.pontificate_start).toBe(2013);
@@ -726,9 +726,9 @@ describe('GET /api/magistere/documents', () => {
 
 // ── Magistère / documents par auteur ─────────────────────────────────────────
 
-describe('GET /api/magistere/authors/:slug/documents', () => {
+describe('GET /api/magistere/persons/:slug/documents', () => {
   it('retourne 200 même si l\'auteur n\'a pas de documents', async () => {
-    const res = await fetch(`${BASE}/api/magistere/authors/inconnu-zzz/documents`);
+    const res = await fetch(`${BASE}/api/magistere/persons/inconnu-zzz/documents`);
     expect(res.status).toBe(200);
     const body = await res.json() as any;
     expect(body.data).toBeArray();
@@ -739,7 +739,7 @@ describe('GET /api/magistere/authors/:slug/documents', () => {
     const { data: docs } = await get<any>('/api/magistere/documents');
     if (docs.data.length === 0) return;
     const slug = docs.data[0].author_slug;
-    const { data } = await get<any>(`/api/magistere/authors/${slug}/documents`);
+    const { data } = await get<any>(`/api/magistere/persons/${slug}/documents`);
     for (const d of data.data) {
       expect(d.author_slug).toBe(slug);
     }
@@ -769,7 +769,7 @@ describe('GET /api/magistere/verses/:uuid/comments', () => {
     const { data } = await get<any>(`/api/magistere/verses/${verseUuid}/comments?limit=20`);
     expect(data.data.length).toBeGreaterThan(0);
     for (const c of data.data) {
-      expect(c.author).toMatchObject({ slug: expect.any(String), name: expect.any(String) });
+      expect(c.person).toMatchObject({ slug: expect.any(String), name: expect.any(String) });
       expect(Array.isArray(c.verse_uuids)).toBe(true);
       expect(c.verse_uuids).toContain(verseUuid);
     }
@@ -804,7 +804,7 @@ describe('GET /api/magistere/documents/:abbr/comments', () => {
     expect(data.data.length).toBeGreaterThan(0);
     for (const c of data.data) {
       expect(c.document_abbr).toBe('EG');
-      expect(c.author).toMatchObject({ slug: 'francois' });
+      expect(c.person).toMatchObject({ slug: 'francois' });
       expect(typeof c.text).toBe('string');
       expect(c.text.length).toBeGreaterThan(0);
       expect(Array.isArray(c.verse_uuids)).toBe(true);

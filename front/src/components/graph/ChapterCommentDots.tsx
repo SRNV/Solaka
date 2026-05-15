@@ -30,7 +30,7 @@ export function ChapterCommentDots({ layout }: ChapterCommentDotsProps) {
       if (summary.count === 0) continue;
       const pos = layout.uuidPosMap.get(uuid);
       if (!pos) continue;
-      const top = summary.authors[0];
+      const top = summary.persons[0];
       result.push({
         uuid,
         pos,

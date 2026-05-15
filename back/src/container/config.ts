@@ -6,9 +6,9 @@ export interface AppConfig {
   eventsPath:             string;
   geomapPath:             string;
   biblicalDataPath:       string;
-  patristicAuthorsPath:   string;
+  patristicPersonsPath:   string;
   patristicCommentsPath:  string;
-  magistereAuthorsPath:   string;
+  magisterePersonsPath:   string;
   magistereCommentsPath:  string;
   port:                   number;
   corsOrigin:             string;

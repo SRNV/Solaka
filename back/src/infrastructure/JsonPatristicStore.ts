@@ -3,71 +3,76 @@ import { injectable, inject } from 'inversify';
 import { TYPES } from '../container/types';
 import type { AppConfig } from '../container/config';
 import type { IPatristicRepository } from '../domain/repositories/IPatristicRepository';
-import type { PatristicAuthor, PatristicComment, PatristicCommentResult, CommentSummary } from '../domain/Patristic';
+import type { PatristicPerson, PatristicComment, PatristicCommentResult, CommentSummary } from '../domain/Patristic';
 import type { PaginatedResponse } from '../domain/Pagination';
 
 @injectable()
 export class JsonPatristicStore implements IPatristicRepository {
-  private authors: PatristicAuthor[] = [];
-  private byUuid  = new Map<string, PatristicAuthor>();
-  private bySlug  = new Map<string, PatristicAuthor>();
+  private persons: PatristicPerson[] = [];
+  private byUuid  = new Map<string, PatristicPerson>();
+  private bySlug  = new Map<string, PatristicPerson>();
 
   // verse uuid → comments for that verse
   private byVerse = new Map<string, PatristicComment[]>();
-  // author uuid → comments by that author
-  private byAuthorUuid = new Map<string, PatristicComment[]>();
+  // person uuid → comments by that person
+  private byPersonUuid = new Map<string, PatristicComment[]>();
   // pre-built full index (uuid → summary)
   private commentIndex: Record<string, CommentSummary> = {};
 
   constructor(@inject(TYPES.Config) config: AppConfig) {
-    this.load(config.patristicAuthorsPath, config.patristicCommentsPath);
+    this.load(config.patristicPersonsPath, config.patristicCommentsPath);
   }
 
-  private load(authorsPath: string, commentsPath: string): void {
+  private load(personsPath: string, commentsPath: string): void {
     const isFile = (p: string) => { try { return fs.statSync(p).isFile(); } catch { return false; } };
-    if (!isFile(authorsPath) || !isFile(commentsPath)) {
+    if (!isFile(personsPath) || !isFile(commentsPath)) {
       console.warn('[PatristicStore] Missing data files — patristic endpoints will return empty results');
       return;
     }
 
-    this.authors = JSON.parse(fs.readFileSync(authorsPath, 'utf-8')) as PatristicAuthor[];
-    for (const a of this.authors) {
+    this.persons = JSON.parse(fs.readFileSync(personsPath, 'utf-8')) as PatristicPerson[];
+    for (const a of this.persons) {
       this.byUuid.set(a.uuid, a);
       this.bySlug.set(a.slug, a);
     }
 
-    const comments = JSON.parse(fs.readFileSync(commentsPath, 'utf-8')) as PatristicComment[];
+    const rawComments = JSON.parse(fs.readFileSync(commentsPath, 'utf-8')) as Array<PatristicComment & { authorUuid?: string }>;
+    const comments: PatristicComment[] = rawComments.map(c => ({
+      ...c,
+      personUuid: c.personUuid ?? c.authorUuid ?? '',
+    }));
+
     for (const c of comments) {
       // Index by verse
       const vList = this.byVerse.get(c.verseFromUuid) ?? [];
       vList.push(c);
       this.byVerse.set(c.verseFromUuid, vList);
 
-      // Index by author
-      const aList = this.byAuthorUuid.get(c.authorUuid) ?? [];
+      // Index by person
+      const aList = this.byPersonUuid.get(c.personUuid) ?? [];
       aList.push(c);
-      this.byAuthorUuid.set(c.authorUuid, aList);
+      this.byPersonUuid.set(c.personUuid, aList);
     }
 
     // Pre-build comment index
     for (const [uuid, list] of this.byVerse) {
       const seen = new Set<string>();
-      const authors: CommentSummary['authors'] = [];
+      const persons: CommentSummary['persons'] = [];
       for (const c of list) {
-        if (!seen.has(c.authorUuid)) {
-          seen.add(c.authorUuid);
-          const a = this.byUuid.get(c.authorUuid);
-          if (a) authors.push({ slug: a.slug, nameFr: a.nameFr, tradition: a.tradition, type: a.type ?? 'patristic' });
+        if (!seen.has(c.personUuid)) {
+          seen.add(c.personUuid);
+          const a = this.byUuid.get(c.personUuid);
+          if (a) persons.push({ slug: a.slug, nameFr: a.nameFr, tradition: a.tradition, type: a.type ?? 'patristic' });
         }
       }
-      this.commentIndex[uuid] = { count: list.length, authors: authors.slice(0, 12) };
+      this.commentIndex[uuid] = { count: list.length, persons: persons.slice(0, 12) };
     }
 
-    console.log(`[PatristicStore] ${this.authors.length} authors, ${comments.length} comments loaded`);
+    console.log(`[PatristicStore] ${this.persons.length} persons, ${comments.length} comments loaded`);
   }
 
-  private attachAuthor(c: PatristicComment): PatristicCommentResult {
-    return { ...c, author: this.byUuid.get(c.authorUuid)! };
+  private attachPerson(c: PatristicComment): PatristicCommentResult {
+    return { ...c, person: this.byUuid.get(c.personUuid)! };
   }
 
   private paginate<T>(items: T[], limit = 50, offset = 0): PaginatedResponse<T> {
@@ -79,23 +84,23 @@ export class JsonPatristicStore implements IPatristicRepository {
     };
   }
 
-  getAuthors(limit = 50, offset = 0): PaginatedResponse<PatristicAuthor> {
-    return this.paginate(this.authors, limit, offset);
+  getPersons(limit = 50, offset = 0): PaginatedResponse<PatristicPerson> {
+    return this.paginate(this.persons, limit, offset);
   }
 
-  getAuthorBySlug(slug: string): PatristicAuthor | null {
+  getPersonBySlug(slug: string): PatristicPerson | null {
     return this.bySlug.get(slug) ?? null;
   }
 
   getCommentsByVerse(verseUuid: string, limit = 50, offset = 0): PaginatedResponse<PatristicCommentResult> {
-    const comments = (this.byVerse.get(verseUuid) ?? []).map(c => this.attachAuthor(c));
+    const comments = (this.byVerse.get(verseUuid) ?? []).map(c => this.attachPerson(c));
     return this.paginate(comments, limit, offset);
   }
 
-  getCommentsByAuthor(slug: string, limit = 50, offset = 0): PaginatedResponse<PatristicCommentResult> {
-    const author = this.bySlug.get(slug);
-    if (!author) return { data: [], total: 0, limit, offset };
-    const comments = (this.byAuthorUuid.get(author.uuid) ?? []).map(c => this.attachAuthor(c));
+  getCommentsByPerson(slug: string, limit = 50, offset = 0): PaginatedResponse<PatristicCommentResult> {
+    const person = this.bySlug.get(slug);
+    if (!person) return { data: [], total: 0, limit, offset };
+    const comments = (this.byPersonUuid.get(person.uuid) ?? []).map(c => this.attachPerson(c));
     return this.paginate(comments, limit, offset);
   }
 
@@ -109,15 +114,15 @@ export class JsonPatristicStore implements IPatristicRepository {
       const comments = this.byVerse.get(uuid);
       if (!comments || comments.length === 0) continue;
       const seen = new Set<string>();
-      const authors: CommentSummary['authors'] = [];
+      const persons: CommentSummary['persons'] = [];
       for (const c of comments) {
-        if (!seen.has(c.authorUuid)) {
-          seen.add(c.authorUuid);
-          const a = this.byUuid.get(c.authorUuid);
-          if (a) authors.push({ slug: a.slug, nameFr: a.nameFr, tradition: a.tradition, type: a.type ?? 'patristic' });
+        if (!seen.has(c.personUuid)) {
+          seen.add(c.personUuid);
+          const a = this.byUuid.get(c.personUuid);
+          if (a) persons.push({ slug: a.slug, nameFr: a.nameFr, tradition: a.tradition, type: a.type ?? 'patristic' });
         }
       }
-      result[uuid] = { count: comments.length, authors: authors.slice(0, 12) };
+      result[uuid] = { count: comments.length, persons: persons.slice(0, 12) };
     }
     return result;
   }

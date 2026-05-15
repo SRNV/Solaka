@@ -24,7 +24,7 @@ import {
   type AnimatedLineHandle,
   type LineSegment,
 } from './AnimatedLineService.ts';
-import { buildBillboards, type BillboardHandle } from './AuthorBillboardService.ts';
+import { buildBillboards, type BillboardHandle } from './PersonBillboardService.ts';
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 

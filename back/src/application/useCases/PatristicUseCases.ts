@@ -1,13 +1,13 @@
 import type { IPatristicRepository } from '../../domain/repositories/IPatristicRepository';
 
-export class GetPatristicAuthors {
+export class GetPatristicPersons {
   constructor(private repo: IPatristicRepository) {}
-  execute(limit?: number, offset?: number) { return this.repo.getAuthors(limit, offset); }
+  execute(limit?: number, offset?: number) { return this.repo.getPersons(limit, offset); }
 }
 
-export class GetPatristicAuthorBySlug {
+export class GetPatristicPersonBySlug {
   constructor(private repo: IPatristicRepository) {}
-  execute(slug: string) { return this.repo.getAuthorBySlug(slug); }
+  execute(slug: string) { return this.repo.getPersonBySlug(slug); }
 }
 
 export class GetPatristicCommentsByVerse {
@@ -17,10 +17,10 @@ export class GetPatristicCommentsByVerse {
   }
 }
 
-export class GetPatristicCommentsByAuthor {
+export class GetPatristicCommentsByPerson {
   constructor(private repo: IPatristicRepository) {}
   execute(slug: string, limit?: number, offset?: number) {
-    return this.repo.getCommentsByAuthor(slug, limit, offset);
+    return this.repo.getCommentsByPerson(slug, limit, offset);
   }
 }
 

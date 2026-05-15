@@ -1,9 +1,9 @@
-import type { PatristicAuthor, PatristicCommentResult, CommentSummary } from '../Patristic';
+import type { PatristicPerson, PatristicCommentResult, CommentSummary } from '../Patristic';
 import type { PaginatedResponse } from '../Pagination';
 
 export interface IPatristicRepository {
-  getAuthors(limit?: number, offset?: number): PaginatedResponse<PatristicAuthor>;
-  getAuthorBySlug(slug: string): PatristicAuthor | null;
+  getPersons(limit?: number, offset?: number): PaginatedResponse<PatristicPerson>;
+  getPersonBySlug(slug: string): PatristicPerson | null;
 
   getCommentsByVerse(
     verseUuid: string,
@@ -11,7 +11,7 @@ export interface IPatristicRepository {
     offset?: number,
   ): PaginatedResponse<PatristicCommentResult>;
 
-  getCommentsByAuthor(
+  getCommentsByPerson(
     slug: string,
     limit?: number,
     offset?: number,

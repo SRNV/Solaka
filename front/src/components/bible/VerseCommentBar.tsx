@@ -39,7 +39,7 @@ export function VerseCommentBar({ summary, onClick }: VerseCommentBarProps) {
       onKeyDown={onClick ? e => { if (e.key === 'Enter' || e.key === ' ') onClick(); } : undefined}
     >
       <div className={styles.avatars}>
-        {summary.authors.slice(0, 12).map(a => (
+        {summary.persons.slice(0, 12).map(a => (
           <span
             key={a.slug}
             className={`${styles.avatar} ${a.type === 'magistere' ? styles.avatarMagistere : styles.avatarPatristic}`}

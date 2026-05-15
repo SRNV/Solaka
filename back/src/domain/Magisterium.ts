@@ -1,6 +1,6 @@
 export { PaginatedResponse } from './Pagination';
 
-export interface MagisteriumAuthor {
+export interface MagisteriumPerson {
   slug: string;
   name: string;
   type: 'pope' | 'council' | 'dicastery';
@@ -25,7 +25,7 @@ export interface MagisteriumComment {
 }
 
 export interface MagisteriumCommentResult extends MagisteriumComment {
-  author: MagisteriumAuthor;
+  person: MagisteriumPerson;
 }
 
 export interface MagisteriumDocument {

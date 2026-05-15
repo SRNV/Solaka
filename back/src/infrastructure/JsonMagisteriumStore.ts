@@ -4,7 +4,7 @@ import { TYPES } from '../container/types';
 import type { AppConfig } from '../container/config';
 import type { IMagisteriumRepository } from '../domain/repositories/IMagisteriumRepository';
 import type {
-  MagisteriumAuthor,
+  MagisteriumPerson,
   MagisteriumComment,
   MagisteriumCommentResult,
   MagisteriumDocument,
@@ -13,8 +13,8 @@ import type { PaginatedResponse } from '../domain/Pagination';
 
 @injectable()
 export class JsonMagisteriumStore implements IMagisteriumRepository {
-  private authors: MagisteriumAuthor[] = [];
-  private bySlug  = new Map<string, MagisteriumAuthor>();
+  private persons: MagisteriumPerson[] = [];
+  private bySlug  = new Map<string, MagisteriumPerson>();
 
   // verse uuid → comments citing that verse
   private byVerse = new Map<string, MagisteriumComment[]>();
@@ -24,18 +24,18 @@ export class JsonMagisteriumStore implements IMagisteriumRepository {
   private docs: MagisteriumDocument[] = [];
 
   constructor(@inject(TYPES.Config) config: AppConfig) {
-    this.load(config.magistereAuthorsPath, config.magistereCommentsPath);
+    this.load(config.magisterePersonsPath, config.magistereCommentsPath);
   }
 
-  private load(authorsPath: string, commentsPath: string): void {
+  private load(personsPath: string, commentsPath: string): void {
     const isFile = (p: string) => { try { return fs.statSync(p).isFile(); } catch { return false; } };
-    if (!isFile(authorsPath) || !isFile(commentsPath)) {
+    if (!isFile(personsPath) || !isFile(commentsPath)) {
       console.warn('[MagisteriumStore] Missing data files — magistère endpoints will return empty results');
       return;
     }
 
-    this.authors = JSON.parse(fs.readFileSync(authorsPath, 'utf-8')) as MagisteriumAuthor[];
-    for (const a of this.authors) this.bySlug.set(a.slug, a);
+    this.persons = JSON.parse(fs.readFileSync(personsPath, 'utf-8')) as MagisteriumPerson[];
+    for (const a of this.persons) this.bySlug.set(a.slug, a);
 
     const comments = JSON.parse(fs.readFileSync(commentsPath, 'utf-8')) as MagisteriumComment[];
 
@@ -74,38 +74,38 @@ export class JsonMagisteriumStore implements IMagisteriumRepository {
       comment_count: this.byDoc.get(abbr)!.length,
     })).sort((a, b) => a.year - b.year);
 
-    console.log(`[MagisteriumStore] ${this.authors.length} authors, ${comments.length} comments, ${this.docs.length} documents loaded`);
+    console.log(`[MagisteriumStore] ${this.persons.length} persons, ${comments.length} comments, ${this.docs.length} documents loaded`);
   }
 
-  private attachAuthor(c: MagisteriumComment): MagisteriumCommentResult {
-    return { ...c, author: this.bySlug.get(c.author_slug)! };
+  private attachPerson(c: MagisteriumComment): MagisteriumCommentResult {
+    return { ...c, person: this.bySlug.get(c.author_slug)! };
   }
 
   private paginate<T>(items: T[], limit = 50, offset = 0): PaginatedResponse<T> {
     return { data: items.slice(offset, offset + limit), total: items.length, limit, offset };
   }
 
-  getAuthors(): MagisteriumAuthor[] {
-    return this.authors;
+  getPersons(): MagisteriumPerson[] {
+    return this.persons;
   }
 
-  getAuthorBySlug(slug: string): MagisteriumAuthor | null {
+  getPersonBySlug(slug: string): MagisteriumPerson | null {
     return this.bySlug.get(slug) ?? null;
   }
 
-  getDocuments(authorSlug?: string): MagisteriumDocument[] {
-    if (!authorSlug) return this.docs;
-    return this.docs.filter(d => d.author_slug === authorSlug);
+  getDocuments(personSlug?: string): MagisteriumDocument[] {
+    if (!personSlug) return this.docs;
+    return this.docs.filter(d => d.author_slug === personSlug);
   }
 
   getCommentsByVerse(verseUuid: string, limit = 50, offset = 0): PaginatedResponse<MagisteriumCommentResult> {
-    const comments = (this.byVerse.get(verseUuid) ?? []).map(c => this.attachAuthor(c));
+    const comments = (this.byVerse.get(verseUuid) ?? []).map(c => this.attachPerson(c));
     return this.paginate(comments, limit, offset);
   }
 
   getCommentsByDocument(abbr: string, limit = 50, offset = 0): PaginatedResponse<MagisteriumCommentResult> {
     const comments = (this.byDoc.get(abbr.toUpperCase()) ?? this.byDoc.get(abbr) ?? [])
-      .map(c => this.attachAuthor(c));
+      .map(c => this.attachPerson(c));
     return this.paginate(comments, limit, offset);
   }
 }

@@ -22,9 +22,9 @@ services:
       BIBLICAL_DATA_PATH: /app/data/biblical-geocoding
       PLEIADES_PATH: /app/data/pleiades
       CORS_ORIGIN: "*"
-      PATRISTIC_AUTHORS_PATH: /app/data/authors.json
+      PATRISTIC_PERSONS_PATH: /app/data/persons.json
       PATRISTIC_COMMENTS_PATH: /app/data/patristic_comments.json
-      MAGISTERE_AUTHORS_PATH: /app/data/magistere_authors.json
+      MAGISTERE_PERSONS_PATH: /app/data/magistere_persons.json
       MAGISTERE_COMMENTS_PATH: /app/data/magistere_comments.json
     volumes:
       - ../objections.json:/app/data/objections.json:ro
@@ -35,7 +35,7 @@ services:
       - ./back/data/geojson:/app/data/geojson:ro
       - ./front/exemples/Bible-Geocoding-Data:/app/data/biblical-geocoding:ro
       - ./front/exemples/pleiades-geojson/geojson:/app/data/pleiades:ro
-      - ../scrapp/output/authors.json:/app/data/authors.json:ro
+      - ../scrapp/output/persons.json:/app/data/persons.json:ro
       - ../scrapp/output/comments.json:/app/data/patristic_comments.json:ro
     restart: unless-stopped
 

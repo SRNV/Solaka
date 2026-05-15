@@ -1,10 +1,10 @@
 import { Router } from 'express';
 import type { IPatristicRepository } from '../../domain/repositories/IPatristicRepository';
 import {
-  GetPatristicAuthors,
-  GetPatristicAuthorBySlug,
+  GetPatristicPersons,
+  GetPatristicPersonBySlug,
   GetPatristicCommentsByVerse,
-  GetPatristicCommentsByAuthor,
+  GetPatristicCommentsByPerson,
   GetPatristicCommentsBatch,
   GetPatristicCommentIndex,
 } from '../../application/useCases/PatristicUseCases';
@@ -12,10 +12,10 @@ import {
 export default function patristicRouter(repo: IPatristicRepository): Router {
   const router = Router();
 
-  const getAuthors          = new GetPatristicAuthors(repo);
-  const getAuthorBySlug     = new GetPatristicAuthorBySlug(repo);
+  const getPersons          = new GetPatristicPersons(repo);
+  const getPersonBySlug     = new GetPatristicPersonBySlug(repo);
   const getCommentsByVerse  = new GetPatristicCommentsByVerse(repo);
-  const getCommentsByAuthor = new GetPatristicCommentsByAuthor(repo);
+  const getCommentsByPerson = new GetPatristicCommentsByPerson(repo);
   const getCommentsBatch    = new GetPatristicCommentsBatch(repo);
   const getCommentIndex     = new GetPatristicCommentIndex(repo);
 
@@ -24,23 +24,23 @@ export default function patristicRouter(repo: IPatristicRepository): Router {
     offset: parseInt(req.query.offset as string) || 0,
   });
 
-  // GET /api/patristic/authors
-  router.get('/authors', (req, res) => {
+  // GET /api/patristic/persons
+  router.get('/persons', (req, res) => {
     const { limit, offset } = getPagination(req);
-    res.json(getAuthors.execute(limit, offset));
+    res.json(getPersons.execute(limit, offset));
   });
 
-  // GET /api/patristic/authors/:slug
-  router.get('/authors/:slug', (req, res) => {
-    const author = getAuthorBySlug.execute(req.params.slug);
-    if (!author) return res.status(404).json({ error: 'Author not found' });
-    res.json(author);
+  // GET /api/patristic/persons/:slug
+  router.get('/persons/:slug', (req, res) => {
+    const person = getPersonBySlug.execute(req.params.slug);
+    if (!person) return res.status(404).json({ error: 'Person not found' });
+    res.json(person);
   });
 
-  // GET /api/patristic/authors/:slug/comments
-  router.get('/authors/:slug/comments', (req, res) => {
+  // GET /api/patristic/persons/:slug/comments
+  router.get('/persons/:slug/comments', (req, res) => {
     const { limit, offset } = getPagination(req);
-    res.json(getCommentsByAuthor.execute(req.params.slug, limit, offset));
+    res.json(getCommentsByPerson.execute(req.params.slug, limit, offset));
   });
 
   // GET /api/patristic/verses/:uuid/comments
