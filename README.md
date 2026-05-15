@@ -94,23 +94,50 @@ front/src/
 
 ## Fonctionnalités principales
 
-**Graphe biblique 3D**  
-Livres comme cubes, versets reliés par des arcs colorés (citation, typologie, accomplissement, allusion, parallèle, thématique). Navigation par livre / chapitre dans un drawer latéral.
+### Graphe biblique 3D
 
-**Globe historique**  
-Carte 3D avec frontières géopolitiques datées (GeoJSON), labels des pays, places bibliques géocodées, zoom centré sur le curseur.
+Le cœur de l'application. Chaque livre de la Bible est représenté comme un objet 3D dans un espace navigable. Les versets sont reliés entre eux par des arcs colorés selon leur type de relation :
 
-**Voyages des apôtres**  
-Traits animés (shader écran-espace, pulse gaussien), progression clippée selon la date historique via `uMaxT`, portraits des apôtres sur le trajet (atlas sprite sheet).
+- **Citation** — un texte cité mot pour mot dans un autre livre
+- **Typologie** — une réalité de l'Ancien Testament qui préfigure le Nouveau
+- **Accomplissement** — une prophétie et son accomplissement explicite
+- **Allusion** — un écho thématique ou lexical entre deux passages
+- **Parallèle** — deux récits racontant le même événement (ex. évangiles synoptiques)
+- **Thématique** — deux textes partageant un même thème théologique
 
-**Commentaires patristiques**  
-Commentaires des Pères de l'Église et du Magistère sur chaque verset, filtrables par auteur, triables par date / ordre alphabétique / longueur.
+Un drawer latéral permet de naviguer livre par livre et chapitre par chapitre, d'afficher le texte de chaque verset avec son contexte, et de voir tous les liens qui le traversent. Les arcs sont colorés selon la tradition (catholique, protestante) et la nature de la relation.
 
-**Objections & réfutations**  
-Questions théologiques avec réponses et références bibliques associées.
+### Globe historique
 
-**Recherche**  
-Recherche plein texte dans toute la Bible.
+Un globe 3D (Three.js, projection orthographique) affiche les frontières géopolitiques du monde biblique à différentes époques. Un curseur de date permet de faire évoluer la carte entre — 700 av. J.-C. et aujourd'hui : les empires assyrien, babylonien, perse, grec, romain, byzantin… apparaissent et disparaissent au fil du temps.
+
+Les **lieux bibliques géocodés** (villes, régions mentionnées dans la Bible) sont superposés sur le globe et s'activent lorsqu'un verset les cite. Les labels s'affichent avec un système de détection de collision pour éviter les chevauchements, et leur taille s'adapte au niveau de zoom.
+
+### Voyages des apôtres
+
+Les trajets missionnaires des apôtres (Pierre, Paul et ses cinq voyages, Jean, Thomas…) sont tracés sur le globe sous forme de traits animés. Un **pulse gaussien** se déplace le long du trait pour indiquer le sens de déplacement.
+
+La progression du trajet est **synchronisée avec la date historique** : lorsque l'utilisateur change l'année dans le curseur, chaque voyage se découpe progressivement jusqu'au dernier lieu atteint à cette date. La transition est fluide (interpolation GSAP sur le paramètre `uMaxT` dans le shader). Le portrait de l'apôtre glisse le long du trajet au fil du temps.
+
+Les apôtres sont identifiables par leur photo (extraite de Wikidata / Wikipédia) affichée sous forme de billboard sur le globe, avec un encadrement coloré selon leur statut (apôtre, Père de l'Église, Magistère).
+
+### Commentaires patristiques et Magistère
+
+Pour chaque verset, les commentaires des Pères de l'Église et des documents du Magistère sont disponibles dans une modale dédiée. On peut :
+
+- **Trier** par date (chronologique), ordre alphabétique ou longueur du commentaire
+- **Filtrer** par auteur via un menu déroulant
+- **Naviguer** entre les versets d'un même passage sans fermer la modale (flèches ou touches ← →)
+
+Les commentaires patristiques et magistériels sont visuellement séparés et colorés différemment (violet pour les Pères, or pour le Magistère). Les auteurs sont représentés par leurs portraits dans un sprite atlas partagé.
+
+### Objections théologiques
+
+Une section dédiée aux questions apologétiques courantes : chaque objection est accompagnée d'une réponse argumentée et des références bibliques et patristiques correspondantes.
+
+### Recherche
+
+Recherche plein texte sur l'ensemble de la Bible. Les résultats renvoient directement au verset dans le graphe et ouvrent le drawer de lecture.
 
 ---
 
