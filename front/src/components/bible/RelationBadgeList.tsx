@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import type { RelRow } from '@/store/relations.store.ts';
 import { TRAD_LIMIT, badgeLabel } from '@/utils/bibleDrawer.ts';
-import styles from './BibleDrawer.module.css';
 
 interface RelationBadgeListProps {
   rels:           RelRow[];

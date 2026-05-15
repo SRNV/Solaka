@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { mountScene, type CameraState, type SceneControls } from './scene.ts';
+import { mountScene, type CameraState, type SceneControls, type AuthorPin } from './scene.ts';
 import { useApi } from '../../hooks/useApi.ts';
 import { GeoMap } from '../../types/api.ts';
 import { useBibleDrawer } from '../../contexts/BibleDrawerContext.tsx';
@@ -7,25 +7,36 @@ import { getOsisRef } from './osisUtils.ts';
 import { biblicalPlacesService } from '../../services/biblicalPlacesService.ts';
 import { useStompMapFeatures } from '../../hooks/useStompMapFeatures.ts';
 import { useStompPlaces } from '../../hooks/useStompPlaces.ts';
+import { usePatristicCommentStore } from '../../store/comment.store.ts';
+import authorPositions from '../../data/authorPositions.json';
+import atlasIndex from '../../data/atlas.json';
 
-const pill = (active: boolean): React.CSSProperties => ({
-  fontSize: 10, fontWeight: 700, letterSpacing: '0.3px',
-  padding: '4px 10px', borderRadius: 99,
-  border: `1.5px solid ${active ? '#C879FF' : '#dde0ee'}`,
-  background: active ? '#C879FF' : 'rgba(247,248,252,0.88)',
-  color: active ? '#fff' : '#888',
-  cursor: 'pointer',
-  backdropFilter: 'blur(6px)',
-  transition: 'all 0.14s',
-  whiteSpace: 'nowrap' as const,
+type PosEntry   = { lon: number; lat: number; nameFr: string; tradition: string; type?: 'patristic' | 'magistere' };
+type AtlasEntry = { x: number; y: number; width: number; height: number };
+
+const authorPins: AuthorPin[] = Object.entries(
+  authorPositions as Record<string, PosEntry>
+).map(([slug, pos]) => {
+  const tile = (atlasIndex as Record<string, AtlasEntry>)[slug];
+  return {
+    slug,
+    lon:        pos.lon,
+    lat:        pos.lat,
+    nameFr:     pos.nameFr,
+    atlasX:     tile?.x ?? 0,
+    atlasY:     tile?.y ?? 0,
+    borderType: (pos.type ?? 'patristic') === 'magistere' ? 1.0 : 0.0,
+  };
 });
 
-export function BibleMap() {
+
+export function BibleMap({ activeVerseUuids }: { activeVerseUuids: ReadonlySet<string> | null }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const ctrlRef      = useRef<SceneControls | null>(null);
   const { historicalDate, target } = useBibleDrawer();
 
-  const { data: geoMaps } = useApi<GeoMap[]>('/api/geomap');
+  const { data: geoMaps }    = useApi<GeoMap[]>('/api/geomap');
+  const { data: apostlesData } = useApi<{ type: string; features: any[] }>('/api/apostles');
 
   const bestMapId = useMemo(() => {
     if (!geoMaps) return null;
@@ -54,19 +65,37 @@ export function BibleMap() {
 
   const { places: bgdPlaces }      = useStompPlaces('bgd');
 
-  const [projectionId, setProjectionId] = useState<string | null>(null);
+  const [projectionId]                   = useState<string | null>(null);
   const { features: projectionFeatures } = useStompMapFeatures(projectionId);
   const [currentMapLabel, setCurrentMapLabel] = useState<string | null>(null);
-  const [cam,          setCam]          = useState<CameraState | null>(null);
-  const [dispScale,    setDispScale]    = useState(0);
+  const [, setCam] = useState<CameraState | null>(null);
 
   useEffect(() => {
     if (!containerRef.current) return;
     const ctrl = mountScene(containerRef.current, setCam);
     ctrlRef.current = ctrl;
     ctrl.setDisplacement(0);
+    ctrl.setAuthors([]);
     return ctrl.cleanup;
   }, []);
+
+  const summaries      = usePatristicCommentStore(s => s.summaries);
+  const authorTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    if (authorTimerRef.current) clearTimeout(authorTimerRef.current);
+    authorTimerRef.current = setTimeout(() => {
+      if (!ctrlRef.current) return;
+      if (!activeVerseUuids) { ctrlRef.current.setAuthors([]); return; }
+      const visibleSlugs = new Set<string>();
+      for (const uuid of activeVerseUuids) {
+        const s = summaries.get(uuid);
+        if (s) for (const a of s.authors) visibleSlugs.add(a.slug);
+      }
+      ctrlRef.current.setAuthors(authorPins.filter(p => visibleSlugs.has(p.slug)));
+    }, 120);
+    return () => { if (authorTimerRef.current) clearTimeout(authorTimerRef.current); };
+  }, [activeVerseUuids, summaries]);
 
   useEffect(() => {
     if (!projectionId) setCurrentMapLabel(bestMapId?.label ?? null);
@@ -87,6 +116,14 @@ export function BibleMap() {
   useEffect(() => {
     ctrlRef.current?.setBGDPlaces(bgdPlaces);
   }, [bgdPlaces]);
+
+  useEffect(() => {
+    ctrlRef.current?.setApostles(apostlesData ?? null, atlasIndex as Record<string, { x: number; y: number }>);
+  }, [apostlesData]);
+
+  useEffect(() => {
+    ctrlRef.current?.setJourneyDate(historicalDate);
+  }, [historicalDate]);
 
   useEffect(() => {
     if (!target) {
@@ -121,33 +158,6 @@ export function BibleMap() {
           {currentMapLabel}
         </h1>
       )}
-
-      {/* geojson projection selector */}
-      <div style={{ display: 'flex', gap: 5, overflowX: 'auto', maxWidth: 340, paddingBottom: 2 }}>
-          {geoMaps?.filter(gm => gm.id !== 'projection_countries').map(({ id, label }) => {
-            const active = projectionId === id;
-            return (
-              <button
-                key={id}
-                onClick={() => {
-                  const next = active ? null : id;
-                  setProjectionId(next);
-                  setCurrentMapLabel(next ? label : (bestMapId?.label ?? null));
-                }}
-                style={{
-                  ...pill(false),
-                  border: `1.5px solid ${active ? '#FFAA44' : '#dde0ee'}`,
-                  background: active ? '#FFAA44' : 'rgba(247,248,252,0.88)',
-                  color: active ? '#fff' : '#888',
-                  flexShrink: 0,
-                }}
-              >
-                {label}
-              </button>
-            );
-          })}
-        </div>
-
       </div>
   );
 }

@@ -1,0 +1,464 @@
+{
+  "augustine": {
+    "lon": 7.75,
+    "lat": 36.85,
+    "nameFr": "Augustin d'Hippone",
+    "tradition": "latin",
+    "type": "patristic"
+  },
+  "chrysostom": {
+    "lon": 28.9784,
+    "lat": 41.0082,
+    "nameFr": "Jean Chrysostome",
+    "tradition": "greek",
+    "type": "patristic"
+  },
+  "jerome": {
+    "lon": 13.5138,
+    "lat": 41.8906,
+    "nameFr": "Jérôme de Stridon",
+    "tradition": "latin",
+    "type": "patristic"
+  },
+  "ambrose": {
+    "lon": 9.1905,
+    "lat": 45.4642,
+    "nameFr": "Ambroise de Milan",
+    "tradition": "latin",
+    "type": "patristic"
+  },
+  "hilary": {
+    "lon": -0.3458,
+    "lat": 46.5802,
+    "nameFr": "Hilaire de Poitiers",
+    "tradition": "latin",
+    "type": "patristic"
+  },
+  "gregory-great": {
+    "lon": 12.4964,
+    "lat": 41.9028,
+    "nameFr": "Grégoire le Grand",
+    "tradition": "latin",
+    "type": "patristic"
+  },
+  "gregory-nyssa": {
+    "lon": 35.4954,
+    "lat": 38.5753,
+    "nameFr": "Grégoire de Nysse",
+    "tradition": "greek",
+    "type": "patristic"
+  },
+  "origen": {
+    "lon": 29.9187,
+    "lat": 31.2001,
+    "nameFr": "Origène",
+    "tradition": "greek",
+    "type": "patristic"
+  },
+  "cyril-alexandria": {
+    "lon": 29.9187,
+    "lat": 31.2001,
+    "nameFr": "Cyrille d'Alexandrie",
+    "tradition": "greek",
+    "type": "patristic"
+  },
+  "basil": {
+    "lon": 35.4954,
+    "lat": 38.7322,
+    "nameFr": "Basile de Césarée",
+    "tradition": "greek",
+    "type": "patristic"
+  },
+  "bede": {
+    "lon": -1.5833,
+    "lat": 54.7769,
+    "nameFr": "Bède le Vénérable",
+    "tradition": "latin",
+    "type": "patristic"
+  },
+  "theophylact": {
+    "lon": 20.8019,
+    "lat": 41.1171,
+    "nameFr": "Théophylacte d'Ohrid",
+    "tradition": "greek",
+    "type": "patristic"
+  },
+  "rabanus": {
+    "lon": 9.9333,
+    "lat": 49.7986,
+    "nameFr": "Raban Maur",
+    "tradition": "latin",
+    "type": "patristic"
+  },
+  "remigius": {
+    "lon": 3.5969,
+    "lat": 47.7975,
+    "nameFr": "Rémi d'Auxerre",
+    "tradition": "latin",
+    "type": "patristic"
+  },
+  "anselm": {
+    "lon": 1.0769,
+    "lat": 51.2752,
+    "nameFr": "Anselme de Canterbury",
+    "tradition": "latin",
+    "type": "patristic"
+  },
+  "leo-great": {
+    "lon": 12.4964,
+    "lat": 41.9028,
+    "nameFr": "Léon le Grand",
+    "tradition": "latin",
+    "type": "patristic"
+  },
+  "bernard": {
+    "lon": 4.6167,
+    "lat": 47.7833,
+    "nameFr": "Bernard de Clairvaux",
+    "tradition": "latin",
+    "type": "patristic"
+  },
+  "aquinas": {
+    "lon": 13.8628,
+    "lat": 41.3517,
+    "nameFr": "Thomas d'Aquin",
+    "tradition": "latin",
+    "type": "patristic"
+  },
+  "ephrem": {
+    "lon": 40.7389,
+    "lat": 36.8555,
+    "nameFr": "Éphrem le Syrien",
+    "tradition": "syriac",
+    "type": "patristic"
+  },
+  "ignatius-antioch": {
+    "lon": 36.1667,
+    "lat": 36.2,
+    "nameFr": "Ignace d'Antioche",
+    "tradition": "apostolic",
+    "type": "patristic"
+  },
+  "polycarp": {
+    "lon": 27.1456,
+    "lat": 38.4192,
+    "nameFr": "Polycarpe de Smyrne",
+    "tradition": "apostolic",
+    "type": "patristic"
+  },
+  "clement-rome": {
+    "lon": 12.4964,
+    "lat": 41.9028,
+    "nameFr": "Clément de Rome",
+    "tradition": "apostolic",
+    "type": "patristic"
+  },
+  "pseudo-dionysius": {
+    "lon": 23.7275,
+    "lat": 37.9838,
+    "nameFr": "Pseudo-Denys l'Aréopagite",
+    "tradition": "greek",
+    "type": "patristic"
+  },
+  "euthymius": {
+    "lon": 28.9784,
+    "lat": 41.0082,
+    "nameFr": "Euthyme Zigabène",
+    "tradition": "greek",
+    "type": "patristic"
+  },
+  "athanasius": {
+    "lon": 29.9187,
+    "lat": 31.2001,
+    "nameFr": "Athanase d'Alexandrie",
+    "tradition": "greek",
+    "type": "patristic"
+  },
+  "justin-martyr": {
+    "lon": 35.4954,
+    "lat": 31.7683,
+    "nameFr": "Justin Martyr",
+    "tradition": "greek",
+    "type": "patristic"
+  },
+  "tertullian": {
+    "lon": 10.18,
+    "lat": 36.8065,
+    "nameFr": "Tertullien",
+    "tradition": "latin",
+    "type": "patristic"
+  },
+  "cyprian": {
+    "lon": 10.18,
+    "lat": 36.8065,
+    "nameFr": "Cyprien de Carthage",
+    "tradition": "latin",
+    "type": "patristic"
+  },
+  "lactantius": {
+    "lon": 12.4964,
+    "lat": 41.9028,
+    "nameFr": "Lactance",
+    "tradition": "latin",
+    "type": "patristic"
+  },
+  "epiphanius": {
+    "lon": 33.9258,
+    "lat": 35.1856,
+    "nameFr": "Épiphane de Salamine",
+    "tradition": "greek",
+    "type": "patristic"
+  },
+  "peter-chrysologus": {
+    "lon": 11.8768,
+    "lat": 44.4949,
+    "nameFr": "Pierre Chrysologue",
+    "tradition": "latin",
+    "type": "patristic"
+  },
+  "maximus-confessor": {
+    "lon": 28.9784,
+    "lat": 41.0082,
+    "nameFr": "Maxime le Confesseur",
+    "tradition": "greek",
+    "type": "patristic"
+  },
+  "john-damascus": {
+    "lon": 35.9333,
+    "lat": 33.5167,
+    "nameFr": "Jean Damascène",
+    "tradition": "greek",
+    "type": "patristic"
+  },
+  "john-cassian": {
+    "lon": 5.3698,
+    "lat": 43.2965,
+    "nameFr": "Jean Cassien",
+    "tradition": "latin",
+    "type": "patristic"
+  },
+  "alcuin": {
+    "lon": -1.0803,
+    "lat": 53.9594,
+    "nameFr": "Alcuin d'York",
+    "tradition": "latin",
+    "type": "patristic"
+  },
+  "eusebius": {
+    "lon": 34.8516,
+    "lat": 31.5044,
+    "nameFr": "Eusèbe de Césarée",
+    "tradition": "greek",
+    "type": "patristic"
+  },
+  "titus-bostra": {
+    "lon": 36.4755,
+    "lat": 32.5464,
+    "nameFr": "Tite de Bostra",
+    "tradition": "greek",
+    "type": "patristic"
+  },
+  "isidore-seville": {
+    "lon": -5.994,
+    "lat": 37.3891,
+    "nameFr": "Isidore de Séville",
+    "tradition": "latin",
+    "type": "patristic"
+  },
+  "glossa-ordinaria": {
+    "lon": 2.3522,
+    "lat": 48.8566,
+    "nameFr": "La Glose ordinaire",
+    "tradition": "latin",
+    "type": "patristic"
+  },
+  "gregory-nazianzus": {
+    "lon": 34.8516,
+    "lat": 37.0264,
+    "nameFr": "Grégoire de Nazianze",
+    "tradition": "greek",
+    "type": "patristic"
+  },
+  "didymus-blind": {
+    "lon": 29.9187,
+    "lat": 31.2001,
+    "nameFr": "Didyme l'Aveugle",
+    "tradition": "greek",
+    "type": "patristic"
+  },
+  "severus-antioch": {
+    "lon": 36.1667,
+    "lat": 36.2,
+    "nameFr": "Sévère d'Antioche",
+    "tradition": "greek",
+    "type": "patristic"
+  },
+  "damasus-i": {
+    "lon": 12.4964,
+    "lat": 41.9028,
+    "nameFr": "Pape Damase Ier",
+    "tradition": "latin",
+    "type": "patristic"
+  },
+  "catena-greek-fathers": {
+    "lon": 28.9784,
+    "lat": 41.0082,
+    "nameFr": "Chaîne des Pères grecs",
+    "tradition": "greek",
+    "type": "patristic"
+  },
+  "council-ephesus": {
+    "lon": 27.3372,
+    "lat": 37.9499,
+    "nameFr": "Actes du Concile d'Éphèse",
+    "tradition": "greek",
+    "type": "patristic"
+  },
+  "leo-xiv": {
+    "lon": 12.4534,
+    "lat": 41.9029,
+    "nameFr": "Léon XIV",
+    "tradition": "catholic",
+    "type": "magistere"
+  },
+  "francois": {
+    "lon": 12.4534,
+    "lat": 41.9029,
+    "nameFr": "François",
+    "tradition": "catholic",
+    "type": "magistere"
+  },
+  "benoit-xvi": {
+    "lon": 12.4534,
+    "lat": 41.9029,
+    "nameFr": "Benoît XVI",
+    "tradition": "catholic",
+    "type": "magistere"
+  },
+  "jean-paul-ii": {
+    "lon": 12.4534,
+    "lat": 41.9029,
+    "nameFr": "Jean Paul II",
+    "tradition": "catholic",
+    "type": "magistere"
+  },
+  "paul-vi": {
+    "lon": 12.4534,
+    "lat": 41.9029,
+    "nameFr": "Paul VI",
+    "tradition": "catholic",
+    "type": "magistere"
+  },
+  "concile-vatican-ii": {
+    "lon": 12.4534,
+    "lat": 41.9029,
+    "nameFr": "Concile Vatican II",
+    "tradition": "catholic",
+    "type": "magistere"
+  },
+  "pie-xii": {
+    "lon": 12.4534,
+    "lat": 41.9029,
+    "nameFr": "Pie XII",
+    "tradition": "catholic",
+    "type": "magistere"
+  },
+  "leon-xiii": {
+    "lon": 12.4534,
+    "lat": 41.9029,
+    "nameFr": "Léon XIII",
+    "tradition": "catholic",
+    "type": "magistere"
+  },
+  "pierre": {
+    "lon": 12.4964,
+    "lat": 41.9028,
+    "nameFr": "Saint Pierre",
+    "tradition": "apostolic",
+    "type": "patristic"
+  },
+  "jean": {
+    "lon": 27.34,
+    "lat": 37.95,
+    "nameFr": "Saint Jean",
+    "tradition": "apostolic",
+    "type": "patristic"
+  },
+  "andre": {
+    "lon": 21.73,
+    "lat": 38.24,
+    "nameFr": "Saint André",
+    "tradition": "apostolic",
+    "type": "patristic"
+  },
+  "jacques_le_majeur": {
+    "lon": 35.22,
+    "lat": 31.77,
+    "nameFr": "Saint Jacques le Majeur",
+    "tradition": "apostolic",
+    "type": "patristic"
+  },
+  "jacques_le_mineur": {
+    "lon": 35.22,
+    "lat": 31.76,
+    "nameFr": "Saint Jacques le Mineur",
+    "tradition": "apostolic",
+    "type": "patristic"
+  },
+  "jude_thaddee": {
+    "lon": 38.78,
+    "lat": 37.16,
+    "nameFr": "Saint Jude Thaddée",
+    "tradition": "apostolic",
+    "type": "patristic"
+  },
+  "matthias": {
+    "lon": 35.23,
+    "lat": 31.78,
+    "nameFr": "Saint Matthias",
+    "tradition": "apostolic",
+    "type": "patristic"
+  },
+  "matthieu": {
+    "lon": 35.57,
+    "lat": 32.88,
+    "nameFr": "Saint Matthieu",
+    "tradition": "apostolic",
+    "type": "patristic"
+  },
+  "paul": {
+    "lon": 34.91,
+    "lat": 36.91,
+    "nameFr": "Saint Paul",
+    "tradition": "apostolic",
+    "type": "patristic"
+  },
+  "philippe": {
+    "lon": 29.12,
+    "lat": 37.92,
+    "nameFr": "Saint Philippe",
+    "tradition": "apostolic",
+    "type": "patristic"
+  },
+  "simon_le_zelote": {
+    "lon": 35.24,
+    "lat": 31.79,
+    "nameFr": "Saint Simon le Zélote",
+    "tradition": "apostolic",
+    "type": "patristic"
+  },
+  "thomas": {
+    "lon": 80.27,
+    "lat": 13.08,
+    "nameFr": "Saint Thomas",
+    "tradition": "apostolic",
+    "type": "patristic"
+  },
+  "barthelemy": {
+    "lon": 44,
+    "lat": 40,
+    "nameFr": "Saint Barthélemy",
+    "tradition": "apostolic",
+    "type": "patristic"
+  }
+}

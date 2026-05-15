@@ -5,6 +5,8 @@ export const TYPES = {
   ICategoryRepository:      Symbol.for('ICategoryRepository'),
   IGeoMapRepository:        Symbol.for('IGeoMapRepository'),
   IBiblicalPlaceRepository: Symbol.for('IBiblicalPlaceRepository'),
+  IPatristicRepository:     Symbol.for('IPatristicRepository'),
+  IMagisteriumRepository:   Symbol.for('IMagisteriumRepository'),
   HttpServer:               Symbol.for('HttpServer'),
   StompServer:              Symbol.for('StompServer'),
 } as const;

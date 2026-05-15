@@ -8,6 +8,7 @@ import { SearchPage } from './components/search/SearchPage.tsx';
 import { GraphPage } from './components/graph/GraphPage.tsx';
 import { useBibleSearchParam } from './hooks/useBibleSearchParam.ts';
 import { useBackendHealth } from './hooks/useBackendHealth.ts';
+import { CommentModal } from './components/bible/CommentModal.tsx';
 
 function BackendWaitingScreen({ error }: { error: string | null }) {
   return (
@@ -79,6 +80,7 @@ export default function App() {
           </Route>
         </Routes>
         <BibleDrawer />
+        <CommentModal />
       </BrowserRouter>
     </BibleDrawerProvider>
   );

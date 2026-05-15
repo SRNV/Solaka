@@ -17,7 +17,7 @@ export function Sidebar() {
     <aside className={`${styles.sidebar} ${collapsed ? styles.collapsed : ''}`}>
       <div className={styles.logo}>
         <span className={styles.logoIcon}>✦</span>
-        {!collapsed && <span className={styles.logoText}>Sola Catholica</span>}
+        {!collapsed && <span className={styles.logoText}>SolaKa</span>}
       </div>
 
       <nav className={styles.nav}>

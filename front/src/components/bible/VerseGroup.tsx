@@ -2,11 +2,15 @@ import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useBibleDrawer } from '@/contexts/BibleDrawerContext.tsx';
 import type { RelRow } from '@/store/relations.store.ts';
-import type { ChildResult, VerseListItem } from '@/types/bibleDrawer.ts';
+import type { ChildResult, LeanVerse, VerseListItem } from '@/types/bibleDrawer.ts';
 import { EMPTY_SET, badgeLabel, collectVerses, fetchVersesByRel } from '@/utils/bibleDrawer.ts';
+import { usePatristicCommentStore } from '@/store/comment.store.ts';
+import { useCommentModalStore } from '@/store/commentModal.store.ts';
+import type { CommentSummary, PatristicAuthorSnippet } from '@/types/patristic.ts';
 import { MapIconSvg } from './MapIconSvg.tsx';
 import { VerseRow } from './VerseRow.tsx';
-import styles from './BibleDrawer.module.css';
+import { VerseCommentBar } from './VerseCommentBar.tsx';
+import styles from './VerseGroup.module.css';
 
 interface VerseGroupProps {
   items:                 VerseListItem[];
@@ -15,11 +19,15 @@ interface VerseGroupProps {
   ancestors?:            ReadonlySet<string>;
   suppressedFromParent?: ReadonlySet<string>;
   onShowInMap?:          (from: number, to?: number) => void;
+  bookName?:             string;
+  chapterNum?:           number;
+  chapterVerses?:        LeanVerse[];
 }
 
-export function VerseGroup({ items, sharedRels, highlightVerseNum, ancestors = EMPTY_SET, suppressedFromParent = EMPTY_SET, onShowInMap }: VerseGroupProps) {
+export function VerseGroup({ items, sharedRels, highlightVerseNum, ancestors = EMPTY_SET, suppressedFromParent = EMPTY_SET, onShowInMap, bookName, chapterNum, chapterVerses }: VerseGroupProps) {
   const { open: openDrawer, triggerShowInMap } = useBibleDrawer();
-  const routerNavigate = useNavigate();
+  const routerNavigate   = useNavigate();
+  const openCommentModal = useCommentModalStore(s => s.open);
 
   const [activeRelKey, setActiveRelKey] = useState<string | null>(null);
   const [childResults, setChildResults] = useState<ChildResult[]>([]);
@@ -30,7 +38,23 @@ export function VerseGroup({ items, sharedRels, highlightVerseNum, ancestors = E
     [sharedRels, suppressedFromParent],
   );
 
-  const allVerses = useMemo(() => collectVerses(items), [items]);
+  const summaries  = usePatristicCommentStore(s => s.summaries);
+  const allVerses  = useMemo(() => collectVerses(items), [items]);
+
+  const groupSummary = useMemo<CommentSummary | null>(() => {
+    let count = 0;
+    const authorMap = new Map<string, PatristicAuthorSnippet>();
+    for (const v of allVerses) {
+      const s = summaries.get(v.uuid);
+      if (!s) continue;
+      count += s.count;
+      for (const a of s.authors) {
+        if (!authorMap.has(a.slug)) authorMap.set(a.slug, a);
+      }
+    }
+    if (count === 0) return null;
+    return { count, authors: [...authorMap.values()].slice(0, 3) };
+  }, [allVerses, summaries]);
 
   const groupAncestors = useMemo(() => {
     const chain = new Set([...ancestors]);
@@ -78,6 +102,10 @@ export function VerseGroup({ items, sharedRels, highlightVerseNum, ancestors = E
             ancestors={ancestors}
             suppressedRelTargets={suppressedRelTargets}
             onShowInMap={onShowInMap}
+            className={styles.groupedVerse}
+            bookName={bookName}
+            chapterNum={chapterNum}
+            chapterVerses={chapterVerses}
           />
         ) : (
           <VerseGroup
@@ -88,6 +116,9 @@ export function VerseGroup({ items, sharedRels, highlightVerseNum, ancestors = E
             ancestors={ancestors}
             suppressedFromParent={suppressedRelTargets}
             onShowInMap={onShowInMap}
+            bookName={bookName}
+            chapterNum={chapterNum}
+            chapterVerses={chapterVerses}
           />
         )
       )}
@@ -124,6 +155,22 @@ export function VerseGroup({ items, sharedRels, highlightVerseNum, ancestors = E
             </button>
           ))}
         </div>
+
+        {groupSummary && chapterVerses && bookName && chapterNum && (
+          <VerseCommentBar
+            summary={groupSummary}
+            onClick={() => {
+              const firstWithComment = chapterVerses.find(v => summaries.get(v.uuid)?.count);
+              if (!firstWithComment) return;
+              openCommentModal({
+                verseIdx:   chapterVerses.findIndex(v => v.uuid === firstWithComment.uuid),
+                verses:     chapterVerses,
+                bookName,
+                chapterNum,
+              });
+            }}
+          />
+        )}
       </div>
 
       {childLoading && <p className={styles.childLoading}>Chargement…</p>}

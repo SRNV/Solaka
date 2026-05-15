@@ -10,7 +10,7 @@ import { buildGroupItems } from '@/utils/bibleDrawer.ts';
 import { MapIconSvg } from './MapIconSvg.tsx';
 import { VerseRow } from './VerseRow.tsx';
 import { VerseGroup } from './VerseGroup.tsx';
-import styles from './BibleDrawer.module.css';
+import styles from './MultiSection.module.css';
 
 interface MultiSectionProps {
   target: BibleTarget;
@@ -18,7 +18,7 @@ interface MultiSectionProps {
 }
 
 export function MultiSection({ target, onMap }: MultiSectionProps) {
-  const { uuids, summary, loading } = useChapterData(target.book, target.chapter);
+  const { uuids, summary, loading, notFound } = useChapterData(target.book, target.chapter);
   const { triggerShowInMap } = useBibleDrawer();
   const routerNavigate = useNavigate();
 
@@ -28,7 +28,8 @@ export function MultiSection({ target, onMap }: MultiSectionProps) {
 
   const verses = useMemo(() => {
     if (target.verse == null) return allVerses;
-    return allVerses.filter(v => v.number >= target.verse! && v.number <= (target.verseTo ?? target.verse!));
+    const filtered = allVerses.filter(v => v.number >= target.verse! && v.number <= (target.verseTo ?? target.verse!));
+    return filtered.length > 0 ? filtered : allVerses;
   }, [allVerses, target.verse, target.verseTo]);
 
   const verseUuids     = useMemo(() => verses.map(v => v.uuid), [verses]);
@@ -51,8 +52,9 @@ export function MultiSection({ target, onMap }: MultiSectionProps) {
         <button className={styles.mapBtnInline} title="Voir dans la Map" onClick={onMap}><MapIconSvg /></button>
       </h3>
       {summary && <p className={styles.summary}>{summary}</p>}
-      {loading && <div className={styles.loading}>Chargement…</div>}
-      {!loading && verseListItems.map((item, idx) =>
+      {loading   && <div className={styles.loading}>Chargement…</div>}
+      {notFound  && <div className={styles.loading}>Chapitre non disponible.</div>}
+      {!loading && !notFound && verseListItems.map((item, idx) =>
         item.type === 'solo' ? (
           <VerseRow key={item.verse.uuid} verse={item.verse} highlight={false} onShowInMap={handleShowInMap} />
         ) : (

@@ -9,6 +9,8 @@ import type { IGeoMapRepository } from './domain/repositories/IGeoMapRepository'
 import type { IBiblicalPlaceRepository } from './domain/BiblicalPlace';
 import type { ICategoryRepository } from './domain/repositories/ICategoryRepository';
 import type { IObjectionRepository } from './domain/repositories/IObjectionRepository';
+import type { IPatristicRepository } from './domain/repositories/IPatristicRepository';
+import type { IMagisteriumRepository } from './domain/repositories/IMagisteriumRepository';
 import { createContainer } from './container/container';
 import type { AppConfig } from './container/config';
 import { TYPES } from './container/types';
@@ -18,17 +20,24 @@ import categoriesRouter from './api/routes/categories';
 import objectionsRouter from './api/routes/objections';
 import geomapRouter from './api/routes/geomap';
 import biblicalPlacesRouter from './api/routes/biblicalPlaces';
+import patristicRouter from './api/routes/patristic';
+import magistereRouter from './api/routes/magistere';
+import apostlesRouter from './api/routes/apostles';
 
 const config: AppConfig = {
-  dataPath:         process.env.DATA_PATH          ?? path.resolve(__dirname, '../../../objections.json'),
-  biblePath:        process.env.BIBLE_PATH         ?? path.resolve(__dirname, '../../../scrapp/output/bible.json'),
-  kingsPath:        process.env.KINGS_PATH         ?? path.resolve(__dirname, '../../../scrapp/output/kings.json'),
-  periodsPath:      process.env.PERIODS_PATH       ?? path.resolve(__dirname, '../../../scrapp/output/periods.json'),
-  eventsPath:       process.env.EVENTS_PATH        ?? path.resolve(__dirname, '../../../scrapp/output/events.json'),
-  geomapPath:       process.env.GEOMAP_PATH        ?? path.resolve(__dirname, '../data/geojson'),
-  biblicalDataPath: process.env.BIBLICAL_DATA_PATH ?? path.resolve(__dirname, '../../../front/exemples/Bible-Geocoding-Data'),
-  port:             Number(process.env.PORT ?? 3001),
-  corsOrigin:       process.env.CORS_ORIGIN        ?? '*',
+  dataPath:               process.env.DATA_PATH               ?? path.resolve(__dirname, '../../../objections.json'),
+  biblePath:              process.env.BIBLE_PATH              ?? path.resolve(__dirname, '../../../scrapp/output/bible.json'),
+  kingsPath:              process.env.KINGS_PATH              ?? path.resolve(__dirname, '../../../scrapp/output/kings.json'),
+  periodsPath:            process.env.PERIODS_PATH            ?? path.resolve(__dirname, '../../../scrapp/output/periods.json'),
+  eventsPath:             process.env.EVENTS_PATH             ?? path.resolve(__dirname, '../../../scrapp/output/events.json'),
+  geomapPath:             process.env.GEOMAP_PATH             ?? path.resolve(__dirname, '../data/geojson'),
+  biblicalDataPath:       process.env.BIBLICAL_DATA_PATH      ?? path.resolve(__dirname, '../../../front/exemples/Bible-Geocoding-Data'),
+  patristicAuthorsPath:   process.env.PATRISTIC_AUTHORS_PATH  ?? path.resolve(__dirname, '../../../scrapp/output/authors.json'),
+  patristicCommentsPath:  process.env.PATRISTIC_COMMENTS_PATH ?? path.resolve(__dirname, '../../../scrapp/output/comments.json'),
+  magistereAuthorsPath:   process.env.MAGISTERE_AUTHORS_PATH  ?? path.resolve(__dirname, '../../../scrapp/output/magistere_authors.json'),
+  magistereCommentsPath:  process.env.MAGISTERE_COMMENTS_PATH ?? path.resolve(__dirname, '../../../scrapp/output/magistere_comments.json'),
+  port:                   Number(process.env.PORT ?? 3001),
+  corsOrigin:             process.env.CORS_ORIGIN             ?? '*',
 };
 
 const app = express();
@@ -39,17 +48,22 @@ app.use(express.json());
 const httpServer = createServer(app);
 const container  = createContainer(config, httpServer);
 
-const bible  = container.get<IBibleRepository>(TYPES.IBibleRepository);
-const catRepo = container.get<ICategoryRepository>(TYPES.ICategoryRepository);
-const objRepo = container.get<IObjectionRepository>(TYPES.IObjectionRepository);
-const geomap  = container.get<IGeoMapRepository>(TYPES.IGeoMapRepository);
-const bgd     = container.get<IBiblicalPlaceRepository>(TYPES.IBiblicalPlaceRepository);
+const bible      = container.get<IBibleRepository>(TYPES.IBibleRepository);
+const catRepo    = container.get<ICategoryRepository>(TYPES.ICategoryRepository);
+const objRepo    = container.get<IObjectionRepository>(TYPES.IObjectionRepository);
+const geomap     = container.get<IGeoMapRepository>(TYPES.IGeoMapRepository);
+const bgd        = container.get<IBiblicalPlaceRepository>(TYPES.IBiblicalPlaceRepository);
+const patristic  = container.get<IPatristicRepository>(TYPES.IPatristicRepository);
+const magistere  = container.get<IMagisteriumRepository>(TYPES.IMagisteriumRepository);
 
 app.use('/api/bible',            bibleRouter(bible));
 app.use('/api/categories',       categoriesRouter(catRepo, objRepo));
 app.use('/api/objections',       objectionsRouter(objRepo));
 app.use('/api/geomap',           geomapRouter(geomap));
 app.use('/api/biblical-places',  biblicalPlacesRouter(bgd));
+app.use('/api/patristic',        patristicRouter(patristic));
+app.use('/api/magistere',        magistereRouter(magistere));
+app.use('/api/apostles',         apostlesRouter(config.geomapPath));
 
 app.get('/api/health', (_req, res) => {
   if (!bible.ready) return res.status(503).json({ status: 'warming up' });

@@ -8,10 +8,14 @@ import type { IGeoMapRepository } from '../domain/repositories/IGeoMapRepository
 import type { IBiblicalPlaceRepository } from '../domain/BiblicalPlace';
 import type { ICategoryRepository } from '../domain/repositories/ICategoryRepository';
 import type { IObjectionRepository } from '../domain/repositories/IObjectionRepository';
+import type { IPatristicRepository } from '../domain/repositories/IPatristicRepository';
+import type { IMagisteriumRepository } from '../domain/repositories/IMagisteriumRepository';
 import { JsonBibleStore } from '../infrastructure/JsonBibleStore';
 import { JsonObjectionsStore } from '../infrastructure/JsonObjectionsStore';
 import { FileGeoMapRepository } from '../infrastructure/FileGeoMapRepository';
 import { BiblicalPlaceRepository } from '../infrastructure/BiblicalPlaceRepository';
+import { JsonPatristicStore } from '../infrastructure/JsonPatristicStore';
+import { JsonMagisteriumStore } from '../infrastructure/JsonMagisteriumStore';
 import { StompServer } from '../infrastructure/StompServer';
 
 export function createContainer(config: AppConfig, httpServer: Server): Container {
@@ -36,6 +40,11 @@ export function createContainer(config: AppConfig, httpServer: Server): Containe
   container.bind<IObjectionRepository>(TYPES.IObjectionRepository)
     .toDynamicValue((ctx: ResolutionContext) => ctx.get(JsonObjectionsStore).objections)
     .inSingletonScope();
+
+  container.bind<IPatristicRepository>(TYPES.IPatristicRepository)
+    .to(JsonPatristicStore).inSingletonScope();
+  container.bind<IMagisteriumRepository>(TYPES.IMagisteriumRepository)
+    .to(JsonMagisteriumStore).inSingletonScope();
 
   container.bind<StompServer>(TYPES.StompServer)
     .to(StompServer).inSingletonScope();

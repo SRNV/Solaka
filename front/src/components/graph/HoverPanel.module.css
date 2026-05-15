@@ -1,0 +1,30 @@
+.hoverPanel {
+  position: absolute;
+  left: 0;
+  bottom: 16px;
+  padding: 24px 32px 24px 24px;
+  z-index: 10;
+  pointer-events: none;
+  min-width: 280px;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 4px;
+}
+
+.hoverRef {
+  font-family: var(--font-display);
+  font-size: 16pt;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0;
+  line-height: 1.15;
+}
+
+.hoverContext {
+  font-size: 10px;
+  color: var(--text-muted);
+  margin: 0;
+  letter-spacing: 0.2px;
+  line-height: 1.4;
+  font-style: italic;
+}

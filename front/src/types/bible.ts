@@ -78,6 +78,7 @@ export interface BibleBookMeta {
   to?: string;
   context?: string;
   chapterCount: number;
+  chapterNumbers?: number[];
 }
 
 export interface PaginatedResponse<T> {

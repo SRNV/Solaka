@@ -1,0 +1,70 @@
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0, 0, 0, 0.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.modal {
+  background: #fff;
+  border-radius: 16px;
+  padding: 22px 24px 18px;
+  max-width: 340px;
+  width: 100%;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+}
+
+.modalTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--title);
+  margin: 0 0 8px;
+}
+
+.modalText {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text-muted);
+  margin: 0 0 18px;
+}
+
+.modalActions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.modalCancel {
+  font-size: 13px;
+  font-weight: 600;
+  padding: 7px 15px;
+  border-radius: 9px;
+  border: 1.5px solid var(--border);
+  color: var(--text-muted);
+  background: transparent;
+  cursor: pointer;
+  transition: border-color 0.12s, color 0.12s;
+}
+
+.modalCancel:hover {
+  border-color: var(--secondary);
+  color: var(--secondary);
+}
+
+.modalConfirm {
+  font-size: 13px;
+  font-weight: 700;
+  padding: 7px 17px;
+  border-radius: 9px;
+  background: var(--secondary);
+  color: #fff;
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.12s;
+}
+
+.modalConfirm:hover { opacity: 0.85; }

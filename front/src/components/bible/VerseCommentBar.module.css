@@ -1,0 +1,49 @@
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  padding: 3px 0;
+  width: 100%;
+}
+
+.avatars {
+  display: flex;
+  flex-direction: row;
+}
+
+.avatar {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(0, 0, 0, 0.3);
+  flex-shrink: 0;
+  margin-left: -5px;
+  overflow: hidden;
+}
+
+.avatarPatristic {
+  border-color: var(--secondary);
+}
+
+.avatarMagistere {
+  border-color: var(--gold);
+}
+
+.avatars .avatar:first-child {
+  margin-left: 0;
+}
+
+.count {
+  font-size: 11px;
+  color: var(--text-muted, #999);
+  white-space: nowrap;
+}
+
+.clickable {
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.12s;
+}
+.clickable:hover { background: rgba(200, 121, 255, 0.08); }

@@ -1,0 +1,38 @@
+export { PaginatedResponse } from './Pagination';
+
+export interface MagisteriumAuthor {
+  slug: string;
+  name: string;
+  type: 'pope' | 'council' | 'dicastery';
+  tradition: 'catholic';
+  pontificate_start?: number;
+  pontificate_end?: number | null;
+  birth_year?: number;
+  death_year?: number | null;
+  council_start?: number;
+  council_end?: number;
+}
+
+export interface MagisteriumComment {
+  author_slug: string;
+  document_name: string;
+  document_abbr: string;
+  document_url: string;
+  paragraph?: number;
+  year: number;
+  text: string;
+  verse_uuids: string[];
+}
+
+export interface MagisteriumCommentResult extends MagisteriumComment {
+  author: MagisteriumAuthor;
+}
+
+export interface MagisteriumDocument {
+  name: string;
+  abbr: string;
+  url: string;
+  year: number;
+  author_slug: string;
+  comment_count: number;
+}

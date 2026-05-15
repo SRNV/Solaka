@@ -1,0 +1,57 @@
+.multiSection {
+  border-bottom: 2px solid var(--border);
+}
+
+.multiSectionHeader {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14pt;
+  color: var(--title);
+  padding: 12px 18px 10px;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.summary {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  padding: 10px 18px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  flex-shrink: 0;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 18px;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.mapBtnInline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  opacity: 0.5;
+  transition: opacity var(--transition), color var(--transition), background var(--transition);
+  flex-shrink: 0;
+}
+
+.mapBtnInline:hover {
+  opacity: 1;
+  color: var(--secondary);
+  background: color-mix(in srgb, var(--secondary) 10%, transparent);
+}

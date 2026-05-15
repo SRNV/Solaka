@@ -7,6 +7,8 @@ import earthNormal   from './assets/earth_normal_8k.png';
 import earthSpecular from './assets/earth_specular_8k.png';
 import { bordersFromData, createBorders, computeFeatureCentroids } from './borders.ts';
 import { BordersVertexShader, BordersFragmentShader, createBordersTexture } from './BordersShader.ts';
+import { buildBillboards, type BillboardHandle } from './AuthorBillboardService.ts';
+import { buildPersonJourney, type PersonJourneyHandle } from './PersonJourneyService.ts';
 
 import mc3 from './assets/matcaps/8D8D8D_DDDDDD_CCCCCC_B7B7B7-64px.png';
 
@@ -45,7 +47,20 @@ export type SceneControls = {
   setBGDPlaces:      (places: PlaceItem[]) => void;
   setBiblicalPlaces: (places: import('../../services/biblicalPlacesService.ts').BiblicalPlace[]) => void;
   flyTo:             (lon: number, lat: number, zoom?: number) => void;
+  setAuthors:        (authors: AuthorPin[]) => void;
+  setApostles:       (data: { type: string; features: any[] } | null, atlasIndex?: Record<string, { x: number; y: number }>) => void;
+  setJourneyDate:    (year: number | null) => void;
 };
+
+export interface AuthorPin {
+  slug:       string;
+  lon:        number;
+  lat:        number;
+  nameFr:     string;
+  atlasX:     number;
+  atlasY:     number;
+  borderType: number; // 0 = patristic, 1 = magistere
+}
 
 // ── Places point-cloud shaders ────────────────────────────────────────────────
 
@@ -113,7 +128,11 @@ export function mountScene(
   const h = containerEl.clientHeight || 400;
 
   // ── Renderer ──────────────────────────────────────────────────
-  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  const renderer = new THREE.WebGLRenderer({
+    antialias: true, 
+    alpha: true,
+    precision: 'high'
+  });
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(w, h);
   renderer.setClearColor(0x000000, 0);
@@ -206,10 +225,24 @@ export function mountScene(
   let labelData: { name: string; pos: THREE.Vector3 }[] = [];
   let biblicalPlacesData: { name: string; pos: THREE.Vector3; priority: number }[] = [];
   let bgdLabelsData:     { name: string; pos: THREE.Vector3; priority: number }[] = [];
+  let apostleLabelsData: { name: string; pos: THREE.Vector3 }[] = [];
 
   // ── BGD point clouds ────────────────────────────────
   const bgdCloud      = buildPointsMesh(0xC879FF, 0.85); // violet
   scene.add(bgdCloud.mesh);
+
+  // ── Shared atlas texture (loaded once, reused by authors + apostle portraits) ─
+  let atlasTexture: THREE.Texture | null = null;
+  const getAtlasTexture = () => {
+    if (!atlasTexture) atlasTexture = new THREE.TextureLoader().load('/atlas.png');
+    return atlasTexture;
+  };
+
+  // ── Author billboards ─────────────────────────────────────────────────────
+  let authorBillboards: BillboardHandle | null = null;
+
+  // ── Per-apostle journey handles (one per slug) ────────────────────────────
+  let journeyHandles: PersonJourneyHandle[] = [];
 
   // ── Historical Shader Borders ──────────────────────────────────
   const borderMat = new THREE.ShaderMaterial({
@@ -315,6 +348,35 @@ export function mountScene(
       labelsCtx.fillStyle = isBiblical ? '#fff' : (isPlace ? '#666' : '#444');
       labelsCtx.fillText(name, x, y);
     }
+
+    // Apostle place labels — shown when mouse is within 60 px
+    const HOVER_R = 60;
+    for (const { name, pos } of apostleLabelsData) {
+      if (pos.dot(camNorm) < 0.1) continue;
+      if (!frustum.containsPoint(pos)) continue;
+      const proj = pos.clone().project(camera);
+      const sx = (proj.x  + 1) / 2 * lw;
+      const sy = (-proj.y + 1) / 2 * lh;
+      if (Math.hypot(sx - mouseX, sy - mouseY) > HOVER_R) continue;
+
+      labelsCtx.font = '700 11px system-ui,sans-serif';
+      const tw = labelsCtx.measureText(name).width;
+      const ph = 16;
+      const pw = tw + 10;
+      const rx = sx - pw / 2;
+      const ry = sy - ph - 10;
+
+      labelsCtx.fillStyle = 'rgba(212, 172, 13, 0.92)';
+      labelsCtx.beginPath();
+      (labelsCtx as CanvasRenderingContext2D & { roundRect: (...a: unknown[]) => void })
+        .roundRect(rx, ry, pw, ph, 3);
+      labelsCtx.fill();
+
+      labelsCtx.fillStyle = '#fff';
+      labelsCtx.textAlign = 'center';
+      labelsCtx.textBaseline = 'middle';
+      labelsCtx.fillText(name, sx, ry + ph / 2);
+    }
   }
 
   // ── Atmosphere halo ────────────────────────────────────────────
@@ -382,6 +444,18 @@ export function mountScene(
   };
   renderer.domElement.addEventListener('wheel', onWheel, { passive: false });
 
+  // ── Mouse tracking for hover labels ───────────────────────────
+  let mouseX = -9999;
+  let mouseY = -9999;
+  const onMouseMove = (e: MouseEvent) => {
+    const rect = renderer.domElement.getBoundingClientRect();
+    mouseX = e.clientX - rect.left;
+    mouseY = e.clientY - rect.top;
+  };
+  const onMouseLeave = () => { mouseX = -9999; mouseY = -9999; };
+  renderer.domElement.addEventListener('mousemove', onMouseMove);
+  renderer.domElement.addEventListener('mouseleave', onMouseLeave);
+
   // ── Resize ────────────────────────────────────────────────────
   const onResize = () => {
     const nw = containerEl.clientWidth;
@@ -397,6 +471,8 @@ export function mountScene(
     uniforms.resolution.value.set(nw, nh);
     labelsCanvas.width  = nw;
     labelsCanvas.height = nh;
+    authorBillboards?.setViewport(nw, nh);
+    for (const h of journeyHandles) h.setViewport(nw, nh);
   };
   const ro = new ResizeObserver(onResize);
   ro.observe(containerEl);
@@ -414,10 +490,13 @@ export function mountScene(
 
   // ── Animation loop ─────────────────────────────────────────────
   let rafId = 0;
+  const clock = performance;
   const animate = () => {
     rafId = requestAnimationFrame(animate);
     controls.update();
     borderMat.uniforms.u_zoom.value = camera.zoom;
+    const t = clock.now() / 1000;
+    for (const h of journeyHandles) h.tick(t);
     renderer.render(scene, camera);
     drawLabels();
   };
@@ -429,6 +508,10 @@ export function mountScene(
       cancelAnimationFrame(rafId);
       ro.disconnect();
       renderer.domElement.removeEventListener('wheel', onWheel);
+      renderer.domElement.removeEventListener('mousemove', onMouseMove);
+      renderer.domElement.removeEventListener('mouseleave', onMouseLeave);
+      for (const h of journeyHandles) h.dispose();
+      journeyHandles = [];
       controls.dispose();
       renderer.dispose();
       containerEl.removeChild(renderer.domElement);
@@ -484,10 +567,7 @@ export function mountScene(
     },
     setBGDPlaces: (places) => {
       bgdCloud.setPlaces(places);
-      bgdLabelsData = places.map(p => {
-        const [x, y, z] = lonLatToXYZ(p.lonlat[0], p.lonlat[1]);
-        return { name: p.name, pos: new THREE.Vector3(x, y, z), priority: 150 };
-      });
+      bgdLabelsData = []; // labels hidden per user request
     },
     setBiblicalPlaces: (places) => {
       biblicalPlacesData = places.map(p => {
@@ -499,6 +579,14 @@ export function mountScene(
         const z =  Math.cos(latR) * Math.sin(lonR);
         return { name: p.name, pos: new THREE.Vector3(x, y, z), priority: 200 };
       });
+    },
+    setAuthors: (pins) => {
+      if (authorBillboards) { scene.remove(authorBillboards.mesh); authorBillboards.dispose(); authorBillboards = null; }
+      if (pins.length === 0) return;
+      const nw = containerEl.clientWidth  || w;
+      const nh = containerEl.clientHeight || h;
+      authorBillboards = buildBillboards(pins, { w: nw, h: nh }, getAtlasTexture());
+      scene.add(authorBillboards.mesh);
     },
     flyTo: (lon, lat, zoom) => {
       const [x, y, z] = lonLatToXYZ(lon, lat, 5);
@@ -523,6 +611,52 @@ export function mountScene(
           }
         });
       }
+    },
+    setApostles: (data, atlasIndex) => {
+      // Tear down previous journey handles
+      for (const h of journeyHandles) {
+        for (const m of h.meshes) scene.remove(m);
+        h.dispose();
+      }
+      journeyHandles = [];
+      apostleLabelsData = [];
+      if (!data || data.features.length === 0) return;
+
+      // Hover labels for all apostle places
+      apostleLabelsData = data.features
+        .filter((f: any) => f.geometry?.type === 'Point')
+        .map((f: any) => ({
+          name: (f.properties?.name as string) ?? '',
+          pos:  new THREE.Vector3(...lonLatToXYZ(f.geometry.coordinates[0], f.geometry.coordinates[1], 1.006)),
+        }));
+
+      const nw = containerEl.clientWidth  || w;
+      const nh = containerEl.clientHeight || h;
+      const tex = getAtlasTexture();
+
+      // Group features by slug → one PersonJourneyHandle per apostle
+      const bySlug = new Map<string, any[]>();
+      for (const f of data.features) {
+        const slug = f.properties?.slug as string | undefined;
+        if (!slug) continue;
+        if (!bySlug.has(slug)) bySlug.set(slug, []);
+        bySlug.get(slug)!.push(f);
+      }
+
+      for (const [slug, features] of bySlug) {
+        const tile = atlasIndex?.[slug];
+        const handle = buildPersonJourney(
+          { features, atlasEntry: tile ?? { x: 0, y: 0 }, borderType: 2 },
+          { w: nw, h: nh },
+          tex,
+        );
+        for (const m of handle.meshes) scene.add(m);
+        journeyHandles.push(handle);
+      }
+    },
+
+    setJourneyDate: (year) => {
+      for (const h of journeyHandles) h.setDate(year);
     },
   };
 

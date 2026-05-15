@@ -371,7 +371,8 @@ export class JsonBibleStore implements IBibleRepository {
       name: b.name, number: b.number, alias: b.alias,
       author: b.author, author_status: b.author_status,
       estimated_date: b.estimated_date, to: b.to, context: b.context,
-      chapterCount: b.chapters.length,
+      chapterCount:   b.chapters.length,
+      chapterNumbers: b.chapters.map(c => c.number),
     }));
     return {
       data:  all.slice(offset, offset + limit),

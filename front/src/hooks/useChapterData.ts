@@ -7,16 +7,17 @@ const chapterSummaryCache = new Map<string, string>();
 export function useChapterData(book: string | null, chapter: number | null) {
   const key = book && chapter ? `${book}|${chapter}` : null;
 
-  const [uuids,   setUuids]   = useState<string[] | null>(() =>
+  const [uuids,    setUuids]    = useState<string[] | null>(() =>
     book && chapter ? (bibleContentCache.getChapterUuids(book, chapter) ?? null) : null
   );
-  const [summary, setSummary] = useState<string>(() =>
+  const [summary,  setSummary]  = useState<string>(() =>
     key ? (chapterSummaryCache.get(key) ?? '') : ''
   );
-  const [loading, setLoading] = useState(false);
+  const [loading,  setLoading]  = useState(false);
+  const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
-    if (!book || !chapter || !key) { setUuids(null); setSummary(''); return; }
+    if (!book || !chapter || !key) { setUuids(null); setSummary(''); setNotFound(false); return; }
 
     const cached = bibleContentCache.getChapterUuids(book, chapter);
     if (cached) {
@@ -27,10 +28,12 @@ export function useChapterData(book: string | null, chapter: number | null) {
 
     let cancelled = false;
     setLoading(true);
+    setNotFound(false);
 
     fetch(`/api/bible/books/${encodeURIComponent(book)}/chapters/${chapter}`)
-      .then(r => r.json())
-      .then((data: any) => {
+      .then(async r => {
+        if (r.status === 404) { if (!cancelled) { setNotFound(true); setLoading(false); } return; }
+        const data: any = await r.json();
         if (cancelled) return;
         const ch: any = data.chapter ?? {};
         const verses: any[] = ch.verses ?? [];
@@ -60,5 +63,5 @@ export function useChapterData(book: string | null, chapter: number | null) {
     return () => { cancelled = true; };
   }, [book, chapter, key]);
 
-  return { uuids, summary, loading };
+  return { uuids, summary, loading, notFound };
 }

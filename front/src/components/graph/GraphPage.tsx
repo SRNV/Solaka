@@ -19,10 +19,15 @@ import { useRelationsStore, relsFetched } from '@/store/relations.store.ts';
 import { V_STEP } from '@/utils/graphConstants.ts';
 import { ArcMesh } from './ArcMesh.tsx';
 import { Cubes } from './Cubes.tsx';
+import { CommentSquaresMesh } from './CommentSquaresMesh.tsx';
+import { usePatristicCommentIndex } from '@/hooks/useCommentIndex.ts';
 import { HoverPlane } from './HoverPlane.tsx';
 import { SectionMarkers } from './SectionMarkers.tsx';
 import { SearchInput } from './SearchInput.tsx';
 import { CameraReporter, LockCameraY } from './CameraHelpers.tsx';
+import { HoverPanel } from './HoverPanel.tsx';
+import { TraditionModal } from './TraditionModal.tsx';
+import type { PanelData } from './HoverPanel.tsx';
 import { BibleMap } from '@/lib/BibleMap/index.ts';
 import styles from './GraphPage.module.css';
 
@@ -49,16 +54,6 @@ const HIST_SUB_LABELS: Record<HistoricalSubMode, string> = {
   finalRedaction:  'Rédaction finale',
 };
 
-const REL_LABEL: Record<string, string> = {
-  authority:   'Autorité',
-  citation:    'Citation',
-  fulfillment: 'Accomplissement',
-  typology:    'Typologie',
-  allusion:    'Allusion',
-  parallel:    'Parallèle',
-  thematic:    'Thématique',
-};
-
 function normText(s: string): string {
   return s
     .toLowerCase()
@@ -68,25 +63,12 @@ function normText(s: string): string {
     .replace(/\s+/g, ' ').trim();
 }
 
-function fmtTarget(r: BibleTarget | undefined): string {
-  if (!r) return '?';
-  const range = r.verseTo && r.verseTo !== r.verse ? `–${r.verseTo}` : '';
-  return `${r.book} ${r.chapter}:${r.verse}${range}`;
-}
-
-function clip(s: string, max = 100): string {
-  return s.length > max ? s.slice(0, max) + '…' : s;
-}
-
-// ── Panel data types ──────────────────────────────────────────────────────
-type PanelData =
-  | { type: 'arc';  rel: BibleRelation; verses: { from: string; fromSummary: string; to: string; toSummary: string } | null }
-  | { type: 'cube'; uuid: string; verse: string | null; summary: string | null; verseEnd?: number }
-  | { type: 'book'; book: BibleBookMeta };
 
 // ── GraphPage ─────────────────────────────────────────────────────────────
 
 export function GraphPage() {
+  usePatristicCommentIndex();
+
   // ── Tradition + display toggles ─────────────────────────────────────────
   const [showCath,    setShowCath]    = useState(true);
   const [showProt,    setShowProt]    = useState(false);
@@ -594,6 +576,49 @@ export function GraphPage() {
     return segment;
   }, [effectiveHoveredBook, sortMode, bookOrderData, histSubMode, layout?.bookLabels]);
 
+  // X positions of comment squares to show from search hits + displayed relations
+  // Active verse UUIDs that should reveal author pins on the globe
+  const activeVerseUuids = useMemo<ReadonlySet<string> | null>(() => {
+    const uuids = new Set<string>();
+    if (panelData?.type === 'cube') uuids.add(panelData.uuid);
+    if (searchHitUuids) for (const uuid of searchHitUuids.keys()) uuids.add(uuid);
+    if (displayRelations) {
+      for (const r of displayRelations) {
+        for (const uuid of [r.from, r.toFrom, r.toTo].filter(Boolean)) uuids.add(uuid);
+      }
+    }
+    return uuids.size > 0 ? uuids : null;
+  }, [panelData, searchHitUuids, displayRelations]);
+
+  const commentExtraXSet = useMemo<ReadonlySet<number> | null>(() => {
+    if (!layout) return null;
+    const xs = new Set<number>();
+    if (searchHitUuids) {
+      for (const uuid of searchHitUuids.keys()) {
+        const pos = layout.uuidPosMap.get(uuid);
+        if (pos) xs.add(pos.x);
+      }
+    }
+    if (displayRelations) {
+      for (const r of displayRelations) {
+        for (const uuid of [r.from, r.toFrom, r.toTo].filter(Boolean)) {
+          const pos = layout.uuidPosMap.get(uuid);
+          if (pos) xs.add(pos.x);
+        }
+      }
+    }
+    return xs.size > 0 ? xs : null;
+  }, [layout, searchHitUuids, displayRelations]);
+
+  const commentHoverRange = useMemo<{ min: number; max: number } | null>(() => {
+    if (!panelData || !layout) return null;
+    if (panelData.type === 'cube') {
+      const pos = layout.uuidPosMap.get(panelData.uuid);
+      return pos ? { min: pos.x, max: pos.x } : null;
+    }
+    return null;
+  }, [panelData, layout]);
+
   const handleCanvasClick = useCallback((book: string | null) => {
     if (book) open({ book, chapter: 1 });
     else close();
@@ -614,7 +639,7 @@ export function GraphPage() {
 
         {/* Globe (background, top half) */}
         <div className={styles.bibleMapWrapper}>
-          <BibleMap />
+          <BibleMap activeVerseUuids={activeVerseUuids} />
         </div>
 
         {/* 3D graph + frises (foreground, bottom half) */}
@@ -704,6 +729,12 @@ export function GraphPage() {
                 }}
               />
 
+              <CommentSquaresMesh
+                layout={layout}
+                hoverRange={commentHoverRange}
+                extraVisibleXSet={commentExtraXSet}
+              />
+
               <HoverPlane
                 bookLabels={layout.bookLabels}
                 totalX={layout.totalX}
@@ -765,78 +796,8 @@ export function GraphPage() {
             </Canvas>
           </div>
 
-          {/* Hover info panel */}
           {panelData && layout && (
-            <div className={styles.hoverPanel}>
-              {panelData.type === 'book' && (
-                <>
-                  <div className={styles.hoverRefRow}>
-                    <h1 className={styles.hoverRef}>{panelData.book.name}</h1>
-                  </div>
-                  <p className={styles.hoverContext}>{panelData.book.author}</p>
-                  <div className={styles.hoverColumns}>
-                    <div className={styles.hoverCol}><p className={styles.hoverVerse}>{clip(panelData.book.context || 'Pas de contexte disponible')}</p></div>
-                    <div className={styles.hoverCol}>
-                      <p className={styles.hoverMeta}>{panelData.book.author_status || 'Auteur'}</p>
-                      <p className={styles.hoverMeta}>{panelData.book.estimated_date || 'Date inconnue'}</p>
-                    </div>
-                  </div>
-                </>
-              )}
-              {panelData.type === 'arc' && (() => {
-                const fromRef = layout.uuidRefMap.get(panelData.rel.from);
-                const toRef   = layout.uuidRefMap.get(panelData.rel.toFrom);
-                return (
-                  <>
-                    <div className={styles.hoverRefRow}>
-                      <h1 className={styles.hoverRef}>{fmtTarget(fromRef)} → {fmtTarget(toRef)}</h1>
-                      <button className={styles.hoverMapBtn} title="Voir dans la Map"
-                        onClick={() => fromRef && loadRefRelations({ book: fromRef.book, chapter: fromRef.chapter, verse: fromRef.verse }, true, true)}>
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                          <circle cx="12" cy="4" r="2.5"/><circle cx="4" cy="20" r="2.5"/><circle cx="20" cy="20" r="2.5"/>
-                          <line x1="12" y1="6.5" x2="4" y2="17.5"/><line x1="12" y1="6.5" x2="20" y2="17.5"/><line x1="6.5" y1="20" x2="17.5" y2="20"/>
-                        </svg>
-                      </button>
-                    </div>
-                    <p className={styles.hoverContext}>{REL_LABEL[panelData.rel.relType ?? ''] ?? panelData.rel.relType} · {panelData.rel.trad === 'c' ? 'Catholique' : 'Protestant'}</p>
-                    {panelData.verses && (
-                      <div className={styles.hoverColumns}>
-                        <div className={styles.hoverCol}><p className={styles.hoverVerse}>{clip(panelData.verses.from)}</p></div>
-                        <div className={styles.hoverCol}><p className={styles.hoverVerse}>{clip(panelData.verses.to)}</p></div>
-                      </div>
-                    )}
-                  </>
-                );
-              })()}
-              {panelData.type === 'cube' && (() => {
-                const ref        = layout.uuidRefMap.get(panelData.uuid);
-                const displayRef = ref ? { ...ref, verseTo: panelData.verseEnd || ref.verseTo } : undefined;
-                return (
-                  <>
-                    <div className={styles.hoverRefRow}>
-                      <h1 className={styles.hoverRef}>{fmtTarget(displayRef)}</h1>
-                      <button className={styles.hoverMapBtn} title="Voir dans la Map"
-                        onClick={() => ref && loadRefRelations({ book: ref.book, chapter: ref.chapter, verse: ref.verse }, showCathRef.current, showProtRef.current)}>
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                          <circle cx="12" cy="4" r="2.5"/><circle cx="4" cy="20" r="2.5"/><circle cx="20" cy="20" r="2.5"/>
-                          <line x1="12" y1="6.5" x2="4" y2="17.5"/><line x1="12" y1="6.5" x2="20" y2="17.5"/><line x1="6.5" y1="20" x2="17.5" y2="20"/>
-                        </svg>
-                      </button>
-                    </div>
-                    {panelData.summary && <p className={styles.hoverContext}>{clip(panelData.summary, 120)}</p>}
-                    {panelData.verse && (
-                      <div className={styles.hoverColumns}>
-                        <div className={styles.hoverCol}><p className={styles.hoverVerse}>{clip(panelData.verse)}</p></div>
-                        <div className={styles.hoverCol}>
-                          <p className={styles.hoverMeta}>{ref?.book}</p>
-                          <p className={styles.hoverMeta}>Ch. {ref?.chapter} · v. {ref?.verse}{panelData.verseEnd ? `–${panelData.verseEnd}` : ''}</p>
-                        </div>
-                      </div>
-                    )}
-                  </>
-                );
-              })()}
-            </div>
+            <HoverPanel panelData={panelData} layout={layout} />
           )}
 
           {/* Search bar */}

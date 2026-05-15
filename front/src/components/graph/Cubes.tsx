@@ -235,7 +235,7 @@ export function Cubes({
         };
         return (
           <group key={label.name} ref={r => { if (r) labelGroupsRef.current.set(label.name, r); }}>
-            <Html position={[0, -10, 0]} zIndexRange={[0, 0]} style={labelStyle}>
+            <Html position={[0, -16, 0]} zIndexRange={[0, 0]} style={labelStyle}>
               {label.name}
             </Html>
           </group>

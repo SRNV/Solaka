@@ -7,7 +7,10 @@ import type { ChildResult, LeanVerse } from '@/types/bibleDrawer.ts';
 import { EMPTY_SET, fetchVersesByRel, sortRels } from '@/utils/bibleDrawer.ts';
 import { MapIconSvg } from './MapIconSvg.tsx';
 import { RelationBadgeList } from './RelationBadgeList.tsx';
-import styles from './BibleDrawer.module.css';
+import { VerseCommentBar } from './VerseCommentBar.tsx';
+import { usePatristicCommentStore } from '@/store/comment.store.ts';
+import { useCommentModalStore } from '@/store/commentModal.store.ts';
+import styles from './VerseRow.module.css';
 
 interface VerseRowProps {
   verse:                 LeanVerse;
@@ -15,13 +18,19 @@ interface VerseRowProps {
   ancestors?:            ReadonlySet<string>;
   suppressedRelTargets?: ReadonlySet<string>;
   onShowInMap?:          (from: number, to?: number) => void;
+  className?:            string;
+  bookName?:             string;
+  chapterNum?:           number;
+  chapterVerses?:            LeanVerse[];
 }
 
-export function VerseRow({ verse, highlight, ancestors = EMPTY_SET, suppressedRelTargets, onShowInMap }: VerseRowProps) {
+export function VerseRow({ verse, highlight, ancestors = EMPTY_SET, suppressedRelTargets, onShowInMap, className, bookName, chapterNum, chapterVerses }: VerseRowProps) {
   const ref = useRef<HTMLDivElement>(null);
   const { open: openDrawer, triggerShowInMap } = useBibleDrawer();
   const routerNavigate = useNavigate();
 
+  const commentSummary = usePatristicCommentStore(s => s.summaries.get(verse.uuid));
+  const openCommentModal = useCommentModalStore(s => s.open);
   const rawRels = useVerseRelations(verse.uuid);
   const rels    = useMemo(
     () => sortRels(rawRels.filter(r =>
@@ -61,7 +70,7 @@ export function VerseRow({ verse, highlight, ancestors = EMPTY_SET, suppressedRe
   }, [triggerShowInMap, routerNavigate]);
 
   return (
-    <div ref={ref} className={`${styles.verse} ${highlight ? styles.highlight : ''}`}>
+    <div ref={ref} className={`${styles.verse} ${highlight ? styles.highlight : ''} ${className ?? ''}`}>
       <div className={styles.verseHeader}>
         <span className={styles.verseNum}>{verse.number}</span>
         <span className={styles.verseText}>{verse.content}</span>
@@ -83,6 +92,18 @@ export function VerseRow({ verse, highlight, ancestors = EMPTY_SET, suppressedRe
             authorityClass={styles.badgeAuthority}
           />
         </div>
+      )}
+
+      {commentSummary && bookName && chapterNum && chapterVerses && (
+        <VerseCommentBar
+          summary={commentSummary}
+          onClick={() => openCommentModal({
+            verseIdx:   chapterVerses.findIndex(v => v.uuid === verse.uuid),
+            verses:     chapterVerses,
+            bookName,
+            chapterNum,
+          })}
+        />
       )}
 
       {childLoading && <p className={styles.childLoading}>Chargement…</p>}

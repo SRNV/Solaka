@@ -1,0 +1,272 @@
+{
+  "augustine": {
+    "x": 0,
+    "y": 0,
+    "width": 64,
+    "height": 64
+  },
+  "chrysostom": {
+    "x": 64,
+    "y": 0,
+    "width": 64,
+    "height": 64
+  },
+  "jerome": {
+    "x": 128,
+    "y": 0,
+    "width": 64,
+    "height": 64
+  },
+  "ambrose": {
+    "x": 192,
+    "y": 0,
+    "width": 64,
+    "height": 64
+  },
+  "hilary": {
+    "x": 256,
+    "y": 0,
+    "width": 64,
+    "height": 64
+  },
+  "gregory-great": {
+    "x": 320,
+    "y": 0,
+    "width": 64,
+    "height": 64
+  },
+  "gregory-nyssa": {
+    "x": 384,
+    "y": 0,
+    "width": 64,
+    "height": 64
+  },
+  "origen": {
+    "x": 448,
+    "y": 0,
+    "width": 64,
+    "height": 64
+  },
+  "cyril-alexandria": {
+    "x": 0,
+    "y": 64,
+    "width": 64,
+    "height": 64
+  },
+  "basil": {
+    "x": 64,
+    "y": 64,
+    "width": 64,
+    "height": 64
+  },
+  "bede": {
+    "x": 128,
+    "y": 64,
+    "width": 64,
+    "height": 64
+  },
+  "theophylact": {
+    "x": 192,
+    "y": 64,
+    "width": 64,
+    "height": 64
+  },
+  "rabanus": {
+    "x": 256,
+    "y": 64,
+    "width": 64,
+    "height": 64
+  },
+  "remigius": {
+    "x": 320,
+    "y": 64,
+    "width": 64,
+    "height": 64
+  },
+  "anselm": {
+    "x": 384,
+    "y": 64,
+    "width": 64,
+    "height": 64
+  },
+  "leo-great": {
+    "x": 448,
+    "y": 64,
+    "width": 64,
+    "height": 64
+  },
+  "bernard": {
+    "x": 0,
+    "y": 128,
+    "width": 64,
+    "height": 64
+  },
+  "aquinas": {
+    "x": 64,
+    "y": 128,
+    "width": 64,
+    "height": 64
+  },
+  "ephrem": {
+    "x": 128,
+    "y": 128,
+    "width": 64,
+    "height": 64
+  },
+  "ignatius-antioch": {
+    "x": 192,
+    "y": 128,
+    "width": 64,
+    "height": 64
+  },
+  "polycarp": {
+    "x": 256,
+    "y": 128,
+    "width": 64,
+    "height": 64
+  },
+  "clement-rome": {
+    "x": 320,
+    "y": 128,
+    "width": 64,
+    "height": 64
+  },
+  "pseudo-dionysius": {
+    "x": 384,
+    "y": 128,
+    "width": 64,
+    "height": 64
+  },
+  "euthymius": {
+    "x": 448,
+    "y": 128,
+    "width": 64,
+    "height": 64
+  },
+  "athanasius": {
+    "x": 0,
+    "y": 192,
+    "width": 64,
+    "height": 64
+  },
+  "justin-martyr": {
+    "x": 64,
+    "y": 192,
+    "width": 64,
+    "height": 64
+  },
+  "tertullian": {
+    "x": 128,
+    "y": 192,
+    "width": 64,
+    "height": 64
+  },
+  "cyprian": {
+    "x": 192,
+    "y": 192,
+    "width": 64,
+    "height": 64
+  },
+  "lactantius": {
+    "x": 256,
+    "y": 192,
+    "width": 64,
+    "height": 64
+  },
+  "epiphanius": {
+    "x": 320,
+    "y": 192,
+    "width": 64,
+    "height": 64
+  },
+  "peter-chrysologus": {
+    "x": 384,
+    "y": 192,
+    "width": 64,
+    "height": 64
+  },
+  "maximus-confessor": {
+    "x": 448,
+    "y": 192,
+    "width": 64,
+    "height": 64
+  },
+  "john-damascus": {
+    "x": 0,
+    "y": 256,
+    "width": 64,
+    "height": 64
+  },
+  "john-cassian": {
+    "x": 64,
+    "y": 256,
+    "width": 64,
+    "height": 64
+  },
+  "alcuin": {
+    "x": 128,
+    "y": 256,
+    "width": 64,
+    "height": 64
+  },
+  "eusebius": {
+    "x": 192,
+    "y": 256,
+    "width": 64,
+    "height": 64
+  },
+  "titus-bostra": {
+    "x": 256,
+    "y": 256,
+    "width": 64,
+    "height": 64
+  },
+  "isidore-seville": {
+    "x": 320,
+    "y": 256,
+    "width": 64,
+    "height": 64
+  },
+  "glossa-ordinaria": {
+    "x": 384,
+    "y": 256,
+    "width": 64,
+    "height": 64
+  },
+  "gregory-nazianzus": {
+    "x": 448,
+    "y": 256,
+    "width": 64,
+    "height": 64
+  },
+  "didymus-blind": {
+    "x": 0,
+    "y": 320,
+    "width": 64,
+    "height": 64
+  },
+  "severus-antioch": {
+    "x": 64,
+    "y": 320,
+    "width": 64,
+    "height": 64
+  },
+  "damasus-i": {
+    "x": 128,
+    "y": 320,
+    "width": 64,
+    "height": 64
+  },
+  "catena-greek-fathers": {
+    "x": 192,
+    "y": 320,
+    "width": 64,
+    "height": 64
+  },
+  "council-ephesus": {
+    "x": 256,
+    "y": 320,
+    "width": 64,
+    "height": 64
+  }
+}
