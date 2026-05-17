@@ -1,10 +1,10 @@
 import { useMemo, useRef, useState } from 'react';
 import { Html, Line } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
-import type { BibleBookOrder, BibleEvent, HistoricalPeriod, HistoricalSubMode, King, BookSortMode } from '@/models/bible';
+import type { BibleBookOrder, BibleEvent, BibleStructureBook, HistoricalPeriod, HistoricalSubMode, King, BookSortMode } from '@/models/bible';
 import type { BibleTarget } from '@/contexts/BibleDrawerContext.tsx';
 import type { LayoutResult } from '@/utils/graphLayout.ts';
-import type { BibleStructureBook } from '@/models/bible';
+import { COLOR_BY_EVENT_TYPE, yearToWorldX, buildYearPoints } from './friseUtils';
 
 interface SectionMarkersProps {
   layout:              LayoutResult;
@@ -31,54 +31,6 @@ const PIN_H         = 14;
 const BY            = 100;
 const TICK          = 6;
 
-const COLOR_BY_EVENT_TYPE: Record<string, string> = {
-  covenant: '#f0c040', exodus: '#e8956d', conquest: '#e05555',
-  monarchy: '#826AED', temple: '#4caf50', exile: '#c0392b',
-  return: '#27ae60', reform: '#2980b9', political: '#a0a8c8',
-  birth: '#f9dc5c', death: '#888', theological: '#ffffff', prophecy: '#bb8fce',
-  writing: '#85c1e9', martyrdom: '#e74c3c', council: '#5dade2',
-  revolt: '#e59866', migration: '#a9cce3', missionary: '#a9dfbf',
-};
-
-/** Interpolate a world-space X coordinate from a year using the year→X mapping. */
-function yearToWorldX(year: number, yearPoints: { year: number; x: number }[]): number {
-  if (yearPoints.length === 0) return 0;
-  if (yearPoints.length === 1) return yearPoints[0].x;
-
-  if (year <= yearPoints[0].year) {
-    const p0 = yearPoints[0], p1 = yearPoints[1];
-    return p0.x + ((p1.x - p0.x) / (p1.year - p0.year)) * (year - p0.year);
-  }
-  if (year >= yearPoints[yearPoints.length - 1].year) {
-    const p0 = yearPoints[yearPoints.length - 2], p1 = yearPoints[yearPoints.length - 1];
-    return p1.x + ((p1.x - p0.x) / (p1.year - p0.year)) * (year - p1.year);
-  }
-  for (let i = 0; i < yearPoints.length - 1; i++) {
-    const p0 = yearPoints[i], p1 = yearPoints[i + 1];
-    if (year >= p0.year && year <= p1.year) {
-      return p0.x + ((p1.x - p0.x) / (p1.year - p0.year)) * (year - p0.year);
-    }
-  }
-  return 0;
-}
-
-function buildYearPoints(bookOrderData: BibleBookOrder[], bookLabels: LayoutResult['bookLabels'], histSubMode: HistoricalSubMode) {
-  const dateMap   = new Map(bookOrderData.map(b => [b.number, b[histSubMode]]));
-  const yearToXs  = new Map<number, number[]>();
-  for (const b of bookLabels) {
-    const dateRange = dateMap.get(b.number);
-    if (!dateRange) continue;
-    const year = dateRange[0];
-    if (!yearToXs.has(year)) yearToXs.set(year, []);
-    yearToXs.get(year)!.push((b.startX + b.endX) / 2);
-  }
-  const pts: { year: number; x: number }[] = [];
-  for (const [year, xs] of yearToXs.entries()) {
-    pts.push({ year, x: xs.reduce((a, b) => a + b, 0) / xs.length });
-  }
-  pts.sort((a, b) => a.year - b.year);
-  return pts;
-}
 
 export function SectionMarkers({
   layout, hoveredBook, mainCamRef,

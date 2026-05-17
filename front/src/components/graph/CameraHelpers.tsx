@@ -32,8 +32,8 @@ export function FitCamera({ totalX, cx }: { totalX: number; cx: number }) {
     if (done.current || size.width === 0 || totalX === 0) return;
     done.current = true;
 
-    const zoom = (size.width * 0.88) / totalX;
-    (camera as any).zoom = Math.max(0.2, Math.min(2, zoom));
+    const baseZoom = (size.width * 0.88) / totalX;
+    (camera as any).zoom = Math.max(0.2, Math.min(2, baseZoom));
     camera.position.x = cx;
     camera.position.y = 200;
     camera.updateProjectionMatrix();
