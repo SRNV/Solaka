@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './Sidebar.module.css';
 
@@ -10,37 +9,38 @@ const NAV: NavItem[] = [
   { to: '/objections', label: 'Objections', icon: '⚖' },
 ];
 
-export function Sidebar() {
-  const [collapsed, setCollapsed] = useState(false);
+interface SidebarProps {
+  open:    boolean;
+  onClose: () => void;
+}
 
+export function Sidebar({ open, onClose }: SidebarProps) {
   return (
-    <aside className={`${styles.sidebar} ${collapsed ? styles.collapsed : ''}`}>
-      <div className={styles.logo}>
-        <span className={styles.logoIcon}>✦</span>
-        {!collapsed && <span className={styles.logoText}>SolaKa</span>}
-      </div>
+    <>
+      {open && <div className={styles.backdrop} onClick={onClose} />}
 
-      <nav className={styles.nav}>
-        {NAV.map(item => (
-          <NavLink
-            key={item.to}
-            to={item.to}
-            end={item.to === '/'}
-            className={({ isActive }) => `${styles.navLink} ${isActive ? styles.active : ''}`}
-          >
-            <span className={styles.navIcon}>{item.icon}</span>
-            {!collapsed && <span>{item.label}</span>}
-          </NavLink>
-        ))}
-      </nav>
+      <aside className={`${styles.sidebar} ${open ? styles.open : ''}`}>
+        <div className={styles.header}>
+          <span className={styles.logoIcon}>✦</span>
+          <span className={styles.logoText}>SolaKa</span>
+          <button className={styles.closeBtn} onClick={onClose} title="Fermer">✕</button>
+        </div>
 
-      <button
-        className={styles.toggle}
-        onClick={() => setCollapsed(c => !c)}
-        title={collapsed ? 'Déplier' : 'Replier'}
-      >
-        {collapsed ? '›' : '‹'}
-      </button>
-    </aside>
+        <nav className={styles.nav}>
+          {NAV.map(item => (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              end={item.to === '/'}
+              className={({ isActive }) => `${styles.navLink} ${isActive ? styles.active : ''}`}
+              onClick={onClose}
+            >
+              <span className={styles.navIcon}>{item.icon}</span>
+              <span>{item.label}</span>
+            </NavLink>
+          ))}
+        </nav>
+      </aside>
+    </>
   );
 }

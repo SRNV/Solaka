@@ -196,6 +196,68 @@
 }
 .commentRow:last-child { border-bottom: none; }
 
+/* Commentaire enfant (récursif) */
+.commentRowChild {
+  display: flex;
+  gap: 12px;
+  padding: 10px 0 0 0;
+  align-items: flex-start;
+}
+
+/* Bouton "X commentaires" avec avatars — fermé par défaut */
+.childrenToggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  padding: 4px 8px 4px 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.12s;
+  color: inherit;
+}
+.childrenToggle:hover { background: rgba(200, 121, 255, 0.08); }
+
+.childAvatars {
+  display: flex;
+  flex-direction: row;
+}
+
+.childAvatar {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1.5px solid var(--secondary);
+  flex-shrink: 0;
+  margin-left: -5px;
+  overflow: hidden;
+}
+.childAvatars .childAvatar:first-child { margin-left: 0; }
+
+.childCount {
+  font-size: 11px;
+  color: var(--text-muted, #999);
+  white-space: nowrap;
+}
+
+.childChevron {
+  font-size: 9px;
+  color: var(--text-muted, #999);
+}
+
+/* Bloc des enfants déplié : trait gauche + marge */
+.childrenList {
+  margin-top: 8px;
+  padding-left: 16px;
+  border-left: 2px solid var(--border, rgba(255,255,255,0.12));
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .groupHeader {
   display: flex;
   align-items: center;
@@ -262,6 +324,11 @@
   color: var(--text, #c8c8d8);
   margin: 4px 0 0;
   word-break: break-word;
+}
+
+.sourceRef {
+  font-style: italic;
+  color: var(--text-muted, #999);
 }
 
 .seeMore {

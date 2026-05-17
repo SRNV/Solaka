@@ -14,6 +14,8 @@ export class JsonPatristicStore implements IPatristicRepository {
 
   // verse uuid → comments for that verse
   private byVerse = new Map<string, PatristicComment[]>();
+  // uuid → comment (pour retrouver les enfants)
+  private byCommentUuid = new Map<string, PatristicComment>();
   // person uuid → comments by that person
   private byPersonUuid = new Map<string, PatristicComment[]>();
   // pre-built full index (uuid → summary)
@@ -36,14 +38,12 @@ export class JsonPatristicStore implements IPatristicRepository {
       this.bySlug.set(a.slug, a);
     }
 
-    const rawComments = JSON.parse(fs.readFileSync(commentsPath, 'utf-8')) as Array<PatristicComment & { authorUuid?: string }>;
-    const comments: PatristicComment[] = rawComments.map(c => ({
-      ...c,
-      personUuid: c.personUuid ?? c.authorUuid ?? '',
-    }));
+    const comments = JSON.parse(fs.readFileSync(commentsPath, 'utf-8')) as PatristicComment[];
 
     for (const c of comments) {
-      // Index by verse
+      this.byCommentUuid.set(c.uuid, c);
+
+      // Index by verse (parents + enfants, pour le comptage)
       const vList = this.byVerse.get(c.verseFromUuid) ?? [];
       vList.push(c);
       this.byVerse.set(c.verseFromUuid, vList);
@@ -71,8 +71,19 @@ export class JsonPatristicStore implements IPatristicRepository {
     console.log(`[PatristicStore] ${this.persons.length} persons, ${comments.length} comments loaded`);
   }
 
-  private attachPerson(c: PatristicComment): PatristicCommentResult {
-    return { ...c, person: this.byUuid.get(c.personUuid)! };
+  private attachPerson(c: PatristicComment): PatristicCommentResult | null {
+    const person = this.byUuid.get(c.personUuid);
+    if (!person) return null;
+    const children = (c.childrenUuids ?? [])
+      .map(uid => this.byCommentUuid.get(uid))
+      .filter((ch): ch is PatristicComment => ch != null)
+      .map(ch => this.attachPerson(ch))
+      .filter((ch): ch is PatristicCommentResult => ch !== null);
+    return {
+      ...c,
+      person,
+      children: children.length > 0 ? children : undefined,
+    };
   }
 
   private paginate<T>(items: T[], limit = 50, offset = 0): PaginatedResponse<T> {
@@ -93,14 +104,21 @@ export class JsonPatristicStore implements IPatristicRepository {
   }
 
   getCommentsByVerse(verseUuid: string, limit = 50, offset = 0): PaginatedResponse<PatristicCommentResult> {
-    const comments = (this.byVerse.get(verseUuid) ?? []).map(c => this.attachPerson(c));
-    return this.paginate(comments, limit, offset);
+    // Seuls les commentaires racine (sans parent) : les enfants sont nichés dedans
+    const topLevel = (this.byVerse.get(verseUuid) ?? [])
+      .filter(c => !c.parentUuid)
+      .sort((a, b) => (a.pageOrder ?? 0) - (b.pageOrder ?? 0))
+      .map(c => this.attachPerson(c))
+      .filter((c): c is PatristicCommentResult => c !== null);
+    return this.paginate(topLevel, limit, offset);
   }
 
   getCommentsByPerson(slug: string, limit = 50, offset = 0): PaginatedResponse<PatristicCommentResult> {
     const person = this.bySlug.get(slug);
     if (!person) return { data: [], total: 0, limit, offset };
-    const comments = (this.byPersonUuid.get(person.uuid) ?? []).map(c => this.attachPerson(c));
+    const comments = (this.byPersonUuid.get(person.uuid) ?? [])
+      .map(c => this.attachPerson(c))
+      .filter((c): c is PatristicCommentResult => c !== null);
     return this.paginate(comments, limit, offset);
   }
 

@@ -1,4 +1,4 @@
-# Sola Catholica
+# SolaKa
 
 Application web d'apologétique catholique : graphe biblique 3D interactif, globe historique, commentaires patristiques et documents du Magistère.
 

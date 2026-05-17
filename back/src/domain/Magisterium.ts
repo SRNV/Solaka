@@ -14,7 +14,7 @@ export interface MagisteriumPerson {
 }
 
 export interface MagisteriumComment {
-  author_slug: string;
+  person_slug: string;
   document_name: string;
   document_abbr: string;
   document_url: string;
@@ -33,6 +33,6 @@ export interface MagisteriumDocument {
   abbr: string;
   url: string;
   year: number;
-  author_slug: string;
+  person_slug: string;
   comment_count: number;
 }

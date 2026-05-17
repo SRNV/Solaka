@@ -699,7 +699,7 @@ describe('GET /api/magistere/documents', () => {
         name:          expect.any(String),
         url:           expect.any(String),
         year:          expect.any(Number),
-        author_slug:   expect.any(String),
+        person_slug:   expect.any(String),
         comment_count: expect.any(Number),
       });
     }
@@ -708,10 +708,10 @@ describe('GET /api/magistere/documents', () => {
   it('filtre par auteur avec ?author=slug', async () => {
     const { data: all } = await get<any>('/api/magistere/documents');
     if (all.data.length === 0) return;
-    const slug = all.data[0].author_slug;
+    const slug = all.data[0].person_slug;
     const { data: filtered } = await get<any>(`/api/magistere/documents?author=${slug}`);
     expect(filtered.data.length).toBeGreaterThan(0);
-    expect(filtered.data.every((d: any) => d.author_slug === slug)).toBe(true);
+    expect(filtered.data.every((d: any) => d.person_slug === slug)).toBe(true);
     expect(filtered.data.length).toBeLessThanOrEqual(all.data.length);
   });
 
@@ -738,10 +738,10 @@ describe('GET /api/magistere/persons/:slug/documents', () => {
   it('tous les documents retournés appartiennent au bon auteur', async () => {
     const { data: docs } = await get<any>('/api/magistere/documents');
     if (docs.data.length === 0) return;
-    const slug = docs.data[0].author_slug;
+    const slug = docs.data[0].person_slug;
     const { data } = await get<any>(`/api/magistere/persons/${slug}/documents`);
     for (const d of data.data) {
-      expect(d.author_slug).toBe(slug);
+      expect(d.person_slug).toBe(slug);
     }
   });
 });

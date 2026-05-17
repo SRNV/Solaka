@@ -13,7 +13,7 @@ export function HomePage() {
     <div>
       <section className={styles.hero}>
         <div className={styles.heroContent}>
-          <h1 className={styles.title}>Sola Catholica</h1>
+          <h1 className={styles.title}>SolaKa</h1>
 
           <p className={styles.subtitle}>
             Réponses fondées sur l'Écriture et la Tradition aux objections

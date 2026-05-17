@@ -24,7 +24,7 @@ import { usePatristicCommentIndex } from '@/hooks/useCommentIndex.ts';
 import { HoverPlane } from './HoverPlane.tsx';
 import { SectionMarkers } from './SectionMarkers.tsx';
 import { SearchInput } from './SearchInput.tsx';
-import { CameraReporter, LockCameraY } from './CameraHelpers.tsx';
+import { CameraReporter, FitCamera, LockCameraY } from './CameraHelpers.tsx';
 import { HoverPanel } from './HoverPanel.tsx';
 import { TraditionModal } from './TraditionModal.tsx';
 import type { PanelData } from './HoverPanel.tsx';
@@ -175,7 +175,7 @@ export function GraphPage() {
   if (layout && initialCxRef.current === null) initialCxRef.current = layout.totalX / 2;
   const stableCx = initialCxRef.current ?? 0;
 
-  const mainCamRef = useRef({ x: stableCx, zoom: 2 });
+  const mainCamRef = useRef({ x: stableCx, zoom: 1 });
 
   // ── Merge + normalise relations ────────────────────────────────────────
   // stompRelations grows one element per 250 ms tick. Instead of re-running
@@ -638,6 +638,7 @@ export function GraphPage() {
       <div className={styles.canvasContainer}>
 
         {/* Globe (background, top half) */}
+
         <div className={styles.bibleMapWrapper}>
           <BibleMap activeVerseUuids={activeVerseUuids} />
         </div>
@@ -706,7 +707,7 @@ export function GraphPage() {
             <Canvas
               orthographic
               frameloop="demand"
-              camera={{ zoom: 2, position: [stableCx, 200, 800], near: 0.1, far: 10000 }}
+              camera={{ zoom: 1, position: [stableCx, 200, 800], near: 0.1, far: 10000 }}
               style={{ background: 'transparent', cursor: (effectiveHoveredBook || hoveredArcXs) ? 'pointer' : 'default' }}
             >
               <ambientLight    intensity={0.85} />
@@ -744,8 +745,16 @@ export function GraphPage() {
                 onCanvasClick={handleCanvasClick}
               />
 
+              <FitCamera totalX={layout.totalX} cx={stableCx} />
               <CameraReporter onUpdate={(x, zoom) => { mainCamRef.current = { x, zoom }; }} />
+              <OrbitControls
+                target={[stableCx, 0, 0]}
+                enableZoom={false}
+                enablePan={false}
+                enableRotate={false}
+              />
               <LockCameraY y={200} />
+
 
               {/* Search result badges */}
               {searchBadges.map(badge => (
@@ -782,17 +791,6 @@ export function GraphPage() {
                 />
               )}
 
-              <OrbitControls
-                target={[stableCx, 0, 0]}
-                zoomToCursor
-                minZoom={1}
-                maxZoom={5}
-                enableRotate={false}
-                maxPolarAngle={Math.PI / 2 - 0.02}
-                minAzimuthAngle={-Math.PI / 2}
-                maxAzimuthAngle={Math.PI  / 2}
-                mouseButtons={{ LEFT: 2, MIDDLE: 1, RIGHT: 0 }}
-              />
             </Canvas>
           </div>
 

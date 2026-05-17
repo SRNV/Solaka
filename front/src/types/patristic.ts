@@ -13,14 +13,17 @@ export interface CommentSummary {
 export type CommentBatchResult = Record<string, CommentSummary>;
 
 export interface PatristicCommentResult {
-  uuid:          string;
-  personUuid:    string;
-  collection:    string;
-  sourceUrl:     string;
-  sourceWork?:   string;
-  text:          string;
-  verseFromUuid: string;
-  verseToUuid:   string;
+  uuid:           string;
+  personUuid:     string;
+  parentUuid?:    string;
+  pageOrder?:     number;
+  collection:     string;
+  sourceUrl:      string;
+  sourceWork?:    string;
+  text:           string;
+  verseFromUuid:  string;
+  verseToUuid:    string;
+  children?:      PatristicCommentResult[];
   person: {
     uuid:      string;
     slug:      string;

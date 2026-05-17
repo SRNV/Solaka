@@ -5,14 +5,16 @@ import atlasIndex from '@/data/atlas.json';
 import { VerseRow } from './VerseRow.tsx';
 import styles from './CommentModal.module.css';
 
-const ATLAS_W   = 512;
-const ATLAS_H   = 576;
-const AVATAR_PX = 40;
-const TILE_PX   = 64;
-const SCALE     = AVATAR_PX / TILE_PX;
-const MAX_CHARS = 100;
+const ATLAS_W        = 512;
+const ATLAS_H        = 576;
+const AVATAR_PX      = 40;
+const SMALL_AVATAR_PX = 20;
+const TILE_PX        = 64;
+const SCALE          = AVATAR_PX       / TILE_PX;
+const SMALL_SCALE    = SMALL_AVATAR_PX / TILE_PX;
+const MAX_CHARS      = 100;
 
-type SortMode = 'date' | 'alpha' | 'length';
+type SortMode = 'order' | 'date' | 'alpha' | 'length';
 
 type AtlasEntry = { x: number; y: number };
 const atlas = atlasIndex as Record<string, AtlasEntry>;
@@ -27,13 +29,25 @@ function avatarStyle(slug: string): React.CSSProperties {
   };
 }
 
-function CommentRow({ comment }: { comment: PatristicCommentResult }) {
-  const [expanded, setExpanded] = useState(false);
-  const text    = comment.text ?? '';
-  const trimmed = text.length > MAX_CHARS && !expanded ? text.slice(0, MAX_CHARS) + '…' : text;
+function smallAvatarStyle(slug: string): React.CSSProperties {
+  const e = atlas[slug];
+  return {
+    backgroundImage:    `url('/atlas.png')`,
+    backgroundSize:     `${ATLAS_W * SMALL_SCALE}px ${ATLAS_H * SMALL_SCALE}px`,
+    backgroundPosition: `${-((e?.x ?? 0) * SMALL_SCALE)}px ${-((e?.y ?? 0) * SMALL_SCALE)}px`,
+    backgroundRepeat:   'no-repeat',
+  };
+}
+
+function CommentRow({ comment, depth = 0 }: { comment: PatristicCommentResult; depth?: number }) {
+  const [expanded,     setExpanded]     = useState(false);
+  const [childrenOpen, setChildrenOpen] = useState(false);
+  const text     = comment.text ?? '';
+  const trimmed  = text.length > MAX_CHARS && !expanded ? text.slice(0, MAX_CHARS) + '…' : text;
+  const children = (comment.children ?? []).filter(ch => ch.person != null);
 
   return (
-    <div className={styles.commentRow}>
+    <div className={depth > 0 ? styles.commentRowChild : styles.commentRow}>
       <a
         className={`${styles.avatar} ${comment.person.type === 'magistere' ? styles.avatarMag : styles.avatarPat}`}
         style={avatarStyle(comment.person.slug)}
@@ -47,7 +61,10 @@ function CommentRow({ comment }: { comment: PatristicCommentResult }) {
         {comment.person.born && comment.person.died && (
           <span className={styles.authorDates}>{comment.person.born}–{comment.person.died}</span>
         )}
-        <p className={styles.commentText}>{trimmed}</p>
+        <p className={styles.commentText}>
+          {comment.sourceWork && <em className={styles.sourceRef}>({comment.sourceWork}) </em>}
+          {trimmed}
+        </p>
         {text.length > MAX_CHARS && (
           <button className={styles.seeMore} onClick={() => setExpanded(e => !e)}>
             {expanded ? 'voir moins' : 'voir plus'}
@@ -57,6 +74,36 @@ function CommentRow({ comment }: { comment: PatristicCommentResult }) {
           <a className={styles.sourceLink} href={comment.sourceUrl} target="_blank" rel="noreferrer">
             Source ↗
           </a>
+        )}
+
+        {/* Barre enfants — fermée par défaut */}
+        {children.length > 0 && (
+          <>
+            <button className={styles.childrenToggle} onClick={() => setChildrenOpen(o => !o)}>
+              <div className={styles.childAvatars}>
+                {children.slice(0, 8).map(ch => (
+                  <span
+                    key={ch.uuid}
+                    className={`${styles.childAvatar} ${ch.person.type === 'magistere' ? styles.avatarMag : styles.avatarPat}`}
+                    style={smallAvatarStyle(ch.person.slug)}
+                    title={ch.person.nameFr}
+                  />
+                ))}
+              </div>
+              <span className={styles.childCount}>
+                {children.length} commentaire{children.length > 1 ? 's' : ''}
+              </span>
+              <span className={styles.childChevron}>{childrenOpen ? '▲' : '▼'}</span>
+            </button>
+
+            {childrenOpen && (
+              <div className={styles.childrenList}>
+                {children.map(child => (
+                  <CommentRow key={child.uuid} comment={child} depth={depth + 1} />
+                ))}
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>
@@ -69,7 +116,7 @@ export function CommentModal() {
   const [verseIdx,     setVerseIdx]     = useState(0);
   const [rawComments,  setRawComments]  = useState<PatristicCommentResult[]>([]);
   const [loading,      setLoading]      = useState(false);
-  const [sort,         setSort]         = useState<SortMode>('date');
+  const [sort,         setSort]         = useState<SortMode>('order');
   const [filterSlug,   setFilterSlug]   = useState<string>('');
 
   // Sync internal index when target changes
@@ -132,6 +179,7 @@ export function CommentModal() {
   // Sort + filter — magistere always first within each sort
   const comments = useMemo(() => {
     let list = filterSlug ? rawComments.filter(c => c.person.slug === filterSlug) : rawComments;
+    if (sort === 'order')  list = [...list].sort((a, b) => (a.pageOrder ?? 0) - (b.pageOrder ?? 0));
     if (sort === 'alpha')  list = [...list].sort((a, b) => a.person.nameFr.localeCompare(b.person.nameFr));
     if (sort === 'length') list = [...list].sort((a, b) => b.text.length - a.text.length);
     if (sort === 'date')   list = [...list].sort((a, b) => (a.person.born ?? 9999) - (b.person.born ?? 9999));
@@ -184,13 +232,13 @@ export function CommentModal() {
 
             <div className={styles.toolbar}>
               <div className={styles.sortBtns}>
-                {(['date', 'alpha', 'length'] as SortMode[]).map(s => (
+                {(['order', 'date', 'alpha', 'length'] as SortMode[]).map(s => (
                   <button
                     key={s}
                     className={`${styles.sortBtn} ${sort === s ? styles.sortBtnActive : ''}`}
                     onClick={() => setSort(s)}
                   >
-                    {s === 'date' ? 'Date' : s === 'alpha' ? 'A–Z' : 'Longueur'}
+                    {s === 'order' ? 'Ordre' : s === 'date' ? 'Date' : s === 'alpha' ? 'A–Z' : 'Longueur'}
                   </button>
                 ))}
               </div>

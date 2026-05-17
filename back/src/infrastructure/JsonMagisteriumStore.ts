@@ -40,7 +40,7 @@ export class JsonMagisteriumStore implements IMagisteriumRepository {
     const comments = JSON.parse(fs.readFileSync(commentsPath, 'utf-8')) as MagisteriumComment[];
 
     // Intermediate map to build document summaries
-    const docMeta = new Map<string, { name: string; url: string; year: number; author_slug: string }>();
+    const docMeta = new Map<string, { name: string; url: string; year: number; person_slug: string }>();
 
     for (const c of comments) {
       // Index by verse (each comment can cite multiple verses)
@@ -60,7 +60,7 @@ export class JsonMagisteriumStore implements IMagisteriumRepository {
           name: c.document_name,
           url:  c.document_url,
           year: c.year,
-          author_slug: c.author_slug,
+          person_slug: c.person_slug,
         });
       }
     }
@@ -70,7 +70,7 @@ export class JsonMagisteriumStore implements IMagisteriumRepository {
       name:          meta.name,
       url:           meta.url,
       year:          meta.year,
-      author_slug:   meta.author_slug,
+      person_slug:   meta.person_slug,
       comment_count: this.byDoc.get(abbr)!.length,
     })).sort((a, b) => a.year - b.year);
 
@@ -78,7 +78,7 @@ export class JsonMagisteriumStore implements IMagisteriumRepository {
   }
 
   private attachPerson(c: MagisteriumComment): MagisteriumCommentResult {
-    return { ...c, person: this.bySlug.get(c.author_slug)! };
+    return { ...c, person: this.bySlug.get(c.person_slug)! };
   }
 
   private paginate<T>(items: T[], limit = 50, offset = 0): PaginatedResponse<T> {
@@ -95,7 +95,7 @@ export class JsonMagisteriumStore implements IMagisteriumRepository {
 
   getDocuments(personSlug?: string): MagisteriumDocument[] {
     if (!personSlug) return this.docs;
-    return this.docs.filter(d => d.author_slug === personSlug);
+    return this.docs.filter(d => d.person_slug === personSlug);
   }
 
   getCommentsByVerse(verseUuid: string, limit = 50, offset = 0): PaginatedResponse<MagisteriumCommentResult> {

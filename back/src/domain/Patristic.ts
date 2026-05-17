@@ -21,19 +21,23 @@ export interface PatristicCommentSource {
 }
 
 export interface PatristicComment {
-  uuid: string;
-  personUuid: string;
-  collection: string;
-  sourceUrl: string;
-  sourceWork?: string;
-  source?: PatristicCommentSource;
-  text: string;
-  verseFromUuid: string;
-  verseToUuid: string;
+  uuid:           string;
+  personUuid:     string;
+  parentUuid?:    string;
+  childrenUuids?: string[];
+  pageOrder?:     number;
+  collection:     string;
+  sourceUrl:      string;
+  sourceWork?:    string;
+  source?:        PatristicCommentSource;
+  text:           string;
+  verseFromUuid:  string;
+  verseToUuid:    string;
 }
 
 export interface PatristicCommentResult extends PatristicComment {
-  person: PatristicPerson;
+  person:     PatristicPerson;
+  children?:  PatristicCommentResult[];
 }
 
 export interface PatristicPersonSnippet {

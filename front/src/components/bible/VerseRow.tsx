@@ -117,15 +117,23 @@ export function VerseRow({ verse, highlight, ancestors = EMPTY_SET, suppressedRe
                 {childResults.length > 1 ? `–${childResults[childResults.length - 1].verse.number}` : ''}
               </p>
             </div>
-            {childResults.map(cr => (
-              <VerseRow
-                key={cr.verse.uuid}
-                verse={cr.verse}
-                highlight={false}
-                ancestors={chain}
-                onShowInMap={(from, to) => handleChildShowInMap(cr, from, to)}
-              />
-            ))}
+            {childResults.map(cr => {
+              const siblingVerses = childResults
+                .filter(x => x.bookName === cr.bookName && x.chapterNumber === cr.chapterNumber)
+                .map(x => x.verse);
+              return (
+                <VerseRow
+                  key={cr.verse.uuid}
+                  verse={cr.verse}
+                  highlight={false}
+                  ancestors={chain}
+                  onShowInMap={(from, to) => handleChildShowInMap(cr, from, to)}
+                  bookName={cr.bookName}
+                  chapterNum={cr.chapterNumber}
+                  chapterVerses={siblingVerses}
+                />
+              );
+            })}
           </div>
         );
       })()}
