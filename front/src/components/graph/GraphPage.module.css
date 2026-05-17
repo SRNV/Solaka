@@ -537,3 +537,64 @@
   padding: 6px;
   box-shadow: var(--shadow-md);
 }
+
+/* ── Mobile overrides (≤ 767px) ─────────────────────────────────────── */
+
+@media (max-width: 767px) {
+  /* Globe: slightly smaller so graph gets more room */
+  .bibleMapWrapper { height: 42%; }
+
+  /* Sort panel: move from bottom-right to top-left */
+  .sortPanel {
+    top: 10px;
+    bottom: auto;
+    left: 14px;
+    right: auto;
+    padding: 3px 6px 3px 8px;
+    gap: 2px;
+  }
+
+  /* Hide "Ordre" label on mobile — saves width */
+  .sortLabel { display: none; }
+
+  .sortBtn {
+    font-size: 10px;
+    padding: 2px 8px;
+  }
+
+  /* histDropup: sort panel is now at the TOP so the menu opens downward */
+  .histDropup {
+    bottom: auto;
+    top: calc(100% + 6px);
+    right: auto;
+    left: 0;
+  }
+
+  /* Tradition pills: slightly smaller */
+  .pillSm {
+    font-size: 10px;
+    padding: 3px 9px;
+  }
+
+  /* Controls: leave gap on left side for sort panel (~140px) */
+  .controls {
+    max-width: calc(100% - 160px);
+  }
+
+  /* Frise selector (historical mode): move to above search bar, right side */
+  .friseSelector {
+    top: auto;
+    bottom: 60px;
+    right: 14px;
+    transform: none;
+    flex-direction: row;
+    gap: 3px;
+    padding: 4px 6px;
+  }
+
+  /* Search badges: slightly smaller */
+  .searchBadge {
+    font-size: 9px;
+    padding: 2px 6px;
+  }
+}
