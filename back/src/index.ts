@@ -31,7 +31,7 @@ const config: AppConfig = {
   periodsPath:            process.env.PERIODS_PATH            ?? path.resolve(__dirname, '../../../scrapp/output/periods.json'),
   eventsPath:             process.env.EVENTS_PATH             ?? path.resolve(__dirname, '../../../scrapp/output/events.json'),
   geomapPath:             process.env.GEOMAP_PATH             ?? path.resolve(__dirname, '../data/geojson'),
-  biblicalDataPath:       process.env.BIBLICAL_DATA_PATH      ?? path.resolve(__dirname, '../../../front/exemples/Bible-Geocoding-Data'),
+  biblicalDataPath:       process.env.BIBLICAL_DATA_PATH      ?? path.resolve(__dirname, '../data/biblical-geocoding'),
   patristicPersonsPath:   process.env.PATRISTIC_PERSONS_PATH  ?? path.resolve(__dirname, '../../../scrapp/output/persons.json'),
   patristicCommentsPath:  process.env.PATRISTIC_COMMENTS_PATH ?? path.resolve(__dirname, '../../../scrapp/output/comments.json'),
   magisterePersonsPath:   process.env.MAGISTERE_PERSONS_PATH  ?? path.resolve(__dirname, '../../../scrapp/output/magistere_persons.json'),

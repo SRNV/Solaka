@@ -535,8 +535,23 @@ describe('GET /api/patristic/persons/:slug/comments', () => {
         verseFromUuid: expect.any(String),
         verseToUuid:   expect.any(String),
       });
-      // Auteur embedé
+      // Auteur embedé — jamais undefined (les commentaires sans auteur connu sont filtrés)
       expect(c.person).toMatchObject({ slug: 'augustine', nameFr: expect.any(String) });
+      // pageOrder présent et positif
+      if (c.pageOrder != null) expect(c.pageOrder).toBeGreaterThan(0);
+    }
+  });
+
+  it('les enfants (children) ont person embedé et ne figurent pas au top-level', async () => {
+    const { data } = await get<any>('/api/patristic/persons/augustine/comments?limit=50');
+    for (const c of data.data) {
+      // Aucun top-level ne doit avoir un parentUuid
+      expect(c.parentUuid).toBeUndefined();
+      // Si des enfants existent, chacun a person embedé
+      for (const child of c.children ?? []) {
+        expect(child.person).toMatchObject({ slug: expect.any(String), nameFr: expect.any(String) });
+        expect(typeof child.text).toBe('string');
+      }
     }
   });
 

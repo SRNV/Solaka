@@ -1,0 +1,67 @@
+name: API Tests
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - 'back/**'
+  pull_request:
+    branches: [main, master]
+    paths:
+      - 'back/**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        working-directory: back
+        run: bun install
+
+      # Les fichiers de données doivent être committés dans back/data/
+      # (utiliser Git LFS pour bible.json, persons.json, patristic_comments.json)
+      - name: Start API server
+        working-directory: back
+        env:
+          PORT: 3001
+          BIBLE_PATH:               ${{ github.workspace }}/back/data/bible.json
+          KINGS_PATH:               ${{ github.workspace }}/back/data/kings.json
+          PERIODS_PATH:             ${{ github.workspace }}/back/data/periods.json
+          EVENTS_PATH:              ${{ github.workspace }}/back/data/events.json
+          GEOMAP_PATH:              ${{ github.workspace }}/back/data/geojson
+          BIBLICAL_DATA_PATH:       ${{ github.workspace }}/front/exemples/Bible-Geocoding-Data
+          PATRISTIC_PERSONS_PATH:   ${{ github.workspace }}/back/data/persons.json
+          PATRISTIC_COMMENTS_PATH:  ${{ github.workspace }}/back/data/patristic_comments.json
+          MAGISTERE_PERSONS_PATH:   ${{ github.workspace }}/back/data/magistere_persons.json
+          MAGISTERE_COMMENTS_PATH:  ${{ github.workspace }}/back/data/magistere_comments.json
+          DATA_PATH:                ${{ github.workspace }}/back/data/objections.json
+          CORS_ORIGIN: "*"
+        run: bun src/index.ts &
+
+      - name: Wait for server to be ready
+        run: |
+          for i in $(seq 1 30); do
+            if curl -sf http://localhost:3001/api/health > /dev/null; then
+              echo "Server ready"
+              exit 0
+            fi
+            echo "Waiting... ($i/30)"
+            sleep 2
+          done
+          echo "Server did not start in time"
+          exit 1
+
+      - name: Run API tests
+        working-directory: back
+        env:
+          API_URL: http://localhost:3001
+        run: bun test src/tests/
