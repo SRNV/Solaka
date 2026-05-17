@@ -1,13 +1,13 @@
 import 'reflect-metadata';
 import fs from 'fs';
 import { injectable, inject } from 'inversify';
-import {
+import type {
   BibleBook, BibleBookMeta, BibleVerseRelation, VerseRef, VerseSearchResult,
   PaginatedResponse, King, HistoricalPeriod, BibleEvent,
   RelRow, BibleChapterResult, BibleStructureEntry, BibleVerseResult, SearchHit,
-} from '../domain/Bible';
-import type { IBibleRepository } from '../domain/repositories/IBibleRepository';
-import type { AppConfig } from '../container/config';
+} from '../models/Bible';
+import type { IBibleRepository } from '../models/IBibleRepository';
+import type { AppConfig } from '../models/config';
 import { TYPES } from '../container/types';
 
 // Re-export for consumers that imported RelRow from this file

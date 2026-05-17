@@ -1,5 +1,5 @@
-import type { MagisteriumPerson, MagisteriumCommentResult, MagisteriumDocument } from '../Magisterium';
-import type { PaginatedResponse } from '../Pagination';
+import type { MagisteriumPerson, MagisteriumCommentResult, MagisteriumDocument } from './Magisterium';
+import type { PaginatedResponse } from './Pagination';
 
 export interface IMagisteriumRepository {
   getPersons(): MagisteriumPerson[];

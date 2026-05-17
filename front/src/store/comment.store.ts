@@ -1,10 +1,5 @@
 import { create } from 'zustand';
-import type { CommentSummary } from '@/types/patristic.ts';
-
-interface PatristicCommentState {
-  summaries: Map<string, CommentSummary>;
-  mergeSummaries: (entries: [string, CommentSummary][]) => void;
-}
+import type { PatristicCommentState } from '@/models/stores';
 
 export const usePatristicCommentStore = create<PatristicCommentState>(set => ({
   summaries: new Map(),

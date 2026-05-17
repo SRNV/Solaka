@@ -10,6 +10,7 @@ export interface PatristicPerson {
   born: number;
   died: number;
   tradition: string;
+  saint: boolean;
   type: 'patristic' | 'magistere';
 }
 
@@ -36,14 +37,15 @@ export interface PatristicComment {
 }
 
 export interface PatristicCommentResult extends PatristicComment {
-  person:     PatristicPerson;
-  children?:  PatristicCommentResult[];
+  person:    PatristicPerson;
+  children?: PatristicCommentResult[];
 }
 
 export interface PatristicPersonSnippet {
   slug: string;
   nameFr: string;
   tradition: string;
+  saint: boolean;
   type: 'patristic' | 'magistere';
 }
 

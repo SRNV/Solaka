@@ -1,6 +1,6 @@
 import { fetchOnce } from './apiCache.ts';
-import type { PaginatedResponse } from '@/types/bible.ts';
-import type { BibleBookMeta, King, HistoricalPeriod, BibleEvent } from '@/types/bible.ts';
+import type { PaginatedResponse } from '@/models/bible';
+import type { BibleBookMeta, King, HistoricalPeriod, BibleEvent } from '@/models/bible';
 
 // ── helpers ────────────────────────────────────────────────────────────────
 

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useCommentModalStore } from '@/store/commentModal.store.ts';
-import type { PatristicCommentResult, PatristicCommentsPage } from '@/types/patristic.ts';
+import type { PatristicCommentResult, PatristicCommentsPage } from '@/models/patristic';
 import atlasIndex from '@/data/atlas.json';
 import { VerseRow } from './VerseRow.tsx';
 import styles from './CommentModal.module.css';

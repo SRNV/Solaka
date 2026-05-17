@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { IGeoMapRepository } from '../../domain/repositories/IGeoMapRepository';
+import type { IGeoMapRepository } from '../../models/IGeoMapRepository';
 import { GetAllGeoMaps, GetGeoMapById } from '../../application/useCases/GeoMapUseCases';
 
 export default function geomapRouter(repo: IGeoMapRepository): Router {

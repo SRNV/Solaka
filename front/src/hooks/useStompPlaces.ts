@@ -1,17 +1,14 @@
 import { useEffect, useState } from 'react';
 import type { IMessage } from '@stomp/stompjs';
 import { getStompClient, onStompConnect } from '../store/stompClient.ts';
+import type { PlaceItem, PlaceType, StompPlacesState } from '@/models/hooks';
 
-export interface PlaceItem { name: string; lonlat: [number, number]; }
-
-type PlaceType = 'bgd';
+export type { PlaceItem };
 
 const cache = new Map<PlaceType, PlaceItem[]>();
 
-interface State { places: PlaceItem[]; done: boolean; }
-
-export function useStompPlaces(type: PlaceType): State {
-  const [state, setState] = useState<State>(() =>
+export function useStompPlaces(type: PlaceType): StompPlacesState {
+  const [state, setState] = useState<StompPlacesState>(() =>
     cache.has(type)
       ? { places: cache.get(type)!, done: true }
       : { places: [], done: false }

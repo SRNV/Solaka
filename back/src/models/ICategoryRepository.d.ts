@@ -1,5 +1,5 @@
-import { Category } from '../Category';
-import { PaginatedResponse } from '../Pagination';
+import type { Category } from './Category';
+import type { PaginatedResponse } from './Pagination';
 
 export interface CategoryFilters {
   limit?: number;

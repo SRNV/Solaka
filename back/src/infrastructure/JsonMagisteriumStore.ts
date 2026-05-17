@@ -1,15 +1,15 @@
 import * as fs from 'fs';
 import { injectable, inject } from 'inversify';
 import { TYPES } from '../container/types';
-import type { AppConfig } from '../container/config';
-import type { IMagisteriumRepository } from '../domain/repositories/IMagisteriumRepository';
+import type { AppConfig } from '../models/config';
+import type { IMagisteriumRepository } from '../models/IMagisteriumRepository';
 import type {
   MagisteriumPerson,
   MagisteriumComment,
   MagisteriumCommentResult,
   MagisteriumDocument,
-} from '../domain/Magisterium';
-import type { PaginatedResponse } from '../domain/Pagination';
+} from '../models/Magisterium';
+import type { PaginatedResponse } from '../models/Pagination';
 
 @injectable()
 export class JsonMagisteriumStore implements IMagisteriumRepository {

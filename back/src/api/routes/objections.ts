@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { IObjectionRepository } from '../../domain/repositories/IObjectionRepository';
+import type { IObjectionRepository } from '../../models/IObjectionRepository';
 import { GetAllObjections, GetObjectionById } from '../../application/useCases/ObjectionUseCases';
 
 export default function objectionsRouter(repo: IObjectionRepository): Router {

@@ -1,5 +1,5 @@
-import type { PatristicPerson, PatristicCommentResult, CommentSummary } from '../Patristic';
-import type { PaginatedResponse } from '../Pagination';
+import type { PatristicPerson, PatristicCommentResult, CommentSummary } from './Patristic';
+import type { PaginatedResponse } from './Pagination';
 
 export interface IPatristicRepository {
   getPersons(limit?: number, offset?: number): PaginatedResponse<PatristicPerson>;

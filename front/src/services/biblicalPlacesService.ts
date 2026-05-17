@@ -1,13 +1,8 @@
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
+import type { BiblicalPlace } from '@/models/api';
 
-export interface BiblicalPlace {
-  id: string;
-  name: string;
-  type: string;
-  lonlat: [number, number];
-  verses: string[];
-  geojsonFile?: string;
-}
+export type { BiblicalPlace };
+
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
 
 export const biblicalPlacesService = {
   getAll: async (): Promise<BiblicalPlace[]> => {

@@ -2,7 +2,7 @@ import { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import { Html, Line } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
-import type { BibleStructureBook } from '@/types/bible.ts';
+import type { BibleStructureBook } from '@/models/bible';
 import type { BibleTarget } from '@/contexts/BibleDrawerContext.tsx';
 import type { LayoutResult } from '@/utils/graphLayout.ts';
 import { CUBE_S, V_STEP, CH_STEP, ANIM_DURATION, easeInOutCubic } from '@/utils/graphConstants.ts';

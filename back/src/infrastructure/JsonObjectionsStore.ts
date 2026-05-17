@@ -1,12 +1,12 @@
 import 'reflect-metadata';
 import fs from 'fs';
 import { injectable, inject } from 'inversify';
-import { Category } from '../domain/Category';
-import { Objection } from '../domain/Objection';
-import { PaginatedResponse } from '../domain/Pagination';
-import { ICategoryRepository, CategoryFilters } from '../domain/repositories/ICategoryRepository';
-import { IObjectionRepository, ObjectionFilters } from '../domain/repositories/IObjectionRepository';
-import type { AppConfig } from '../container/config';
+import type { Category } from '../models/Category';
+import type { Objection } from '../models/Objection';
+import type { PaginatedResponse } from '../models/Pagination';
+import type { ICategoryRepository, CategoryFilters } from '../models/ICategoryRepository';
+import type { IObjectionRepository, ObjectionFilters } from '../models/IObjectionRepository';
+import type { AppConfig } from '../models/config';
 import { TYPES } from '../container/types';
 
 class CategoryStore implements ICategoryRepository {

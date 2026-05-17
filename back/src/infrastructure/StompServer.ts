@@ -2,18 +2,13 @@ import 'reflect-metadata';
 import { WebSocketServer, WebSocket } from 'ws';
 import type { Server } from 'http';
 import { injectable, inject } from 'inversify';
-import type { IBibleRepository } from '../domain/repositories/IBibleRepository';
-import type { IGeoMapRepository } from '../domain/repositories/IGeoMapRepository';
-import type { IBiblicalPlaceRepository } from '../domain/BiblicalPlace';
+import type { IBibleRepository } from '../models/IBibleRepository';
+import type { IGeoMapRepository } from '../models/IGeoMapRepository';
+import type { IBiblicalPlaceRepository } from '../models/BiblicalPlace';
+import type { StompFrame, Session } from '../models/stomp';
 import { TYPES } from '../container/types';
 
 // ── STOMP frame parsing ───────────────────────────────────────────────────────
-
-interface StompFrame {
-  command: string;
-  headers: Record<string, string>;
-  body: string;
-}
 
 function parseFrame(raw: string): StompFrame | null {
   const nullIdx = raw.indexOf('\0');
@@ -53,11 +48,6 @@ function sendMsg(ws: WebSocket, destination: string, subscriptionId: string, bod
 }
 
 const END = JSON.stringify({ _end: true });
-
-// ── Session state ─────────────────────────────────────────────────────────────
-
-interface Subscription { destination: string; cancel: () => void; }
-interface Session { subs: Map<string, Subscription>; }
 
 // ── STOMP server ──────────────────────────────────────────────────────────────
 

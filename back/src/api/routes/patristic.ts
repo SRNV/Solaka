@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import type { IPatristicRepository } from '../../domain/repositories/IPatristicRepository';
+import type { IPatristicRepository } from '../../models/IPatristicRepository';
 import {
   GetPatristicPersons,
   GetPatristicPersonBySlug,

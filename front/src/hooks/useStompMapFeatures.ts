@@ -2,15 +2,10 @@ import { useEffect, useState } from 'react';
 import type { IMessage } from '@stomp/stompjs';
 import { getStompClient, onStompConnect } from '../store/stompClient.ts';
 import { mapFeaturesCache } from '../store/mapFeatures.store.ts';
+import type { MapFeaturesState } from '@/models/hooks';
 
-interface State {
-  features: GeoJSON.Feature[];
-  loading: boolean;
-  done: boolean;
-}
-
-export function useStompMapFeatures(id: string | null): State {
-  const [state, setState] = useState<State>({ features: [], loading: false, done: false });
+export function useStompMapFeatures(id: string | null): MapFeaturesState {
+  const [state, setState] = useState<MapFeaturesState>({ features: [], loading: false, done: false });
 
   useEffect(() => {
     if (!id) {

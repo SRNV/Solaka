@@ -10,7 +10,7 @@ import type {
   BibleBookMeta, BibleBookOrder, BibleEvent,
   BibleRelation, BibleStructureBook, BookSortMode,
   HistoricalPeriod, HistoricalSubMode, King,
-} from '@/types/bible.ts';
+} from '@/models/bible';
 import { useBibleDrawer, type BibleTarget } from '@/contexts/BibleDrawerContext.tsx';
 import { parseRef } from '@/utils/bibleRef.ts';
 import { computeLayout, type LayoutResult } from '@/utils/graphLayout.ts';

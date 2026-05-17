@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { useBibleDrawer } from '@/contexts/BibleDrawerContext.tsx';
 import { useApi } from '@/hooks/useApi.ts';
 import { parseRef } from '@/utils/bibleRef.ts';
-import type { BibleBookMeta, BibleChapterResponse, VerseSearchResult, PaginatedResponse } from '@/types/bible.ts';
+import type { BibleBookMeta, BibleChapterResponse, VerseSearchResult, PaginatedResponse } from '@/models/bible';
 import type { BibleTarget } from '@/contexts/BibleDrawerContext.tsx';
 import styles from './SearchPage.module.css';
 

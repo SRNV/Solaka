@@ -1,5 +1,5 @@
 import { createPortal } from 'react-dom';
-import type { Objection, Reference } from '@/types/api.ts';
+import type { Objection, Reference } from '@/models/api';
 import { useBibleDrawer } from '@/contexts/BibleDrawerContext.tsx';
 import styles from './ObjectionDrawer.module.css';
 

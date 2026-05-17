@@ -1,5 +1,5 @@
 import type { BibleTarget } from '@/contexts/BibleDrawerContext.tsx';
-import type { BibleBookMeta } from '@/types/bible.ts';
+import type { BibleBookMeta } from '@/models/bible';
 
 export function normBook(s: string) {
   return s

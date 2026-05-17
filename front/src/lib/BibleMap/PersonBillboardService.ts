@@ -82,40 +82,8 @@ const TRI_IDX    = [0, 1, 2, 0, 2, 3] as const;
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
-export interface BillboardPin {
-  lon:        number;
-  lat:        number;
-  atlasX:     number;
-  atlasY:     number;
-  /** 0 = patristic (violet border), 1 = magistere (gold border) */
-  borderType: number;
-}
-
-export interface BillboardOptions {
-  /** Screen-space quad size in pixels (default 24) */
-  pinSizePx?:   number;
-  /** Border fraction of pin size (default 0.065) */
-  borderFrac?:  number;
-  /** Tile size in the atlas PNG in pixels (default 64) */
-  atlasTilePx?: number;
-  /** Atlas PNG pixel width (default 512) */
-  atlasW?:      number;
-  /** Atlas PNG pixel height (default 576) */
-  atlasH?:      number;
-  /** Sphere radius offset (default 1.003) */
-  sphereR?:     number;
-}
-
-export interface BillboardHandle {
-  mesh:        THREE.Mesh;
-  material:    THREE.ShaderMaterial;
-  /** Call in resize handler */
-  setViewport: (w: number, h: number) => void;
-  /** Move pin[pinIndex] to a new sphere-surface position (sphere XYZ, not lon/lat). */
-  setCenter:   (pinIndex: number, x: number, y: number, z: number) => void;
-  setVisible:  (v: boolean) => void;
-  dispose:     () => void;
-}
+import type { BillboardPin, BillboardOptions, BillboardHandle } from '@/models/bibleMap';
+export type { BillboardPin, BillboardOptions, BillboardHandle };
 
 // ── Public API ────────────────────────────────────────────────────────────────
 

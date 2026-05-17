@@ -1,32 +1,7 @@
 import { createContext, useContext, useState, useCallback, ReactNode } from 'react';
+import type { BibleTarget, ArcRef, BibleDrawerCtx } from '@/models/contexts';
 
-export interface BibleTarget {
-  book: string;
-  chapter: number;
-  verse?: number;
-  verseTo?: number;
-}
-
-export interface ArcRef {
-  from:   string;
-  toFrom: string;
-  toTo:   string;
-  trad:   'c' | 'p';
-}
-
-interface BibleDrawerCtx {
-  target:          BibleTarget | null;
-  targets:         BibleTarget[];
-  openArc:         ArcRef | null;
-  showInMapCount:  number;
-  mapTargets:      BibleTarget[] | null;
-  historicalDate:  number | null;
-  open:            (t: BibleTarget) => void;
-  openMany:        (ts: BibleTarget[], arc?: ArcRef) => void;
-  close:           () => void;
-  triggerShowInMap: (ts?: BibleTarget[]) => void;
-  setHistoricalDate: (date: number | null) => void;
-}
+export type { BibleTarget, ArcRef };
 
 const Ctx = createContext<BibleDrawerCtx | null>(null);
 

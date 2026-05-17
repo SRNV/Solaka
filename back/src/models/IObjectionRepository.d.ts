@@ -1,5 +1,5 @@
-import { Objection } from '../Objection';
-import { PaginatedResponse } from '../Pagination';
+import type { Objection } from './Objection';
+import type { PaginatedResponse } from './Pagination';
 
 export interface ObjectionFilters {
   categoryUuid?: string;

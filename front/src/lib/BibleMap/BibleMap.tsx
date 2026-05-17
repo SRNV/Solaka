@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { mountScene, type CameraState, type SceneControls } from './scene.ts';
 import { useApi } from '../../hooks/useApi.ts';
-import { GeoMap } from '../../types/api.ts';
+import type { GeoMap } from '@/models/api';
 import { useBibleDrawer } from '../../contexts/BibleDrawerContext.tsx';
 import { getOsisRef } from './osisUtils.ts';
 import { biblicalPlacesService } from '../../services/biblicalPlacesService.ts';

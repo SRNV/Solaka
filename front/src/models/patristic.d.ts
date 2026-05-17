@@ -2,6 +2,7 @@ export interface PatristicPersonSnippet {
   slug:      string;
   nameFr:    string;
   tradition: string;
+  saint:     boolean;
   type:      'patristic' | 'magistere';
 }
 
@@ -30,6 +31,7 @@ export interface PatristicCommentResult {
     nameFr:    string;
     nameEn:    string;
     tradition: string;
+    saint:     boolean;
     type:      'patristic' | 'magistere';
     born?:     number;
     died?:     number;

@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { usePatristicCommentStore } from '@/store/comment.store.ts';
-import type { CommentBatchResult } from '@/types/patristic.ts';
+import type { CommentBatchResult } from '@/models/patristic';
 
 export function usePatristicCommentSummaries(uuids: string[] | null) {
   const mergeSummaries = usePatristicCommentStore(s => s.mergeSummaries);

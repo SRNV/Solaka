@@ -1,4 +1,4 @@
-import type { CommentSummary } from '@/types/patristic.ts';
+import type { CommentSummary } from '@/models/patristic';
 import atlasIndex from '@/data/atlas.json';
 import styles from './VerseCommentBar.module.css';
 

@@ -1,4 +1,4 @@
-import type { IMagisteriumRepository } from '../../domain/repositories/IMagisteriumRepository';
+import type { IMagisteriumRepository } from '../../models/IMagisteriumRepository';
 
 export class GetMagisteriumPersons {
   constructor(private repo: IMagisteriumRepository) {}

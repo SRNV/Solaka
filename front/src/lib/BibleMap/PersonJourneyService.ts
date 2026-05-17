@@ -160,28 +160,12 @@ function getSpherePosAtT(
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
+import type { PersonJourneyData, PersonJourneyHandle } from '@/models/bibleMap';
+export type { PersonJourneyData, PersonJourneyHandle };
+
 interface Waypoint {
   arrival: number;
-  t: number; // global t across all LineStrings
-}
-
-export interface PersonJourneyData {
-  /** GeoJSON features: one or more LineStrings + Points with `properties.dates` */
-  features:    any[];
-  /** Atlas tile for this person's portrait */
-  atlasEntry:  { x: number; y: number };
-  /** 0 = patristic, 1 = magistere, 2 = apostle (default) */
-  borderType?: number;
-}
-
-export interface PersonJourneyHandle {
-  /** Add all of these to the scene */
-  meshes:      THREE.Object3D[];
-  /** Clip the journey to the given year (null = show full journey) */
-  setDate:     (year: number | null) => void;
-  setViewport: (w: number, h: number) => void;
-  tick:        (timeSeconds: number) => void;
-  dispose:     () => void;
+  t: number;
 }
 
 // ── Shader for visited-place dots ─────────────────────────────────────────────

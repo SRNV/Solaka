@@ -1,10 +1,10 @@
 import { useMemo, useRef, useState } from 'react';
 import { Html, Line } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
-import type { BibleBookOrder, BibleEvent, HistoricalPeriod, HistoricalSubMode, King, BookSortMode } from '@/types/bible.ts';
+import type { BibleBookOrder, BibleEvent, HistoricalPeriod, HistoricalSubMode, King, BookSortMode } from '@/models/bible';
 import type { BibleTarget } from '@/contexts/BibleDrawerContext.tsx';
 import type { LayoutResult } from '@/utils/graphLayout.ts';
-import type { BibleStructureBook } from '@/types/bible.ts';
+import type { BibleStructureBook } from '@/models/bible';
 
 interface SectionMarkersProps {
   layout:              LayoutResult;

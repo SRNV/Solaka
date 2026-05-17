@@ -134,66 +134,8 @@ const arrowFrag = /* glsl */`
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
-export interface LineSegment {
-  /** World-space start of sub-segment */
-  start: readonly [number, number, number];
-  /** World-space end of sub-segment */
-  end:   readonly [number, number, number];
-  /** Progress [0,1] at the start vertex of this sub-segment */
-  t:    number;
-  /** Progress [0,1] at the end vertex — defaults to `t` when omitted */
-  tEnd?: number;
-}
-
-export interface ArrowDef {
-  /** World-space position of the arrow tip */
-  center:  THREE.Vector3;
-  /** Surface-tangent direction (travel direction, normalized) */
-  tangent: THREE.Vector3;
-}
-
-export interface AnimatedLineOptions {
-  /** Base line width in pixels (default 3.5) */
-  width?:        number;
-  /** Pulse frequency in Hz (default 0.85) */
-  pulseHz?:      number;
-  /** Maximum width multiplier at pulse peak (default 5) */
-  pulseScale?:   number;
-  /** Line opacity (default 0.88) */
-  opacity?:      number;
-  /**
-   * Four gradient stop colors as THREE.Color-compatible values.
-   * Order: start → end of path.
-   * Default: secondary → primary → success → gold.
-   */
-  colors?: [THREE.ColorRepresentation, THREE.ColorRepresentation, THREE.ColorRepresentation, THREE.ColorRepresentation];
-  /** Outline (border) color — default secondary #C879FF */
-  outlineColor?: THREE.ColorRepresentation;
-  /** Fraction of the half-width that becomes outline, 0 = none (default 0.18) */
-  outlineFrac?:  number;
-  /** Initial clip limit — quads with start-t >= maxT are hidden (default 1.0 = all visible) */
-  maxT?:         number;
-}
-
-export interface AnimatedLineHandle {
-  mesh:        THREE.Mesh;
-  material:    THREE.ShaderMaterial;
-  /** Call in resize handler */
-  setViewport: (w: number, h: number) => void;
-  /** Call each animation frame with elapsed seconds */
-  tick:        (timeSeconds: number) => void;
-  /** Clip the visible line to [0, t]. 0 = nothing, 1 = full journey. */
-  setMaxT:     (t: number) => void;
-  getMaxT:     () => number;
-  dispose:     () => void;
-}
-
-export interface ArrowHandle {
-  mesh:        THREE.Mesh;
-  material:    THREE.ShaderMaterial;
-  setViewport: (w: number, h: number) => void;
-  dispose:     () => void;
-}
+import type { LineSegment, ArrowDef, AnimatedLineOptions, AnimatedLineHandle, ArrowHandle } from '@/models/bibleMap';
+export type { LineSegment, ArrowDef, AnimatedLineOptions, AnimatedLineHandle, ArrowHandle };
 
 // ── Public API ────────────────────────────────────────────────────────────────
 

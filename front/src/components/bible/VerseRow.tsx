@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useBibleDrawer } from '@/contexts/BibleDrawerContext.tsx';
 import { useVerseRelations } from '@/hooks/useVerseRelations.ts';
 import type { RelRow } from '@/store/relations.store.ts';
-import type { ChildResult, LeanVerse } from '@/types/bibleDrawer.ts';
+import type { ChildResult, LeanVerse } from '@/models/bibleDrawer';
 import { EMPTY_SET, fetchVersesByRel, sortRels } from '@/utils/bibleDrawer.ts';
 import { MapIconSvg } from './MapIconSvg.tsx';
 import { RelationBadgeList } from './RelationBadgeList.tsx';

@@ -1,4 +1,4 @@
-import type { IPatristicRepository } from '../../domain/repositories/IPatristicRepository';
+import type { IPatristicRepository } from '../../models/IPatristicRepository';
 
 export class GetPatristicPersons {
   constructor(private repo: IPatristicRepository) {}

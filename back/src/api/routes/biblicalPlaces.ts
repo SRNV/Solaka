@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import type { IBiblicalPlaceRepository } from '../../domain/BiblicalPlace';
+import type { IBiblicalPlaceRepository } from '../../models/BiblicalPlace';
 import { GetBiblicalPlaces, GetBiblicalPlacesByVerse } from '../../application/useCases/BiblicalPlaceUseCases';
 
 const router = (repository: IBiblicalPlaceRepository) => {

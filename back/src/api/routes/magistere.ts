@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import type { IMagisteriumRepository } from '../../domain/repositories/IMagisteriumRepository';
+import type { IMagisteriumRepository } from '../../models/IMagisteriumRepository';
 import {
   GetMagisteriumPersons,
   GetMagisteriumPersonBySlug,

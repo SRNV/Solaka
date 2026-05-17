@@ -1,31 +1,9 @@
-import type { BibleStructureBook } from '@/types/bible.ts';
-import type { BibleTarget } from '@/contexts/BibleDrawerContext.tsx';
+import type { BibleStructureBook } from '@/models/bible';
+import type { BibleTarget } from '@/models/contexts';
+import type { Pos3, LayoutResult } from '@/models/graph';
 import { CUBE_S, V_STEP, CH_STEP, BK_PAD } from './graphConstants.ts';
 
-/** 3-D world-space position of a verse cube. */
-export interface Pos3 { x: number; y: number; z: number; }
-
-/** Full output of {@link computeLayout}: positions, labels, and lookup maps for the scene. */
-export interface LayoutResult {
-  /** Total number of verse cube instances (sum of all uuids across all chapters). */
-  totalInstances: number;
-  /** World X extent of the entire Bible (used to centre the camera and the hover plane). */
-  totalX:         number;
-  /** World Y of the tallest verse tower top (used to derive arc peak floors). */
-  maxTowerY:      number;
-  /** Maximum chapter Z offset (reserved for future depth sorting). */
-  maxChZ:         number;
-  /** One entry per book: name, canonical number, centre X, and X span. */
-  bookLabels:     { name: string; number: number; cx: number; startX: number; endX: number }[];
-  /** Maps verse UUID → world-space position. */
-  uuidPosMap:     Map<string, Pos3>;
-  /** Maps verse UUID → human-readable Bible reference (book / chapter / verse). */
-  uuidRefMap:     Map<string, BibleTarget>;
-  /** Ordered list of UUIDs matching `InstancedMesh` instance indices. */
-  instanceUuids:  string[];
-  /** Maps `"bookNumber:chapterNumber"` → world Z offset of that chapter column. */
-  chapZMap:        Map<string, number>;
-}
+export type { Pos3, LayoutResult };
 
 /**
  * Derive world-space positions for every verse cube from the Bible structure API response.

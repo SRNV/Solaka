@@ -1,15 +1,10 @@
 import { useState, useEffect } from 'react';
-import type { PaginatedResponse } from '@/types/bible.ts';
+import type { PaginatedResponse } from '@/models/api';
+import type { PaginatedApiState } from '@/models/hooks';
 import { fetchOnce } from '../store/apiCache.ts';
 
-interface ApiState<T> {
-  data: T[] | null;
-  loading: boolean;
-  error: string | null;
-}
-
-export function usePaginatedAllApi<T>(url: string | null): ApiState<T> {
-  const [state, setState] = useState<ApiState<T>>({ data: null, loading: false, error: null });
+export function usePaginatedAllApi<T>(url: string | null): PaginatedApiState<T> {
+  const [state, setState] = useState<PaginatedApiState<T>>({ data: null, loading: false, error: null });
 
   useEffect(() => {
     if (!url) { setState({ data: null, loading: false, error: null }); return; }

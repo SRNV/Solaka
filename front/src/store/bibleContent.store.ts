@@ -1,8 +1,6 @@
-export interface StoredVerse {
-  uuid:    string;
-  number:  number;
-  content: string;
-}
+import type { StoredVerse } from '@/models/stores';
+
+export type { StoredVerse };
 
 const verseCache   = new Map<string, StoredVerse>();
 const chapterCache = new Map<string, string[]>();   // "${book}|${chapter}" → uuid[]

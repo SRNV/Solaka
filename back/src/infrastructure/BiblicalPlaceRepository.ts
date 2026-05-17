@@ -2,8 +2,8 @@ import 'reflect-metadata';
 import * as fs from 'fs';
 import * as path from 'path';
 import { injectable, inject } from 'inversify';
-import { BiblicalPlace, IBiblicalPlaceRepository } from '../domain/BiblicalPlace';
-import type { AppConfig } from '../container/config';
+import type { BiblicalPlace, IBiblicalPlaceRepository } from '../models/BiblicalPlace';
+import type { AppConfig } from '../models/config';
 import { TYPES } from '../container/types';
 
 @injectable()

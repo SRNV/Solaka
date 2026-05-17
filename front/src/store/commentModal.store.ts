@@ -1,18 +1,7 @@
 import { create } from 'zustand';
-import type { LeanVerse } from '@/types/bibleDrawer.ts';
+import type { CommentModalTarget, CommentModalStore } from '@/models/stores';
 
-export interface CommentModalTarget {
-  verseIdx:   number;
-  verses:     LeanVerse[];
-  bookName:   string;
-  chapterNum: number;
-}
-
-interface CommentModalStore {
-  target: CommentModalTarget | null;
-  open:   (t: CommentModalTarget) => void;
-  close:  () => void;
-}
+export type { CommentModalTarget };
 
 export const useCommentModalStore = create<CommentModalStore>(set => ({
   target: null,

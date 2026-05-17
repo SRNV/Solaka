@@ -1,4 +1,4 @@
-import { ICategoryRepository, CategoryFilters } from '../../domain/repositories/ICategoryRepository';
+import type { ICategoryRepository, CategoryFilters } from '../../models/ICategoryRepository';
 
 export class GetAllCategories {
   constructor(private repo: ICategoryRepository) {}

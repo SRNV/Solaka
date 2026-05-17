@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
-import type { BibleRelation } from '@/types/bible.ts';
+import type { BibleRelation } from '@/models/bible';
 import type { BibleTarget } from '@/contexts/BibleDrawerContext.tsx';
 import type { Pos3 } from '@/utils/graphLayout.ts';
 import { computeArcSegments, computeLanes } from '@/utils/graphRelations.ts';

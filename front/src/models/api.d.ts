@@ -43,3 +43,12 @@ export interface GeoMap {
   label: string;
   year: number | null;
 }
+
+export interface BiblicalPlace {
+  id: string;
+  name: string;
+  type: string;
+  lonlat: [number, number];
+  verses: string[];
+  geojsonFile?: string;
+}

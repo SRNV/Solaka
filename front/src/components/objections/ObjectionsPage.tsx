@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { useApi } from '@/hooks/useApi.ts';
-import type { Objection, PaginatedResponse } from '@/types/api.ts';
+import type { Objection, PaginatedResponse } from '@/models/api';
 import { ObjectionDrawer } from './ObjectionDrawer.tsx';
 import styles from './ObjectionsPage.module.css';
 

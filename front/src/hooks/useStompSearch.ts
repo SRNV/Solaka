@@ -1,15 +1,11 @@
 import { startTransition, useEffect, useRef, useState } from 'react';
 import type { IMessage } from '@stomp/stompjs';
 import { getStompClient, onStompConnect } from '../store/stompClient.ts';
-import type { VerseSearchResult } from '../types/bible.ts';
+import type { VerseSearchResult } from '@/models/bible';
+import type { SearchState } from '@/models/hooks';
 
-interface State {
-  results: VerseSearchResult[];
-  loading: boolean;
-}
-
-export function useStompSearch(query: string): State {
-  const [state, setState] = useState<State>({ results: [], loading: false });
+export function useStompSearch(query: string): SearchState {
+  const [state, setState] = useState<SearchState>({ results: [], loading: false });
   const resultsRef = useRef<VerseSearchResult[]>([]);
 
   useEffect(() => {

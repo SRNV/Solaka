@@ -1,4 +1,4 @@
-import { IBiblicalPlaceRepository } from '../../domain/BiblicalPlace';
+import type { IBiblicalPlaceRepository } from '../../models/BiblicalPlace';
 
 export class GetBiblicalPlaces {
   constructor(private repository: IBiblicalPlaceRepository) {}

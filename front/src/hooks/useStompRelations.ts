@@ -1,12 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import type { IMessage } from '@stomp/stompjs';
 import { getStompClient, onStompConnect } from '../store/stompClient.ts';
-import type { BibleRelation } from '../types/bible.ts';
-
-interface StompRelationsState {
-  relations: BibleRelation[];
-  loading:   boolean;
-}
+import type { BibleRelation } from '@/models/bible';
+import type { StompRelationsState } from '@/models/hooks';
 
 /**
  * Streams Bible cross-references for the given tradition(s) and optional query

@@ -5,7 +5,7 @@ import { useBibleDrawer } from '@/contexts/BibleDrawerContext.tsx';
 import { useChapterData } from '@/hooks/useChapterData.ts';
 import { useAllRelsByVerse } from '@/hooks/useAllRelsByVerse.ts';
 import { bibleContentCache } from '@/store/bibleContent.store.ts';
-import type { LeanVerse } from '@/types/bibleDrawer.ts';
+import type { LeanVerse } from '@/models/bibleDrawer';
 import { buildGroupItems } from '@/utils/bibleDrawer.ts';
 import { MapIconSvg } from './MapIconSvg.tsx';
 import { VerseRow } from './VerseRow.tsx';

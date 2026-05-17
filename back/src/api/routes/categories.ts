@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { ICategoryRepository } from '../../domain/repositories/ICategoryRepository';
-import { IObjectionRepository } from '../../domain/repositories/IObjectionRepository';
+import type { ICategoryRepository } from '../../models/ICategoryRepository';
+import type { IObjectionRepository } from '../../models/IObjectionRepository';
 import { GetAllCategories, GetCategoryById, GetAllSources, GetAllTags } from '../../application/useCases/CategoryUseCases';
 import { GetAllObjections } from '../../application/useCases/ObjectionUseCases';
 

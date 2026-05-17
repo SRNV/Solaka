@@ -2,9 +2,9 @@ import 'reflect-metadata';
 import fs from 'fs';
 import path from 'path';
 import { injectable, inject } from 'inversify';
-import { GeoMap, GeoMapData } from '../domain/GeoMap';
-import { IGeoMapRepository } from '../domain/repositories/IGeoMapRepository';
-import type { AppConfig } from '../container/config';
+import type { GeoMap, GeoMapData } from '../models/GeoMap';
+import type { IGeoMapRepository } from '../models/IGeoMapRepository';
+import type { AppConfig } from '../models/config';
 import { TYPES } from '../container/types';
 
 function parseYear(id: string): number | null {

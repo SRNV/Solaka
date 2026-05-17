@@ -1,4 +1,4 @@
-import { IObjectionRepository, ObjectionFilters } from '../../domain/repositories/IObjectionRepository';
+import type { IObjectionRepository, ObjectionFilters } from '../../models/IObjectionRepository';
 
 export class GetAllObjections {
   constructor(private repo: IObjectionRepository) {}

@@ -1,22 +1,15 @@
 import { useEffect, useMemo } from 'react';
 import * as THREE from 'three';
-import type { BibleRelation } from '@/types/bible.ts';
-import type { Pos3 } from '@/utils/graphLayout.ts';
+import type { BibleRelation } from '@/models/bible';
+import type { Pos3, ArcSeg, BraceCircle, ArcGeometryResult } from '@/models/graph';
 import {
   computeArcSegments, computeLanes,
   barOffset, braceTickLength,
-  type ArcSeg, type BraceCircle,
 } from '@/utils/graphRelations.ts';
 import { gradColor } from '@/utils/graphShaders.ts';
 import { HIT_W, CIRCLE_SEP } from '@/utils/graphConstants.ts';
 
-export interface ArcGeometryResult {
-  visualGeo:    THREE.BufferGeometry | null;
-  hitGeo:       THREE.BufferGeometry | null;
-  segs:         ArcSeg[];
-  circles:      BraceCircle[];
-  hasAuthority: boolean;
-}
+export type { ArcGeometryResult };
 
 /**
  * Builds the GPU `BufferGeometry` (visual + hit) and brace-circle list for all arc relations.

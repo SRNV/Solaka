@@ -103,7 +103,6 @@ export interface BibleEvent {
   sources: string[];
 }
 
-/** A normalised, deduplicated relation row (direction: from → toFrom–toTo). */
 export interface RelRow {
   from:       string;
   toFrom:     string;

@@ -1,11 +1,6 @@
 import { useState, useEffect } from 'react';
 import { fetchOnce } from '../store/apiCache.ts';
-
-interface ApiState<T> {
-  data: T | null;
-  loading: boolean;
-  error: string | null;
-}
+import type { ApiState } from '@/models/hooks';
 
 export function useApi<T>(url: string | null): ApiState<T> {
   const [state, setState] = useState<ApiState<T>>({ data: null, loading: false, error: null });

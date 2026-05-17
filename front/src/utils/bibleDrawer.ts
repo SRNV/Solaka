@@ -1,5 +1,5 @@
 import type { RelRow } from '@/store/relations.store.ts';
-import type { ChildResult, LeanVerse, VerseListItem } from '@/types/bibleDrawer.ts';
+import type { ChildResult, LeanVerse, VerseListItem } from '@/models/bibleDrawer';
 
 export const TRAD_LIMIT = 5;
 export const EMPTY_SET  = new Set<string>();

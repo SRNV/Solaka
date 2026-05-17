@@ -1,8 +1,16 @@
+export type { PaginatedResponse } from './api';
+
 export interface VerseRef {
   bookName: string;
   bookNumber: number;
   chapterNumber: number;
   verseNumber: number;
+}
+
+export interface LeanVerse {
+  uuid: string;
+  number: number;
+  content: string;
 }
 
 export interface BibleVerseRelation {
@@ -79,13 +87,6 @@ export interface BibleBookMeta {
   context?: string;
   chapterCount: number;
   chapterNumbers?: number[];
-}
-
-export interface PaginatedResponse<T> {
-  data: T[];
-  total: number;
-  limit: number;
-  offset: number;
 }
 
 export type BibleCategory =

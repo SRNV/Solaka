@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { useBibleDrawer } from '@/contexts/BibleDrawerContext.tsx';
 import { useApi } from './useApi.ts';
 import { parseRef } from '@/utils/bibleRef.ts';
-import type { BibleBookMeta } from '@/types/bible.ts';
+import type { BibleBookMeta } from '@/models/bible';
 
 export function useBibleSearchParam() {
   const [searchParams] = useSearchParams();

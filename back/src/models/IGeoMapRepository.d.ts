@@ -1,4 +1,4 @@
-import { GeoMap, GeoMapData } from '../GeoMap';
+import type { GeoMap, GeoMapData } from './GeoMap';
 
 export interface IGeoMapRepository {
   findAll(): GeoMap[];

@@ -1,22 +1,7 @@
 import { create } from 'zustand';
+import type { VerseRef, RelRow, RelationsState } from '@/models/stores';
 
-export interface VerseRef {
-  bookName: string;
-  chapterNumber: number;
-  verseNumber: number;
-}
-
-export interface RelRow {
-  from:       string;
-  toFrom:     string;
-  toTo:       string;
-  trad:       'c' | 'p';
-  relType:    string;
-  toFromRef?: VerseRef;
-  toToRef?:   VerseRef;
-  isRange?:   boolean;
-  sourceUrl?: string | null;
-}
+export type { VerseRef, RelRow };
 
 export const getRelKey = (rel: { from: string; toFrom: string }) =>
   `${rel.from}${rel.toFrom}`;
@@ -24,13 +9,7 @@ export const getRelKey = (rel: { from: string; toFrom: string }) =>
 // UUIDs whose outgoing relations have been fully streamed (never cleared)
 export const relsFetched = new Set<string>();
 
-interface RelationsState {
-  rels:   Record<string, RelRow>;    // relKey → RelRow
-  byFrom: Record<string, string[]>;  // uuid   → relKey[] (source index)
-  addBatch: (batch: RelRow[]) => void;
-}
-
-export const useRelationsStore = create<RelationsState>()(set => ({
+export const useRelationsStore = create<RelationsState>(set => ({
   rels:   {},
   byFrom: {},
 

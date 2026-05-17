@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import type { IBibleRepository } from '../../domain/repositories/IBibleRepository';
+import type { IBibleRepository } from '../../models/IBibleRepository';
 import {
   GetBooks, GetStructure, GetChapter, GetVerse,
   GetKings, GetPeriods, GetEvents,

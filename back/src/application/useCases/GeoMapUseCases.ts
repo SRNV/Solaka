@@ -1,4 +1,4 @@
-import { IGeoMapRepository } from '../../domain/repositories/IGeoMapRepository';
+import type { IGeoMapRepository } from '../../models/IGeoMapRepository';
 
 export class GetAllGeoMaps {
   constructor(private repo: IGeoMapRepository) {}

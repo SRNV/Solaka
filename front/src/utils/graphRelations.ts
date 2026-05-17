@@ -1,44 +1,9 @@
-import type { BibleRelation } from '@/types/bible.ts';
-import type { Pos3 } from './graphLayout.ts';
+import type { BibleRelation } from '@/models/bible';
+import type { Pos3 } from '@/models/graph';
+import type { ArcSeg, LaneInfo, BraceCircle } from '@/models/graph';
 import { BRACE_AVAIL, BRACE_TICK, ARC_SEGS } from './graphConstants.ts';
 
-/**
- * One rendered segment of an arc (either a Bézier curve subdivision or a brace bar).
- * Four vertices are emitted per segment in the GPU buffer (two start + two end).
- */
-export interface ArcSeg {
-  ax: number; ay: number; az: number;
-  bx: number; by: number; bz: number;
-  /** World Y of the arc's control point — used for colour gradient mapping. */
-  arcPeakY:    number;
-  t0: number; t1: number;
-  /** Index into the `relations` array — used for hover highlighting. */
-  relIdx:      number;
-  isAuthority: boolean;
-  isCatholic:  boolean;
-}
-
-/** Per-relation brace-lane assignment produced by {@link computeLanes}. */
-export interface LaneInfo {
-  /** Index of this relation's brace bar within its TO-side column group. */
-  toLane:    number;
-  /** Total number of brace bars sharing the TO-side column gap. */
-  toTotal:   number;
-  /** Index of this relation's brace bar within its FROM-side column group. */
-  fromLane:  number;
-  /** Total number of brace bars sharing the FROM-side column gap. */
-  fromTotal: number;
-}
-
-/** Clickable circle overlay placed at the midpoint of a brace bar. */
-export interface BraceCircle {
-  x:      number;
-  y:      number;
-  /** ±1 — which side of the column the brace sits on (drives CSS translateX). */
-  side:   number;
-  relIdx: number;
-  color:  string;
-}
+export type { ArcSeg, LaneInfo, BraceCircle };
 
 /** X offset of a brace bar center from its column center, for lane `i` of `n` total. */
 export function barOffset(laneIndex: number, totalLanes: number): number {

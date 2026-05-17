@@ -1,10 +1,10 @@
 import * as fs from 'fs';
 import { injectable, inject } from 'inversify';
 import { TYPES } from '../container/types';
-import type { AppConfig } from '../container/config';
-import type { IPatristicRepository } from '../domain/repositories/IPatristicRepository';
-import type { PatristicPerson, PatristicComment, PatristicCommentResult, CommentSummary } from '../domain/Patristic';
-import type { PaginatedResponse } from '../domain/Pagination';
+import type { AppConfig } from '../models/config';
+import type { IPatristicRepository } from '../models/IPatristicRepository';
+import type { PatristicPerson, PatristicComment, PatristicCommentResult, CommentSummary } from '../models/Patristic';
+import type { PaginatedResponse } from '../models/Pagination';
 
 @injectable()
 export class JsonPatristicStore implements IPatristicRepository {

@@ -1,5 +1,5 @@
 import { fetchOnce } from './apiCache.ts';
-import type { GeoMap } from '@/types/api.ts';
+import type { GeoMap } from '@/models/api';
 
 export const geomapStore = {
   list: () =>

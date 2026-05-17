@@ -1,4 +1,4 @@
-import type { IBibleRepository } from '../../domain/repositories/IBibleRepository';
+import type { IBibleRepository } from '../../models/IBibleRepository';
 
 export class GetBooks {
   constructor(private repo: IBibleRepository) {}

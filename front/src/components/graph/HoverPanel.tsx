@@ -1,4 +1,4 @@
-import type { BibleRelation, BibleBookMeta } from '@/types/bible.ts';
+import type { BibleRelation, BibleBookMeta } from '@/models/bible';
 import type { LayoutResult } from '@/utils/graphLayout.ts';
 import styles from './HoverPanel.module.css';
 

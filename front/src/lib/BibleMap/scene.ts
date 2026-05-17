@@ -36,31 +36,8 @@ const haloFrag = /* glsl */`
   }
 `;
 
-export type CameraState = { x: number; y: number; z: number; zoom: number };
-export interface PlaceItem { name: string; lonlat: [number, number]; }
-
-export type SceneControls = {
-  cleanup:           () => void;
-  setDisplacement:   (scale: number) => void;
-  updateProjectionFeatures: (features: any[], isBase: boolean) => void;
-  updateHistoricalBorders: (data: any) => void;
-  setBGDPlaces:      (places: PlaceItem[]) => void;
-  setBiblicalPlaces: (places: import('../../services/biblicalPlacesService.ts').BiblicalPlace[]) => void;
-  flyTo:             (lon: number, lat: number, zoom?: number) => void;
-  setPersons:        (persons: PersonPin[]) => void;
-  setApostles:       (data: { type: string; features: any[] } | null, atlasIndex?: Record<string, { x: number; y: number }>) => void;
-  setJourneyDate:    (year: number | null) => void;
-};
-
-export interface PersonPin {
-  slug:       string;
-  lon:        number;
-  lat:        number;
-  nameFr:     string;
-  atlasX:     number;
-  atlasY:     number;
-  borderType: number; // 0 = patristic, 1 = magistere
-}
+import type { CameraState, PlaceItem, SceneControls, PersonPin } from '@/models/bibleMap';
+export type { CameraState, PlaceItem, SceneControls, PersonPin };
 
 // ── Places point-cloud shaders ────────────────────────────────────────────────
 
