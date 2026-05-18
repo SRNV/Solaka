@@ -15,6 +15,22 @@ import mc3 from './assets/matcaps/8D8D8D_DDDDDD_CCCCCC_B7B7B7-64px.png';
 export const MATCAP_URLS: string[] = [mc3];
 export const OUTLINE_MATCAP_URLS: string[] = [];
 
+const APOSTLE_LIFESPAN: Record<string, { born: number; died: number }> = {
+  paul:              { born:   5, died:  67 },
+  pierre:            { born:  -1, died:  67 },
+  jean:              { born:  15, died: 100 },
+  andre:             { born:   5, died:  60 },
+  jacques_le_majeur: { born:   5, died:  44 },
+  jacques_le_mineur: { born:   5, died:  62 },
+  thomas:            { born:   5, died:  72 },
+  matthieu:          { born:   0, died:  74 },
+  philippe:          { born:   5, died:  80 },
+  barthelemy:        { born:   5, died:  71 },
+  simon_le_zelote:   { born:   5, died:  65 },
+  matthias:          { born:   5, died:  80 },
+  jude_thaddee:      { born:   5, died:  65 },
+};
+
 const haloVert = /* glsl */`
   varying vec3 vNormal;
   varying vec3 vPosition;
@@ -621,9 +637,16 @@ export function mountScene(
       }
 
       for (const [slug, features] of bySlug) {
-        const tile = atlasIndex?.[slug];
+        const tile     = atlasIndex?.[slug];
+        const lifespan = APOSTLE_LIFESPAN[slug];
         const handle = buildPersonJourney(
-          { features, atlasEntry: tile ?? { x: 0, y: 0 }, borderType: 2 },
+          {
+            features,
+            atlasEntry: tile ?? { x: 0, y: 0 },
+            borderType: 2,
+            born: lifespan?.born,
+            died: lifespan?.died,
+          },
           { w: nw, h: nh },
           tex,
         );

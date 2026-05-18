@@ -18,7 +18,7 @@
  */
 
 import * as THREE from 'three';
-import gsap from 'gsap';
+
 import {
   buildAnimatedLineMesh,
   type AnimatedLineHandle,
@@ -211,10 +211,11 @@ export function buildPersonJourney(
 
   // ── Match each Point to the closest coord across all LineStrings ───────────
   const waypoints: Waypoint[] = ptFeatures
-    .map((f: any) => {
-      const [lon, lat] = f.geometry.coordinates as [number, number];
+    .flatMap((f: any) => {
       const dates: number[] = Array.isArray(f.properties?.dates) ? f.properties.dates : [];
-      const arrival = dates[0] ?? 0;
+      if (dates.length === 0) return []; // skip undated points — don't corrupt lifespan
+      const [lon, lat] = f.geometry.coordinates as [number, number];
+      const arrival = dates[0];
 
       let bestT    = 0;
       let bestDist = Infinity;
@@ -224,7 +225,7 @@ export function buildPersonJourney(
           if (d < bestDist) { bestDist = d; bestT = tAtCoord[i]; }
         }
       }
-      return { arrival, t: bestT };
+      return [{ arrival, t: bestT }];
     })
     .sort((a, b) => a.t - b.t);
 
@@ -260,13 +261,15 @@ export function buildPersonJourney(
   );
   portraitHandle.setCenter(0, initPos[0], initPos[1], initPos[2]);
 
-  // ── GSAP-animated maxT ─────────────────────────────────────────────────────
-  const maxTRef = { value: 1.0 };
-  let tween: gsap.core.Tween | null = null;
+  // ── Person lifespan — explicit dates take priority over waypoint extremes ──
+  const lifeStart = data.born  ?? (waypoints.length > 0 ? Math.min(...waypoints.map(wp => wp.arrival)) : -Infinity);
+  const lifeEnd   = data.died  != null ? data.died + 100 : (waypoints.length > 0 ? Math.max(...waypoints.map(wp => wp.arrival)) : Infinity);
 
   const applyMaxT = (t: number) => {
+    const visible = t >= 0.01;
     lineHandle.setMaxT(t);
-    if (t < 0.01) {
+    ptsMesh.visible = visible;
+    if (!visible) {
       portraitHandle.setVisible(false);
     } else {
       portraitHandle.setVisible(true);
@@ -275,29 +278,34 @@ export function buildPersonJourney(
     }
   };
 
+  // Waypoints sorted chronologically for time-based interpolation.
+  const byDate = [...waypoints].sort((a, b) => a.arrival - b.arrival);
+
   const computeTarget = (year: number | null): number => {
-    if (year === null || waypoints.length === 0) return 1.0;
-    const passed = waypoints.filter(wp => wp.arrival <= year);
-    if (passed.length === 0) return 0.0;
-    if (passed.length === waypoints.length) return 1.0;
-    return passed[passed.length - 1].t;
+    if (year === null || byDate.length === 0) return 0.0;
+    if (year < lifeStart || year > lifeEnd)   return 0.0;
+    if (year >= byDate[byDate.length - 1].arrival) return 1.0;
+
+    for (let i = 0; i < byDate.length - 1; i++) {
+      const curr = byDate[i];
+      const next = byDate[i + 1];
+      if (year >= curr.arrival && year < next.arrival) {
+        const span = next.arrival - curr.arrival;
+        const frac = span > 0 ? (year - curr.arrival) / span : 0;
+        return curr.t + (next.t - curr.t) * frac;
+      }
+    }
+    return byDate[0].t;
   };
 
-  // Start fully visible
-  applyMaxT(maxTRef.value);
+  // Start hidden — setDate will reveal based on the current historicalDate.
+  applyMaxT(0.0);
 
   return {
     meshes: [lineHandle.mesh, ptsMesh, portraitHandle.mesh],
 
     setDate(year) {
-      const target = computeTarget(year);
-      tween?.kill();
-      tween = gsap.to(maxTRef, {
-        value:    target,
-        duration: 1.0,
-        ease:     'power2.inOut',
-        onUpdate() { applyMaxT(maxTRef.value); },
-      });
+      applyMaxT(computeTarget(year));
     },
 
     setViewport(w, h) {
@@ -310,7 +318,6 @@ export function buildPersonJourney(
     },
 
     dispose() {
-      tween?.kill();
       lineHandle.dispose();
       ptGeo.dispose();
       ptMat.dispose();

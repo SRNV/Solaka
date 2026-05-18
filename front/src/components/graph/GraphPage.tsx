@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useMemo, useRef, useState, startTransition, type MutableRefObject } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, type MutableRefObject } from 'react';
+import { useTextSearch } from './useTextSearch';
 import { Canvas } from '@react-three/fiber';
 import { Html, OrbitControls } from '@react-three/drei';
 import { usePaginatedAllApi } from '@/hooks/usePaginatedAllApi.ts';
 import { useStompRelations } from '@/hooks/useStompRelations.ts';
-import { useStompSearch } from '@/hooks/useStompSearch.ts';
 import { bibleStore } from '@/store/bible.store.ts';
 import type {
   BibleBookMeta, BibleBookOrder, BibleEvent,
@@ -11,7 +11,6 @@ import type {
   HistoricalPeriod, HistoricalSubMode, King,
 } from '@/models/bible';
 import { useBibleDrawer, type BibleTarget } from '@/contexts/BibleDrawerContext.tsx';
-import { parseRef } from '@/utils/bibleRef.ts';
 import { computeLayout, type LayoutResult } from '@/utils/graphLayout.ts';
 import { useRelationsStore, relsFetched } from '@/store/relations.store.ts';
 import { ArcMesh } from './ArcMesh.tsx';
@@ -23,26 +22,21 @@ import { SectionMarkers } from './SectionMarkers.tsx';
 import { SearchInput } from './SearchInput.tsx';
 import { CameraReporter, FitCamera, LockCameraY } from './CameraHelpers.tsx';
 import { HoverPanel } from './HoverPanel.tsx';
-import { TraditionModal } from './TraditionModal.tsx';
 import { BibleMap } from '@/lib/BibleMap/index.ts';
 import { TraditionPills } from './TraditionPills.tsx';
 import { SortPanel } from './SortPanel.tsx';
-import { FriseSelector, type FriseType } from './FriseSelector.tsx';
+import { FriseSelector } from './FriseSelector.tsx';
 import { useSceneColors } from './useSceneColors.ts';
 import { useRelationsStream } from './useRelationsStream.ts';
 import { useSearchBadges } from './useSearchBadges.ts';
 import { useHoverPanel } from './useHoverPanel.ts';
 import { useCommentHighlights } from './useCommentHighlights.ts';
+import { buildYearPoints, yearToWorldX, worldXToYear } from './friseUtils';
+import { ScrubberFeature } from './ScrubberFeature';
+import { ScrubberCanvas } from './ScrubberCanvas';
+import { useGraphModeStore } from '@/store/graphMode.store';
+import { useYearMarkersStore } from '@/store/yearMarkers.store';
 import styles from './GraphPage.module.css';
-
-function normText(s: string): string {
-  return s
-    .toLowerCase()
-    .replace(/œ/g, 'oe').replace(/æ/g, 'ae')
-    .normalize('NFD').replace(/[̀-ͯ]/g, '')
-    .replace(/[''ʼ]/g, "'")
-    .replace(/\s+/g, ' ').trim();
-}
 
 // ── GraphPage ──────────────────────────────────────────────────────────────
 
@@ -70,24 +64,32 @@ export function GraphPage() {
   const books         = metaData;
   const bookOrderData = orderData;
 
-  // ── Sort ────────────────────────────────────────────────────────────────
-  const [sortMode,           setSortMode]           = useState<BookSortMode>('classic');
-  const [histSubMode,        setHistSubMode]        = useState<HistoricalSubMode>('authorPeriod');
-  const [histSecondaryFrise, setHistSecondaryFrise] = useState<FriseType>('kings');
+  // ── Sort (shared store) ─────────────────────────────────────────────────
+  const { sortMode, histSubMode, histSecondaryFrise, setSortMode, setHistSubMode, setHistSecondaryFrise } = useGraphModeStore();
 
   const handleSortMode = useCallback((mode: BookSortMode) => {
-    if (mode === sortMode) return;
-    setSortMode(mode);
-    if (mode === 'historical') {
-      if (!eventsData)  bibleStore.events().then(setEventsData);
-      if (!kingsData)   bibleStore.kings().then(setKingsData);
-      if (!periodsData) bibleStore.periods().then(setPeriodsData);
-    }
-  }, [sortMode, eventsData, kingsData, periodsData]);
+    if (mode !== sortMode) setSortMode(mode);
+  }, [sortMode, setSortMode]);
+
+  // Lazy-load historical data whenever sortMode becomes 'historical'
+  // (triggered by SortPanel, ScrubberFeature, or any other source)
+  const kingsDataRef   = useRef(kingsData);
+  const periodsDataRef = useRef(periodsData);
+  const eventsDataRef  = useRef(eventsData);
+  kingsDataRef.current   = kingsData;
+  periodsDataRef.current = periodsData;
+  eventsDataRef.current  = eventsData;
+
+  useEffect(() => {
+    if (sortMode !== 'historical') return;
+    if (!eventsDataRef.current)  bibleStore.events().then(setEventsData);
+    if (!kingsDataRef.current)   bibleStore.kings().then(setKingsData);
+    if (!periodsDataRef.current) bibleStore.periods().then(setPeriodsData);
+  }, [sortMode]);
 
   const handleHistSubMode = useCallback((sub: HistoricalSubMode) => {
     if (sub !== histSubMode) setHistSubMode(sub);
-  }, [histSubMode]);
+  }, [histSubMode, setHistSubMode]);
 
   // ── Layout ──────────────────────────────────────────────────────────────
   const sortedData = useMemo<BibleStructureBook[] | null>(() => {
@@ -120,6 +122,27 @@ export function GraphPage() {
   // ── Drawer ──────────────────────────────────────────────────────────────
   const { open, openMany, close, showInMapCount, mapTargets, target, targets, setHistoricalDate } = useBibleDrawer();
 
+  // ── Timeline / scrubber ──────────────────────────────────────────────────
+  const mainCanvasWrapperRef = useRef<HTMLDivElement>(null);
+
+  const yearRange = useMemo(() => {
+    if (sortMode !== 'historical' || !bookOrderData) return null;
+    const years = bookOrderData.flatMap(b => [b[histSubMode][0], b[histSubMode][1]]);
+    return { min: Math.min(...years), max: Math.max(...years) };
+  }, [sortMode, bookOrderData, histSubMode]);
+
+  const yearPoints = useMemo(() => {
+    if (sortMode !== 'historical' || !bookOrderData || !layout?.bookLabels.length) return [];
+    return buildYearPoints(bookOrderData, layout.bookLabels, histSubMode);
+  }, [sortMode, bookOrderData, layout, histSubMode]);
+
+  // Push yearPoints + year0WorldX into shared store (consumed by ScrubberFeature, YearZeroBar, etc.)
+  const { setYearPoints, setYear0WorldX } = useYearMarkersStore();
+  useEffect(() => {
+    setYearPoints(yearPoints);
+    setYear0WorldX(yearPoints.length > 0 ? yearToWorldX(0, yearPoints) : null);
+  }, [yearPoints, setYearPoints, setYear0WorldX]);
+
   // ── Hover panel ─────────────────────────────────────────────────────────
   const {
     setHoveredBook,
@@ -147,69 +170,11 @@ export function GraphPage() {
   const displayRelations = useRelationsStream(stompRelations, drawerRelations, layout);
 
   // ── Text search ─────────────────────────────────────────────────────────
-  const [textSearchQuery, setTextSearchQuery] = useState('');
-  const [submittedQuery,  setSubmittedQuery]  = useState('');
-  const [searchHitUuids,  setSearchHitUuids]  = useState<Map<string, string> | null>(null);
-  const [activeSearchRef, setActiveSearchRef] = useState<ReturnType<typeof parseRef> | null>(null);
-  const { results: stompSearchResults } = useStompSearch(textSearchQuery);
-  const textExtraTermsRef = useRef<string[]>([]);
-
-  useEffect(() => {
-    const query = submittedQuery.trim();
-    setSearchHitUuids(null);
-    setActiveSearchRef(null);
-    setDrawerRelations(null);
-    setActiveRelationsQuery('');
-
-    if (query.length < 2) {
-      setTextSearchQuery('');
-      textExtraTermsRef.current = [];
-      setRelationsEnabled(false);
-      return;
-    }
-
-    const parts = query.split(';').map(p => p.trim()).filter(p => p.length > 0);
-    const ref   = books ? parseRef(parts[0], books) : null;
-    if (ref) setActiveSearchRef(ref);
-
-    fetch(`/api/bible/search/hits?q=${encodeURIComponent(parts[0])}`)
-      .then(r => r.json())
-      .then(res => {
-        const hits = new Map<string, string>(
-          (res.data as Array<{ uuid: string; relType: string }>).map(h => [h.uuid, h.relType]),
-        );
-        startTransition(() => setSearchHitUuids(hits));
-      });
-
-    const terms = parts.map(p => normText(p));
-    textExtraTermsRef.current = terms.slice(1);
-    setTextSearchQuery(parts[0]);
-
-    const hasRef = parts.some(p => !!(books && parseRef(p, books)));
-    if (hasRef) {
-      setActiveRelationsQuery(parts[0]);
-      setRelationsEnabled(true);
-    } else {
-      setActiveRelationsQuery('');
-      setRelationsEnabled(false);
-    }
-  }, [submittedQuery, books]);
-
-  useEffect(() => {
-    if (stompSearchResults.length === 0) return;
-    const extras   = textExtraTermsRef.current;
-    const filtered = extras.length === 0
-      ? stompSearchResults
-      : stompSearchResults.filter(r => { const nv = normText(r.content); return extras.every(t => nv.includes(t)); });
-    if (filtered.length === 0) return;
-    startTransition(() =>
-      setSearchHitUuids(prev => {
-        const next = new Map(prev);
-        for (const r of filtered) next.set(r.uuid, '');
-        return next;
-      }),
-    );
-  }, [stompSearchResults]);
+  const { setSubmittedQuery, searchHitUuids, activeSearchRef, clearSearch } = useTextSearch(books, {
+    onClearDrawerRelations: () => setDrawerRelations(null),
+    onSetRelationsQuery:    setActiveRelationsQuery,
+    onSetRelationsEnabled:  setRelationsEnabled,
+  });
 
   // ── Derived scene data ───────────────────────────────────────────────────
   const searchBadges   = useSearchBadges(searchHitUuids, layout, stompRelations, drawerRelations);
@@ -272,14 +237,6 @@ export function GraphPage() {
 
   // ── Historical date sync ─────────────────────────────────────────────────
   useEffect(() => {
-    if (target || sortMode !== 'historical' || !effectiveHoveredBook || !bookOrderData) return;
-    const entry = bookOrderData.find(b => b.name === effectiveHoveredBook);
-    if (!entry) return;
-    const range = entry[histSubMode] as [number, number];
-    setHistoricalDate(range[0]);
-  }, [effectiveHoveredBook, sortMode, bookOrderData, histSubMode, setHistoricalDate, target]);
-
-  useEffect(() => {
     if (sortMode === 'historical' && target && bookOrderData) {
       const book = bookOrderData.find(b => b.name === target.book);
       if (book?.[histSubMode]) setHistoricalDate(book[histSubMode]![0]);
@@ -314,10 +271,14 @@ export function GraphPage() {
     return segment;
   }, [effectiveHoveredBook, sortMode, bookOrderData, histSubMode, layout?.bookLabels]);
 
-  const handleCanvasClick = useCallback((book: string | null) => {
+  const handleCanvasClick = useCallback((book: string | null, worldX: number) => {
+    if (sortMode === 'historical') {
+      if (yearPoints.length > 0) setHistoricalDate(Math.round(worldXToYear(worldX, yearPoints)));
+      return;
+    }
     if (book) open({ book, chapter: 1 });
     else close();
-  }, [open, close]);
+  }, [sortMode, yearPoints, setHistoricalDate, open, close]);
 
   // ── Guard ────────────────────────────────────────────────────────────────
   if (loading || !sortedData || !layout) {
@@ -337,6 +298,13 @@ export function GraphPage() {
         </div>
 
         <div className={styles.graphWrapper}>
+
+          <ScrubberFeature
+            bookOrderData={bookOrderData}
+            mainCanvasWrapperRef={mainCanvasWrapperRef}
+            mainCamRef={mainCamRef}
+            yearRange={yearRange}
+          />
 
           <TraditionPills
             showCath={showCath}
@@ -378,14 +346,13 @@ export function GraphPage() {
                 kings={kingsData}
                 periods={periodsData}
                 events={eventsData}
-                setHistoricalDate={setHistoricalDate}
                 target={target}
               />
             </Canvas>
           </div>
 
           {/* Main 3D graph canvas */}
-          <div className={styles.mainCanvasWrapper}>
+          <div ref={mainCanvasWrapperRef} className={styles.mainCanvasWrapper}>
             <Canvas
               orthographic
               frameloop="demand"
@@ -407,6 +374,7 @@ export function GraphPage() {
                 searchHitUuids={searchHitUuids}
                 onCubeHover={setHoveredCubeUuid}
                 onCubeClick={uuid => {
+                  if (sortMode === 'historical') return;
                   const ref = layout.uuidRefMap.get(hoveredCubeUuid ?? uuid);
                   if (ref) open({ book: ref.book, chapter: ref.chapter, verse: ref.verse });
                 }}
@@ -436,6 +404,8 @@ export function GraphPage() {
                 enableRotate={false}
               />
               <LockCameraY y={200} />
+
+              <ScrubberCanvas data={sortedData} layout={layout} />
 
               {searchBadges.map(badge => (
                 <Html key={badge.uuid} position={[badge.x, badge.y + 0.35, 0.05]} center zIndexRange={[100, 100]}>
@@ -471,6 +441,7 @@ export function GraphPage() {
               )}
 
             </Canvas>
+
           </div>
 
           {panelData && layout && (
@@ -480,14 +451,7 @@ export function GraphPage() {
           <div className={styles.bottomBar}>
             <SearchInput
               onSubmit={setSubmittedQuery}
-              onClear={() => {
-                setSubmittedQuery('');
-                startTransition(() => {
-                  setSearchHitUuids(null);
-                  setActiveSearchRef(null);
-                  setDrawerRelations(null);
-                });
-              }}
+              onClear={clearSearch}
             />
           </div>
 

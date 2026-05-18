@@ -10,6 +10,28 @@ export const COLOR_BY_EVENT_TYPE: Record<string, string> = {
   revolt: '#e59866', migration: '#a9cce3', missionary: '#a9dfbf',
 };
 
+/** Interpolate a year from a world-space X using the sorted year→X mapping. */
+export function worldXToYear(worldX: number, yearPoints: { year: number; x: number }[]): number {
+  if (yearPoints.length === 0) return 0;
+  if (yearPoints.length === 1) return yearPoints[0].year;
+
+  if (worldX <= yearPoints[0].x) {
+    const p0 = yearPoints[0], p1 = yearPoints[1];
+    return p0.year + ((p1.year - p0.year) / (p1.x - p0.x)) * (worldX - p0.x);
+  }
+  if (worldX >= yearPoints[yearPoints.length - 1].x) {
+    const p0 = yearPoints[yearPoints.length - 2], p1 = yearPoints[yearPoints.length - 1];
+    return p1.year + ((p1.year - p0.year) / (p1.x - p0.x)) * (worldX - p1.x);
+  }
+  for (let i = 0; i < yearPoints.length - 1; i++) {
+    const p0 = yearPoints[i], p1 = yearPoints[i + 1];
+    if (worldX >= p0.x && worldX <= p1.x) {
+      return p0.year + ((p1.year - p0.year) / (p1.x - p0.x)) * (worldX - p0.x);
+    }
+  }
+  return 0;
+}
+
 /** Interpolate a world-space X from a year using the sorted year→X mapping. */
 export function yearToWorldX(year: number, yearPoints: { year: number; x: number }[]): number {
   if (yearPoints.length === 0) return 0;

@@ -1,7 +1,8 @@
 import styles from './GraphPage.module.css';
+import type { FriseType } from '@/store/graphMode.store';
+export type { FriseType };
 
-const LABELS = { kings: 'Rois', periods: 'Périodes', events: 'Événements' } as const;
-export type FriseType = keyof typeof LABELS;
+const LABELS: Record<FriseType, string> = { kings: 'Rois', periods: 'Périodes', events: 'Événements' };
 
 interface Props {
   value:    FriseType;

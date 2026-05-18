@@ -12,6 +12,11 @@ import personPositions from '../../data/personPositions.json';
 
 import atlasIndex from '../../data/atlas.json';
 
+function fmtYear(y: number): string {
+  const abs = Math.abs(y);
+  return y < 0 ? `${abs} av. J.-C.` : `${abs} ap. J.-C.`;
+}
+
 type PosEntry   = { lon: number; lat: number; nameFr: string; tradition: string; type?: 'patristic' | 'magistere' };
 type AtlasEntry = { x: number; y: number; width: number; height: number };
 
@@ -36,8 +41,12 @@ export function BibleMap({ activeVerseUuids }: { activeVerseUuids: ReadonlySet<s
   const ctrlRef      = useRef<SceneControls | null>(null);
   const { historicalDate, target } = useBibleDrawer();
 
-  const { data: geoMaps }    = useApi<GeoMap[]>('/api/geomap');
-  const { data: apostlesData } = useApi<{ type: string; features: any[] }>('/api/apostles');
+  const { data: geoMaps } = useApi<GeoMap[]>('/api/geomap');
+
+  // Apostle journeys are built lazily — only when historical mode is first entered.
+  const [apostlesEnabled, setApostlesEnabled] = useState(false);
+  useEffect(() => { if (historicalDate !== null) setApostlesEnabled(true); }, [historicalDate]);
+  const { data: apostlesData } = useApi<{ type: string; features: any[] }>(apostlesEnabled ? '/api/apostles' : null);
 
   const bestMapId = useMemo(() => {
     if (!geoMaps) return null;
@@ -119,7 +128,10 @@ export function BibleMap({ activeVerseUuids }: { activeVerseUuids: ReadonlySet<s
   }, [bgdPlaces]);
 
   useEffect(() => {
-    ctrlRef.current?.setApostles(apostlesData ?? null, atlasIndex as Record<string, { x: number; y: number }>);
+    if (!apostlesData) return;
+    ctrlRef.current?.setApostles(apostlesData, atlasIndex as Record<string, { x: number; y: number }>);
+    // Apply current date immediately — setJourneyDate may have fired before handles existed.
+    ctrlRef.current?.setJourneyDate(historicalDate);
   }, [apostlesData]);
 
   useEffect(() => {
@@ -146,7 +158,7 @@ export function BibleMap({ activeVerseUuids }: { activeVerseUuids: ReadonlySet<s
     <div style={{ position: 'relative', width: '100%', height: '100%' }}>
       <div ref={containerRef} style={{ width: '100%', height: '100%' }} />
 
-      {currentMapLabel && (
+      {(historicalDate != null || currentMapLabel) && (
         <h1 style={{
           position: 'absolute', top: 16, left: 16,
           margin: 0, padding: 0,
@@ -156,7 +168,7 @@ export function BibleMap({ activeVerseUuids }: { activeVerseUuids: ReadonlySet<s
           textShadow: '0 2px 12px rgba(0,0,0,0.5)',
           zIndex: 20,
         }}>
-          {currentMapLabel}
+          {historicalDate != null ? fmtYear(historicalDate) : currentMapLabel}
         </h1>
       )}
       </div>

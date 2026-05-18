@@ -13,7 +13,7 @@ interface HoverPlaneProps {
   /** Called with the book name under the pointer, or `null` when outside all books. */
   onHover:       (bookName: string | null) => void;
   /** Called on click if the pointer moved less than 5 px since `pointerdown` (drag guard). */
-  onCanvasClick: (bookName: string | null) => void;
+  onCanvasClick: (bookName: string | null, worldX: number) => void;
 }
 
 const PLANE_TOP    = 2000;
@@ -47,7 +47,7 @@ export function HoverPlane({ bookLabels, totalX, hoveredBook, onHover, onCanvasC
         const dx = e.clientX - pointerDownPos.current.x;
         const dy = e.clientY - pointerDownPos.current.y;
         if (dx * dx + dy * dy > 25) return; // ignore drags
-        onCanvasClick(hoveredBook);
+        onCanvasClick(hoveredBook, e.point.x);
       }}
     >
       <planeGeometry args={[totalX + 20, PLANE_HEIGHT]} />

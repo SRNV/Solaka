@@ -99,6 +99,8 @@ export interface PersonJourneyData {
   features:    any[];
   atlasEntry:  { x: number; y: number };
   borderType?: number;
+  born?:       number;
+  died?:       number;
 }
 
 export interface PersonJourneyHandle {
