@@ -23,7 +23,7 @@ import { worldXToYear }        from './friseUtils';
 import { useRelations }        from './useRelations';
 import { useYearMarkers }      from './useYearMarkers';
 import { useHoveredPeriod }    from './useHoveredPeriod';
-import { useTimeline, SPEEDS } from './useTimeline';
+import { useTimeline } from './useTimeline';
 import { ScrubberCanvas }      from './ScrubberCanvas';
 import { RelationsCanvas }     from './RelationsCanvas';
 import { SearchBadgesCanvas }  from './SearchBadgesCanvas';
@@ -98,7 +98,7 @@ export function GlobalPlayerComponent() {
   } = useHoverPanel(layout, metaData);
 
   const {
-    isPlaying, playSpeed, handlePlay, handleClose, handleScrubberMouseDown, handleRef, setSpeed,
+    isPlaying, handlePlay, handleScrubberMouseDown, handleRef,
   } = useTimeline(bookOrderData);
 
   // ── Derived scene data ───────────────────────────────────────────────────
