@@ -24,10 +24,17 @@
   background: var(--bg-paper);
   border: 1px solid var(--border);
   border-radius: 12px;
-  padding: 64px;
+  padding: 48px;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
+  gap: 32px;
+  width: 100%;
 }
 
 .placeholder {

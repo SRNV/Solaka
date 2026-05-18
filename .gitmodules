@@ -1,0 +1,3 @@
+[submodule "front/src/lib/games"]
+	path = front/src/lib/games
+	url = git@github.com:SRNV/solaka-games.git

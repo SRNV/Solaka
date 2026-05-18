@@ -73,8 +73,10 @@ services:
       ASPNETCORE_ENVIRONMENT: Development
       BIBLE_PATH: /app/data/bible.json
       ALLOWED_ORIGINS: "http://localhost:5173,http://192.168.1.188:5173"
+      GAMES_CONFIG_PATH: /app/config/games.json
     volumes:
       - ../scrapp/output/bible.json:/app/data/bible.json:ro
+      - ./games/server/GameServer/Resources/GamesData/games.json:/app/config/games.json:ro
     restart: unless-stopped
 
 volumes:

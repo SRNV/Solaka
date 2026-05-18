@@ -5,6 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddSingleton<BibleService>();
 builder.Services.AddSingleton<StompService>();
+builder.Services.AddSingleton<GameDiscoveryService>();
 
 var allowedOrigins = (builder.Configuration["ALLOWED_ORIGINS"] ?? "http://localhost:5173")
     .Split(',', StringSplitOptions.RemoveEmptyEntries)
@@ -54,6 +55,11 @@ app.Map("/stomp", async (HttpContext context, StompService stompService) =>
 });
 
 app.MapGet("/health", () => Results.Ok(new { status = "ok" }));
+
+app.MapGet("/api/games", (GameDiscoveryService gameService) => 
+{
+    return Results.Ok(gameService.GetGames());
+});
 
 // Pre-load Bible service
 app.Services.GetRequiredService<BibleService>();
