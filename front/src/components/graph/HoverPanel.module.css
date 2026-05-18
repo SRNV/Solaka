@@ -1,23 +1,18 @@
 .hoverPanel {
-  position: absolute;
-  left: 0;
-  bottom: 16px;
-  padding: 24px 32px 24px 24px;
-  z-index: 10;
+  padding: 2px 32px 2px 8px;
   pointer-events: none;
-  min-width: 280px;
   display: flex;
   flex-direction: column-reverse;
-  gap: 4px;
+  gap: 1px;
 }
 
 .hoverRef {
   font-family: var(--font-display);
-  font-size: 16pt;
+  font-size: 14pt;
   font-weight: 700;
   color: var(--text-dark);
   margin: 0;
-  line-height: 1.15;
+  line-height: 1.1;
 }
 
 .hoverContext {
@@ -31,11 +26,6 @@
 
 @media (max-width: 767px) {
   .hoverPanel {
-    min-width: 0;
-    left: 16px;
-    right: 16px;
-    bottom: auto;
-    top: 52px;
-    padding: 12px 16px;
+    padding: 6px 16px;
   }
 }

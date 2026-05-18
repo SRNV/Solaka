@@ -1,10 +1,18 @@
 import { useEffect, useRef } from 'react';
 import { useThree, useFrame } from '@react-three/fiber';
+import { useYearMarkersStore } from '@/store/yearMarkers.store';
 
-/** Reports the camera's X position and zoom level on every frame via a ref. */
-export function CameraReporter({ onUpdate }: { onUpdate: (x: number, zoom: number) => void }) {
+/** Writes the main canvas camera's X and zoom to yearMarkers.store on change. */
+export function CameraReporter() {
+  const setCameraState = useYearMarkersStore(s => s.setCameraState);
+  const prevRef = useRef({ x: 0, zoom: 1 });
   useFrame(({ camera }) => {
-    onUpdate(camera.position.x, (camera as any).zoom ?? 1);
+    const x    = camera.position.x;
+    const zoom = (camera as any).zoom ?? 1;
+    if (x !== prevRef.current.x || zoom !== prevRef.current.zoom) {
+      prevRef.current = { x, zoom };
+      setCameraState(x, zoom);
+    }
   });
   return null;
 }

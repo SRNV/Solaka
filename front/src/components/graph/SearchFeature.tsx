@@ -3,8 +3,6 @@ import { useTextSearch }           from './useTextSearch';
 import { useActiveRelationsStore } from '@/store/activeRelations.store';
 import { SearchInput }             from './SearchInput';
 import type { BibleBookMeta }      from '@/models/bible';
-import styles from './GraphPage.module.css';
-
 interface Props {
   books: BibleBookMeta[] | null;
 }
@@ -30,9 +28,5 @@ export function SearchFeature({ books }: Props) {
     setSearchHitUuids(searchHitUuids ?? null);
   }, [searchHitUuids, setSearchHitUuids]);
 
-  return (
-    <div className={styles.bottomBar}>
-      <SearchInput onSubmit={setSubmittedQuery} onClear={clearSearch} />
-    </div>
-  );
+  return <SearchInput onSubmit={setSubmittedQuery} onClear={clearSearch} />;
 }

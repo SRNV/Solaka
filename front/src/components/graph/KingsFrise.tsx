@@ -2,9 +2,9 @@ import { useMemo } from 'react';
 import { Html, Line } from '@react-three/drei';
 import type { KingItem } from './useMarkerData';
 
-const SECONDARY_Y = 30;
-const K_TICK      = 8;
-const MIN_DIST    = 80;
+const SECONDARY_Y = 12;
+const K_TICK      = 5;
+const MIN_DIST    = 70;
 
 interface Props {
   items:            KingItem[];
@@ -66,7 +66,7 @@ export function KingsFrise({ items, sync, px, halfViewport, hoveredBookRange }: 
               lineWidth={isHov ? 2.5 : 1.2} transparent opacity={isHov ? 1 : 0.4}
             />
             {visibleNames.has(king.name) && isInView && (
-              <Html position={[midX, SECONDARY_Y - 18 * px, 0]} center>
+              <Html position={[midX, SECONDARY_Y - 12 * px, 0]} center>
                 <div
                   style={{
                     color: isHov ? baseColor : '#a0a8c8', fontSize: '9px', fontWeight: 900,

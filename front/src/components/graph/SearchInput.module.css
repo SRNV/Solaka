@@ -1,9 +1,9 @@
 .graphSearch {
-  flex-shrink: 0;
+  flex: 1;
+  min-width: 0;
   display: flex;
   align-items: center;
   gap: 0;
-  width: min(480px, calc(100% - 340px));
   background: color-mix(in srgb, #f7f8fc 90%, transparent);
   backdrop-filter: blur(10px);
   border: 1.5px solid var(--border);
@@ -28,7 +28,7 @@
 
 .graphSearchInput {
   flex: 5;
-  height: 40px;
+  height: 30px;
   background: transparent;
   border: none;
   outline: none;
@@ -52,8 +52,3 @@
 
 .graphSearchClear:hover { color: var(--title); }
 
-@media (max-width: 767px) {
-  .graphSearch {
-    width: min(480px, calc(100% - 32px));
-  }
-}

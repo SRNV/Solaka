@@ -1,26 +1,24 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import type { BibleBookOrder } from '@/models/bible';
 import { useBibleDrawer }      from '@/contexts/BibleDrawerContext';
 import { useTimelineStore }    from '@/store/timeline.store';
 import { useGraphModeStore }   from '@/store/graphMode.store';
 import { useYearMarkersStore } from '@/store/yearMarkers.store';
 import { worldXToYear, yearToWorldX } from './friseUtils';
-import { TimelineControls }    from './TimelineControls';
-import styles from './GraphPage.module.css';
 
-interface Props {
-  bookOrderData:        BibleBookOrder[] | null;
-  mainCanvasWrapperRef: React.RefObject<HTMLDivElement | null>;
-  mainCamRef:           React.RefObject<{ x: number; zoom: number }>;
-  yearRange:            { min: number; max: number } | null;
-}
+export const SPEEDS = [0.5, 1, 2, 5];
 
-/** Owns all timeline/scrubber DOM logic: play controls + invisible drag handle. */
-export function ScrubberFeature({ bookOrderData, mainCanvasWrapperRef, mainCamRef, yearRange }: Props) {
+export function useTimeline(bookOrderData: BibleBookOrder[] | null) {
   const { isPlaying, playSpeed, play, pause, setSpeed, stop } = useTimelineStore();
   const { sortMode, histSubMode, setSortMode }                 = useGraphModeStore();
   const { setHistoricalDate, historicalDate, open, target }    = useBibleDrawer();
   const { yearPoints, setScrubberHandleEl, setScrubberWorldX } = useYearMarkersStore();
+
+  const yearRange = useMemo(() => {
+    if (sortMode !== 'historical' || !bookOrderData) return null;
+    const years = bookOrderData.flatMap(b => [b[histSubMode][0], b[histSubMode][1]]);
+    return { min: Math.min(...years), max: Math.max(...years) };
+  }, [sortMode, bookOrderData, histSubMode]);
 
   // When drawer opens a book in historical mode, move scrubber to that book's date
   useEffect(() => {
@@ -35,14 +33,16 @@ export function ScrubberFeature({ bookOrderData, mainCanvasWrapperRef, mainCamRe
   const historicalDateRef = useRef(historicalDate);
   historicalDateRef.current = historicalDate;
 
-  const handleRef = useCallback((el: HTMLDivElement | null) => setScrubberHandleEl(el), [setScrubberHandleEl]);
+  const handleRef = useCallback(
+    (el: HTMLDivElement | null) => setScrubberHandleEl(el),
+    [setScrubberHandleEl],
+  );
 
-  // Keep scrubberWorldX in store in sync with historicalDate
   useEffect(() => {
     setScrubberWorldX(
       historicalDate != null && yearPoints.length > 0
         ? yearToWorldX(historicalDate, yearPoints)
-        : null
+        : null,
     );
   }, [historicalDate, yearPoints, setScrubberWorldX]);
 
@@ -90,49 +90,37 @@ export function ScrubberFeature({ bookOrderData, mainCanvasWrapperRef, mainCamRe
 
     const onMove = (me: MouseEvent) => {
       if (!isDrag && (Date.now() - startTime > 150 || Math.abs(me.clientX - startClientX) > 3)) isDrag = true;
-      if (!isDrag || !mainCanvasWrapperRef.current || yearPoints.length === 0) return;
-      const rect   = mainCanvasWrapperRef.current.getBoundingClientRect();
-      const worldX = (me.clientX - (rect.left + rect.width / 2)) / mainCamRef.current.zoom + mainCamRef.current.x;
-      setHistoricalDate(Math.round(worldXToYear(worldX, yearPoints)));
+      if (!isDrag) return;
+      const { canvasContainerEl, cameraX, cameraZoom, yearPoints: yp } = useYearMarkersStore.getState();
+      if (!canvasContainerEl || yp.length === 0) return;
+      const rect   = canvasContainerEl.getBoundingClientRect();
+      const worldX = (me.clientX - (rect.left + rect.width / 2)) / cameraZoom + cameraX;
+      setHistoricalDate(Math.round(worldXToYear(worldX, yp)));
     };
 
     const onUp = (me: MouseEvent) => {
       document.removeEventListener('mousemove', onMove);
       document.removeEventListener('mouseup',  onUp);
-      if (!isDrag && mainCanvasWrapperRef.current && yearPoints.length > 0 && bookOrderData) {
-        const rect   = mainCanvasWrapperRef.current.getBoundingClientRect();
-        const worldX = (me.clientX - (rect.left + rect.width / 2)) / mainCamRef.current.zoom + mainCamRef.current.x;
-        const year   = Math.round(worldXToYear(worldX, yearPoints));
-        const closest = bookOrderData.reduce((best, b) => {
-          const mid     = (b[histSubMode][0] + b[histSubMode][1]) / 2;
-          const bestMid = (best[histSubMode][0] + best[histSubMode][1]) / 2;
-          return Math.abs(mid - year) < Math.abs(bestMid - year) ? b : best;
-        });
-        open({ book: closest.name, chapter: 1 });
-      }
+      if (isDrag || !bookOrderData) return;
+      const { canvasContainerEl, cameraX, cameraZoom, yearPoints: yp } = useYearMarkersStore.getState();
+      if (!canvasContainerEl || yp.length === 0) return;
+      const rect    = canvasContainerEl.getBoundingClientRect();
+      const worldX  = (me.clientX - (rect.left + rect.width / 2)) / cameraZoom + cameraX;
+      const year    = Math.round(worldXToYear(worldX, yp));
+      const closest = bookOrderData.reduce((best, b) => {
+        const mid     = (b[histSubMode][0] + b[histSubMode][1]) / 2;
+        const bestMid = (best[histSubMode][0] + best[histSubMode][1]) / 2;
+        return Math.abs(mid - year) < Math.abs(bestMid - year) ? b : best;
+      });
+      open({ book: closest.name, chapter: 1 });
     };
 
     document.addEventListener('mousemove', onMove);
     document.addEventListener('mouseup',  onUp);
-  }, [yearPoints, mainCanvasWrapperRef, mainCamRef, setHistoricalDate, bookOrderData, histSubMode, open]);
+  }, [bookOrderData, histSubMode, setHistoricalDate, open]);
 
-  return (
-    <>
-      <TimelineControls
-        isPlaying={isPlaying}
-        playSpeed={playSpeed}
-        isHistorical={sortMode === 'historical'}
-        onTogglePlay={handlePlay}
-        onSpeedChange={setSpeed}
-        onClose={handleClose}
-      />
-      {sortMode === 'historical' && (
-        <div
-          ref={handleRef}
-          className={styles.scrubberHandle}
-          onMouseDown={handleScrubberMouseDown}
-        />
-      )}
-    </>
-  );
+  return {
+    isPlaying, playSpeed, sortMode, SPEEDS,
+    handlePlay, handleClose, handleScrubberMouseDown, handleRef, setSpeed,
+  };
 }

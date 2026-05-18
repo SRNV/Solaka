@@ -3,9 +3,9 @@ import { Html, Line } from '@react-three/drei';
 import { COLOR_BY_EVENT_TYPE } from './friseUtils';
 import type { EventItem } from './useMarkerData';
 
-const SECONDARY_Y = 30;
-const PIN_H       = 14;
-const MIN_DIST    = 40;
+const SECONDARY_Y = 12;
+const PIN_H       = 8;
+const MIN_DIST    = 36;
 
 interface Props {
   items:            EventItem[];
@@ -67,7 +67,7 @@ export function EventsFrise({ items, sync, px, halfViewport, hoveredBookRange }:
               color={isHov ? '#C879FF' : '#a0a8c8'} lineWidth={lw} transparent opacity={op}
             />
             {(isVisible || isHov) && (
-              <Html position={[wx, SECONDARY_Y - 24 * px, 0]} center zIndexRange={[0, 0]}>
+              <Html position={[wx, SECONDARY_Y - 12 * px, 0]} center zIndexRange={[0, 0]}>
                 <div style={{
                   color: isHov ? baseColor : '#a0a8c8', fontSize: fs,
                   fontWeight: event.priority === 'major' ? 800 : 600, letterSpacing: '0.4px',

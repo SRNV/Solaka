@@ -19,7 +19,7 @@
   right: 0;
   height: 60%;
   z-index: 0;
-    mask-image: linear-gradient(to bottom, white 85%, transparent 100%);
+  mask-image: linear-gradient(to bottom, white 85%, transparent 100%);
   -webkit-mask-image: linear-gradient(to bottom, white 85%, transparent 100%);
 }
 
@@ -29,30 +29,77 @@
   bottom: 0;
   left: 0;
   right: 0;
-  height: 50%;
+  height: 250px;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
 }
 
-.markersCanvasWrapper {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 240px;
-  z-index: 5;
-  pointer-events: none;
-  /*background: linear-gradient(to top, #f7f8fc 30%, #f7f8fc00 60%);*/
-  background: transparent;
-      mask-image: linear-gradient(to top, white 95%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to top, white 95%, transparent 100%);
+/* ── Layout rows ────────────────────────────────────────── */
+
+.topRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 0;
+  flex-shrink: 0;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  z-index: 10;
 }
 
-.mainCanvasWrapper {
+.topRowLeft {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding-left: 8px;
+}
+
+/* Row 2: canvas area */
+.playerRow {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+.playBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #000;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: opacity 0.14s, transform 0.1s;
+  box-shadow: 0 2px 14px rgba(0,0,0,0.35);
+}
+
+.playBtn:hover  { opacity: 0.85; transform: scale(1.07); }
+.playBtn:active { transform: scale(0.94); }
+
+/* Right side: canvas fills remaining width */
+.canvasArea {
+  flex: 1;
   position: relative;
-  width: 100%;
-  height: 100%;
+  min-width: 0;
 }
 
+/* Row 3: search bar */
+.controlsRow {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px 8px 12px;
+  background: #fff;
+  border-top: 1px solid var(--border);
+  z-index: 10;
+}
+
+/* Scrubber drag handle (inside canvasArea, positioned by ScrubberSync each frame) */
 .scrubberHandle {
   position: absolute;
   width: 24px;
@@ -62,7 +109,28 @@
   left: -9999px;
 }
 
-/* ── Overlay controls ──────────────────────────────────────── */
+.markersCanvasWrapper {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 120px;
+  z-index: 5;
+  pointer-events: none;
+  background: transparent;
+  mask-image: linear-gradient(to top, white 95%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to top, white 95%, transparent 100%);
+}
+
+.mainCanvasWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #f8f9fb;
+  overflow: hidden;
+}
+
+/* ── Overlay controls (tradition pills, top-right of canvasArea) */
 
 .controls {
   position: absolute;
@@ -102,8 +170,6 @@
   border-color: var(--secondary);
 }
 
-/* ── Smaller tradition pills ───────────────────────────────── */
-
 .pillSm {
   font-size: 11px;
   padding: 4px 11px;
@@ -121,7 +187,7 @@
   border-color: #888;
 }
 
-/* ── Loading ───────────────────────────────────────────────── */
+/* ── Loading ─────────────────────────────────────────────── */
 
 .loading {
   display: flex;
@@ -143,7 +209,7 @@
 
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* ── Sort panel (bottom-right) ─────────────────────────────── */
+/* ── Sort panel (bottom-right of canvasArea) ─────────────── */
 
 .sortPanel {
   position: absolute;
@@ -191,171 +257,9 @@
   color: #fff;
 }
 
-/* ── Historical sub-mode dropup ────────────────────────────────── */
+/* ── Historical sub-mode dropup ───────────────────────────── */
 
-/* ── Bottom bar (hover panel + search) ─────────────────────── */
-
-.bottomBar {
-  position: absolute;
-  bottom: 16px;
-  left: 0;
-  right: 0;
-  z-index: 10;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  pointer-events: none;
-}
-
-.bottomBar > * { pointer-events: auto; }
-
-.hoverPanel {
-  position: absolute;
-  left: 0;
-  top: 70px;
-  width: 260px;
-  padding: 12px 32px 12px 24px;
-  z-index: 10;
-  pointer-events: none;
-  min-width: 320px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.hoverRefRow {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 2px;
-}
-
-.hoverRef {
-  font-family: var(--font-display);
-  font-size: 16pt;
-  font-weight: 700;
-  color: var(--text-dark);
-  margin: 0;
-  line-height: 1.15;
-  flex: 1;
-}
-
-.hoverContext {
-  font-size: 10px;
-  color: var(--text-muted);
-  margin: 0 0 8px;
-  letter-spacing: 0.2px;
-  line-height: 1.4;
-  font-style: italic;
-}
-
-.hoverColumns {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin-bottom: 6px;
-}
-
-.hoverCol {
-  min-width: 0;
-}
-
-.hoverMeta {
-  font-size: 10px;
-  font-weight: 600;
-  color: var(--text-muted);
-  margin: 0 0 2px;
-  text-transform: capitalize;
-  letter-spacing: 0.2px;
-}
-
-.hoverVerse {
-  font-size: 11px;
-  color: var(--text);
-  line-height: 1.55;
-  margin: 0;
-  font-style: italic;
-}
-
-.hoverMapBtn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  border-radius: var(--radius-sm);
-  color: var(--text-muted);
-  opacity: 0.5;
-  pointer-events: auto;
-  cursor: pointer;
-  flex-shrink: 0;
-  transition: opacity var(--transition), color var(--transition), background var(--transition);
-}
-
-.hoverMapBtn:hover {
-  opacity: 1;
-  color: var(--secondary);
-  background: color-mix(in srgb, var(--secondary) 10%, transparent);
-}
-
-/* ── Graph search bar ──────────────────────────────────────── */
-
-.graphSearch {
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  gap: 0;
-  width: min(480px, calc(100% - 340px));
-  background: color-mix(in srgb, #f7f8fc 90%, transparent);
-  backdrop-filter: blur(10px);
-  border: 1.5px solid var(--border);
-  border-radius: 99px;
-  box-shadow: var(--shadow-md);
-  padding: 0 14px;
-  transition: border-color 0.15s, box-shadow 0.15s;
-}
-
-.graphSearch:focus-within {
-  border-color: var(--secondary);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--secondary) 15%, transparent);
-}
-
-.graphSearchIcon {
-  width: 15px;
-  height: 15px;
-  flex-shrink: 0;
-  color: var(--text-muted);
-  margin-right: 10px;
-}
-
-.graphSearchInput {
-  flex: 5;
-  height: 40px;
-  background: transparent;
-  border: none;
-  outline: none;
-  font-size: 13px;
-  color: var(--title);
-  min-width: 0;
-}
-
-.graphSearchInput::placeholder { color: var(--text-muted); }
-
-.graphSearchInput::-webkit-search-cancel-button { display: none; }
-
-.graphSearchClear {
-  font-size: 11px;
-  color: var(--text-muted);
-  padding: 2px 4px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: color 0.12s;
-  flex-shrink: 0;
-}
-
-.graphSearchClear:hover { color: var(--title); }
-
-/* ── Tradition confirmation modal ──────────────────────────── */
+/* ── Tradition confirmation modal ─────────────────────────── */
 
 .modalOverlay {
   position: fixed;
@@ -427,6 +331,8 @@
 }
 
 .modalConfirm:hover { opacity: 0.85; }
+
+/* ── Search badges ────────────────────────────────────────── */
 
 .searchBadge {
   position: relative;
@@ -511,7 +417,7 @@
   background: #C87AFF;
 }
 
-/* ── Historical sub-mode dropup ────────────────────────────────── */
+/* ── Historical sub-mode dropup ───────────────────────────── */
 
 .histDropup {
   position: absolute;
@@ -529,7 +435,7 @@
   white-space: nowrap;
 }
 
-/* ── Frise selector (historical mode, right side) ───────────────── */
+/* ── Frise selector (historical mode, right side of canvasArea) */
 
 .friseSelector {
   position: absolute;
@@ -548,13 +454,11 @@
   box-shadow: var(--shadow-md);
 }
 
-/* ── Mobile overrides (≤ 767px) ─────────────────────────────────────── */
+/* ── Mobile overrides (767px) ────────────────────────────── */
 
 @media (max-width: 767px) {
-  /* Globe: slightly smaller so graph gets more room */
   .bibleMapWrapper { height: 42%; }
 
-  /* Sort panel: move from bottom-right to top-left */
   .sortPanel {
     top: 10px;
     bottom: auto;
@@ -564,7 +468,6 @@
     gap: 2px;
   }
 
-  /* Hide "Ordre" label on mobile — saves width */
   .sortLabel { display: none; }
 
   .sortBtn {
@@ -572,7 +475,6 @@
     padding: 2px 8px;
   }
 
-  /* histDropup: sort panel is now at the TOP so the menu opens downward */
   .histDropup {
     bottom: auto;
     top: calc(100% + 6px);
@@ -580,18 +482,15 @@
     left: 0;
   }
 
-  /* Tradition pills: slightly smaller */
   .pillSm {
     font-size: 10px;
     padding: 3px 9px;
   }
 
-  /* Controls: leave gap on left side for sort panel (~140px) */
   .controls {
     max-width: calc(100% - 160px);
   }
 
-  /* Frise selector (historical mode): move to above search bar, right side */
   .friseSelector {
     top: auto;
     bottom: 60px;
@@ -602,9 +501,17 @@
     padding: 4px 6px;
   }
 
-  /* Search badges: slightly smaller */
   .searchBadge {
     font-size: 9px;
     padding: 2px 6px;
+  }
+
+  /* On mobile, controlsRow has no left padding (no play column layout) */
+  .controlsRow {
+    padding: 6px 8px 10px 8px;
+  }
+
+  .playColumn {
+    width: 48px;
   }
 }

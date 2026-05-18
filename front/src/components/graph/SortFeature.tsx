@@ -3,8 +3,6 @@ import { bibleStore }              from '@/store/bible.store';
 import { useGraphModeStore }       from '@/store/graphMode.store';
 import { useHistoricalDataStore }  from '@/store/historicalData.store';
 import type { BookSortMode, HistoricalSubMode } from '@/models/bible';
-import { SortPanel }     from './SortPanel';
-import { FriseSelector } from './FriseSelector';
 
 /** Owns sort mode controls + lazy-loading of kings/periods/events into historicalData.store. */
 export function SortFeature() {
@@ -25,20 +23,5 @@ export function SortFeature() {
     if (!eventsRef.current)  bibleStore.events().then(setEventsData);
   }, [sortMode, setKingsData, setPeriodsData, setEventsData]);
 
-  const handleSortMode    = (mode: BookSortMode)     => { if (mode !== sortMode)    setSortMode(mode); };
-  const handleHistSubMode = (sub: HistoricalSubMode) => { if (sub  !== histSubMode) setHistSubMode(sub); };
-
-  return (
-    <>
-      <SortPanel
-        sortMode={sortMode}
-        histSubMode={histSubMode}
-        onSortMode={handleSortMode}
-        onHistSubMode={handleHistSubMode}
-      />
-      {sortMode === 'historical' && (
-        <FriseSelector value={histSecondaryFrise} onChange={setHistSecondaryFrise} />
-      )}
-    </>
-  );
+  return null;
 }

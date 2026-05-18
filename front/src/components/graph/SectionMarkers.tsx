@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { useFrame, useThree } from '@react-three/fiber';
+import { useThree } from '@react-three/fiber';
 import type { BibleBookOrder, BibleStructureBook, HistoricalSubMode, BookSortMode } from '@/models/bible';
 import type { LayoutResult } from '@/utils/graphLayout.ts';
 import { useHistoricalDataStore } from '@/store/historicalData.store';
+import { useYearMarkersStore }    from '@/store/yearMarkers.store';
 import { useMarkerData } from './useMarkerData';
 import { SectionLabels } from './SectionLabels';
 import { KingsFrise } from './KingsFrise';
@@ -12,7 +12,6 @@ import { EventsFrise } from './EventsFrise';
 interface Props {
   layout:             LayoutResult;
   hoveredBook:        string | null;
-  mainCamRef:         React.MutableRefObject<{ x: number; zoom: number }>;
   sortMode:           BookSortMode;
   histSubMode:        HistoricalSubMode;
   histSecondaryFrise: 'kings' | 'periods' | 'events';
@@ -21,19 +20,16 @@ interface Props {
 }
 
 export function SectionMarkers({
-  layout, hoveredBook, mainCamRef,
+  layout, hoveredBook,
   sortMode, histSubMode, histSecondaryFrise,
   bookOrderData, sortedData,
 }: Props) {
   const { viewport, size } = useThree();
-  const [sync, setSync]    = useState(() => ({ x: mainCamRef.current.x, zoom: mainCamRef.current.zoom }));
+  const cameraX    = useYearMarkersStore(s => s.cameraX);
+  const cameraZoom = useYearMarkersStore(s => s.cameraZoom);
+  const sync       = { x: cameraX, zoom: cameraZoom };
 
   const { kingsData: kings, periodsData: periods, eventsData: events } = useHistoricalDataStore();
-
-  useFrame(() => {
-    const { x, zoom } = mainCamRef.current;
-    if (x !== sync.x || zoom !== sync.zoom) setSync({ x, zoom });
-  });
 
   const { classicSections, sizeItems, timelineItems, kingItems, periodItems, eventItems } = useMarkerData({
     sortMode, histSubMode, layout, bookOrderData, sortedData, kings, periods, events,

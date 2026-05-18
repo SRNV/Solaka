@@ -3,10 +3,10 @@ import { Html, Line } from '@react-three/drei';
 import type { BookSortMode } from '@/models/bible';
 import type { ClassicSection, LabelItem } from './useMarkerData';
 
-const BY     = 100;
-const TICK   = 6;
-const LABEL_Y = 60;
-const MIN_DIST = 110;
+const BY     = 46;
+const TICK   = 4;
+const LABEL_Y = 24;
+const MIN_DIST = 90;
 
 interface Props {
   classicSections: ClassicSection[];

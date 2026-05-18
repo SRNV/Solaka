@@ -2,9 +2,9 @@ import { useMemo } from 'react';
 import { Html, Line } from '@react-three/drei';
 import type { PeriodItem } from './useMarkerData';
 
-const SECONDARY_Y = 30;
-const K_TICK      = 8;
-const MIN_DIST    = 80;
+const SECONDARY_Y = 12;
+const K_TICK      = 5;
+const MIN_DIST    = 70;
 
 interface Props {
   items:            PeriodItem[];
@@ -54,7 +54,7 @@ export function PeriodsFrise({ items, sync, px, halfViewport, hoveredBookRange }
               lineWidth={isHov ? 3 : 2.2} transparent opacity={isHov ? 1 : 0.8}
             />
             {visibleNames.has(period.name) && isInView && (
-              <Html position={[midX, SECONDARY_Y - 14, 0]} center zIndexRange={[0, 0]}>
+              <Html position={[midX, SECONDARY_Y - 9, 0]} center zIndexRange={[0, 0]}>
                 <div
                   style={{
                     color: isHov ? baseColor : '#a0a8c8', fontSize: '10px', fontWeight: 900,
