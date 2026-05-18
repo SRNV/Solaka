@@ -11,7 +11,7 @@ interface TimelineState {
 
 export const useTimelineStore = create<TimelineState>(set => ({
   isPlaying: false,
-  playSpeed: 5,
+  playSpeed: 1,
   play:      () => set({ isPlaying: true }),
   pause:     () => set({ isPlaying: false }),
   setSpeed:  (s) => set({ playSpeed: s }),

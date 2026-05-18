@@ -5,9 +5,10 @@ import { useYearMarkersStore } from '@/store/yearMarkers.store';
 import type { KingItem } from './useMarkerData';
 import { SmoothHtmlLabel } from './SmoothHtmlLabel';
 
-const SECONDARY_Y = -15;
-const K_TICK      = 5;
-const MIN_DIST    = 70;
+const Y_JUDAH   = -12;
+const Y_ISRAEL  = -24;
+const K_TICK    = 5;
+const MIN_DIST  = 70;
 
 interface Props {
   items:            KingItem[];
@@ -70,13 +71,22 @@ export function KingsFrise({ items, px, halfViewport, hoveredBookRange }: Props)
   return (
     <group>
       {baseline && (
-        <Line
-          points={[
-            [baseline.x1, SECONDARY_Y, 0],
-            [baseline.x2, SECONDARY_Y, 0],
-          ]}
-          color="#a0a8c8" lineWidth={1.2} transparent opacity={0.15}
-        />
+        <>
+          <Line
+            points={[
+              [baseline.x1, Y_JUDAH, 0],
+              [baseline.x2, Y_JUDAH, 0],
+            ]}
+            color="#a0a8c8" lineWidth={1.2} transparent opacity={0.15}
+          />
+          <Line
+            points={[
+              [baseline.x1, Y_ISRAEL, 0],
+              [baseline.x2, Y_ISRAEL, 0],
+            ]}
+            color="#a0a8c8" lineWidth={1.2} transparent opacity={0.15}
+          />
+        </>
       )}
       {visibleItems.map((king, i) => {
         const x1    = king.sX;
@@ -88,15 +98,16 @@ export function KingsFrise({ items, px, halfViewport, hoveredBookRange }: Props)
           : (king.kingdom.judah && king.kingdom.israel) ? '#826AED'
           : king.kingdom.judah ? '#e8956d' : '#85c1e9';
         const midX     = king.visibleCx;
+        const kingY    = (king.kingdom.israel && !king.kingdom.judah) ? Y_ISRAEL : Y_JUDAH;
 
         return (
           <group key={`k-${i}`}>
             <Line
-              points={[[x1, SECONDARY_Y + K_TICK, 0], [x1, SECONDARY_Y, 0], [x2, SECONDARY_Y, 0], [x2, SECONDARY_Y + K_TICK, 0]]}
+              points={[[x1, kingY + K_TICK, 0], [x1, kingY, 0], [x2, kingY, 0], [x2, kingY + K_TICK, 0]]}
               color={isHov ? '#C879FF' : '#a0a8c8'}
               lineWidth={isHov ? 2.5 : 1.2} transparent opacity={isHov ? 1 : 0.4}
             />
-            <SmoothHtmlLabel x={midX} y={SECONDARY_Y - 12 * px} visible={king.visible || isHov}>
+            <SmoothHtmlLabel x={midX} y={kingY - 12 * px} visible={king.visible || isHov}>
               <div
                 style={{
                   color: isHov ? baseColor : '#a0a8c8', fontSize: '9px', fontWeight: 900,
