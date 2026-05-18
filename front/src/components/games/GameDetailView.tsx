@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { Suspense } from 'react';
-import { GAME_REGISTRY } from './GameRegistry';
+import { GAME_REGISTRY } from '../../lib/games/src/components/games/GameRegistry';
 
 export function GameDetailView() {
   const { slug } = useParams<{ slug: string }>();

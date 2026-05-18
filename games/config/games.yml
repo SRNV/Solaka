@@ -1,9 +1,0 @@
-games:
-  - title: "Premier Jeu"
-    description: "Une description chargée depuis le serveur C#"
-    slug: "first-game"
-    image: null
-  - title: "Quizz Biblique"
-    description: "Testez vos connaissances sur la Parole de Dieu"
-    slug: "bible-quiz"
-    image: null
