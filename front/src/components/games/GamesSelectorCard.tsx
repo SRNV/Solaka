@@ -1,15 +1,20 @@
 import { useNavigate } from 'react-router-dom';
 import styles from './GamesSelectorCard.module.css';
 
-interface GamesSelectorCardProps {
+interface GameData {
   title: string;
   description: string;
   image?: string;
   slug: string;
 }
 
-export function GamesSelectorCard({ title, description, image, slug }: GamesSelectorCardProps) {
+interface GamesSelectorCardProps {
+  data: GameData;
+}
+
+export function GamesSelectorCard({ data }: GamesSelectorCardProps) {
   const navigate = useNavigate();
+  const { title, description, image, slug } = data;
 
   return (
     <div className={styles.card} onClick={() => navigate(`/games/${slug}`)}>

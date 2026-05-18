@@ -42,10 +42,7 @@ export function GamesPage() {
             {games.map(game => (
               <GamesSelectorCard 
                 key={game.slug}
-                title={game.title}
-                description={game.description}
-                slug={game.slug}
-                image={game.image}
+                data={game}
               />
             ))}
           </div>

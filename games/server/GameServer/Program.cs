@@ -1,11 +1,17 @@
 using GameServer.Services;
+using GameServer.Domain.Repositories;
+using GameServer.Infrastructure.Repositories;
+using GameServer.Application.UseCases;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddSingleton<BibleService>();
 builder.Services.AddSingleton<StompService>();
-builder.Services.AddSingleton<GameDiscoveryService>();
+
+// DDD Registration
+builder.Services.AddSingleton<IGameRepository, JsonGameRepository>();
+builder.Services.AddScoped<GetAvailableGamesUseCase>();
 
 var allowedOrigins = (builder.Configuration["ALLOWED_ORIGINS"] ?? "http://localhost:5173")
     .Split(',', StringSplitOptions.RemoveEmptyEntries)
@@ -56,9 +62,10 @@ app.Map("/stomp", async (HttpContext context, StompService stompService) =>
 
 app.MapGet("/health", () => Results.Ok(new { status = "ok" }));
 
-app.MapGet("/api/games", (GameDiscoveryService gameService) => 
+app.MapGet("/api/games", async (GetAvailableGamesUseCase useCase) => 
 {
-    return Results.Ok(gameService.GetGames());
+    var games = await useCase.ExecuteAsync();
+    return Results.Ok(games);
 });
 
 // Pre-load Bible service
