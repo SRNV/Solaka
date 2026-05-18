@@ -1,5 +1,6 @@
 import { useEffect, useMemo } from 'react';
 import * as THREE from 'three';
+import { useYearMarkersStore } from '@/store/yearMarkers.store';
 import type { BibleRelation } from '@/models/bible';
 import type { Pos3, ArcSeg, BraceCircle, ArcGeometryResult } from '@/models/graph';
 import {
@@ -13,14 +14,6 @@ export type { ArcGeometryResult };
 
 /**
  * Builds the GPU `BufferGeometry` (visual + hit) and brace-circle list for all arc relations.
- *
- * @param relations       - Normalised relations to render.
- * @param uuidPosMap      - Verse UUID → world position.
- * @param minPeakY        - Floor for arc control-point Y.
- * @param showCath        - Include Catholic arcs.
- * @param showProt        - Include Protestant arcs.
- * @param arcBornTimesRef - Ref tracking the clock time each arc first appeared (for fade-in).
- * @param clockRef        - Ref holding the current Three.js clock elapsed time.
  */
 export function useArcGeometry(
   relations:       BibleRelation[],

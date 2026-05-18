@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { useThree } from '@react-three/fiber';
 import * as THREE from 'three';
+import { useYearMarkersStore } from '@/store/yearMarkers.store';
 import { CH_STEP } from '@/utils/graphConstants.ts';
 import type { LayoutResult } from '@/utils/graphLayout.ts';
 
@@ -22,21 +23,22 @@ const PLANE_HEIGHT = PLANE_TOP - PLANE_BOTTOM;
 
 /**
  * Invisible full-scene plane used for book hover detection and canvas click handling.
- *
- * The plane covers the full X extent of the graph and a large Y range so that pointer events
- * fire reliably regardless of zoom.  A drag guard (5 px threshold) prevents click events from
- * firing after the user pans the camera.
  */
 export function HoverPlane({ bookLabels, totalX, hoveredBook, onHover, onCanvasClick }: HoverPlaneProps) {
   const { invalidate } = useThree();
   const pointerDownPos = useRef<{ x: number; y: number } | null>(null);
+  const horizontalScale = useYearMarkersStore(s => s.cameraZoom);
 
   return (
     <mesh
-      position={[totalX / 2, (PLANE_TOP + PLANE_BOTTOM) / 2, 0]}
+      position={[(totalX * horizontalScale) / 2, (PLANE_TOP + PLANE_BOTTOM) / 2, 0]}
       onPointerMove={e => {
         const hitX   = e.point.x;
-        const hitBook = bookLabels.find(b => hitX >= b.startX - CH_STEP / 2 && hitX <= b.endX + CH_STEP / 2);
+        const hitBook = bookLabels.find(b => {
+          const sX = b.startX * horizontalScale;
+          const eX = b.endX   * horizontalScale;
+          return hitX >= sX - (CH_STEP * horizontalScale) / 2 && hitX <= eX + (CH_STEP * horizontalScale) / 2;
+        });
         onHover(hitBook?.name ?? null);
         invalidate();
       }}
@@ -47,10 +49,10 @@ export function HoverPlane({ bookLabels, totalX, hoveredBook, onHover, onCanvasC
         const dx = e.clientX - pointerDownPos.current.x;
         const dy = e.clientY - pointerDownPos.current.y;
         if (dx * dx + dy * dy > 25) return; // ignore drags
-        onCanvasClick(hoveredBook, e.point.x);
+        onCanvasClick(hoveredBook, e.point.x / horizontalScale);
       }}
     >
-      <planeGeometry args={[totalX + 20, PLANE_HEIGHT]} />
+      <planeGeometry args={[totalX * horizontalScale + 20, PLANE_HEIGHT]} />
       <meshBasicMaterial transparent opacity={0} depthWrite={false} side={THREE.DoubleSide} />
     </mesh>
   );

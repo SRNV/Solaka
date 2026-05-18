@@ -1,6 +1,7 @@
 import { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
+import { useYearMarkersStore } from '@/store/yearMarkers.store';
 
 interface Props {
   worldX:   number;
@@ -30,6 +31,7 @@ const frag = /* glsl */`
 
 export function ScrubberPlane({ worldX, maxY, color = '#C879FF', opacity = 0, width = 3 }: Props) {
   const meshRef = useRef<THREE.Mesh>(null);
+  const horizontalScale = useYearMarkersStore(s => s.cameraZoom);
 
   const material = useMemo(() => new THREE.ShaderMaterial({
     vertexShader:   vert,
@@ -43,10 +45,10 @@ export function ScrubberPlane({ worldX, maxY, color = '#C879FF', opacity = 0, wi
     },
   }), [color, opacity]);
 
-  useFrame(() => { if (meshRef.current) meshRef.current.position.x = worldX; });
+  useFrame(() => { if (meshRef.current) meshRef.current.position.x = worldX * horizontalScale; });
 
   return (
-    <mesh ref={meshRef} position={[worldX, maxY / 2, 10]} renderOrder={10} material={material}>
+    <mesh ref={meshRef} position={[worldX * horizontalScale, maxY / 2, 10]} renderOrder={10} material={material}>
       <planeGeometry args={[width, maxY + 80]} />
     </mesh>
   );

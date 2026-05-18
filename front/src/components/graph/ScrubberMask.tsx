@@ -58,11 +58,7 @@ export function ScrubberMask({ data, layout }: Props) {
   }), [layout.totalX]);
 
   // Sync scrubber position into the shader uniform
-  useEffect(() => {
-    material.uniforms.uScrubberX.value = scrubberWorldX ?? -1e10;
-    material.uniforms.uTotalX.value    = layout.totalX;
-    invalidate();
-  }, [scrubberWorldX, layout.totalX, material, invalidate]);
+  const horizontalScale = useYearMarkersStore(s => s.cameraZoom);
 
   // ── Animation state (mirrors Cubes animation) ─────────────────
   const prevLayoutRef = useRef<LayoutResult | null>(null);
@@ -82,30 +78,34 @@ export function ScrubberMask({ data, layout }: Props) {
   useFrame(({ invalidate: inv }) => {
     if (!meshRef.current) return;
     const isAnimating = animStartRef.current >= 0;
-    if (!isAnimating && !needsInitRef.current) return;
+    
+    // Sync uniforms every frame to ensure perfect alignment during play/zoom/pan
+    material.uniforms.uScrubberX.value = (scrubberWorldX ?? -1e10) * horizontalScale;
+    material.uniforms.uTotalX.value    = layout.totalX * horizontalScale;
 
     const rawT = isAnimating
       ? (performance.now() - animStartRef.current) / (ANIM_DURATION * 1000)
       : 1;
     const t = Math.min(1, rawT);
     if (isAnimating && t >= 1) animStartRef.current = -1;
-    if (!isAnimating) needsInitRef.current = false;
-
+    
     const eased      = easeInOutCubic(t);
     const fromLayout = isAnimating ? fromLayoutRef.current : null;
     const dummy      = new THREE.Object3D();
+    const cubeScaleX = Math.max(1, horizontalScale * 0.9);
     let idx = 0;
 
     for (const book of data) {
       for (const ch of book.chapters ?? []) {
-        const chZ   = layout.chapZMap.get(`${book.number}:${ch.number}`) ?? 0;
+        const chZ   = (layout.chapZMap.get(`${book.number}:${ch.number}`) ?? 0) + 0.1; // Small Z offset to avoid Z-fighting
         const uuids = ch.uuids ?? [];
         const count = uuids.length || (ch.verseCount ?? 0);
         for (let v = 0; v < count; v++) {
           const uuid = uuids[v];
           const toX  = (uuid ? layout.uuidPosMap.get(uuid)?.x : undefined) ?? 0;
           const fmX  = (fromLayout && uuid ? fromLayout.uuidPosMap.get(uuid)?.x : undefined) ?? toX;
-          dummy.position.set(fmX + (toX - fmX) * eased, CUBE_S / 2 + v * V_STEP, chZ);
+          dummy.position.set((fmX + (toX - fmX) * eased) * horizontalScale, CUBE_S / 2 + v * V_STEP, chZ);
+          dummy.scale.set(cubeScaleX, 1, cubeScaleX);
           dummy.updateMatrix();
           meshRef.current.setMatrixAt(idx++, dummy.matrix);
         }

@@ -1,10 +1,11 @@
-import { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Html, Line } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
+import { useYearMarkersStore } from '@/store/yearMarkers.store';
 import type { BibleStructureBook } from '@/models/bible';
 import type { BibleTarget } from '@/contexts/BibleDrawerContext.tsx';
-import type { LayoutResult } from '@/utils/graphLayout.ts';
+import type { LayoutResult, BookLabel } from '@/utils/graphLayout.ts';
 import { CUBE_S, V_STEP, CH_STEP, ANIM_DURATION, easeInOutCubic } from '@/utils/graphConstants.ts';
 
 const WARNING_C    = new THREE.Color(0.976, 0.863, 0.361);
@@ -35,26 +36,48 @@ interface CubesProps {
   searchHitUuids:     Map<string, string> | null;
   onCubeHover:        (uuid: string | null) => void;
   onCubeClick?:       (uuid: string) => void;
+  hideLabels?:        boolean;
+}
+
+function BookBrace({ label, hoveredBook, horizontalScale }: { label: BookLabel, hoveredBook: string | null, horizontalScale: number }) {
+  const color     = label.name === hoveredBook ? '#F9DC5C' : '#a0a8c8';
+  const lineWidth = label.name === hoveredBook ? 3 : 2;
+  const halfSpan  = ((label.endX - label.startX) / 2) * horizontalScale;
+  const cx        = label.cx * horizontalScale;
+
+  return (
+    <group position={[cx, 0, 0]}>
+      {label.endX <= label.startX ? (
+        <Line points={[[0, LABEL_BRACE_Y + BRACE_TICK_H, 0], [0, LABEL_BRACE_Y, 0]]} color={color} lineWidth={lineWidth} />
+      ) : (
+        <Line
+          points={[
+            [-halfSpan, LABEL_BRACE_Y + BRACE_TICK_H, 0],
+            [-halfSpan, LABEL_BRACE_Y, 0],
+            [ halfSpan, LABEL_BRACE_Y, 0],
+            [ halfSpan, LABEL_BRACE_Y + BRACE_TICK_H, 0],
+          ]}
+          color={color}
+          lineWidth={lineWidth}
+        />
+      )}
+    </group>
+  );
 }
 
 /**
  * Renders every Bible verse as a coloured cube using an `InstancedMesh`.
- *
- * Responsibilities:
- * - Allocates the instanced mesh with the total verse count from `layout`.
- * - Applies per-cube colours based on hover state, search hits, and the `colorMap`.
- * - Animates cube X positions when the sort mode changes (tweens from previous layout).
- * - Renders book-name HTML labels and bracket braces below the verse towers.
- * - Animates label and brace X positions in sync with the cube animation.
  */
 export function Cubes({
   data, layout, colorMap, bookHasRelation,
   hoveredBook, hoveredArcXs, hoveredPeriodRange,
   destUuids, searchHitUuids,
   onCubeHover, onCubeClick,
+  hideLabels = false,
 }: CubesProps) {
   const meshRef    = useRef<THREE.InstancedMesh>(null!);
   const { invalidate } = useThree();
+  const horizontalScale = useYearMarkersStore(s => s.cameraZoom);
   const invalidateRef  = useRef(invalidate);
   invalidateRef.current = invalidate;
 
@@ -67,19 +90,14 @@ export function Cubes({
   const animStartRef   = useRef<number>(-1);
   const fromLayoutRef  = useRef<LayoutResult | null>(null);
   const labelGroupsRef = useRef<Map<string, THREE.Group>>(new Map());
-  const braceGroupsRef = useRef<Map<string, THREE.Group>>(new Map());
   const posNeedsSetRef = useRef(true);
 
   // After every render: hold groups at resting positions when not animating.
-  // No dep array intentional — fires on every render to catch hover/colour changes.
   useLayoutEffect(() => {
     if (animStartRef.current >= 0) return;
     const centerXByBook = new Map(layout.bookLabels.map(b => [b.name, b.cx]));
     for (const [name, grp] of labelGroupsRef.current) {
-      const x = centerXByBook.get(name); if (x !== undefined) grp.position.x = x;
-    }
-    for (const [name, grp] of braceGroupsRef.current) {
-      const x = centerXByBook.get(name); if (x !== undefined) grp.position.x = x;
+      const x = centerXByBook.get(name); if (x !== undefined) grp.position.x = x * horizontalScale;
     }
   });
 
@@ -90,15 +108,12 @@ export function Cubes({
     if (!prev) { posNeedsSetRef.current = true; return; }
     const fromCenterX = new Map(prev.bookLabels.map(b => [b.name, b.cx]));
     for (const [name, grp] of labelGroupsRef.current) {
-      const x = fromCenterX.get(name); if (x !== undefined) grp.position.x = x;
-    }
-    for (const [name, grp] of braceGroupsRef.current) {
-      const x = fromCenterX.get(name); if (x !== undefined) grp.position.x = x;
+      const x = fromCenterX.get(name); if (x !== undefined) grp.position.x = x * horizontalScale;
     }
     fromLayoutRef.current = prev;
     animStartRef.current  = performance.now();
     invalidateRef.current();
-  }, [layout]);
+  }, [layout, horizontalScale]);
 
   // Update cube colours
   useEffect(() => {
@@ -118,9 +133,10 @@ export function Cubes({
             : false;
           const isDest   = uuid ? destUuids.has(uuid)                       : false;
           const isSearch = uuid && searchHitUuids ? searchHitUuids.has(uuid) : false;
+          const isGospel = GOSPEL_BOOKS.has(book.name);
           const color = (isHovered && !isDest) ? WARNING_C
             : isSearch ? PRIMARY_C
-            : (uuid ? colorMap?.get(uuid) : undefined) ?? LIGHT_GRAY_C;
+            : (uuid ? colorMap?.get(uuid) : undefined) ?? (isGospel ? new THREE.Color('#826AED') : LIGHT_GRAY_C);
           meshRef.current.setColorAt(instanceIdx++, color);
         }
       }
@@ -129,20 +145,19 @@ export function Cubes({
     invalidate();
   }, [data, colorMap, hoveredRange, hoveredArcXs, destUuids, searchHitUuids, invalidate, layout.uuidPosMap]);
 
-  // Animate cube + label + brace positions
+  // Animate cube + label positions
   useFrame(({ invalidate: inv }) => {
     if (!meshRef.current) return;
     const isAnimating = animStartRef.current >= 0;
-    if (!isAnimating && !posNeedsSetRef.current) return;
-
+    
     const rawT = isAnimating ? (performance.now() - animStartRef.current) / (ANIM_DURATION * 1000) : 1;
     const t    = Math.min(1, rawT);
     if (isAnimating && t >= 1) animStartRef.current = -1;
-    if (!isAnimating) posNeedsSetRef.current = false;
-
+    
     const eased   = easeInOutCubic(t);
     const fromLayout = isAnimating ? fromLayoutRef.current : null;
     const dummy   = new THREE.Object3D();
+    const cubeScaleX = Math.max(1, horizontalScale * 0.9); // Scale thickness with zoom
     let instanceIdx = 0;
 
     for (const book of data) {
@@ -154,7 +169,8 @@ export function Cubes({
           const uuid = uuids[v];
           const toX  = (uuid ? layout.uuidPosMap.get(uuid)?.x : undefined) ?? 0;
           const fmX  = (fromLayout && uuid ? fromLayout.uuidPosMap.get(uuid)?.x : undefined) ?? toX;
-          dummy.position.set(fmX + (toX - fmX) * eased, CUBE_S / 2 + v * V_STEP, chZ);
+          dummy.position.set((fmX + (toX - fmX) * eased) * horizontalScale, CUBE_S / 2 + v * V_STEP, chZ);
+          dummy.scale.set(cubeScaleX, 1, cubeScaleX); // Increase thickness
           dummy.updateMatrix();
           meshRef.current.setMatrixAt(instanceIdx++, dummy.matrix);
         }
@@ -167,11 +183,12 @@ export function Cubes({
       const fmCenterX = new Map(fromLayout.bookLabels.map(b => [b.name, b.cx]));
       for (const [name, grp] of labelGroupsRef.current) {
         const toX = toCenterX.get(name); if (toX === undefined) continue;
-        grp.position.x = (fmCenterX.get(name) ?? toX) + (toX - (fmCenterX.get(name) ?? toX)) * eased;
+        grp.position.x = ((fmCenterX.get(name) ?? toX) + (toX - (fmCenterX.get(name) ?? toX)) * eased) * horizontalScale;
       }
-      for (const [name, grp] of braceGroupsRef.current) {
-        const toX = toCenterX.get(name); if (toX === undefined) continue;
-        grp.position.x = (fmCenterX.get(name) ?? toX) + (toX - (fmCenterX.get(name) ?? toX)) * eased;
+    } else {
+      const centerXByBook = new Map(layout.bookLabels.map(b => [b.name, b.cx]));
+      for (const [name, grp] of labelGroupsRef.current) {
+        const x = centerXByBook.get(name); if (x !== undefined) grp.position.x = x * horizontalScale;
       }
     }
 
@@ -212,7 +229,7 @@ export function Cubes({
       </instancedMesh>
 
       {/* Book name labels */}
-      {layout.bookLabels.map(label => {
+      {!hideLabels && layout.bookLabels.map(label => {
         const isGospel  = GOSPEL_BOOKS.has(label.name);
         const isHovered = hoveredBook === label.name;
         const hasRel    = bookHasRelation.has(label.name) || searchHitBooks?.has(label.name);
@@ -243,32 +260,14 @@ export function Cubes({
       })}
 
       {/* Book span braces */}
-      {layout.bookLabels.map(label => {
-        const color     = label.name === hoveredBook ? '#F9DC5C' : '#a0a8c8';
-        const lineWidth = label.name === hoveredBook ? 3 : 2;
-        const halfSpan  = (label.endX - label.startX) / 2;
-        return (
-          <group
-            key={`brace_${label.name}`}
-            ref={r => { if (r) braceGroupsRef.current.set(label.name, r); }}
-          >
-            {label.endX <= label.startX ? (
-              <Line points={[[0, LABEL_BRACE_Y + BRACE_TICK_H, 0], [0, LABEL_BRACE_Y, 0]]} color={color} lineWidth={lineWidth} />
-            ) : (
-              <Line
-                points={[
-                  [-halfSpan, LABEL_BRACE_Y + BRACE_TICK_H, 0],
-                  [-halfSpan, LABEL_BRACE_Y, 0],
-                  [ halfSpan, LABEL_BRACE_Y, 0],
-                  [ halfSpan, LABEL_BRACE_Y + BRACE_TICK_H, 0],
-                ]}
-                color={color}
-                lineWidth={lineWidth}
-              />
-            )}
-          </group>
-        );
-      })}
+      {layout.bookLabels.map(label => (
+        <BookBrace
+          key={`brace_${label.name}`}
+          label={label}
+          hoveredBook={hoveredBook}
+          horizontalScale={horizontalScale}
+        />
+      ))}
     </>
   );
 }

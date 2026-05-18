@@ -21,6 +21,8 @@ export function useArcMaterial(animate: boolean): THREE.ShaderMaterial {
       uBaseColor:  { value: new THREE.Color('#f5f6fb') },
       uHoveredRel: { value: -1.0 },
       uZoomT:      { value: 0.0 },
+      uHeightScale: { value: 1.0 },
+      uHorizontalScale: { value: 1.0 },
     },
     transparent: true,
     depthWrite:  false,

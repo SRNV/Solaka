@@ -1,37 +1,69 @@
 import { useMemo } from 'react';
 import { Html, Line } from '@react-three/drei';
+import { useThree } from '@react-three/fiber';
+import { useYearMarkersStore } from '@/store/yearMarkers.store';
 import type { KingItem } from './useMarkerData';
+import { SmoothHtmlLabel } from './SmoothHtmlLabel';
 
-const SECONDARY_Y = 12;
+const SECONDARY_Y = -15;
 const K_TICK      = 5;
 const MIN_DIST    = 70;
 
 interface Props {
   items:            KingItem[];
-  sync:             { x: number; zoom: number };
   px:               number;
   halfViewport:     number;
   hoveredBookRange: { startX: number; endX: number } | null;
 }
 
-export function KingsFrise({ items, sync, px, halfViewport, hoveredBookRange }: Props) {
-  const { visibleNames, baseline } = useMemo(() => {
-    if (!items.length) return { visibleNames: new Set<string>(), baseline: null };
-    const sorted  = [...items].sort((a, b) => b.priority - a.priority);
-    const visible = new Set<string>();
-    const shownXs: number[] = [];
+export function KingsFrise({ items, px, halfViewport, hoveredBookRange }: Props) {
+  const { size } = useThree();
+  const cameraX = useYearMarkersStore(s => s.cameraX);
+  const horizontalScale = useYearMarkersStore(s => s.cameraZoom);
+
+  const { visibleItems, baseline } = useMemo(() => {
+    if (!items.length) return { visibleItems: [], baseline: null };
+
+    // Frustum bounds based on store
+    const aspect = size.width / size.height;
+    const halfW  = (size.height * aspect) / 2;
+    const left   = (cameraX * horizontalScale) - halfW;
+    const right  = (cameraX * horizontalScale) + halfW;
+
     const minDist = MIN_DIST * px;
+    
+    // Map items to include visible center
+    const mapped = items.map(item => {
+      const sX = item.startX * horizontalScale;
+      const eX = item.endX   * horizontalScale;
+
+      const vStart = Math.max(sX, left);
+      const vEnd   = Math.min(eX, right);
+      const isPartiallyVisible = vStart < vEnd;
+      const visibleCx = isPartiallyVisible ? (vStart + vEnd) / 2 : (sX + eX) / 2;
+
+      return {
+        ...item,
+        sX, eX,
+        visibleCx,
+        isPartiallyVisible,
+        visible: false,
+      };
+    });
+
+    const sorted  = [...mapped].sort((a, b) => b.priority - a.priority);
+    const shownXs: number[] = [];
+    
     for (const k of sorted) {
-      const midX = ((k.startX + k.endX) / 2) * sync.zoom - sync.x * sync.zoom;
-      if (shownXs.every(sx => Math.abs(midX - sx) >= minDist)) {
-        visible.add(k.name);
-        shownXs.push(midX);
+      if (k.isPartiallyVisible && shownXs.every(sx => Math.abs(k.visibleCx - sx) >= minDist)) {
+        k.visible = true;
+        shownXs.push(k.visibleCx);
       }
     }
-    const minX = Math.min(...items.map(k => k.startX));
-    const maxX = Math.max(...items.map(k => k.endX));
-    return { visibleNames: visible, baseline: { x1: minX, x2: maxX } };
-  }, [items, sync.zoom, sync.x, px]);
+    const minX = Math.min(...mapped.map(k => k.sX));
+    const maxX = Math.max(...mapped.map(k => k.eX));
+    return { visibleItems: mapped, baseline: { x1: minX, x2: maxX } };
+  }, [items, px, cameraX, horizontalScale, size.width, size.height]);
 
   if (!items.length) return null;
 
@@ -40,23 +72,22 @@ export function KingsFrise({ items, sync, px, halfViewport, hoveredBookRange }: 
       {baseline && (
         <Line
           points={[
-            [baseline.x1 * sync.zoom - sync.x * sync.zoom, SECONDARY_Y, 0],
-            [baseline.x2 * sync.zoom - sync.x * sync.zoom, SECONDARY_Y, 0],
+            [baseline.x1, SECONDARY_Y, 0],
+            [baseline.x2, SECONDARY_Y, 0],
           ]}
           color="#a0a8c8" lineWidth={1.2} transparent opacity={0.15}
         />
       )}
-      {items.map((king, i) => {
-        const x1    = king.startX * sync.zoom - sync.x * sync.zoom;
-        const x2    = king.endX   * sync.zoom - sync.x * sync.zoom;
+      {visibleItems.map((king, i) => {
+        const x1    = king.sX;
+        const x2    = king.eX;
         const isHov = hoveredBookRange
           ? king.startX <= hoveredBookRange.endX && king.endX >= hoveredBookRange.startX
           : false;
         const baseColor = king.saint ? '#4caf50'
           : (king.kingdom.judah && king.kingdom.israel) ? '#826AED'
           : king.kingdom.judah ? '#e8956d' : '#85c1e9';
-        const isInView = x1 <= halfViewport && x2 >= -halfViewport;
-        const midX     = (Math.max(x1, -halfViewport) + Math.min(x2, halfViewport)) / 2;
+        const midX     = king.visibleCx;
 
         return (
           <group key={`k-${i}`}>
@@ -65,20 +96,19 @@ export function KingsFrise({ items, sync, px, halfViewport, hoveredBookRange }: 
               color={isHov ? '#C879FF' : '#a0a8c8'}
               lineWidth={isHov ? 2.5 : 1.2} transparent opacity={isHov ? 1 : 0.4}
             />
-            {visibleNames.has(king.name) && isInView && (
-              <Html position={[midX, SECONDARY_Y - 12 * px, 0]} center>
-                <div
-                  style={{
-                    color: isHov ? baseColor : '#a0a8c8', fontSize: '9px', fontWeight: 900,
-                    letterSpacing: '1px', whiteSpace: 'nowrap', cursor: 'pointer',
-                    userSelect: 'none', textTransform: 'uppercase',
-                    opacity: isHov ? 1 : 0.45, pointerEvents: 'auto',
-                  }}
-                >
-                  {king.name}
-                </div>
-              </Html>
-            )}
+            <SmoothHtmlLabel x={midX} y={SECONDARY_Y - 12 * px} visible={king.visible || isHov}>
+              <div
+                style={{
+                  color: isHov ? baseColor : '#a0a8c8', fontSize: '9px', fontWeight: 900,
+                  letterSpacing: '1px', whiteSpace: 'nowrap', cursor: 'pointer',
+                  userSelect: 'none', textTransform: 'uppercase',
+                  opacity: isHov ? 1 : 0.45,
+                  pointerEvents: 'auto',
+                }}
+              >
+                {king.name}
+              </div>
+            </SmoothHtmlLabel>
           </group>
         );
       })}

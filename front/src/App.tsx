@@ -36,7 +36,7 @@ function BackendWaitingScreen({ error }: { error: string | null }) {
         @keyframes spin { to { transform: rotate(360deg); } }
       `}</style>
       <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)' }}>
-        {error || 'Initialisation...'}
+        {error || '...'}
       </p>
     </div>
   );

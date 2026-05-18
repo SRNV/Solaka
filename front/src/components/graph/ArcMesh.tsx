@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
+import { useYearMarkersStore } from '@/store/yearMarkers.store';
 import type { BibleRelation } from '@/models/bible';
 import type { BibleTarget } from '@/contexts/BibleDrawerContext.tsx';
 import type { Pos3 } from '@/utils/graphLayout.ts';
@@ -53,6 +54,8 @@ export function ArcMesh({
   const clockRef        = useRef(0);
   const hoveredRelRef   = useRef(-1);
   const { invalidate }  = useThree();
+  const horizontalScale = useYearMarkersStore(s => s.cameraZoom);
+  const hScale = Math.max(0.35, 1.0 / Math.sqrt(Math.max(1.0, horizontalScale)));
 
   const mat = useArcMaterial(animate);
 
@@ -125,6 +128,12 @@ export function ArcMesh({
     mat.uniforms.uResolution.value.set(size.width, size.height);
     mat.uniforms.uHoveredRel.value = hoveredRelRef.current;
     mat.uniforms.uZoomT.value = Math.min(1, Math.max(0, (Math.log(zoom) - Math.log(4)) / (Math.log(60) - Math.log(4))));
+    
+    // Zoom in (large horizontalScale) -> smaller HeightScale (flatter)
+    // Zoom out (small horizontalScale) -> larger HeightScale (taller, but capped)
+    // We cap at 0.35 so arcs don't become totally flat at high zoom
+    mat.uniforms.uHeightScale.value     = hScale;
+    mat.uniforms.uHorizontalScale.value = horizontalScale;
 
     const onTop = zoom > 8;
     if (mat.depthTest === onTop) { mat.depthTest = !onTop; mat.needsUpdate = true; inv(); }
@@ -216,11 +225,21 @@ export function ArcMesh({
 
   if (!visualGeo || !hitGeo) return null;
 
+  const lastHoverUpdate = useRef(0);
+
   return (
     <>
       <mesh geometry={visualGeo} material={mat} frustumCulled={false} />
 
-      <BraceCircles circles={circles} visible={circlesVisible} onRelClick={handleRelClick} />
+      <BraceCircles
+        circles={circles.map(c => ({
+          ...c,
+          x: c.x * horizontalScale,
+          y: c.y * hScale
+        }))}
+        visible={circlesVisible}
+        onRelClick={handleRelClick}
+      />
 
       <mesh
         geometry={hitGeo}
@@ -229,11 +248,15 @@ export function ArcMesh({
           const px = e.point.x, py = e.point.y;
           let closestRelIdx = -1, closestDist = Infinity;
           for (const seg of segs) {
-            const dx   = seg.bx - seg.ax, dy = seg.by - seg.ay;
+            const ax_s = seg.ax * horizontalScale;
+            const bx_s = seg.bx * horizontalScale;
+            const ay_s = seg.ay * hScale;
+            const by_s = seg.by * hScale;
+            const dx   = bx_s - ax_s, dy = by_s - ay_s;
             const len2 = dx * dx + dy * dy;
             if (len2 < 1e-10) continue;
-            const t  = Math.max(0, Math.min(1, ((px - seg.ax) * dx + (py - seg.ay) * dy) / len2));
-            const cx = seg.ax + t * dx, cy = seg.ay + t * dy;
+            const t  = Math.max(0, Math.min(1, ((px - ax_s) * dx + (py - ay_s) * dy) / len2));
+            const cx = ax_s + t * dx, cy = ay_s + t * dy;
             const d  = Math.sqrt((px - cx) ** 2 + (py - cy) ** 2);
             if (d < HIT_PROX && d < closestDist) { closestDist = d; closestRelIdx = seg.relIdx; }
           }

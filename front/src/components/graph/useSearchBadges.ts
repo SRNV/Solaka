@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
-import { V_STEP } from '@/utils/graphConstants';
+import { CUBE_S, V_STEP } from '@/utils/graphConstants';
+import { useYearMarkersStore } from '@/store/yearMarkers.store';
 import type { BibleRelation } from '@/models/bible';
 import type { LayoutResult } from '@/models/graph';
 
@@ -21,6 +22,8 @@ export function useSearchBadges(
   stompRelations:  BibleRelation[],
   drawerRelations: BibleRelation[] | null,
 ): SearchBadge[] {
+  const horizontalScale = useYearMarkersStore(s => s.cameraZoom);
+
   const authorityUuids = useMemo(() => {
     const uuids = new Set<string>();
     for (const r of [...(stompRelations ?? []), ...(drawerRelations ?? [])]) {
@@ -56,8 +59,8 @@ export function useSearchBadges(
             chapter:     refStart.chapter,
             verseStart:  refStart.verse!,
             verseEnd:    refEnd.verse!,
-            x,
-            y:           topPos.y + V_STEP,
+            x:           x * horizontalScale,
+            y:           topPos.y + CUBE_S / 2,
             isAuthority: range.some(u => authorityUuids.has(u)),
             label:       range.length > 1
               ? `${refStart.book.slice(0, 3)}. ${refStart.chapter}:${refStart.verse}–${refEnd.verse}`
@@ -68,5 +71,5 @@ export function useSearchBadges(
       }
     }
     return badges;
-  }, [searchHitUuids, layout, authorityUuids]);
+  }, [searchHitUuids, layout, authorityUuids, horizontalScale]);
 }

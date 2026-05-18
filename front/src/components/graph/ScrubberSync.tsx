@@ -11,19 +11,16 @@ interface Props {
 export function ScrubberSync({ worldX, maxTowerY }: Props) {
   const { camera, size } = useThree();
   const el = useYearMarkersStore(s => s.scrubberHandleEl);
+  const horizontalScale = useYearMarkersStore(s => s.cameraZoom);
 
   useFrame(() => {
     if (!el) return;
+    const { cameraX, cameraZoom } = useYearMarkersStore.getState();
     const zoom = (camera as THREE.OrthographicCamera).zoom;
-    const camX = camera.position.x;
+    const camX = cameraX * cameraZoom;
 
-    const left   = size.width  / 2 + (worldX - camX) * zoom;
-    const top    = size.height / 2 - maxTowerY * zoom;
-    const bottom = size.height / 2;
-
-    el.style.left   = `${left}px`;
-    el.style.top    = `${top}px`;
-    el.style.height = `${Math.max(0, bottom - top)}px`;
+    const left   = size.width  / 2 + (worldX * cameraZoom - camX) * zoom;
+    el.style.left = `${left}px`;
   });
 
   return null;

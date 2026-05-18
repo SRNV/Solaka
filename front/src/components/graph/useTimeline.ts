@@ -96,6 +96,9 @@ export function useTimeline(bookOrderData: BibleBookOrder[] | null) {
       const rect   = canvasContainerEl.getBoundingClientRect();
       const worldX = (me.clientX - (rect.left + rect.width / 2)) / cameraZoom + cameraX;
       setHistoricalDate(Math.round(worldXToYear(worldX, yp)));
+      
+      // Need to force re-render/frame if loop is 'demand'
+      useYearMarkersStore.getState().invalidateCanvas?.();
     };
 
     const onUp = (me: MouseEvent) => {

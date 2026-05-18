@@ -14,7 +14,7 @@ import { Cubes }               from './Cubes.tsx';
 import { CommentSquaresMesh }  from './CommentSquaresMesh.tsx';
 import { HoverPlane }          from './HoverPlane.tsx';
 import { SectionMarkers }      from './SectionMarkers.tsx';
-import { CameraReporter, FitCamera, LockCameraY } from './CameraHelpers.tsx';
+import { CameraSync, FitCamera, HorizontalMasterControls, LockCameraY } from './CameraHelpers.tsx';
 import { HoverPanel }          from './HoverPanel.tsx';
 import { useSceneColors }      from './useSceneColors.ts';
 import { useHoverPanel }       from './useHoverPanel.ts';
@@ -38,6 +38,7 @@ import styles from './GraphPage.module.css';
  */
 export function GlobalPlayerComponent() {
   usePatristicCommentIndex();
+  const setInvalidateCanvas = useYearMarkersStore(s => s.setInvalidateCanvas);
 
   // ── Data ────────────────────────────────────────────────────────────────
   const { data: structData, loading: sLoading } = usePaginatedAllApi<BibleStructureBook>('/api/bible/structure');
@@ -148,33 +149,12 @@ export function GlobalPlayerComponent() {
       {/* Row 2: canvas area */}
       <div className={styles.playerRow}>
         <div className={styles.canvasArea}>
-
-          {/* Section markers (date labels, kings/periods frises) */}
-          <div className={styles.markersCanvasWrapper}>
-            <Canvas
-              orthographic
-              frameloop="always"
-              gl={{ alpha: true, antialias: true }}
-              style={{ background: 'transparent', pointerEvents: 'none' }}
-              camera={{ position: [0, 0, 500], zoom: 1 }}
-            >
-              <SectionMarkers
-                layout={layout}
-                hoveredBook={effectiveHoveredBook}
-                sortMode={sortMode}
-                histSubMode={histSubMode}
-                histSecondaryFrise={histSecondaryFrise}
-                bookOrderData={bookOrderData}
-                sortedData={sortedData}
-              />
-            </Canvas>
-          </div>
-
           {/* Main 3D graph */}
           <div ref={canvasContainerRef} className={styles.mainCanvasWrapper}>
             <Canvas
               orthographic
               frameloop="demand"
+              onCreated={({ invalidate }) => setInvalidateCanvas(invalidate)}
               camera={{ zoom: 1, position: [stableCx, 200, 800], near: 0.1, far: 10000 }}
               style={{ background: 'transparent', cursor: (effectiveHoveredBook || hoveredArcXs) ? 'pointer' : 'default' }}
             >
@@ -197,6 +177,7 @@ export function GlobalPlayerComponent() {
                   const ref = layout.uuidRefMap.get(hoveredCubeUuid ?? uuid);
                   if (ref) open({ book: ref.book, chapter: ref.chapter, verse: ref.verse });
                 }}
+                hideLabels={true}
               />
 
               <CommentSquaresMesh
@@ -214,15 +195,7 @@ export function GlobalPlayerComponent() {
                 onCanvasClick={handleCanvasClick}
               />
 
-              <FitCamera totalX={layout.totalX} cx={stableCx} />
-              <CameraReporter />
-              <OrbitControls
-                target={[stableCx, 0, 0]}
-                enableZoom={true}
-                enablePan={true}
-                enableRotate={false}
-              />
-              <LockCameraY y={200} />
+              <CameraSync y={minPeakY + 40} />
 
               <ScrubberCanvas data={sortedData} layout={layout} />
 
@@ -253,7 +226,34 @@ export function GlobalPlayerComponent() {
         </div>
       </div>
 
-      {/* Row 3: search bar */}
+      {/* Row 3: Section markers row */}
+      <div className={styles.markersRow}>
+        <div className={styles.markersCanvasWrapper}>
+          <Canvas
+            orthographic
+            frameloop="always"
+            gl={{ alpha: true, antialias: true }}
+            style={{ background: 'transparent' }}
+            camera={{ position: [stableCx, 0, 500], zoom: 1 }}
+          >
+            <SectionMarkers
+              layout={layout}
+              hoveredBook={effectiveHoveredBook}
+              sortMode={sortMode}
+              histSubMode={histSubMode}
+              histSecondaryFrise={histSecondaryFrise}
+              bookOrderData={bookOrderData}
+              sortedData={sortedData}
+            />
+            <FitCamera totalX={layout.totalX} cx={stableCx} y={0} />
+            <CameraSync y={0} />
+            <HorizontalMasterControls />
+            <LockCameraY y={0} />
+          </Canvas>
+        </div>
+      </div>
+
+      {/* Row 4: search bar */}
       <div className={styles.controlsRow}>
         <SearchFeature books={metaData} />
       </div>

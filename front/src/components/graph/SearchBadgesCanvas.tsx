@@ -1,6 +1,7 @@
 import { Html } from '@react-three/drei';
 import { useBibleDrawer }          from '@/contexts/BibleDrawerContext';
 import { useActiveRelationsStore } from '@/store/activeRelations.store';
+import { useYearMarkersStore }     from '@/store/yearMarkers.store';
 import { useSearchBadges }         from './useSearchBadges';
 import type { LayoutResult }       from '@/utils/graphLayout';
 import type { BibleRelation }      from '@/models/bible';
@@ -19,6 +20,7 @@ interface Props {
 export function SearchBadgesCanvas({ layout, stompRelations, drawerRelations, setHoveredCubeUuid, setPanelData }: Props) {
   const { open }       = useBibleDrawer();
   const searchHitUuids = useActiveRelationsStore(s => s.searchHitUuids);
+  const horizontalScale = useYearMarkersStore(s => s.cameraZoom);
 
   const badges = useSearchBadges(searchHitUuids, layout, stompRelations, drawerRelations);
   if (badges.length === 0) return null;
@@ -26,7 +28,7 @@ export function SearchBadgesCanvas({ layout, stompRelations, drawerRelations, se
   return (
     <>
       {badges.map(badge => (
-        <Html key={badge.uuid} position={[badge.x, badge.y + 0.35, 0.05]} center zIndexRange={[100, 100]}>
+        <Html key={badge.uuid} position={[badge.x, badge.y, 0.05]} zIndexRange={[100, 100]}>
           <div
             className={`${styles.searchBadge} ${badge.isAuthority ? styles.searchBadgeAuthority : ''}`}
             onClick={e => {

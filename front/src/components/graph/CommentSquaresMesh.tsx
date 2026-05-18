@@ -2,13 +2,14 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { useThree } from '@react-three/fiber';
 import { usePatristicCommentStore } from '@/store/comment.store.ts';
+import { useYearMarkersStore }      from '@/store/yearMarkers.store';
 import type { LayoutResult } from '@/utils/graphLayout.ts';
 import atlasIndex from '@/data/atlas.json';
 import personPositions from '@/data/personPositions.json';
 
 const BRACE_BOTTOM_Y = -2.0;
 const GAP            = 1.5;
-const SQUARE_S       = 5.5;
+const SQUARE_S       = 12.0;
 const BASE_Y         = BRACE_BOTTOM_Y - GAP - SQUARE_S / 2;
 const BORDER_FRAC    = 0.04;
 
@@ -30,21 +31,28 @@ const VERT = /* glsl */`
   varying   vec2  vAtlasUv;
   varying   float vBorderType;
 
-  uniform vec2 uAtlasTile;
-  uniform vec2 uHoverRange; // x=xMin, y=xMax; disabled when y < x
+  uniform vec2  uAtlasTile;
+  uniform vec2  uHoverRange; // x=xMin, y=xMax; disabled when y < x
+  uniform float uHorizontalScale;
 
   void main() {
     vUv         = aUv;
     vAtlasUv    = aAtlas + aUv * uAtlasTile;
     vBorderType = aBorderType;
 
+    // We check hover in unscaled world coordinates
     float isHov = (uHoverRange.y >= uHoverRange.x
-                   && aCenterX >= uHoverRange.x
-                   && aCenterX <= uHoverRange.y) ? 1.0 : 0.0;
+                   && aCenterX >= uHoverRange.x - 0.1
+                   && aCenterX <= uHoverRange.y + 0.1) ? 1.0 : 0.0;
 
-    float scale = 1.0 + isHov * 0.12;
+    float scale = 1.0 + isHov * 0.25; // More pronounced hover scale
     vec3  pos   = position;
-    pos.x = aCenterX + (pos.x - aCenterX) * scale;
+    
+    float scaledCenterX = aCenterX * uHorizontalScale;
+    // position.x in geometry is raw (unscaled). 
+    // The offset from center (pos.x - aCenterX) should NOT be horizontally scaled 
+    // to avoid deforming the square itself, but it IS scaled by the 'hover' factor.
+    pos.x = scaledCenterX + (pos.x - aCenterX) * scale;
     pos.y = aCenterY + (pos.y - aCenterY) * scale;
 
     vec4 clip = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
@@ -154,6 +162,7 @@ interface CommentSquaresMeshProps {
 export function CommentSquaresMesh({ layout, hoverRange, extraVisibleXSet }: CommentSquaresMeshProps) {
   const summaries      = usePatristicCommentStore(s => s.summaries);
   const { invalidate } = useThree();
+  const horizontalScale = useYearMarkersStore(s => s.cameraZoom);
   const matRef         = useRef<THREE.ShaderMaterial | null>(null);
 
   const squares = useMemo(() => {
@@ -193,10 +202,11 @@ export function CommentSquaresMesh({ layout, hoverRange, extraVisibleXSet }: Com
       vertexShader:   VERT,
       fragmentShader: FRAG,
       uniforms: {
-        uAtlas:      { value: new THREE.Texture() },
-        uAtlasTile:  { value: new THREE.Vector2(TILE_UV_W, TILE_UV_H) },
-        uB:          { value: BORDER_FRAC },
-        uHoverRange: { value: new THREE.Vector2(0, -1) }, // disabled
+        uAtlas:           { value: new THREE.Texture() },
+        uAtlasTile:       { value: new THREE.Vector2(TILE_UV_W, TILE_UV_H) },
+        uB:               { value: BORDER_FRAC },
+        uHoverRange:      { value: new THREE.Vector2(0, -1) }, // disabled
+        uHorizontalScale: { value: 1.0 },
       },
       side: THREE.DoubleSide,
     });
@@ -216,13 +226,15 @@ export function CommentSquaresMesh({ layout, hoverRange, extraVisibleXSet }: Com
   useLayoutEffect(() => {
     const mat = matRef.current;
     if (!mat) return;
+    mat.uniforms.uHorizontalScale.value = horizontalScale;
     if (hoverRange) {
+      // Pass raw (unscaled) X coordinates for shader hover check
       mat.uniforms.uHoverRange.value.set(hoverRange.min, hoverRange.max);
     } else {
       mat.uniforms.uHoverRange.value.set(0, -1);
     }
     invalidate();
-  }, [hoverRange, invalidate]);
+  }, [hoverRange, invalidate, horizontalScale]);
 
   useEffect(() => () => { geometry?.dispose(); }, [geometry]);
   useEffect(() => () => { material.dispose(); },  [material]);

@@ -5,7 +5,8 @@ import { useHistoricalDataStore } from '@/store/historicalData.store';
 import { useYearMarkersStore }    from '@/store/yearMarkers.store';
 import { useMarkerData } from './useMarkerData';
 import { SectionLabels } from './SectionLabels';
-import { KingsFrise } from './KingsFrise';
+import { BooksFrise }   from './BooksFrise';
+import { KingsFrise }   from './KingsFrise';
 import { PeriodsFrise } from './PeriodsFrise';
 import { EventsFrise } from './EventsFrise';
 
@@ -25,9 +26,6 @@ export function SectionMarkers({
   bookOrderData, sortedData,
 }: Props) {
   const { viewport, size } = useThree();
-  const cameraX    = useYearMarkersStore(s => s.cameraX);
-  const cameraZoom = useYearMarkersStore(s => s.cameraZoom);
-  const sync       = { x: cameraX, zoom: cameraZoom };
 
   const { kingsData: kings, periodsData: periods, eventsData: events } = useHistoricalDataStore();
 
@@ -43,32 +41,37 @@ export function SectionMarkers({
 
   return (
     <group>
+      <BooksFrise
+        layout={layout}
+        px={px}
+        hoveredBook={hoveredBook}
+      />
       <SectionLabels
         classicSections={classicSections}
         sizeItems={sizeItems}
         timelineItems={timelineItems}
         sortMode={sortMode}
-        sync={sync} px={px} halfViewport={halfViewport}
+        px={px} halfViewport={halfViewport}
         hoveredBook={hoveredBook}
       />
       {histSecondaryFrise === 'kings' && (
         <KingsFrise
           items={kingItems}
-          sync={sync} px={px} halfViewport={halfViewport}
+          px={px} halfViewport={halfViewport}
           hoveredBookRange={hoveredBookRange}
         />
       )}
       {histSecondaryFrise === 'periods' && (
         <PeriodsFrise
           items={periodItems}
-          sync={sync} px={px} halfViewport={halfViewport}
+          px={px} halfViewport={halfViewport}
           hoveredBookRange={hoveredBookRange}
         />
       )}
       {histSecondaryFrise === 'events' && (
         <EventsFrise
           items={eventItems}
-          sync={sync} px={px} halfViewport={halfViewport}
+          px={px} halfViewport={halfViewport}
           hoveredBookRange={hoveredBookRange}
         />
       )}
