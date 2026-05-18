@@ -19,8 +19,18 @@ interface Props {
 export function ScrubberFeature({ bookOrderData, mainCanvasWrapperRef, mainCamRef, yearRange }: Props) {
   const { isPlaying, playSpeed, play, pause, setSpeed, stop } = useTimelineStore();
   const { sortMode, histSubMode, setSortMode }                 = useGraphModeStore();
-  const { setHistoricalDate, historicalDate, open }            = useBibleDrawer();
+  const { setHistoricalDate, historicalDate, open, target }    = useBibleDrawer();
   const { yearPoints, setScrubberHandleEl, setScrubberWorldX } = useYearMarkersStore();
+
+  // When drawer opens a book in historical mode, move scrubber to that book's date
+  useEffect(() => {
+    if (sortMode === 'historical' && target && bookOrderData) {
+      const book = bookOrderData.find(b => b.name === target.book);
+      if (book?.[histSubMode]) setHistoricalDate(book[histSubMode]![0]);
+    } else {
+      setHistoricalDate(null);
+    }
+  }, [target, bookOrderData, histSubMode, setHistoricalDate, sortMode]);
 
   const historicalDateRef = useRef(historicalDate);
   historicalDateRef.current = historicalDate;

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
-import type { BibleBookOrder, BibleEvent, BibleStructureBook, HistoricalPeriod, HistoricalSubMode, King, BookSortMode } from '@/models/bible';
-import type { BibleTarget } from '@/contexts/BibleDrawerContext.tsx';
+import type { BibleBookOrder, BibleStructureBook, HistoricalSubMode, BookSortMode } from '@/models/bible';
 import type { LayoutResult } from '@/utils/graphLayout.ts';
+import { useHistoricalDataStore } from '@/store/historicalData.store';
 import { useMarkerData } from './useMarkerData';
 import { SectionLabels } from './SectionLabels';
 import { KingsFrise } from './KingsFrise';
@@ -18,19 +18,17 @@ interface Props {
   histSecondaryFrise: 'kings' | 'periods' | 'events';
   bookOrderData:      BibleBookOrder[] | null;
   sortedData:         BibleStructureBook[] | null;
-  kings:              King[] | null;
-  periods:            HistoricalPeriod[] | null;
-  events:             BibleEvent[] | null;
-  target:             BibleTarget | null;
 }
 
 export function SectionMarkers({
   layout, hoveredBook, mainCamRef,
   sortMode, histSubMode, histSecondaryFrise,
-  bookOrderData, sortedData, kings, periods, events,
+  bookOrderData, sortedData,
 }: Props) {
   const { viewport, size } = useThree();
   const [sync, setSync]    = useState(() => ({ x: mainCamRef.current.x, zoom: mainCamRef.current.zoom }));
+
+  const { kingsData: kings, periodsData: periods, eventsData: events } = useHistoricalDataStore();
 
   useFrame(() => {
     const { x, zoom } = mainCamRef.current;

@@ -1,6 +1,6 @@
 import styles from './TimelineControls.module.css';
 
-const SPEEDS = [0.25, 0.5, 1, 2, 5];
+const SPEEDS = [0.5, 1, 2, 5];
 
 interface Props {
   isPlaying:    boolean;

@@ -11,5 +11,5 @@ export function YearZeroBar({ maxY }: Props) {
 
   if (sortMode !== 'historical' || year0WorldX === null) return null;
 
-  return <ScrubberPlane worldX={year0WorldX} maxY={maxY} color="#D4AC0D" opacity={0.8} width={1.5} />;
+  return <ScrubberPlane worldX={year0WorldX} maxY={maxY} color="#D4AC0D" opacity={0.8} width={0.5} />;
 }

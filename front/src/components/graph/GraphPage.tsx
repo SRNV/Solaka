@@ -1,97 +1,49 @@
-import { useCallback, useEffect, useMemo, useRef, useState, type MutableRefObject } from 'react';
-import { useTextSearch } from './useTextSearch';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { Html, OrbitControls } from '@react-three/drei';
 import { usePaginatedAllApi } from '@/hooks/usePaginatedAllApi.ts';
-import { useStompRelations } from '@/hooks/useStompRelations.ts';
-import { bibleStore } from '@/store/bible.store.ts';
-import type {
-  BibleBookMeta, BibleBookOrder, BibleEvent,
-  BibleRelation, BibleStructureBook, BookSortMode,
-  HistoricalPeriod, HistoricalSubMode, King,
-} from '@/models/bible';
-import { useBibleDrawer, type BibleTarget } from '@/contexts/BibleDrawerContext.tsx';
-import { computeLayout, type LayoutResult } from '@/utils/graphLayout.ts';
-import { useRelationsStore, relsFetched } from '@/store/relations.store.ts';
-import { ArcMesh } from './ArcMesh.tsx';
-import { Cubes } from './Cubes.tsx';
-import { CommentSquaresMesh } from './CommentSquaresMesh.tsx';
+import type { BibleBookMeta, BibleBookOrder, BibleStructureBook } from '@/models/bible';
+import { useBibleDrawer } from '@/contexts/BibleDrawerContext.tsx';
+import { computeLayout } from '@/utils/graphLayout.ts';
+import { useActiveRelationsStore } from '@/store/activeRelations.store';
+import { useTraditionStore }       from '@/store/tradition.store';
+import { useGraphModeStore }       from '@/store/graphMode.store';
+import { useYearMarkersStore }     from '@/store/yearMarkers.store';
+import { Cubes }               from './Cubes.tsx';
+import { CommentSquaresMesh }  from './CommentSquaresMesh.tsx';
 import { usePatristicCommentIndex } from '@/hooks/useCommentIndex.ts';
-import { HoverPlane } from './HoverPlane.tsx';
-import { SectionMarkers } from './SectionMarkers.tsx';
-import { SearchInput } from './SearchInput.tsx';
+import { HoverPlane }          from './HoverPlane.tsx';
+import { SectionMarkers }      from './SectionMarkers.tsx';
 import { CameraReporter, FitCamera, LockCameraY } from './CameraHelpers.tsx';
-import { HoverPanel } from './HoverPanel.tsx';
-import { BibleMap } from '@/lib/BibleMap/index.ts';
-import { TraditionPills } from './TraditionPills.tsx';
-import { SortPanel } from './SortPanel.tsx';
-import { FriseSelector } from './FriseSelector.tsx';
-import { useSceneColors } from './useSceneColors.ts';
-import { useRelationsStream } from './useRelationsStream.ts';
-import { useSearchBadges } from './useSearchBadges.ts';
-import { useHoverPanel } from './useHoverPanel.ts';
+import { HoverPanel }          from './HoverPanel.tsx';
+import { BibleMap }            from '@/lib/BibleMap/index.ts';
+import { useSceneColors }      from './useSceneColors.ts';
+import { useSearchBadges }     from './useSearchBadges.ts';
+import { useHoverPanel }       from './useHoverPanel.ts';
 import { useCommentHighlights } from './useCommentHighlights.ts';
 import { buildYearPoints, yearToWorldX, worldXToYear } from './friseUtils';
-import { ScrubberFeature } from './ScrubberFeature';
-import { ScrubberCanvas } from './ScrubberCanvas';
-import { useGraphModeStore } from '@/store/graphMode.store';
-import { useYearMarkersStore } from '@/store/yearMarkers.store';
+import { useRelations }        from './useRelations';
+import { ScrubberFeature }     from './ScrubberFeature';
+import { ScrubberCanvas }      from './ScrubberCanvas';
+import { RelationsCanvas }     from './RelationsCanvas';
+import { TraditionFeature }    from './TraditionFeature';
+import { SearchFeature }       from './SearchFeature';
+import { SortFeature }         from './SortFeature';
 import styles from './GraphPage.module.css';
-
-// ── GraphPage ──────────────────────────────────────────────────────────────
 
 export function GraphPage() {
   usePatristicCommentIndex();
 
-  // ── Tradition toggles ───────────────────────────────────────────────────
-  const [showCath,    setShowCath]    = useState(true);
-  const [showProt,    setShowProt]    = useState(false);
-  const [showPulse,   setShowPulse]   = useState(false);
-  const [tradConfirm, setTradConfirm] = useState<{ traditions: string[]; onConfirm: () => void } | null>(null);
-  const showCathRef = useRef(showCath);
-  const showProtRef = useRef(showProt);
-  showCathRef.current = showCath;
-  showProtRef.current = showProt;
-
-  // ── Data fetching ───────────────────────────────────────────────────────
+  // ── Data ────────────────────────────────────────────────────────────────
   const { data: structData, loading: sLoading } = usePaginatedAllApi<BibleStructureBook>('/api/bible/structure');
   const { data: orderData,  loading: oLoading }  = usePaginatedAllApi<BibleBookOrder>('/api/bible/book-order');
   const { data: metaData,   loading: mLoading }  = usePaginatedAllApi<BibleBookMeta>('/api/bible/books');
-  const [kingsData,   setKingsData]   = useState<King[] | null>(null);
-  const [periodsData, setPeriodsData] = useState<HistoricalPeriod[] | null>(null);
-  const [eventsData,  setEventsData]  = useState<BibleEvent[] | null>(null);
   const loading       = sLoading || oLoading || mLoading;
-  const books         = metaData;
   const bookOrderData = orderData;
 
-  // ── Sort (shared store) ─────────────────────────────────────────────────
-  const { sortMode, histSubMode, histSecondaryFrise, setSortMode, setHistSubMode, setHistSecondaryFrise } = useGraphModeStore();
+  // ── Sort + layout ────────────────────────────────────────────────────────
+  const { sortMode, histSubMode, histSecondaryFrise } = useGraphModeStore();
 
-  const handleSortMode = useCallback((mode: BookSortMode) => {
-    if (mode !== sortMode) setSortMode(mode);
-  }, [sortMode, setSortMode]);
-
-  // Lazy-load historical data whenever sortMode becomes 'historical'
-  // (triggered by SortPanel, ScrubberFeature, or any other source)
-  const kingsDataRef   = useRef(kingsData);
-  const periodsDataRef = useRef(periodsData);
-  const eventsDataRef  = useRef(eventsData);
-  kingsDataRef.current   = kingsData;
-  periodsDataRef.current = periodsData;
-  eventsDataRef.current  = eventsData;
-
-  useEffect(() => {
-    if (sortMode !== 'historical') return;
-    if (!eventsDataRef.current)  bibleStore.events().then(setEventsData);
-    if (!kingsDataRef.current)   bibleStore.kings().then(setKingsData);
-    if (!periodsDataRef.current) bibleStore.periods().then(setPeriodsData);
-  }, [sortMode]);
-
-  const handleHistSubMode = useCallback((sub: HistoricalSubMode) => {
-    if (sub !== histSubMode) setHistSubMode(sub);
-  }, [histSubMode, setHistSubMode]);
-
-  // ── Layout ──────────────────────────────────────────────────────────────
   const sortedData = useMemo<BibleStructureBook[] | null>(() => {
     if (!structData) return null;
     if (sortMode === 'classic') return structData;
@@ -114,15 +66,16 @@ export function GraphPage() {
     [sortedData],
   );
 
+  // ── Camera ───────────────────────────────────────────────────────────────
   const initialCxRef = useRef<number | null>(null);
   if (layout && initialCxRef.current === null) initialCxRef.current = layout.totalX / 2;
-  const stableCx = initialCxRef.current ?? 0;
+  const stableCx  = initialCxRef.current ?? 0;
   const mainCamRef = useRef({ x: stableCx, zoom: 1 });
 
-  // ── Drawer ──────────────────────────────────────────────────────────────
-  const { open, openMany, close, showInMapCount, mapTargets, target, targets, setHistoricalDate } = useBibleDrawer();
+  // ── Drawer ───────────────────────────────────────────────────────────────
+  const { open, close, setHistoricalDate } = useBibleDrawer();
 
-  // ── Timeline / scrubber ──────────────────────────────────────────────────
+  // ── Scrubber data (yearRange/yearPoints → store) ─────────────────────────
   const mainCanvasWrapperRef = useRef<HTMLDivElement>(null);
 
   const yearRange = useMemo(() => {
@@ -136,114 +89,28 @@ export function GraphPage() {
     return buildYearPoints(bookOrderData, layout.bookLabels, histSubMode);
   }, [sortMode, bookOrderData, layout, histSubMode]);
 
-  // Push yearPoints + year0WorldX into shared store (consumed by ScrubberFeature, YearZeroBar, etc.)
   const { setYearPoints, setYear0WorldX } = useYearMarkersStore();
   useEffect(() => {
     setYearPoints(yearPoints);
     setYear0WorldX(yearPoints.length > 0 ? yearToWorldX(0, yearPoints) : null);
   }, [yearPoints, setYearPoints, setYear0WorldX]);
 
-  // ── Hover panel ─────────────────────────────────────────────────────────
+  // ── Feature hooks ────────────────────────────────────────────────────────
+  const { stompRelations } = useRelations(layout);
+
+  const { showCath, showProt } = useTraditionStore();
+  const { displayRelations, drawerRelations, searchHitUuids } = useActiveRelationsStore();
+
   const {
-    setHoveredBook,
-    hoveredArcXs,    setHoveredArcXs,
-                     setHoveredRel,
-    hoveredCubeUuid, setHoveredCubeUuid,
-    panelData,       setPanelData,
-    effectiveHoveredBook,
-  } = useHoverPanel(layout, books);
-
-  // ── Relations ───────────────────────────────────────────────────────────
-  const [relationsEnabled,     setRelationsEnabled]     = useState(false);
-  const [activeRelationsQuery, setActiveRelationsQuery] = useState('');
-  const [drawerRelations,      setDrawerRelations]      = useState<BibleRelation[] | null>(null);
-
-  const loadRefRelations = useCallback((t: BibleTarget, cath: boolean, prot: boolean) => {
-    setShowCath(cath);
-    setShowProt(prot);
-    const v = t.verse != null ? ` ${t.verse}${t.verseTo && t.verseTo !== t.verse ? `–${t.verseTo}` : ''}` : '';
-    setActiveRelationsQuery(`${t.book} ${t.chapter}${v}`);
-    setRelationsEnabled(true);
-  }, []);
-
-  const { relations: stompRelations } = useStompRelations(relationsEnabled, showCath, showProt, activeRelationsQuery);
-  const displayRelations = useRelationsStream(stompRelations, drawerRelations, layout);
-
-  // ── Text search ─────────────────────────────────────────────────────────
-  const { setSubmittedQuery, searchHitUuids, activeSearchRef, clearSearch } = useTextSearch(books, {
-    onClearDrawerRelations: () => setDrawerRelations(null),
-    onSetRelationsQuery:    setActiveRelationsQuery,
-    onSetRelationsEnabled:  setRelationsEnabled,
-  });
+    setHoveredBook, hoveredArcXs, setHoveredArcXs, setHoveredRel,
+    hoveredCubeUuid, setHoveredCubeUuid, panelData, setPanelData, effectiveHoveredBook,
+  } = useHoverPanel(layout, metaData);
 
   // ── Derived scene data ───────────────────────────────────────────────────
-  const searchBadges   = useSearchBadges(searchHitUuids, layout, stompRelations, drawerRelations);
-  const sceneColors    = useSceneColors(layout, displayRelations, showCath, showProt);
+  const searchBadges = useSearchBadges(searchHitUuids, layout, stompRelations, drawerRelations);
+  const sceneColors  = useSceneColors(layout, displayRelations, showCath, showProt);
   const { activeVerseUuids, commentExtraXSet, commentHoverRange } =
     useCommentHighlights(panelData, searchHitUuids, displayRelations, layout);
-
-  // ── Arc layout animation ─────────────────────────────────────────────────
-  const arcFromMapRef    = useRef<Map<string, { x: number; y: number; z: number }> | null>(null) as MutableRefObject<Map<string, { x: number; y: number; z: number }> | null>;
-  const arcAnimStartRef  = useRef<number>(-1);
-  const prevArcLayoutRef = useRef<LayoutResult | null>(null);
-
-  useEffect(() => {
-    if (!layout) return;
-    const prev = prevArcLayoutRef.current;
-    prevArcLayoutRef.current = layout;
-    if (prev && prev !== layout) {
-      arcFromMapRef.current   = prev.uuidPosMap;
-      arcAnimStartRef.current = performance.now();
-    }
-  }, [layout]);
-
-  // ── Drawer → map relations ───────────────────────────────────────────────
-  const lastShowInMapCount = useRef(0);
-  const layoutRef = useRef<typeof layout>(null);
-  layoutRef.current = layout;
-
-  useEffect(() => {
-    if (showInMapCount === 0 || showInMapCount === lastShowInMapCount.current) return;
-    lastShowInMapCount.current = showInMapCount;
-    const activeTargets = mapTargets ?? (targets.length > 0 ? targets : target ? [target] : []);
-    if (!activeTargets.length) return;
-
-    setDrawerRelations(null);
-
-    const currentLayout = layoutRef.current;
-    if (currentLayout) {
-      const storeState = useRelationsStore.getState();
-      const fromStore: BibleRelation[] = [];
-      const targetKeys = new Set(activeTargets.map(t => `${t.book}|${t.chapter}`));
-      for (const [uuid, ref] of currentLayout.uuidRefMap) {
-        if (!targetKeys.has(`${ref.book}|${ref.chapter}`)) continue;
-        if (!relsFetched.has(uuid)) continue;
-        for (const key of (storeState.byFrom[uuid] ?? [])) {
-          const row = storeState.rels[key];
-          if (!row) continue;
-          fromStore.push({ from: row.from, toFrom: row.toFrom, toTo: row.toTo, trad: row.trad, relType: row.relType });
-        }
-      }
-      if (fromStore.length > 0) setDrawerRelations(fromStore);
-    }
-
-    const q = activeTargets.map(t => {
-      const v = t.verse != null ? ` ${t.verse}${t.verseTo && t.verseTo !== t.verse ? `–${t.verseTo}` : ''}` : '';
-      return `${t.book} ${t.chapter}${v}`;
-    }).join(';');
-    setActiveRelationsQuery(q);
-    setRelationsEnabled(true);
-  }, [showInMapCount, mapTargets]); // targets/target read from closure at trigger time
-
-  // ── Historical date sync ─────────────────────────────────────────────────
-  useEffect(() => {
-    if (sortMode === 'historical' && target && bookOrderData) {
-      const book = bookOrderData.find(b => b.name === target.book);
-      if (book?.[histSubMode]) setHistoricalDate(book[histSubMode]![0]);
-    } else {
-      setHistoricalDate(null);
-    }
-  }, [target, bookOrderData, histSubMode, setHistoricalDate, sortMode]);
 
   // ── Historical period highlight ──────────────────────────────────────────
   const hoveredPeriodRange = useMemo<{ startX: number; endX: number } | null>(() => {
@@ -306,24 +173,7 @@ export function GraphPage() {
             yearRange={yearRange}
           />
 
-          <TraditionPills
-            showCath={showCath}
-            showProt={showProt}
-            showPulse={showPulse}
-            hasFilter={!!drawerRelations}
-            onToggleCath={() => {
-              const next = !showCath;
-              setShowCath(next);
-              if (activeSearchRef) loadRefRelations(activeSearchRef, next, showProtRef.current);
-            }}
-            onToggleProt={() => {
-              const next = !showProt;
-              setShowProt(next);
-              if (activeSearchRef) loadRefRelations(activeSearchRef, showCathRef.current, next);
-            }}
-            onTogglePulse={() => setShowPulse(v => !v)}
-            onClearFilter={() => setDrawerRelations(null)}
-          />
+          <TraditionFeature />
 
           {/* Section markers canvas */}
           <div className={styles.markersCanvasWrapper}>
@@ -343,10 +193,6 @@ export function GraphPage() {
                 histSecondaryFrise={histSecondaryFrise}
                 bookOrderData={bookOrderData}
                 sortedData={sortedData}
-                kings={kingsData}
-                periods={periodsData}
-                events={eventsData}
-                target={target}
               />
             </Canvas>
           </div>
@@ -407,6 +253,13 @@ export function GraphPage() {
 
               <ScrubberCanvas data={sortedData} layout={layout} />
 
+              <RelationsCanvas
+                layout={layout}
+                minPeakY={minPeakY}
+                onArcHover={setHoveredArcXs}
+                onArcHoverRel={setHoveredRel}
+              />
+
               {searchBadges.map(badge => (
                 <Html key={badge.uuid} position={[badge.x, badge.y + 0.35, 0.05]} center zIndexRange={[100, 100]}>
                   <div
@@ -423,68 +276,17 @@ export function GraphPage() {
                 </Html>
               ))}
 
-              {displayRelations && (
-                <ArcMesh
-                  relations={displayRelations}
-                  uuidPosMap={layout.uuidPosMap}
-                  uuidRefMap={layout.uuidRefMap}
-                  minPeakY={minPeakY}
-                  showCath={showCath}
-                  showProt={showProt}
-                  animate={showPulse}
-                  fromMapRef={arcFromMapRef}
-                  arcAnimStartRef={arcAnimStartRef}
-                  onRelClick={openMany}
-                  onArcHover={setHoveredArcXs}
-                  onArcHoverRel={setHoveredRel}
-                />
-              )}
-
             </Canvas>
-
           </div>
 
-          {panelData && layout && (
-            <HoverPanel panelData={panelData} layout={layout} />
-          )}
+          {panelData && <HoverPanel panelData={panelData} layout={layout} />}
 
-          <div className={styles.bottomBar}>
-            <SearchInput
-              onSubmit={setSubmittedQuery}
-              onClear={clearSearch}
-            />
-          </div>
+          <SearchFeature books={metaData} />
 
-          {sortMode === 'historical' && (
-            <FriseSelector value={histSecondaryFrise} onChange={setHistSecondaryFrise} />
-          )}
+          <SortFeature />
 
-          <SortPanel
-            sortMode={sortMode}
-            histSubMode={histSubMode}
-            onSortMode={handleSortMode}
-            onHistSubMode={handleHistSubMode}
-          />
-
-        </div>{/* /graphWrapper */}
-      </div>{/* /canvasContainer */}
-
-      {tradConfirm && (
-        <div className={styles.modalOverlay} onClick={() => setTradConfirm(null)}>
-          <div className={styles.modal} onClick={e => e.stopPropagation()}>
-            <p className={styles.modalTitle}>Traditions masquées</p>
-            <p className={styles.modalText}>
-              {tradConfirm.traditions.length === 1
-                ? `Ce passage contient des relations de tradition ${tradConfirm.traditions[0]}, actuellement masquée. Souhaitez-vous l'afficher ?`
-                : `Ce passage contient des relations de traditions ${tradConfirm.traditions.join(' et ')}, actuellement masquées. Souhaitez-vous les afficher ?`}
-            </p>
-            <div className={styles.modalActions}>
-              <button className={styles.modalCancel}  onClick={() => setTradConfirm(null)}>Ignorer</button>
-              <button className={styles.modalConfirm} onClick={tradConfirm.onConfirm}>Afficher</button>
-            </div>
-          </div>
         </div>
-      )}
+      </div>
     </div>
   );
 }
