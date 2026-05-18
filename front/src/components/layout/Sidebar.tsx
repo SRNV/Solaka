@@ -7,6 +7,7 @@ const NAV: NavItem[] = [
   { to: '/',           label: 'Accueil',    icon: '⌂' },
   { to: '/graph',      label: 'Graphe',     icon: '◈' },
   { to: '/objections', label: 'Objections', icon: '⚖' },
+  { to: '/games',      label: 'Jeux',       icon: '🕹' },
 ];
 
 interface SidebarProps {

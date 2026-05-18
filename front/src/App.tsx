@@ -6,6 +6,7 @@ import { HomePage } from './components/home/HomePage.tsx';
 import { ObjectionsPage } from './components/objections/ObjectionsPage.tsx';
 import { SearchPage } from './components/search/SearchPage.tsx';
 import { GraphPage } from './components/graph/GraphPage.tsx';
+import { GamesPage } from './components/games/GamesPage.tsx';
 import { useBibleSearchParam } from './hooks/useBibleSearchParam.ts';
 import { useBackendHealth } from './hooks/useBackendHealth.ts';
 import { CommentModal } from './components/bible/CommentModal.tsx';
@@ -75,6 +76,7 @@ export default function App() {
             <Route path="objections" element={<ObjectionsPage />} />
             <Route path="search"     element={<SearchPage />} />
             <Route path="graph"       element={<GraphPage />} />
+            <Route path="games"       element={<GamesPage />} />
             <Route path="references" element={<Placeholder title="Références" />} />
             <Route path="sources"    element={<Placeholder title="Sources" />} />
           </Route>

@@ -4,6 +4,7 @@ interface Section { id: string; label: string; emoji: string; desc: string; colo
 
 const SECTIONS: Section[] = [
   { id: 'objections', label: 'Objections', emoji: '⚖',  desc: 'Réponses catholiques aux objections protestantes et islamiques', color: 'var(--primary)' },
+  { id: 'games',      label: 'Jeux',       emoji: '🕹', desc: 'jouer pour mieux connaitre Dieu, c\'est possible',               color: 'var(--accent)' },
   { id: 'references', label: 'Références', emoji: '📖', desc: 'Versets scripturaires organisés par sujet',                       color: 'var(--success)' },
   { id: 'sources',    label: 'Sources',    emoji: '✦',  desc: 'Tradition catholique, Pères de l\'Église, Conciles',              color: 'var(--warning)' },
 ];

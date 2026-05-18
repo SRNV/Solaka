@@ -4,6 +4,7 @@ import styles from './BottomNav.module.css';
 const NAV = [
   { to: '/',           label: 'Accueil',    icon: '⌂' },
   { to: '/objections', label: 'Objections', icon: '⚖' },
+  { to: '/games',      label: 'Jeux',       icon: '🕹' },
   { to: '/references', label: 'Références', icon: '📖' },
   { to: '/sources',    label: 'Sources',    icon: '✦' },
 ];

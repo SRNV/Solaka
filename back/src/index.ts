@@ -42,7 +42,12 @@ const config: AppConfig = {
 
 const app = express();
 app.use(compression());
-app.use(cors({ origin: config.corsOrigin }));
+
+const corsOrigin = config.corsOrigin.includes(',') 
+  ? config.corsOrigin.split(',') 
+  : config.corsOrigin;
+
+app.use(cors({ origin: corsOrigin }));
 app.use(express.json());
 
 const httpServer = createServer(app);

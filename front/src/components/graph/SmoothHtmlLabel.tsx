@@ -47,10 +47,10 @@ export function SmoothHtmlLabel({ x, y, z = 0, visible = true, center = true, ch
 
   return (
     <group ref={groupRef}>
-      <Html center={center} zIndexRange={[0, 0]}>
-        <div 
-          ref={contentRef} 
-          style={{ opacity: 0, pointerEvents: 'none' }}
+      <Html center={center} zIndexRange={[0, 0]} style={{ background: 'transparent' }}>
+        <div
+          ref={contentRef}
+          style={{ opacity: 0, pointerEvents: 'none', background: 'transparent' }}
         >
           {children}
         </div>

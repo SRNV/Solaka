@@ -84,10 +84,8 @@ export function BooksFrise({ layout, px, hoveredBook }: Props) {
     const shownXs: number[] = [];
 
     for (const item of byPriority) {
-      if (item.isGospel) {
-        item.visible = true;
-        shownXs.push(item.visibleCx);
-      } else if (item.isPartiallyVisible && shownXs.every(sx => Math.abs(item.visibleCx - sx) >= minDist)) {
+      if (!item.isPartiallyVisible) continue;
+      if (item.isGospel || shownXs.every(sx => Math.abs(item.visibleCx - sx) >= minDist)) {
         item.visible = true;
         shownXs.push(item.visibleCx);
       }

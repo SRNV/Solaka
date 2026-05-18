@@ -19,6 +19,7 @@ Application full-stack d'apologétique catholique avec globe 3D et visualisation
 | Front | React + TypeScript + Vite 5 |
 | 3D | Three.js + React Three Fiber + Drei |
 | Routing | React Router v6 |
+| State | Zustand |
 | Back | Bun (runtime natif TS) + Express |
 | Compression | `compression()` gzip sur toutes les réponses |
 | Docker | Compose : service `front` (:5173), service `back` (:3001) |
@@ -61,7 +62,7 @@ back/src/
 ```
 front/src/
   components/
-    graph/GraphPage.tsx      ← page principale : graph 3D livres, frises historiques, arcs relations
+    graph/                   ← visualisation 3D (voir détail ci-dessous)
     bible/BibleDrawer.tsx    ← drawer lecture biblique
     layout/Layout.tsx        ← shell app
   lib/BibleMap/
@@ -70,19 +71,94 @@ front/src/
     borders.ts               ← LineSegments GeoJSON, computeFeatureCentroids
   hooks/
     useApi.ts                ← fetch simple via fetchOnce
-    usePaginatedAllApi.ts    ← fetch toutes les pages (limit=500), via fetchOnce
+    usePaginatedAllApi.ts    ← fetch toutes les pages (limit=50000), via fetchOnce
     useBibleSearchParam.ts   ← lit ?search= et ouvre le drawer
+    useCommentIndex.ts       ← usePatristicCommentIndex, pré-charge index patristic
+    useStompRelations.ts     ← stream STOMP /user/queue/relations, batch 50ms
+    useStompSearch.ts        ← stream STOMP /user/queue/search, batch 50ms
   store/
     apiCache.ts              ← fetchOnce : Map module-level, déduplication in-flight
+    activeRelations.store.ts ← displayRelations, drawerRelations, searchHitUuids, activeSearchTarget, activeVerseUuids (ReadonlySet<string>)
+    tradition.store.ts       ← showCath, showProt, showPulse
+    graphMode.store.ts       ← sortMode, histSubMode, histSecondaryFrise
+    yearMarkers.store.ts     ← yearPoints, scrubberWorldX, cameraX, cameraZoom, canvasContainerEl, invalidateCanvas
+    timeline.store.ts        ← isPlaying, playSpeed, play, pause, stop, setSpeed
+    historicalData.store.ts  ← kings, periods, events (lazy-loaded)
     bible.store.ts           ← bibleStore.events/kings/periods/books/structure/bookOrder/relations/chapter/search
     geomap.store.ts          ← geomapStore.list / byId
   contexts/
-    BibleDrawerContext.tsx   ← open, close, openMany, target, targets, setHistoricalDate, showInMapCount, mapTargets
-  types/
-    bible.ts                 ← tous les types TS partagés côté front
+    BibleDrawerContext.tsx   ← open, close, openMany, target, targets, historicalDate, setHistoricalDate, showInMapCount, mapTargets
+  models/                    ← tous les types .d.ts — jamais d'interface inline dans les composants
+    bible.d.ts               ← BibleStructureBook, BibleBookMeta, BibleBookOrder, BibleRelation, King, HistoricalPeriod, BibleEvent, BookSortMode, HistoricalSubMode
+    graph.d.ts               ← Pos3, LayoutResult, ArcSeg, LaneInfo, BraceCircle, ArcGeometryResult
+    api.d.ts                 ← Category, Objection, PaginatedResponse<T>, GeoMap, BiblicalPlace
+    patristic.d.ts           ← PatristicPersonSnippet, CommentSummary, PatristicCommentResult, PatristicCommentsPage
+    bibleDrawer.d.ts         ← ChildResult, SoloItem, GroupItem, VerseListItem
+    contexts.d.ts            ← BibleTarget, ArcRef, BibleDrawerCtx
+    stores.d.ts              ← StoredVerse, VerseRef, RelRow, RelationsState, PatristicCommentState
+    bibleMap.d.ts            ← CameraState, PlaceItem, PersonPin, SceneControls, LineSegment, …
   utils/
-    bibleRef.ts              ← parseRef
+    graphLayout.ts           ← computeLayout → LayoutResult
+    graphConstants.ts        ← CUBE_S, BRACE_MARGIN, couleurs, constantes scène
+    graphShaders.ts          ← GLSL pour arcs et scrubber
+    graphRelations.ts        ← normalizeRelations, computeArcSegments
 ```
+
+---
+
+## Composants graph/ — hiérarchie
+
+```
+GraphPage                      ← shell pur : BibleMapFeature + GlobalPlayerComponent (aucune prop partagée)
+├── BibleMapFeature            ← globe autonome, lit activeVerseUuids depuis activeRelations.store
+└── GlobalPlayerComponent      ← graph 3D + 4 rows CSS flex (height: 500px, bottom: 0)
+    ├── HoverPanel             ← info verset survolé (topRow, in-flow)
+    ├── ControlIcons           ← tous les boutons icônes ronds (topRow) — lit ses propres stores
+    ├── Canvas principal       ← frameloop="demand", orthographic
+    │   ├── Cubes              ← GPU instanced 66k+ versets
+    │   ├── CommentSquaresMesh ← carrés commentaires patristiques
+    │   ├── HoverPlane         ← détection hover/clic livres
+    │   ├── ScrubberCanvas     ← scrubber historique (GLSL mask)
+    │   ├── RelationsCanvas    ← arcs GLSL
+    │   └── SearchBadgesCanvas ← badges résultats de recherche
+    ├── Canvas SectionMarkers  ← frises historiques (frameloop="always")
+    ├── SearchFeature          ← <SearchInput> direct dans controlsRow (pleine largeur)
+    └── SortFeature            ← render null — lance uniquement les effets lazy-load kings/periods/events
+```
+
+### Layout CSS des 4 rows (GraphPage.module.css)
+
+```
+.graphWrapper  → position: absolute; bottom: 0; height: 500px; flex-direction: column
+  .topRow      → flex: 2   — play btn + HoverPanel (left) | ControlIcons (right)
+  .playerRow   → flex: 9   — canvas 3D principal
+  .markersRow  → flex: 3   — SectionMarkers canvas
+  .controlsRow → flex: 1   — SearchFeature (pleine largeur)
+```
+
+### ControlIcons — contenu
+
+Boutons icônes 26×26px, rangée unique dans topRow. Groupes séparés par `<Sep />` :
+1. Sort mode : Classic (ListIcon) / Historique (ClockIcon) / Taille (BarChartIcon)
+2. *(mode historical seulement)* Frises : Rois (CrownIcon) / Périodes (PeriodsIcon) / Événements (BoltIcon)
+3. *(mode historical seulement)* Sub-mode : Période auteur (QuillIcon) / Composition (LayersIcon) / Rédaction finale (SealIcon)
+4. Tradition : Catholique (CrossIcon) / Protestant (BookIcon) / Pulse (PulseIcon)
+5. *(si drawerRelations)* Effacer filtre (FilterClearIcon)
+6. *(mode historical seulement)* Speed pills : `SPEEDS = [0.5, 1, 2, 5]` depuis `useTimelineStore`
+
+---
+
+## Hooks graph/ (front/src/components/graph/)
+
+| Hook | Rôle |
+|------|------|
+| `useTimeline` | Play/pause interval 15Hz, scrubber drag worldX→year, sync drawer→scrubber. Retourne `{ isPlaying, handlePlay, handleScrubberMouseDown, handleRef }` |
+| `useRelations` | STOMP relations, normalisation, `stompRelations` |
+| `useYearMarkers` | Points year↔worldX pour la frise historique |
+| `useHoverPanel` | État hover (book, cubeUuid, panelData, arcXs) |
+| `useCommentHighlights` | `activeVerseUuids` (ReadonlySet), `commentExtraXSet`, `commentHoverRange` |
+| `useSceneColors` | `colorMap`, `bookHasRelation`, `destUuids` |
+| `useHoveredPeriod` | Plage de dates survolée (mode historical) |
 
 ---
 
@@ -91,33 +167,31 @@ front/src/
 ```
 back/src/data/
   bible.json          ← bible complète
-  book-order.json     ← ordre historique livres (composition, redaction, events dates)
+  book-order.json     ← ordre historique livres
   kings.json          ← rois
   periods.json        ← périodes historiques
   events.json         ← événements bibliques
 back/data/geojson/    ← GeoJSON datés servis via REST
   projection_countries.geojson  ← frontières modernes (toujours présent)
   world_bc700.geojson           ← nom format : world_bc{N} → year=-N, world_{N} → year=N
-  world_2010.geojson
-  …
 ```
 
 ---
 
-## Types TypeScript principaux (front/src/types/bible.ts)
+## Types TypeScript principaux (front/src/models/)
 
 | Type | Description |
 |------|-------------|
 | `BibleBookMeta` | name, number, alias, author, chapterCount |
 | `BibleStructureBook` | name, number, chapters[] avec verseCount et uuids |
-| `BibleBookOrder` | name, number, composition?, redaction?, events? (intervalles de dates) |
-| `BibleChapterResponse` | book + chapter avec verses enrichis (target VerseRef résolu) |
+| `BibleBookOrder` | name, number, authorPeriod?, mainComposition?, finalRedaction? (intervalles de dates) |
 | `BibleRelation` | from, toFrom, toTo, trad ('c'\|'p'), relType |
 | `BibleEvent` | name, type, year, priority ('major'\|'middle'\|'minor') |
 | `HistoricalPeriod` | name, start, end, type ('domination'\|'exile'\|'other') |
 | `King` | name, reign:{start,end\|null}, kingdom:{judah,israel}, saint |
 | `BookSortMode` | `'classic' \| 'historical' \| 'size'` |
-| `HistoricalSubMode` | `'composition' \| 'redaction' \| 'events'` |
+| `HistoricalSubMode` | `'authorPeriod' \| 'mainComposition' \| 'finalRedaction'` |
+| `LayoutResult` | totalX, maxTowerY, bookLabels, uuidRefMap, … |
 | `PaginatedResponse<T>` | `{ data: T[], total, limit, offset }` |
 
 ---
@@ -139,34 +213,26 @@ GET  /api/geomap/:id                           → GeoJSON FeatureCollection
 POST /api/geomap/batch                         → GeoJSON[]
 ```
 
+STOMP WebSocket (`ws://{host}/stomp`) :
+- `/user/queue/relations?trad=c,p&q=…` — relations filtrées par tradition + query
+- `/user/queue/search?q=…` — résultats de recherche
+
 ---
 
 ## Performances & cache
 
 ### Back
 - **`relCache`** : relations pré-calculées dans le constructeur de `JsonBibleStore` (dédupliquées, triées par priorité). `getRelations()` = O(1) slice.
-- **`chapterCache`** : `Map<"bookName|chapterNum", object>` pré-remplie au démarrage. Chaque chapitre est enrichi une fois (verseIndex lookups + tri). `getChapter()` = O(1). `invalidateChapter(bookRef, chapterNum)` pour mise à jour.
+- **`chapterCache`** : `Map<"bookName|chapterNum", object>` pré-remplie au démarrage. `getChapter()` = O(1). `invalidateChapter()` disponible.
 - **gzip** : `compression()` Express sur toutes les réponses.
 
 ### Front
-- **`fetchOnce`** : Map module-level. Si la requête est in-flight, retourne la même Promise. Si le résultat est en cache, retourne immédiatement. Aucun doublon réseau.
-- **`usePaginatedAllApi`** : utilise `fetchOnce` par page. `limit=500` pour minimiser le nombre de requêtes.
-- **Lazy loading** : `events`, `kings`, `periods` chargés uniquement au premier passage en mode `historical`, stockés dans le store.
-- **Affichage progressif (Staggered UI)** : Les relations reçues via STOMP sont mises en file d'attente et affichées une par une toutes les 250ms (côté front) pour garantir la fluidité de l'UI même avec 1000+ utilisateurs.
-- **Stabilisation des sélecteurs Store** : Utilisation systématique de `useMemo` sur les sélecteurs Zustand (ex: `Object.values(rels)`) pour éviter les boucles infinies de re-rendu dues à des références d'arrays instables.
-- **Vite (Optimisations de performance)** :
-    - **Browser Setup** : Utiliser un profil sans extensions ou le mode incognito. Ne **pas** cocher "Disable Cache" dans les DevTools (casse le caching 304).
-    - **Warmup** : `server.warmup.clientFiles` utilisé pour pré-transformer les fichiers critiques (`App`, `GraphPage`, `BibleMap`, `scene`, `BibleDrawer`).
-    - **Explicit Imports** : Préférer `import './Component.tsx'` (avec extension) pour réduire les `resolve.extensions` filesystem checks.
-    - **Avoid Barrel Files** : Ne pas utiliser de `index.ts` qui ré-exporte tout (ex: `src/utils/index.ts`) car cela force le chargement de fichiers inutiles.
-    - **TS Config** : `moduleResolution: "bundler"` et `allowImportingTsExtensions: true` activés pour utiliser les extensions `.ts`/`.tsx` dans les imports.
-    - **Optimize Deps** : `optimizeDeps.include` pour Three.js + Fiber + Drei pour éviter les re-optimisations au runtime.
-    - **Native Tooling** : Préférer le CSS natif (nesting supporté via Lightning CSS/PostCSS) aux préprocesseurs (Sass/Less).
-    - **SVG Handling** : Ne pas transformer les SVGs en composants React (ex: SVGR) ; les importer comme URLs ou strings si possible.
-    - **Lightning CSS** : Utiliser Lightning CSS comme transformateur et minificateur CSS (expérimental dans Vite).
-    - **Audit Vite Plugins** : Éviter les opérations lourdes dans `buildStart`, `config` et `configResolved` (retarde le démarrage).
-    - **Profiling** : Utiliser `vite --profile` + `speedscope` pour identifier les bottlenecks.
-    - **Use Lesser Tooling** : Préférer le CSS natif à Sass/Less. Ne pas transformer les SVGs en composants (SVGR) si possible.
+- **`fetchOnce`** : Map module-level. Si la requête est in-flight, retourne la même Promise. Aucun doublon réseau.
+- **`usePaginatedAllApi`** : utilise `fetchOnce` par page. `limit=50000` pour minimiser les requêtes.
+- **Lazy loading** : `events`, `kings`, `periods` chargés uniquement au premier passage en mode `historical` via `SortFeature` (effets only, render null).
+- **`frameloop="demand"` + invalidateCanvas** : le canvas principal ne re-rend que si `invalidate()` est appelé. Enregistré dans `yearMarkers.store` via `onCreated={({ invalidate }) => setInvalidateCanvas(invalidate)}`. Tout code impératif (drag handlers, timers) qui modifie la scène doit appeler `useYearMarkersStore.getState().invalidateCanvas?.()`.
+- **Vite dev** : `optimizeDeps.include` pour Three.js/Fiber/Drei. `server.warmup.clientFiles` pour les gros fichiers. `npx vite optimize` avant `npm run dev` pour éviter le premier chargement lent.
+- **Volume nommé node_modules** : `front_node_modules` Docker volume nommé — persiste entre restarts.
 
 ---
 
@@ -174,26 +240,11 @@ POST /api/geomap/batch                         → GeoJSON[]
 
 - Caméra orthographique, matcap texture.
 - GPU picking pour sélection de features.
-- `setProjection(url)` : charge un GeoJSON daté, race-condition évitée par compteur `reqId` en closure IIFE. Masque les anciens borders.
+- `setProjection(url)` : charge un GeoJSON daté, race-condition évitée par compteur `reqId` en closure IIFE.
 - `createBorders(url)` : frontières pays via `fetchOnce` (pas de re-fetch).
 - `r = 1.001` pour les projections (même Z que les borders, jamais affichés simultanément → pas de z-fighting).
-- `computeFeatureCentroids()` : positions des labels de régions.
 - `drawLabels()` : canvas 2D overlay `pointer-events:none`, frustum culling + dot product face avant.
-- `pendingAlpha` : flag pour activer l'alpha texture après chargement asynchrone.
-
----
-
-## Layout frises historiques (GraphPage, composant interne SectionMarkers)
-
-```ts
-const ANCHOR      = -10 - 120 * px;   // référence Y commune (px = viewport.height / size.height)
-const PERIOD_Y    = ANCHOR;            // frise périodes (plus haute)
-const BY          = ANCHOR - 36 * px; // frise livres
-const EVENT_Y     = ANCHOR - 90 * px; // frise événements (pins vers le haut, labels dessous)
-const KING_Y_JUDAH   = ANCHOR - 175 * px;
-const KING_Y_ISRAEL  = ANCHOR - 205 * px;
-const KING_Y_UNIFIED = ANCHOR - 190 * px;
-```
+- `activeVerseUuids` (ReadonlySet) transmis depuis `activeRelations.store` via `BibleMapFeature`.
 
 ---
 
@@ -201,9 +252,10 @@ const KING_Y_UNIFIED = ANCHOR - 190 * px;
 
 - **Clic gauche = pan** sur tous les canvas Three.js (`mouseButtons: { LEFT: 2, MIDDLE: 1, RIGHT: 0 }`).
 - **`setHistoricalDate`** (change le GeoJSON du globe) : déclenché uniquement à l'ouverture du drawer (`target` change), **jamais** sur le hover des livres.
-- **Labels events** : positionnés sous le trait horizontal de base (`EVENT_Y - 24*px`).
-- **Trait horizontal events** : ligne à `EVENT_Y` reliant le min/max X de tous les événements.
+- **Couleur gold** : `0xD4AC0D` — ne jamais changer.
 - **GeoJSON** : ne jamais importer en statique côté front — toujours passer par `/api/geomap/:id`.
+- **`activeVerseUuids`** : type `ReadonlySet<string>` dans le store (pas `Set<string>`).
+- **Communication inter-composants** : `GlobalPlayerComponent` et `BibleMapFeature` sont frères, aucune prop partagée — uniquement via stores Zustand.
 
 ---
 
@@ -211,7 +263,17 @@ const KING_Y_UNIFIED = ANCHOR - 190 * px;
 
 - Ne jamais déclarer un `useCallback`/`useEffect` qui référence un `useState` avant sa déclaration.
 - Lire les diagnostics TypeScript post-edit et corriger immédiatement.
-- Pas de `localStorage` pour le cache (limite 5MB, refusé par l'utilisateur).
+- Pas de `localStorage` pour le cache (limite 5MB).
 - Réponses courtes — l'utilisateur lit les diffs directement.
 - Ne pas créer de fichiers de documentation sauf si demandé.
 - Tout changement doit compiler sans erreur TS.
+- Pas de commentaires sauf si le WHY est non-évident.
+- Ne pas recreer : `TimelineControls.tsx`, `TraditionFeature.tsx` — leur logique est dans `useTimeline.ts` et `ControlIcons.tsx`.
+
+---
+
+## Notes temporaires & Testing
+
+- **CORS / Origins** : Les serveurs (`back` Bun et `games-server` C#) sont configurés pour accepter plusieurs origines via les variables d'environnement `CORS_ORIGIN` et `ALLOWED_ORIGINS` dans le `docker-compose.yml`. 
+- **⚠️ Accès Mobile** : Pour tester sur téléphone via le réseau local, il est **impératif** d'ajouter l'IP locale de la machine hôte (ex: `http://192.168.1.XX:5173`) dans ces listes d'origines autorisées.
+- **Game Server** : Le serveur de jeux est en C# (port 5000), supporte STOMP, et utilise `/room/:name/:uuid` ainsi que `/user/queue/user/manette/:uuid`.

@@ -62,8 +62,18 @@ export class StompServer {
     @inject(TYPES.IBibleRepository)         private readonly bible: IBibleRepository,
     @inject(TYPES.IGeoMapRepository)        private readonly geomap: IGeoMapRepository,
     @inject(TYPES.IBiblicalPlaceRepository) private readonly bgd: IBiblicalPlaceRepository,
+    @inject(TYPES.Config)                   private readonly config: any,
   ) {
-    const wss = new WebSocketServer({ server, path: '/stomp' });
+    const wss = new WebSocketServer({ 
+      server, 
+      path: '/stomp',
+      verifyClient: (info, callback) => {
+        const origin = info.origin;
+        const allowedOrigins = this.config.corsOrigin.split(',');
+        const allowed = this.config.corsOrigin === '*' || allowedOrigins.includes(origin);
+        callback(allowed);
+      }
+    });
     wss.on('connection', ws => this.onConnect(ws));
   }
 
