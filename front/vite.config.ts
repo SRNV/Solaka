@@ -75,8 +75,10 @@ export default defineConfig({
     // la contention I/O avec le bind mount Windows→WSL2 pendant les transforms
     watch: { usePolling: true, interval: 3000 },
     proxy: {
-      '/api':   { target: 'http://back:3001', changeOrigin: true },
-      '/stomp': { target: 'ws://back:3001',   ws: true },
+      '/api':        { target: 'http://back:3001',        changeOrigin: true },
+      '/stomp':      { target: 'ws://back:3001',          ws: true },
+      '/games-api':   { target: 'http://games-server:5000', changeOrigin: true, rewrite: path => path.replace(/^\/games-api/, '') },
+      '/games-stomp': { target: 'ws://games-server:5000', ws: true },
     },
     warmup: {
       clientFiles: [

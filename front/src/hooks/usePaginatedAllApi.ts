@@ -2,9 +2,11 @@ import { useState, useEffect } from 'react';
 import type { PaginatedResponse } from '@/models/api';
 import type { PaginatedApiState } from '@/models/hooks';
 import { fetchOnce } from '../store/apiCache.ts';
+import { useToastStore } from '../store/toast.store.ts';
 
 export function usePaginatedAllApi<T>(url: string | null): PaginatedApiState<T> {
   const [state, setState] = useState<PaginatedApiState<T>>({ data: null, loading: false, error: null });
+  const addToast = useToastStore(s => s.addToast);
 
   useEffect(() => {
     if (!url) { setState({ data: null, loading: false, error: null }); return; }
@@ -36,7 +38,10 @@ export function usePaginatedAllApi<T>(url: string | null): PaginatedApiState<T> 
           await fetchPage(offset + res.limit);
         }
       } catch (e: unknown) {
-        if (!cancelled) setState({ data: null, loading: false, error: (e as Error).message });
+        if (!cancelled) {
+          setState({ data: null, loading: false, error: (e as Error).message });
+          addToast((e as Error).message);
+        }
       }
     };
 

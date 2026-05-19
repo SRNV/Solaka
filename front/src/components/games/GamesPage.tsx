@@ -14,9 +14,7 @@ export function GamesPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Note: We use the direct port 5000 for the GameServer
-    // In production, this should ideally be proxied or configured via env
-    fetch('http://localhost:5000/api/games')
+    fetch('/games-api/api/games')
       .then(res => res.json())
       .then(data => {
         setGames(data);

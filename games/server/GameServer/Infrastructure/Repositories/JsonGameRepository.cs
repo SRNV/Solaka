@@ -28,22 +28,17 @@ namespace GameServer.Infrastructure.Repositories
 
                 var json = await File.ReadAllTextAsync(_configPath);
                 var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-                var data = JsonSerializer.Deserialize<GameConfigDto>(json, options);
+                var games = JsonSerializer.Deserialize<List<GameInfoDto>>(json, options);
 
-                if (data?.Games == null) return Enumerable.Empty<Game>();
+                if (games == null) return Enumerable.Empty<Game>();
 
-                return data.Games.Select(g => new Game(g.Title, g.Description, g.Slug, g.Image));
+                return games.Select(g => new Game(g.Title, g.Description, g.Slug, g.Image));
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error reading games repository");
                 return Enumerable.Empty<Game>();
             }
-        }
-
-        private class GameConfigDto
-        {
-            public List<GameInfoDto>? Games { get; set; }
         }
 
         private class GameInfoDto

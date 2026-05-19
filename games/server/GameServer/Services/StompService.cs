@@ -1,6 +1,7 @@
 using System.Collections.Concurrent;
 using System.Net.WebSockets;
 using System.Text;
+using System.Text.Json;
 using GameServer.Models;
 
 namespace GameServer.Services
@@ -24,25 +25,44 @@ namespace GameServer.Services
             _sessions[sessionId] = session;
 
             var buffer = new byte[1024 * 4];
+            _logger.LogInformation("Session {SessionId} entering receive loop (state={State})", sessionId, webSocket.State);
             try
             {
                 while (webSocket.State == WebSocketState.Open)
                 {
                     var result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+                    _logger.LogInformation("Session {SessionId} received: type={Type} count={Count}", sessionId, result.MessageType, result.Count);
                     if (result.MessageType == WebSocketMessageType.Close)
                     {
+                        _logger.LogInformation("Session {SessionId} received Close frame — closing", sessionId);
                         await webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Closing", CancellationToken.None);
                     }
                     else
                     {
                         var message = Encoding.UTF8.GetString(buffer, 0, result.Count);
+                        _logger.LogInformation("Session {SessionId} raw message: {Message}", sessionId, message.Length > 200 ? message[..200] : message);
                         var frame = StompFrame.Parse(message);
                         if (frame != null)
                         {
                             await HandleFrameAsync(sessionId, frame);
                         }
+                        else
+                        {
+                            _logger.LogWarning("Session {SessionId} failed to parse STOMP frame", sessionId);
+                        }
                     }
                 }
+                _logger.LogInformation("Session {SessionId} left receive loop (state={State})", sessionId, webSocket.State);
+            }
+            catch (WebSocketException ex) when (
+                ex.WebSocketErrorCode == WebSocketError.ConnectionClosedPrematurely ||
+                ex.WebSocketErrorCode == WebSocketError.InvalidState)
+            {
+                _logger.LogInformation("Session {SessionId} closed prematurely: errorCode={ErrorCode}", sessionId, ex.WebSocketErrorCode);
+            }
+            catch (OperationCanceledException)
+            {
+                // Normal on server shutdown
             }
             catch (Exception ex)
             {
@@ -62,6 +82,7 @@ namespace GameServer.Services
             {
                 case "CONNECT":
                 case "STOMP":
+                    _logger.LogInformation("STOMP CONNECT from session {SessionId}", sessionId);
                     await session.SendAsync(StompFrame.Connected());
                     break;
 
@@ -72,7 +93,7 @@ namespace GameServer.Services
                         session.Subscriptions[subId] = dest;
                         var destSubs = _subscriptions.GetOrAdd(dest, _ => new ConcurrentDictionary<string, Guid>());
                         destSubs[subId] = sessionId;
-                        _logger.LogDebug("Session {SessionId} subscribed to {Destination}", sessionId, dest);
+                        _logger.LogInformation("SUBSCRIBE session={SessionId} dest={Destination}", sessionId, dest);
                     }
                     break;
 
@@ -92,6 +113,29 @@ namespace GameServer.Services
                 case "SEND":
                     if (frame.Headers.TryGetValue("destination", out var sendDest))
                     {
+                        // Implementation of TTL (Time To Live) to discard old updates
+                        if (sendDest.EndsWith("/input"))
+                        {
+                            try {
+                                using var doc = JsonDocument.Parse(frame.Body);
+                                if (doc.RootElement.TryGetProperty("t", out var tProp))
+                                {
+                                    var clientTime = tProp.GetInt64();
+                                    var now = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+                                    var latency = now - clientTime;
+
+                                    if (latency > 500) // 500ms TTL
+                                    {
+                                        _logger.LogWarning("Discarding stale input: latency={Latency}ms dest={Destination}", latency, sendDest);
+                                        break; 
+                                    }
+                                }
+                            } catch (Exception ex) {
+                                _logger.LogWarning(ex, "Failed to parse input JSON for TTL check");
+                            }
+                        }
+
+                        _logger.LogInformation("SEND dest={Destination} body={Body}", sendDest, frame.Body);
                         await BroadcastToDestinationAsync(sendDest, frame.Body);
                     }
                     break;
@@ -108,6 +152,9 @@ namespace GameServer.Services
                     break;
             }
         }
+
+        public async Task BroadcastAsync(string destination, string body) =>
+            await BroadcastToDestinationAsync(destination, body);
 
         private async Task BroadcastToDestinationAsync(string destination, string body)
         {

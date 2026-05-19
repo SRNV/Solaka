@@ -8,6 +8,7 @@ import { SearchPage } from './components/search/SearchPage.tsx';
 import { GraphPage } from './components/graph/GraphPage.tsx';
 import { GamesPage } from './components/games/GamesPage.tsx';
 import { GameDetailView } from './components/games/GameDetailView.tsx';
+import { GameRoomPage } from './components/games/GameRoomPage.tsx';
 import { useBibleSearchParam } from './hooks/useBibleSearchParam.ts';
 import { useBackendHealth } from './hooks/useBackendHealth.ts';
 import { CommentModal } from './components/bible/CommentModal.tsx';
@@ -60,7 +61,7 @@ function Placeholder({ title }: { title: string }) {
   );
 }
 
-export default function App() {
+function MainApp() {
   const { isReady, error } = useBackendHealth();
 
   if (!isReady) {
@@ -68,23 +69,36 @@ export default function App() {
   }
 
   return (
+    <>
+      <BibleSearchHandler />
+      <Routes>
+        <Route element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route path="objections" element={<ObjectionsPage />} />
+          <Route path="search"     element={<SearchPage />} />
+          <Route path="graph"       element={<GraphPage />} />
+          <Route path="games"       element={<GamesPage />} />
+          <Route path="games/:slug" element={<GameDetailView />} />
+          <Route path="references" element={<Placeholder title="Références" />} />
+          <Route path="sources"    element={<Placeholder title="Sources" />} />
+        </Route>
+      </Routes>
+      <BibleDrawer />
+      <CommentModal />
+    </>
+  );
+}
+
+export default function App() {
+  return (
     <BibleDrawerProvider>
       <BrowserRouter>
-        <BibleSearchHandler />
         <Routes>
-          <Route element={<Layout />}>
-            <Route index element={<HomePage />} />
-            <Route path="objections" element={<ObjectionsPage />} />
-            <Route path="search"     element={<SearchPage />} />
-            <Route path="graph"       element={<GraphPage />} />
-            <Route path="games"       element={<GamesPage />} />
-            <Route path="games/:slug" element={<GameDetailView />} />
-            <Route path="references" element={<Placeholder title="Références" />} />
-            <Route path="sources"    element={<Placeholder title="Sources" />} />
-          </Route>
+          {/* Phone controller route — no health gate, no Layout */}
+          <Route path="games/:slug/:roomId" element={<GameRoomPage />} />
+          {/* All other routes need backend health */}
+          <Route path="*" element={<MainApp />} />
         </Routes>
-        <BibleDrawer />
-        <CommentModal />
       </BrowserRouter>
     </BibleDrawerProvider>
   );

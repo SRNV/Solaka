@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Sidebar } from './Sidebar.tsx';
 import { BottomNav } from './BottomNav.tsx';
+import { ToastContainer } from './ToastContainer.tsx';
 import { SearchBar } from '@/components/search/SearchBar.tsx';
 import { useIsMobile } from '@/hooks/useIsMobile.ts';
 import styles from './Layout.module.css';
@@ -32,6 +33,7 @@ export function Layout() {
       </div>
 
       {isMobile && <BottomNav />}
+      <ToastContainer />
     </div>
   );
 }

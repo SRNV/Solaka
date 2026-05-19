@@ -21,8 +21,7 @@ services:
       GEOMAP_PATH: /app/data/geojson
       BIBLICAL_DATA_PATH: /app/data/biblical-geocoding
       PLEIADES_PATH: /app/data/pleiades
-      # Add your local IP here if you want to access from a phone (e.g. http://192.168.1.50:5173)
-      CORS_ORIGIN: "http://localhost:5173,http://192.168.1.188:5173"
+      CORS_ORIGIN: "${CORS_ORIGINS:-http://localhost:5173}"
       PATRISTIC_PERSONS_PATH: /app/data/persons.json
       PATRISTIC_COMMENTS_PATH: /app/data/patristic_comments.json
       MAGISTERE_PERSONS_PATH: /app/data/magistere_persons.json
@@ -49,18 +48,25 @@ services:
         until wget -qO- http://back:3001/api/health > /dev/null 2>&1; do
           echo 'Back not ready, retrying in 3s...' && sleep 3;
         done &&
-        echo 'Back is ready, starting front...' &&
+        echo 'Waiting for games-server to be ready...' &&
+        until wget -qO- http://games-server:5000/health > /dev/null 2>&1; do
+          echo 'games-server not ready, retrying in 3s...' && sleep 3;
+        done &&
+        echo 'All services ready, starting front...' &&
         npm install && npx vite optimize --force && npm run dev
       "
     ports:
       - "5173:5173"
     environment:
       - CHOKIDAR_USEPOLLING=true
+      - VITE_GAME_HOST=${VITE_GAME_HOST:-}
+      - VITE_GAMES_STOMP_URL=${VITE_GAMES_STOMP_URL:-}
     volumes:
       - ./front:/app
       - front_node_modules:/app/node_modules
     depends_on:
       - back
+      - games-server
     restart: unless-stopped
 
   games-server:
@@ -72,11 +78,11 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       BIBLE_PATH: /app/data/bible.json
-      ALLOWED_ORIGINS: "http://localhost:5173,http://192.168.1.188:5173"
-      GAMES_CONFIG_PATH: /app/config/games.json
+      ALLOWED_ORIGINS: "${CORS_ORIGINS:-http://localhost:5173}"
+      GAMES_CONFIG_PATH: /app/config/GamesData/games.json
     volumes:
       - ../scrapp/output/bible.json:/app/data/bible.json:ro
-      - ./games/server/GameServer/Resources/GamesData/games.json:/app/config/games.json:ro
+      - ./games/config/games:/app/config/GamesData:ro
     restart: unless-stopped
 
 volumes:

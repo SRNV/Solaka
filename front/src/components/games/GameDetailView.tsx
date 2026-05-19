@@ -4,7 +4,7 @@ import { GAME_REGISTRY } from '../../lib/games/src/components/games/GameRegistry
 
 export function GameDetailView() {
   const { slug } = useParams<{ slug: string }>();
-  
+
   if (!slug || !GAME_REGISTRY[slug]) {
     return (
       <div style={{ padding: 40, textAlign: 'center' }}>
@@ -14,7 +14,7 @@ export function GameDetailView() {
     );
   }
 
-  const GameComponent = GAME_REGISTRY[slug];
+  const GameComponent = GAME_REGISTRY[slug].console;
 
   return (
     <div style={{ width: '100%', height: 'calc(100vh - 64px)', position: 'relative' }}>
