@@ -19,14 +19,15 @@ namespace GameServer.Domain.Entities
 
         public Room(string id, string slug) { Id = id; Slug = slug; }
 
-        public (ControllerAddResult Result, ControllerInfo Controller) AddOrReconnect(
+        // replacedControllerId: ancien controllerId supprimé lors d'une reconnexion par pseudo
+        public (ControllerAddResult Result, ControllerInfo Controller, string? ReplacedControllerId) AddOrReconnect(
             string controllerId, string pseudo, Guid? sessionId)
         {
             lock (_lock)
             {
                 LastActivity = DateTimeOffset.UtcNow;
 
-                // Reconnect: same controller ID, regardless of ghost timer state
+                // 1. Même controllerId → reconnexion directe
                 if (_controllers.TryGetValue(controllerId, out var existing))
                 {
                     existing.Pseudo = pseudo;
@@ -34,19 +35,34 @@ namespace GameServer.Domain.Entities
                     existing.DisconnectedAt = null;
                     existing.LastSeen = DateTimeOffset.UtcNow;
                     existing.SessionId = sessionId;
-                    return (ControllerAddResult.Reconnected, existing);
+                    return (ControllerAddResult.Reconnected, existing, null);
                 }
 
-                // Pseudo uniqueness among currently connected controllers
+                // 2. Même pseudo sur un contrôleur déconnecté → reconnexion par pseudo
+                //    (téléphone redémarré, nouvel onglet, session perdue)
+                var ghost = _controllers.Values.FirstOrDefault(c =>
+                    !c.IsConnected &&
+                    c.Pseudo.Equals(pseudo, StringComparison.OrdinalIgnoreCase));
+                if (ghost != null)
+                {
+                    var oldId = ghost.Id;
+                    _controllers.Remove(oldId);
+                    var migrated = new ControllerInfo(controllerId, pseudo) { SessionId = sessionId };
+                    _controllers[controllerId] = migrated;
+                    return (ControllerAddResult.Reconnected, migrated, oldId);
+                }
+
+                // 3. Pseudo déjà pris par un contrôleur connecté
                 if (_controllers.Values.Any(c =>
                     c.IsConnected && c.Pseudo.Equals(pseudo, StringComparison.OrdinalIgnoreCase)))
                 {
-                    return (ControllerAddResult.PseudoTaken, new ControllerInfo(controllerId, pseudo));
+                    return (ControllerAddResult.PseudoTaken, new ControllerInfo(controllerId, pseudo), null);
                 }
 
+                // 4. Nouveau contrôleur
                 var info = new ControllerInfo(controllerId, pseudo) { SessionId = sessionId };
                 _controllers[controllerId] = info;
-                return (ControllerAddResult.Added, info);
+                return (ControllerAddResult.Added, info, null);
             }
         }
 

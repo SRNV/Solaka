@@ -12,8 +12,10 @@ namespace GameServer.Services
         private readonly ILogger<StompService> _logger;
         private readonly RoomService _roomService;
         private readonly ConcurrentDictionary<Guid, WebSocketSession> _sessions = new();
-        // Destination -> SubscriptionId -> SessionId
-        private readonly ConcurrentDictionary<string, ConcurrentDictionary<string, Guid>> _subscriptions = new();
+        // Destination -> (SessionId:OriginalSubId) -> (SessionId, OriginalSubId)
+        // La clé composite évite que deux sessions avec le même subId (@stomp/stompjs
+        // génère toujours sub-0, sub-1… par connexion) ne s'écrasent mutuellement.
+        private readonly ConcurrentDictionary<string, ConcurrentDictionary<string, (Guid SessionId, string SubId)>> _subscriptions = new();
 
         public StompService(ILogger<StompService> logger, RoomService roomService)
         {
@@ -152,20 +154,26 @@ namespace GameServer.Services
                     if (frame.Headers.TryGetValue("destination", out var dest) &&
                         frame.Headers.TryGetValue("id", out var subId))
                     {
-                        session.Subscriptions[subId] = dest;
-                        var destSubs = _subscriptions.GetOrAdd(dest, _ => new ConcurrentDictionary<string, Guid>());
-                        destSubs[subId] = sessionId;
-                        _logger.LogInformation("SUBSCRIBE session={SessionId} dest={Destination}", sessionId, dest);
+                        // Clé stable par manette : survit à la reconnexion WebSocket
+                        // (x-controller-id envoyé par le front si disponible, sinon fallback sessionId)
+                        frame.Headers.TryGetValue("x-controller-id", out var xCtrlId);
+                        var compositeKey = !string.IsNullOrEmpty(xCtrlId)
+                            ? $"{xCtrlId}:{subId}"
+                            : $"{sessionId}:{subId}";
+                        session.Subscriptions[subId] = (dest, compositeKey);
+                        var destSubs = _subscriptions.GetOrAdd(dest, _ => new ConcurrentDictionary<string, (Guid, string)>());
+                        destSubs[compositeKey] = (sessionId, subId);
+                        _logger.LogInformation("SUBSCRIBE session={SessionId} dest={Destination} subId={SubId} key={Key}", sessionId, dest, subId, compositeKey);
                     }
                     break;
 
                 case "UNSUBSCRIBE":
                     if (frame.Headers.TryGetValue("id", out var unsubId))
                     {
-                        if (session.Subscriptions.TryRemove(unsubId, out var unsubDest))
+                        if (session.Subscriptions.TryRemove(unsubId, out var unsubEntry))
                         {
-                            if (_subscriptions.TryGetValue(unsubDest, out var destSubs2))
-                                destSubs2.TryRemove(unsubId, out _);
+                            if (_subscriptions.TryGetValue(unsubEntry.Dest, out var destSubs2))
+                                destSubs2.TryRemove(unsubEntry.CompositeKey, out _);
                         }
                     }
                     break;
@@ -238,6 +246,24 @@ namespace GameServer.Services
                 session.ControllerId = controllerId;
 
                 _roomService.AssociateSession(roomId, controllerId, sessionId);
+
+                // Remap any sessionId-based subscription keys → controllerId:subId
+                // so the same physical controller can reconnect and reclaim its broadcast slot
+                foreach (var kvp in session.Subscriptions.ToArray())
+                {
+                    var subId = kvp.Key;
+                    var (dest, oldKey) = kvp.Value;
+                    var newKey = $"{controllerId}:{subId}";
+                    if (oldKey == newKey) continue;
+
+                    if (_subscriptions.TryGetValue(dest, out var destSubs))
+                    {
+                        destSubs.TryRemove(oldKey, out _);
+                        destSubs[newKey] = (sessionId, subId);
+                    }
+                    session.Subscriptions[subId] = (dest, newKey);
+                }
+
                 _logger.LogInformation("Session {SessionId} registered as controller={ControllerId} room={RoomId}",
                     sessionId, controllerId, roomId);
             }
@@ -281,8 +307,11 @@ namespace GameServer.Services
             var tasks = new List<Task>();
             foreach (var sub in destSubs)
             {
-                if (_sessions.TryGetValue(sub.Value, out var session))
-                    tasks.Add(session.SendAsync(StompFrame.Message(destination, sub.Key, body, msgId)));
+                var (sid, originalSubId) = sub.Value;
+                if (_sessions.TryGetValue(sid, out var sess))
+                    // On envoie le subId ORIGINAL dans le frame MESSAGE pour que
+                    // @stomp/stompjs côté client route vers le bon callback
+                    tasks.Add(sess.SendAsync(StompFrame.Message(destination, originalSubId, body, msgId)));
             }
             await Task.WhenAll(tasks);
         }
@@ -295,8 +324,8 @@ namespace GameServer.Services
 
             foreach (var sub in session.Subscriptions)
             {
-                if (_subscriptions.TryGetValue(sub.Value, out var destSubs))
-                    destSubs.TryRemove(sub.Key, out _);
+                if (_subscriptions.TryGetValue(sub.Value.Dest, out var destSubs))
+                    destSubs.TryRemove(sub.Value.CompositeKey, out _);
             }
 
             // Notify lifecycle if this session was a registered controller
@@ -313,7 +342,8 @@ namespace GameServer.Services
     public class WebSocketSession
     {
         public WebSocket WebSocket { get; }
-        public ConcurrentDictionary<string, string> Subscriptions { get; } = new();
+        // subId → (destination, compositeKey used in _subscriptions)
+        public ConcurrentDictionary<string, (string Dest, string CompositeKey)> Subscriptions { get; } = new();
         public string? RoomId { get; set; }
         public string? ControllerId { get; set; }
 

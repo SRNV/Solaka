@@ -38,12 +38,14 @@ namespace GameServer.Services
             if (!_rooms.TryGetValue(roomId, out var room))
                 return (ControllerAddResult.RoomNotFound, null);
 
-            var (result, info) = room.AddOrReconnect(controllerId, pseudo, sessionId);
+            var (result, info, replacedControllerId) = room.AddOrReconnect(controllerId, pseudo, sessionId);
             if (result == ControllerAddResult.PseudoTaken)
                 return (ControllerAddResult.PseudoTaken, info);
 
             // Cancel controller ghost timer if this was a reconnect
             CancelControllerTimer(roomId, controllerId);
+            if (replacedControllerId != null)
+                CancelControllerTimer(roomId, replacedControllerId);
 
             // Someone is active: cancel room ghost timer
             CancelRoomTimer(roomId);

@@ -10,6 +10,7 @@
     "cypress:run": "cypress run"
   },
   "dependencies": {
+    "@react-three/cannon": "^6.6.0",
     "@react-three/drei": "^9.109.2",
     "@react-three/fiber": "^8.17.6",
     "@stomp/stompjs": "^7.0.0",
