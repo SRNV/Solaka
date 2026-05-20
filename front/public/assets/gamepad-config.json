@@ -1,0 +1,4004 @@
+{
+  "themes": [
+    {
+      "id": "default",
+      "name": "Classique",
+      "bg": "#0a0a0a",
+      "joystick": "#C879FF",
+      "btnA": "#C879FF",
+      "btnB": "#D4AC0D",
+      "btnXY": "#9A9A9A",
+      "btnCenter": "#777777",
+      "outlineColor": "#C879FF"
+    },
+    {
+      "id": "neon",
+      "name": "Néon",
+      "bg": "#050510",
+      "joystick": "#3BF4FB",
+      "btnA": "#3BF4FB",
+      "btnB": "#CAFF8A",
+      "btnXY": "#FF6BB5",
+      "btnCenter": "#7B7B9A",
+      "outlineColor": "#3BF4FB"
+    },
+    {
+      "id": "fire",
+      "name": "Feu",
+      "bg": "#0a0503",
+      "joystick": "#FF6B35",
+      "btnA": "#FF6B35",
+      "btnB": "#FFD700",
+      "btnXY": "#CC4400",
+      "btnCenter": "#886633",
+      "outlineColor": "#FFD700"
+    },
+    {
+      "id": "ice",
+      "name": "Glace",
+      "bg": "#030a12",
+      "joystick": "#4FC3F7",
+      "btnA": "#4FC3F7",
+      "btnB": "#E1F5FE",
+      "btnXY": "#1A6B8A",
+      "btnCenter": "#2A4A5A",
+      "outlineColor": "#4FC3F7"
+    },
+    {
+      "id": "metallic",
+      "name": "Métallique",
+      "bg": "#1a1a1a",
+      "joystick": "#a0a0a0",
+      "btnA": "#b0b0b0",
+      "btnB": "#909090",
+      "btnXY": "#808080",
+      "btnCenter": "#707070",
+      "metallic": true,
+      "outlineColor": "#c8c8c8"
+    },
+    {
+      "id": "chrome",
+      "name": "Chrome",
+      "bg": "#07080f",
+      "joystick": "#D8E4F0",
+      "btnA": "#EEF2FF",
+      "btnB": "#9AAEC8",
+      "btnXY": "#BCC8D8",
+      "btnCenter": "#7888A0",
+      "metallic": true,
+      "outlineColor": "#D8E4F0"
+    },
+    {
+      "id": "silver",
+      "name": "Argent",
+      "bg": "#0a0a10",
+      "joystick": "#D4CCBC",
+      "btnA": "#E8E0D0",
+      "btnB": "#A8A090",
+      "btnXY": "#C4BCB0",
+      "btnCenter": "#888078",
+      "metallic": true,
+      "outlineColor": "#E8E0D0"
+    },
+    {
+      "id": "bronze",
+      "name": "Bronze",
+      "bg": "#0d0803",
+      "joystick": "#CD7F32",
+      "btnA": "#D8924A",
+      "btnB": "#9A5818",
+      "btnXY": "#B47030",
+      "btnCenter": "#7A4820",
+      "metallic": true,
+      "outlineColor": "#CD7F32"
+    }
+  ],
+  "matcaps": [
+    {
+      "id": "back-in-the-days",
+      "name": "Back in the days",
+      "path": "/assets/matcaps/Back in the days.png",
+      "outlineColor": "#ffd87a"
+    },
+    {
+      "id": "cloud",
+      "name": "Cloud",
+      "path": "/assets/matcaps/Cloud.png",
+      "outlineColor": "#87ceeb"
+    },
+    {
+      "id": "etherium",
+      "name": "Étherium",
+      "path": "/assets/matcaps/Etherium.png",
+      "outlineColor": "#98d8e8"
+    },
+    {
+      "id": "foggy",
+      "name": "Foggy",
+      "path": "/assets/matcaps/Foggy.png",
+      "outlineColor": "#c0b8b8"
+    },
+    {
+      "id": "stone",
+      "name": "Stone",
+      "path": "/assets/matcaps/Stone.png",
+      "outlineColor": "#a8a8a0"
+    },
+    {
+      "id": "suspect",
+      "name": "Suspect",
+      "path": "/assets/matcaps/Suspect.png",
+      "outlineColor": "#80ff40"
+    },
+    {
+      "id": "lithium",
+      "name": "Lithium",
+      "path": "/assets/matcaps/128/Lithium.png",
+      "outlineColor": "#80b8f0"
+    },
+    {
+      "id": "monday-morning",
+      "name": "Monday Morning",
+      "path": "/assets/matcaps/128/Monday Morning.png",
+      "outlineColor": "#ffaa66"
+    },
+    {
+      "id": "myrthille",
+      "name": "Myrthille",
+      "path": "/assets/matcaps/128/Myrthille.png",
+      "outlineColor": "#cc66dd"
+    },
+    {
+      "id": "water",
+      "name": "Water",
+      "path": "/assets/matcaps/128/Water.png",
+      "outlineColor": "#44ccdd"
+    },
+    {
+      "id": "0404e8-0404b5-0404cb-3333fc",
+      "name": "Lapis 1",
+      "path": "/assets/matcaps/unnamed/0404E8_0404B5_0404CB_3333FC-64px.png",
+      "outlineColor": "#0404B5"
+    },
+    {
+      "id": "045c5c-0dbdbd-049393-04a4a4",
+      "name": "Glacial 1",
+      "path": "/assets/matcaps/unnamed/045C5C_0DBDBD_049393_04A4A4-64px.png",
+      "outlineColor": "#0DBDBD"
+    },
+    {
+      "id": "046363-0cc3c3-049b9b-04acac",
+      "name": "Glacial 2",
+      "path": "/assets/matcaps/unnamed/046363_0CC3C3_049B9B_04ACAC-64px.png",
+      "outlineColor": "#0CC3C3"
+    },
+    {
+      "id": "0489c5-0dddf9-04c3ee-04afe1",
+      "name": "Horizon 1",
+      "path": "/assets/matcaps/unnamed/0489C5_0DDDF9_04C3EE_04AFE1-64px.png",
+      "outlineColor": "#0DDDF9"
+    },
+    {
+      "id": "04989a-0ce3e4-04d2d5-04c7c8",
+      "name": "Glacial 3",
+      "path": "/assets/matcaps/unnamed/04989A_0CE3E4_04D2D5_04C7C8-64px.png",
+      "outlineColor": "#0CE3E4"
+    },
+    {
+      "id": "04c455-0efabc-04f097-04e17a",
+      "name": "Teal 1",
+      "path": "/assets/matcaps/unnamed/04C455_0EFABC_04F097_04E17A-64px.png",
+      "outlineColor": "#0EFABC"
+    },
+    {
+      "id": "04cc77-0cf7ca-04e9a7-04ab54",
+      "name": "Teal 2",
+      "path": "/assets/matcaps/unnamed/04CC77_0CF7CA_04E9A7_04AB54-64px.png",
+      "outlineColor": "#0CF7CA"
+    },
+    {
+      "id": "04e804-04b504-04cb04-33fc33",
+      "name": "Emerald 1",
+      "path": "/assets/matcaps/unnamed/04E804_04B504_04CB04_33FC33-64px.png",
+      "outlineColor": "#04B504"
+    },
+    {
+      "id": "04e8e8-04b5b5-04cccc-33fcfc",
+      "name": "Glacial 4",
+      "path": "/assets/matcaps/unnamed/04E8E8_04B5B5_04CCCC_33FCFC-64px.png",
+      "outlineColor": "#04B5B5"
+    },
+    {
+      "id": "050505-747474-4c4c4c-333333",
+      "name": "Charcoal 1",
+      "path": "/assets/matcaps/unnamed/050505_747474_4C4C4C_333333-64px.png",
+      "outlineColor": "#747474"
+    },
+    {
+      "id": "070b0c-b2c7ce-728fa3-5b748b",
+      "name": "Horizon 2",
+      "path": "/assets/matcaps/unnamed/070B0C_B2C7CE_728FA3_5B748B-64px.png",
+      "outlineColor": "#B2C7CE"
+    },
+    {
+      "id": "090909-9c9c9c-555555-7c7c7c",
+      "name": "Graphite 1",
+      "path": "/assets/matcaps/unnamed/090909_9C9C9C_555555_7C7C7C-64px.png",
+      "outlineColor": "#9C9C9C"
+    },
+    {
+      "id": "0a0a0a-a9a9a9-525252-747474",
+      "name": "Graphite 2",
+      "path": "/assets/matcaps/unnamed/0A0A0A_A9A9A9_525252_747474-64px.png",
+      "outlineColor": "#A9A9A9"
+    },
+    {
+      "id": "0c0cc3-04049f-040483-04045c",
+      "name": "Lapis 2",
+      "path": "/assets/matcaps/unnamed/0C0CC3_04049F_040483_04045C-64px.png",
+      "outlineColor": "#04049F"
+    },
+    {
+      "id": "0c430c-257d25-439a43-3c683c",
+      "name": "Sage 1",
+      "path": "/assets/matcaps/unnamed/0C430C_257D25_439A43_3C683C-64px.png",
+      "outlineColor": "#257D25"
+    },
+    {
+      "id": "0d0dbd-040497-04047b-040455",
+      "name": "Lapis 3",
+      "path": "/assets/matcaps/unnamed/0D0DBD_040497_04047B_040455-64px.png",
+      "outlineColor": "#040497"
+    },
+    {
+      "id": "0d0de3-040486-0404af-0404cf",
+      "name": "Lapis 4",
+      "path": "/assets/matcaps/unnamed/0D0DE3_040486_0404AF_0404CF-64px.png",
+      "outlineColor": "#040486"
+    },
+    {
+      "id": "0dbd0d-049704-047b04-045504",
+      "name": "Emerald 2",
+      "path": "/assets/matcaps/unnamed/0DBD0D_049704_047B04_045504-64px.png",
+      "outlineColor": "#049704"
+    },
+    {
+      "id": "0f0f0f-4b4b4b-1c1c1c-2c2c2c",
+      "name": "Obsidian 1",
+      "path": "/assets/matcaps/unnamed/0F0F0F_4B4B4B_1C1C1C_2C2C2C-64px.png",
+      "outlineColor": "#4B4B4B"
+    },
+    {
+      "id": "0f990f-047b04-044604-046704",
+      "name": "Malachite",
+      "path": "/assets/matcaps/unnamed/0F990F_047B04_044604_046704-64px.png",
+      "outlineColor": "#047B04"
+    },
+    {
+      "id": "15100f-241d1b-292424-2c2c27",
+      "name": "Dark Steel 1",
+      "path": "/assets/matcaps/unnamed/15100F_241D1B_292424_2C2C27-64px.png",
+      "outlineColor": "#241D1B"
+    },
+    {
+      "id": "161b1f-c7e0ec-90a5b3-7b8c9b",
+      "name": "Horizon 3",
+      "path": "/assets/matcaps/unnamed/161B1F_C7E0EC_90A5B3_7B8C9B-64px.png",
+      "outlineColor": "#C7E0EC"
+    },
+    {
+      "id": "167e76-36d6d2-23b2ac-27c1be",
+      "name": "Glacial 5",
+      "path": "/assets/matcaps/unnamed/167E76_36D6D2_23B2AC_27C1BE-64px.png",
+      "outlineColor": "#36D6D2"
+    },
+    {
+      "id": "17395a-7ebcc7-4d8b9f-65a1b5",
+      "name": "Horizon 4",
+      "path": "/assets/matcaps/unnamed/17395A_7EBCC7_4D8B9F_65A1B5-64px.png",
+      "outlineColor": "#7EBCC7"
+    },
+    {
+      "id": "181f1f-475057-616566-525c62",
+      "name": "Charcoal 2",
+      "path": "/assets/matcaps/unnamed/181F1F_475057_616566_525C62-64px.png",
+      "outlineColor": "#475057"
+    },
+    {
+      "id": "191514-6d5145-4e3324-3b564d",
+      "name": "Copper 1",
+      "path": "/assets/matcaps/unnamed/191514_6D5145_4E3324_3B564D-64px.png",
+      "outlineColor": "#6D5145"
+    },
+    {
+      "id": "1a2461-3d70db-2c3c8f-2c6cac",
+      "name": "Denim 1",
+      "path": "/assets/matcaps/unnamed/1A2461_3D70DB_2C3C8F_2C6CAC-64px.png",
+      "outlineColor": "#3D70DB"
+    },
+    {
+      "id": "1b1b1b-515151-7e7e7e-6c6c6c",
+      "name": "Charcoal 3",
+      "path": "/assets/matcaps/unnamed/1B1B1B_515151_7E7E7E_6C6C6C-64px.png",
+      "outlineColor": "#515151"
+    },
+    {
+      "id": "1b1b1b-999999-575757-747474",
+      "name": "Graphite 3",
+      "path": "/assets/matcaps/unnamed/1B1B1B_999999_575757_747474-64px.png",
+      "outlineColor": "#999999"
+    },
+    {
+      "id": "1b1c19-5f615d-4b4e4c-3f403d",
+      "name": "Charcoal 4",
+      "path": "/assets/matcaps/unnamed/1B1C19_5F615D_4B4E4C_3F403D-64px.png",
+      "outlineColor": "#5F615D"
+    },
+    {
+      "id": "1c1810-352f23-2b2c1c-2b2c24",
+      "name": "Copper 2",
+      "path": "/assets/matcaps/unnamed/1C1810_352F23_2B2C1C_2B2C24-64px.png",
+      "outlineColor": "#352F23"
+    },
+    {
+      "id": "1c70c6-09294c-0f3f73-52b3f6",
+      "name": "Horizon 5",
+      "path": "/assets/matcaps/unnamed/1C70C6_09294C_0F3F73_52B3F6-64px.png",
+      "outlineColor": "#09294C"
+    },
+    {
+      "id": "1d2424-565f66-4e555a-646c6e",
+      "name": "Charcoal 5",
+      "path": "/assets/matcaps/unnamed/1D2424_565F66_4E555A_646C6E-64px.png",
+      "outlineColor": "#565F66"
+    },
+    {
+      "id": "1d2a21-43443b-655b54-545c54",
+      "name": "Charcoal 6",
+      "path": "/assets/matcaps/unnamed/1D2A21_43443B_655B54_545C54-64px.png",
+      "outlineColor": "#43443B"
+    },
+    {
+      "id": "1d3fcc-051b5f-81a0f2-5579e9",
+      "name": "Cobalt 1",
+      "path": "/assets/matcaps/unnamed/1D3FCC_051B5F_81A0F2_5579E9-64px.png",
+      "outlineColor": "#051B5F"
+    },
+    {
+      "id": "221917-928380-5f504d-7c746c",
+      "name": "Steel 1",
+      "path": "/assets/matcaps/unnamed/221917_928380_5F504D_7C746C-64px.png",
+      "outlineColor": "#928380"
+    },
+    {
+      "id": "232014-908b78-5e5743-747460",
+      "name": "Steel 2",
+      "path": "/assets/matcaps/unnamed/232014_908B78_5E5743_747460-64px.png",
+      "outlineColor": "#908B78"
+    },
+    {
+      "id": "242733-333a4d-3e4554-3c3b43",
+      "name": "Dark Steel 2",
+      "path": "/assets/matcaps/unnamed/242733_333A4D_3E4554_3C3B43-64px.png",
+      "outlineColor": "#333A4D"
+    },
+    {
+      "id": "245642-3d8168-3d6858-417364",
+      "name": "Teal 3",
+      "path": "/assets/matcaps/unnamed/245642_3D8168_3D6858_417364-64px.png",
+      "outlineColor": "#3D8168"
+    },
+    {
+      "id": "253c3c-528181-406c6c-385f5f",
+      "name": "Cerulean 1",
+      "path": "/assets/matcaps/unnamed/253C3C_528181_406C6C_385F5F-64px.png",
+      "outlineColor": "#528181"
+    },
+    {
+      "id": "254fb0-99aff0-6587d8-1d3279",
+      "name": "Cobalt 2",
+      "path": "/assets/matcaps/unnamed/254FB0_99AFF0_6587D8_1D3279-64px.png",
+      "outlineColor": "#99AFF0"
+    },
+    {
+      "id": "27222b-677491-484f6a-5d657a",
+      "name": "Steel 3",
+      "path": "/assets/matcaps/unnamed/27222B_677491_484F6A_5D657A-64px.png",
+      "outlineColor": "#677491"
+    },
+    {
+      "id": "281813-604233-4b3426-442b22",
+      "name": "Mahogany 1",
+      "path": "/assets/matcaps/unnamed/281813_604233_4B3426_442B22-64px.png",
+      "outlineColor": "#604233"
+    },
+    {
+      "id": "28292a-d3dae5-a3acb8-818183",
+      "name": "Brushed Metal 1",
+      "path": "/assets/matcaps/unnamed/28292A_D3DAE5_A3ACB8_818183-64px.png",
+      "outlineColor": "#D3DAE5"
+    },
+    {
+      "id": "291912-473531-3c2c25-3a2424",
+      "name": "Maroon 1",
+      "path": "/assets/matcaps/unnamed/291912_473531_3C2C25_3A2424-64px.png",
+      "outlineColor": "#473531"
+    },
+    {
+      "id": "293534-b2bfc5-738289-8a9aa7",
+      "name": "Brushed Metal 2",
+      "path": "/assets/matcaps/unnamed/293534_B2BFC5_738289_8A9AA7-64px.png",
+      "outlineColor": "#B2BFC5"
+    },
+    {
+      "id": "293d21-abc692-73b255-667c5c",
+      "name": "Fern 1",
+      "path": "/assets/matcaps/unnamed/293D21_ABC692_73B255_667C5C-64px.png",
+      "outlineColor": "#ABC692"
+    },
+    {
+      "id": "2a2a2a-b3b3b3-6d6d6d-848c8c",
+      "name": "Graphite 4",
+      "path": "/assets/matcaps/unnamed/2A2A2A_B3B3B3_6D6D6D_848C8C-64px.png",
+      "outlineColor": "#B3B3B3"
+    },
+    {
+      "id": "2a2a2a-dbdbdb-6a6a6a-949494",
+      "name": "Pewter 1",
+      "path": "/assets/matcaps/unnamed/2A2A2A_DBDBDB_6A6A6A_949494-64px.png",
+      "outlineColor": "#DBDBDB"
+    },
+    {
+      "id": "2a2d21-555742-898974-6c745b",
+      "name": "Steel 4",
+      "path": "/assets/matcaps/unnamed/2A2D21_555742_898974_6C745B-64px.png",
+      "outlineColor": "#555742"
+    },
+    {
+      "id": "2a4ba7-1b2d44-1f3768-233c81",
+      "name": "Denim 2",
+      "path": "/assets/matcaps/unnamed/2A4BA7_1B2D44_1F3768_233C81-64px.png",
+      "outlineColor": "#1B2D44"
+    },
+    {
+      "id": "2a6276-041218-739ba6-042941",
+      "name": "Ocean",
+      "path": "/assets/matcaps/unnamed/2A6276_041218_739BA6_042941-64px.png",
+      "outlineColor": "#041218"
+    },
+    {
+      "id": "2b2828-7b796f-534f4a-616464",
+      "name": "Charcoal 7",
+      "path": "/assets/matcaps/unnamed/2B2828_7B796F_534F4A_616464-64px.png",
+      "outlineColor": "#7B796F"
+    },
+    {
+      "id": "2b2b22-3c3c30-464538-121210",
+      "name": "Obsidian 2",
+      "path": "/assets/matcaps/unnamed/2B2B22_3C3C30_464538_121210-64px.png",
+      "outlineColor": "#3C3C30"
+    },
+    {
+      "id": "2d2d2a-74716e-8f8c8c-92958e",
+      "name": "Graphite 5",
+      "path": "/assets/matcaps/unnamed/2D2D2A_74716E_8F8C8C_92958E-64px.png",
+      "outlineColor": "#74716E"
+    },
+    {
+      "id": "2d2d2f-c6c2c5-727176-94949b",
+      "name": "Pewter 2",
+      "path": "/assets/matcaps/unnamed/2D2D2F_C6C2C5_727176_94949B-64px.png",
+      "outlineColor": "#C6C2C5"
+    },
+    {
+      "id": "2d8753-5cd6a5-45bb82-4cc494",
+      "name": "Teal 4",
+      "path": "/assets/matcaps/unnamed/2D8753_5CD6A5_45BB82_4CC494-64px.png",
+      "outlineColor": "#5CD6A5"
+    },
+    {
+      "id": "2e2e2d-7d7c76-a3a39f-949c94",
+      "name": "Graphite 6",
+      "path": "/assets/matcaps/unnamed/2E2E2D_7D7C76_A3A39F_949C94-64px.png",
+      "outlineColor": "#7D7C76"
+    },
+    {
+      "id": "2e763a-78a0b7-b3d1cf-14f209",
+      "name": "Teal 5",
+      "path": "/assets/matcaps/unnamed/2E763A_78A0B7_B3D1CF_14F209-64px.png",
+      "outlineColor": "#78A0B7"
+    },
+    {
+      "id": "2eac9e-61ebe3-4dddd1-43d1c6",
+      "name": "Glacial 6",
+      "path": "/assets/matcaps/unnamed/2EAC9E_61EBE3_4DDDD1_43D1C6-64px.png",
+      "outlineColor": "#61EBE3"
+    },
+    {
+      "id": "2f2faa-1e1e87-10104e-1c1c70",
+      "name": "Lapis 5",
+      "path": "/assets/matcaps/unnamed/2F2FAA_1E1E87_10104E_1C1C70-64px.png",
+      "outlineColor": "#1E1E87"
+    },
+    {
+      "id": "2f3747-6a7c9e-54637f-62748b",
+      "name": "Denim 3",
+      "path": "/assets/matcaps/unnamed/2F3747_6A7C9E_54637F_62748B-64px.png",
+      "outlineColor": "#6A7C9E"
+    },
+    {
+      "id": "300706-888576-822821-876e79",
+      "name": "Fern 2",
+      "path": "/assets/matcaps/unnamed/300706_888576_822821_876E79-64px.png",
+      "outlineColor": "#888576"
+    },
+    {
+      "id": "302721-cac1bb-7a706a-91959b",
+      "name": "Steel 5",
+      "path": "/assets/matcaps/unnamed/302721_CAC1BB_7A706A_91959B-64px.png",
+      "outlineColor": "#CAC1BB"
+    },
+    {
+      "id": "304fb1-69a1ef-5081df-5c8ce6",
+      "name": "Cobalt 3",
+      "path": "/assets/matcaps/unnamed/304FB1_69A1EF_5081DF_5C8CE6-64px.png",
+      "outlineColor": "#69A1EF"
+    },
+    {
+      "id": "312c34-a2aab3-61656a-808494",
+      "name": "Graphite 7",
+      "path": "/assets/matcaps/unnamed/312C34_A2AAB3_61656A_808494-64px.png",
+      "outlineColor": "#A2AAB3"
+    },
+    {
+      "id": "312d20-80675c-8b8c8b-85848c",
+      "name": "Steel 6",
+      "path": "/assets/matcaps/unnamed/312D20_80675C_8B8C8B_85848C-64px.png",
+      "outlineColor": "#80675C"
+    },
+    {
+      "id": "313131-bbbbbb-878787-a3a4a4",
+      "name": "Pewter 3",
+      "path": "/assets/matcaps/unnamed/313131_BBBBBB_878787_A3A4A4-64px.png",
+      "outlineColor": "#BBBBBB"
+    },
+    {
+      "id": "320455-720dbe-560496-47047b",
+      "name": "Amethyst 1",
+      "path": "/assets/matcaps/unnamed/320455_720DBE_560496_47047B-64px.png",
+      "outlineColor": "#720DBE"
+    },
+    {
+      "id": "32201d-613c3c-563533-8c655f",
+      "name": "Brick 1",
+      "path": "/assets/matcaps/unnamed/32201D_613C3C_563533_8C655F-64px.png",
+      "outlineColor": "#613C3C"
+    },
+    {
+      "id": "32302b-4c4842-121211-1c1c14",
+      "name": "Obsidian 3",
+      "path": "/assets/matcaps/unnamed/32302B_4C4842_121211_1C1C14-64px.png",
+      "outlineColor": "#4C4842"
+    },
+    {
+      "id": "323c4d-b79039-7c6a44-605c48",
+      "name": "Fern 3",
+      "path": "/assets/matcaps/unnamed/323C4D_B79039_7C6A44_605C48-64px.png",
+      "outlineColor": "#B79039"
+    },
+    {
+      "id": "326666-66cbc9-c0b8ae-52b3b4",
+      "name": "Teal 6",
+      "path": "/assets/matcaps/unnamed/326666_66CBC9_C0B8AE_52B3B4-64px.png",
+      "outlineColor": "#66CBC9"
+    },
+    {
+      "id": "331a0b-b17038-7d4e28-5b351a",
+      "name": "Terracotta 1",
+      "path": "/assets/matcaps/unnamed/331A0B_B17038_7D4E28_5B351A-64px.png",
+      "outlineColor": "#B17038"
+    },
+    {
+      "id": "336eb3-152578-a4c5e2-74aed9",
+      "name": "Denim 4",
+      "path": "/assets/matcaps/unnamed/336EB3_152578_A4C5E2_74AED9-64px.png",
+      "outlineColor": "#152578"
+    },
+    {
+      "id": "34352a-718184-50605e-6e6761",
+      "name": "Graphite 8",
+      "path": "/assets/matcaps/unnamed/34352A_718184_50605E_6E6761-64px.png",
+      "outlineColor": "#718184"
+    },
+    {
+      "id": "346088-6abed7-56a0c5-4e91b8",
+      "name": "Horizon 6",
+      "path": "/assets/matcaps/unnamed/346088_6ABED7_56A0C5_4E91B8-64px.png",
+      "outlineColor": "#6ABED7"
+    },
+    {
+      "id": "34a09c-6ee5e3-5cd7d3-4ec9c6",
+      "name": "Cerulean 2",
+      "path": "/assets/matcaps/unnamed/34A09C_6EE5E3_5CD7D3_4EC9C6-64px.png",
+      "outlineColor": "#6EE5E3"
+    },
+    {
+      "id": "34ab94-36dfc1-19f9eb-6c6e62",
+      "name": "Teal 7",
+      "path": "/assets/matcaps/unnamed/34AB94_36DFC1_19F9EB_6C6E62-64px.png",
+      "outlineColor": "#36DFC1"
+    },
+    {
+      "id": "353535-cfcfcf-828282-a4a4a4",
+      "name": "Pewter 4",
+      "path": "/assets/matcaps/unnamed/353535_CFCFCF_828282_A4A4A4-64px.png",
+      "outlineColor": "#CFCFCF"
+    },
+    {
+      "id": "36220c-c6c391-8c844a-8b7b4c",
+      "name": "Ochre 1",
+      "path": "/assets/matcaps/unnamed/36220C_C6C391_8C844A_8B7B4C-64px.png",
+      "outlineColor": "#C6C391"
+    },
+    {
+      "id": "36312e-726461-59504d-645c5c",
+      "name": "Charcoal 8",
+      "path": "/assets/matcaps/unnamed/36312E_726461_59504D_645C5C-64px.png",
+      "outlineColor": "#726461"
+    },
+    {
+      "id": "365123-c6e5a3-a8d18d-8eb16c",
+      "name": "Fern 4",
+      "path": "/assets/matcaps/unnamed/365123_C6E5A3_A8D18D_8EB16C-64px.png",
+      "outlineColor": "#C6E5A3"
+    },
+    {
+      "id": "36c8fa-176acb-24a7ef-1d93ec",
+      "name": "Horizon 7",
+      "path": "/assets/matcaps/unnamed/36C8FA_176ACB_24A7EF_1D93EC-64px.png",
+      "outlineColor": "#176ACB"
+    },
+    {
+      "id": "37c337-279f27-186018-248824",
+      "name": "Sage 2",
+      "path": "/assets/matcaps/unnamed/37C337_279F27_186018_248824-64px.png",
+      "outlineColor": "#279F27"
+    },
+    {
+      "id": "385264-a1d3e2-86adc1-6e94a8",
+      "name": "Horizon 8",
+      "path": "/assets/matcaps/unnamed/385264_A1D3E2_86ADC1_6E94A8-64px.png",
+      "outlineColor": "#A1D3E2"
+    },
+    {
+      "id": "385862-6d8b8d-647b80-1a2e2f",
+      "name": "Horizon 9",
+      "path": "/assets/matcaps/unnamed/385862_6D8B8D_647B80_1A2E2F-64px.png",
+      "outlineColor": "#6D8B8D"
+    },
+    {
+      "id": "386169-a9cfdb-153c23-7ca3ac",
+      "name": "Cerulean 3",
+      "path": "/assets/matcaps/unnamed/386169_A9CFDB_153C23_7CA3AC-64px.png",
+      "outlineColor": "#A9CFDB"
+    },
+    {
+      "id": "38925d-142b23-1d4835-2a6449",
+      "name": "Deep Sea 1",
+      "path": "/assets/matcaps/unnamed/38925D_142B23_1D4835_2A6449-64px.png",
+      "outlineColor": "#142B23"
+    },
+    {
+      "id": "392307-b3ae7d-6d5618-847c42",
+      "name": "Ochre 2",
+      "path": "/assets/matcaps/unnamed/392307_B3AE7D_6D5618_847C42-64px.png",
+      "outlineColor": "#B3AE7D"
+    },
+    {
+      "id": "39433a-65866e-86bf8b-bff8d8",
+      "name": "Sage 3",
+      "path": "/assets/matcaps/unnamed/39433A_65866E_86BF8B_BFF8D8-64px.png",
+      "outlineColor": "#65866E"
+    },
+    {
+      "id": "394641-b1a67e-75bebe-7d7256",
+      "name": "Sage 4",
+      "path": "/assets/matcaps/unnamed/394641_B1A67E_75BEBE_7D7256-64px.png",
+      "outlineColor": "#B1A67E"
+    },
+    {
+      "id": "3a2412-a78b5f-705434-836c47",
+      "name": "Sienna 1",
+      "path": "/assets/matcaps/unnamed/3A2412_A78B5F_705434_836C47-64px.png",
+      "outlineColor": "#A78B5F"
+    },
+    {
+      "id": "3a3329-c9b090-928069-a9957a",
+      "name": "Sienna 2",
+      "path": "/assets/matcaps/unnamed/3A3329_C9B090_928069_A9957A-64px.png",
+      "outlineColor": "#C9B090"
+    },
+    {
+      "id": "3a3d37-7e7f75-bcbfb6-9c9c94",
+      "name": "Pewter 5",
+      "path": "/assets/matcaps/unnamed/3A3D37_7E7F75_BCBFB6_9C9C94-64px.png",
+      "outlineColor": "#7E7F75"
+    },
+    {
+      "id": "3b3b3b-c7c7c7-878787-a4a4a4",
+      "name": "Pewter 6",
+      "path": "/assets/matcaps/unnamed/3B3B3B_C7C7C7_878787_A4A4A4-64px.png",
+      "outlineColor": "#C7C7C7"
+    },
+    {
+      "id": "3b3c3f-dad9d5-929290-abaca8",
+      "name": "Pewter 7",
+      "path": "/assets/matcaps/unnamed/3B3C3F_DAD9D5_929290_ABACA8-64px.png",
+      "outlineColor": "#DAD9D5"
+    },
+    {
+      "id": "3b4235-7b9395-5b716c-70847b",
+      "name": "Steel 7",
+      "path": "/assets/matcaps/unnamed/3B4235_7B9395_5B716C_70847B-64px.png",
+      "outlineColor": "#7B9395"
+    },
+    {
+      "id": "3b6e10-e3f2c3-88ac2e-99ce51",
+      "name": "Fern 5",
+      "path": "/assets/matcaps/unnamed/3B6E10_E3F2C3_88AC2E_99CE51-64px.png",
+      "outlineColor": "#E3F2C3"
+    },
+    {
+      "id": "3d1f12-653821-070404-22130b",
+      "name": "Maroon 2",
+      "path": "/assets/matcaps/unnamed/3D1F12_653821_070404_22130B-64px.png",
+      "outlineColor": "#653821"
+    },
+    {
+      "id": "3e2335-d36a1b-8e4a2e-2842a5",
+      "name": "Teal 8",
+      "path": "/assets/matcaps/unnamed/3E2335_D36A1B_8E4A2E_2842A5-64px.png",
+      "outlineColor": "#D36A1B"
+    },
+    {
+      "id": "3e3d39-d6ceaf-91bac1-897966",
+      "name": "Mustard 1",
+      "path": "/assets/matcaps/unnamed/3E3D39_D6CEAF_91BAC1_897966-64px.png",
+      "outlineColor": "#D6CEAF"
+    },
+    {
+      "id": "3e3e36-72726d-63645d-0e0f0c",
+      "name": "Charcoal 9",
+      "path": "/assets/matcaps/unnamed/3E3E36_72726D_63645D_0E0F0C-64px.png",
+      "outlineColor": "#72726D"
+    },
+    {
+      "id": "3e3e3e-aeaeae-848484-777777",
+      "name": "Graphite 9",
+      "path": "/assets/matcaps/unnamed/3E3E3E_AEAEAE_848484_777777-64px.png",
+      "outlineColor": "#AEAEAE"
+    },
+    {
+      "id": "3e95cc-65d9f1-a2e2f6-679bd4",
+      "name": "Ice Blue 1",
+      "path": "/assets/matcaps/unnamed/3E95CC_65D9F1_A2E2F6_679BD4-64px.png",
+      "outlineColor": "#65D9F1"
+    },
+    {
+      "id": "3f3a2f-91d0a5-7d876a-94977b",
+      "name": "Fern 6",
+      "path": "/assets/matcaps/unnamed/3F3A2F_91D0A5_7D876A_94977B-64px.png",
+      "outlineColor": "#91D0A5"
+    },
+    {
+      "id": "3f3d52-ccced9-afb0c6-8d8cac",
+      "name": "Brushed Metal 3",
+      "path": "/assets/matcaps/unnamed/3F3D52_CCCED9_AFB0C6_8D8CAC-64px.png",
+      "outlineColor": "#CCCED9"
+    },
+    {
+      "id": "3f4441-d1d7d6-888f87-a2ada1",
+      "name": "Pewter 8",
+      "path": "/assets/matcaps/unnamed/3F4441_D1D7D6_888F87_A2ADA1-64px.png",
+      "outlineColor": "#D1D7D6"
+    },
+    {
+      "id": "403a34-b0936e-7f979c-7e6956",
+      "name": "Steel 8",
+      "path": "/assets/matcaps/unnamed/403A34_B0936E_7F979C_7E6956-64px.png",
+      "outlineColor": "#B0936E"
+    },
+    {
+      "id": "415325-83a24e-678239-748c3c",
+      "name": "Fern 7",
+      "path": "/assets/matcaps/unnamed/415325_83A24E_678239_748C3C-64px.png",
+      "outlineColor": "#83A24E"
+    },
+    {
+      "id": "416ba7-a5b8d0-0d2549-65abeb",
+      "name": "Denim 5",
+      "path": "/assets/matcaps/unnamed/416BA7_A5B8D0_0D2549_65ABEB-64px.png",
+      "outlineColor": "#A5B8D0"
+    },
+    {
+      "id": "422509-c89536-824512-0a0604",
+      "name": "Mahogany 2",
+      "path": "/assets/matcaps/unnamed/422509_C89536_824512_0A0604-64px.png",
+      "outlineColor": "#C89536"
+    },
+    {
+      "id": "422a1e-716767-685d59-5e4f4a",
+      "name": "Steel 9",
+      "path": "/assets/matcaps/unnamed/422A1E_716767_685D59_5E4F4A-64px.png",
+      "outlineColor": "#716767"
+    },
+    {
+      "id": "424244-bdbbbe-8a898e-a3a4a9",
+      "name": "Pewter 9",
+      "path": "/assets/matcaps/unnamed/424244_BDBBBE_8A898E_A3A4A9-64px.png",
+      "outlineColor": "#BDBBBE"
+    },
+    {
+      "id": "425f84-1c2939-2a3f57-24344c",
+      "name": "Navy",
+      "path": "/assets/matcaps/unnamed/425F84_1C2939_2A3F57_24344C-64px.png",
+      "outlineColor": "#1C2939"
+    },
+    {
+      "id": "430404-bd9295-7e1e21-94544c",
+      "name": "Cerulean 4",
+      "path": "/assets/matcaps/unnamed/430404_BD9295_7E1E21_94544C-64px.png",
+      "outlineColor": "#BD9295"
+    },
+    {
+      "id": "432322-5e3839-170c0b-543433",
+      "name": "Moss 1",
+      "path": "/assets/matcaps/unnamed/432322_5E3839_170C0B_543433-64px.png",
+      "outlineColor": "#5E3839"
+    },
+    {
+      "id": "433d3f-a58d7d-786760-8c7c6d",
+      "name": "Steel 10",
+      "path": "/assets/matcaps/unnamed/433D3F_A58D7D_786760_8C7C6D-64px.png",
+      "outlineColor": "#A58D7D"
+    },
+    {
+      "id": "434240-d3d3cf-898784-a4a49f",
+      "name": "Pewter 10",
+      "path": "/assets/matcaps/unnamed/434240_D3D3CF_898784_A4A49F-64px.png",
+      "outlineColor": "#D3D3CF"
+    },
+    {
+      "id": "434343-9e9e9e-8c8c8c-848484",
+      "name": "Pewter 11",
+      "path": "/assets/matcaps/unnamed/434343_9E9E9E_8C8C8C_848484-64px.png",
+      "outlineColor": "#9E9E9E"
+    },
+    {
+      "id": "434c32-62704c-546244-2f3220",
+      "name": "Moss 2",
+      "path": "/assets/matcaps/unnamed/434C32_62704C_546244_2F3220-64px.png",
+      "outlineColor": "#62704C"
+    },
+    {
+      "id": "442c27-a79e90-847066-8d837c",
+      "name": "Steel 11",
+      "path": "/assets/matcaps/unnamed/442C27_A79E90_847066_8D837C-64px.png",
+      "outlineColor": "#A79E90"
+    },
+    {
+      "id": "447072-8acacb-65a4a5-74b3b3",
+      "name": "Cerulean 5",
+      "path": "/assets/matcaps/unnamed/447072_8ACACB_65A4A5_74B3B3-64px.png",
+      "outlineColor": "#8ACACB"
+    },
+    {
+      "id": "45432c-808361-b8c8bc-a5a27a",
+      "name": "Steel 12",
+      "path": "/assets/matcaps/unnamed/45432C_808361_B8C8BC_A5A27A-64px.png",
+      "outlineColor": "#808361"
+    },
+    {
+      "id": "454447-908e9a-181716-7c7c7b",
+      "name": "Graphite 10",
+      "path": "/assets/matcaps/unnamed/454447_908E9A_181716_7C7C7B-64px.png",
+      "outlineColor": "#908E9A"
+    },
+    {
+      "id": "456a73-779b9e-173a46-154c5d",
+      "name": "Horizon 10",
+      "path": "/assets/matcaps/unnamed/456A73_779B9E_173A46_154C5D-64px.png",
+      "outlineColor": "#779B9E"
+    },
+    {
+      "id": "463f37-accfbb-818b78-91a494",
+      "name": "Brushed Metal 4",
+      "path": "/assets/matcaps/unnamed/463F37_ACCFBB_818B78_91A494-64px.png",
+      "outlineColor": "#ACCFBB"
+    },
+    {
+      "id": "464445-d2d0cb-919196-a8adb0",
+      "name": "Pewter 12",
+      "path": "/assets/matcaps/unnamed/464445_D2D0CB_919196_A8ADB0-64px.png",
+      "outlineColor": "#D2D0CB"
+    },
+    {
+      "id": "464543-d1cfc1-8e8c83-a4ac9c",
+      "name": "Pewter 13",
+      "path": "/assets/matcaps/unnamed/464543_D1CFC1_8E8C83_A4AC9C-64px.png",
+      "outlineColor": "#D1CFC1"
+    },
+    {
+      "id": "46804d-cbe9ac-90b57c-95d38f",
+      "name": "Sage 5",
+      "path": "/assets/matcaps/unnamed/46804D_CBE9AC_90B57C_95D38F-64px.png",
+      "outlineColor": "#CBE9AC"
+    },
+    {
+      "id": "468126-c1ddb5-8ac460-a1d07c",
+      "name": "Fern 8",
+      "path": "/assets/matcaps/unnamed/468126_C1DDB5_8AC460_A1D07C-64px.png",
+      "outlineColor": "#C1DDB5"
+    },
+    {
+      "id": "47392e-997e69-7c6553-8b745f",
+      "name": "Terracotta 2",
+      "path": "/assets/matcaps/unnamed/47392E_997E69_7C6553_8B745F-64px.png",
+      "outlineColor": "#997E69"
+    },
+    {
+      "id": "474444-7b7575-9e9899-8c8c8b",
+      "name": "Graphite 11",
+      "path": "/assets/matcaps/unnamed/474444_7B7575_9E9899_8C8C8B-64px.png",
+      "outlineColor": "#7B7575"
+    },
+    {
+      "id": "474643-696f7d-a9abb8-8b8c93",
+      "name": "Pewter 14",
+      "path": "/assets/matcaps/unnamed/474643_696F7D_A9ABB8_8B8C93-64px.png",
+      "outlineColor": "#696F7D"
+    },
+    {
+      "id": "474843-cecec4-898883-a3a3a4",
+      "name": "Pewter 15",
+      "path": "/assets/matcaps/unnamed/474843_CECEC4_898883_A3A3A4-64px.png",
+      "outlineColor": "#CECEC4"
+    },
+    {
+      "id": "48270f-c4723b-9b5728-7b431b",
+      "name": "Terracotta 3",
+      "path": "/assets/matcaps/unnamed/48270F_C4723B_9B5728_7B431B-64px.png",
+      "outlineColor": "#C4723B"
+    },
+    {
+      "id": "482908-894e0d-fbdb52-ca7420",
+      "name": "Ember 1",
+      "path": "/assets/matcaps/unnamed/482908_894E0D_FBDB52_CA7420-64px.png",
+      "outlineColor": "#894E0D"
+    },
+    {
+      "id": "487fc9-a8e7f8-88ccf2-70afde",
+      "name": "Ice Blue 2",
+      "path": "/assets/matcaps/unnamed/487FC9_A8E7F8_88CCF2_70AFDE-64px.png",
+      "outlineColor": "#A8E7F8"
+    },
+    {
+      "id": "489b7a-a0e7d9-6dc5ac-87dac7",
+      "name": "Cerulean 6",
+      "path": "/assets/matcaps/unnamed/489B7A_A0E7D9_6DC5AC_87DAC7-64px.png",
+      "outlineColor": "#A0E7D9"
+    },
+    {
+      "id": "48c381-226640-369f64-3cac74",
+      "name": "Teal 9",
+      "path": "/assets/matcaps/unnamed/48C381_226640_369F64_3CAC74-64px.png",
+      "outlineColor": "#226640"
+    },
+    {
+      "id": "49200b-c6926c-9c642b-a45c26",
+      "name": "Terracotta 4",
+      "path": "/assets/matcaps/unnamed/49200B_C6926C_9C642B_A45C26-64px.png",
+      "outlineColor": "#C6926C"
+    },
+    {
+      "id": "495ca6-ccd2e6-a5b1d8-1e2852",
+      "name": "Denim 6",
+      "path": "/assets/matcaps/unnamed/495CA6_CCD2E6_A5B1D8_1E2852-64px.png",
+      "outlineColor": "#CCD2E6"
+    },
+    {
+      "id": "495e48-0d100d-9d9c87-9ecc9c",
+      "name": "Steel 13",
+      "path": "/assets/matcaps/unnamed/495E48_0D100D_9D9C87_9ECC9C-64px.png",
+      "outlineColor": "#0D100D"
+    },
+    {
+      "id": "496dba-94c9f2-72a7e2-84b4ec",
+      "name": "Sky 1",
+      "path": "/assets/matcaps/unnamed/496DBA_94C9F2_72A7E2_84B4EC-64px.png",
+      "outlineColor": "#94C9F2"
+    },
+    {
+      "id": "4a6442-d0ab75-81cd94-181b12",
+      "name": "Fern 9",
+      "path": "/assets/matcaps/unnamed/4A6442_D0AB75_81CD94_181B12-64px.png",
+      "outlineColor": "#D0AB75"
+    },
+    {
+      "id": "4b362c-715a4f-211913-644c44",
+      "name": "Mahogany 3",
+      "path": "/assets/matcaps/unnamed/4B362C_715A4F_211913_644C44-64px.png",
+      "outlineColor": "#715A4F"
+    },
+    {
+      "id": "4b4a3a-94a3a4-68766f-988475",
+      "name": "Steel 14",
+      "path": "/assets/matcaps/unnamed/4B4A3A_94A3A4_68766F_988475-64px.png",
+      "outlineColor": "#94A3A4"
+    },
+    {
+      "id": "4b5455-bbbfc4-97a0a6-838c90",
+      "name": "Pewter 16",
+      "path": "/assets/matcaps/unnamed/4B5455_BBBFC4_97A0A6_838C90-64px.png",
+      "outlineColor": "#BBBFC4"
+    },
+    {
+      "id": "4c240e-a5613b-895134-734c44",
+      "name": "Terracotta 5",
+      "path": "/assets/matcaps/unnamed/4C240E_A5613B_895134_734C44-64px.png",
+      "outlineColor": "#A5613B"
+    },
+    {
+      "id": "4c342a-7b584b-271912-6b4c44",
+      "name": "Mahogany 4",
+      "path": "/assets/matcaps/unnamed/4C342A_7B584B_271912_6B4C44-64px.png",
+      "outlineColor": "#7B584B"
+    },
+    {
+      "id": "4c462e-6d876c-9aac8f-9aaba6",
+      "name": "Steel 15",
+      "path": "/assets/matcaps/unnamed/4C462E_6D876C_9AAC8F_9AABA6-64px.png",
+      "outlineColor": "#6D876C"
+    },
+    {
+      "id": "4c4c4c-d2d2d2-8f8f8f-acacac",
+      "name": "Pewter 17",
+      "path": "/assets/matcaps/unnamed/4C4C4C_D2D2D2_8F8F8F_ACACAC-64px.png",
+      "outlineColor": "#D2D2D2"
+    },
+    {
+      "id": "4d595e-858d87-596f84-748480",
+      "name": "Graphite 12",
+      "path": "/assets/matcaps/unnamed/4D595E_858D87_596F84_748480-64px.png",
+      "outlineColor": "#858D87"
+    },
+    {
+      "id": "4e4c42-b8c4c5-898e89-a3aca4",
+      "name": "Pewter 18",
+      "path": "/assets/matcaps/unnamed/4E4C42_B8C4C5_898E89_A3ACA4-64px.png",
+      "outlineColor": "#B8C4C5"
+    },
+    {
+      "id": "4e4d40-979786-aeaea1-878678",
+      "name": "Pewter 19",
+      "path": "/assets/matcaps/unnamed/4E4D40_979786_AEAEA1_878678-64px.png",
+      "outlineColor": "#979786"
+    },
+    {
+      "id": "4e5150-9fa3a3-848c8a-82848c",
+      "name": "Pewter 20",
+      "path": "/assets/matcaps/unnamed/4E5150_9FA3A3_848C8A_82848C-64px.png",
+      "outlineColor": "#9FA3A3"
+    },
+    {
+      "id": "4f251b-381710-43241b-602f23",
+      "name": "Maroon 3",
+      "path": "/assets/matcaps/unnamed/4F251B_381710_43241B_602F23-64px.png",
+      "outlineColor": "#381710"
+    },
+    {
+      "id": "4f439f-a28be5-8570d6-7765c9",
+      "name": "Indigo 1",
+      "path": "/assets/matcaps/unnamed/4F439F_A28BE5_8570D6_7765C9-64px.png",
+      "outlineColor": "#A28BE5"
+    },
+    {
+      "id": "4f4742-b7b1aa-847e79-969294",
+      "name": "Pewter 21",
+      "path": "/assets/matcaps/unnamed/4F4742_B7B1AA_847E79_969294-64px.png",
+      "outlineColor": "#B7B1AA"
+    },
+    {
+      "id": "4f4c45-a7aeaa-7a8575-9d97a2",
+      "name": "Pewter 22",
+      "path": "/assets/matcaps/unnamed/4F4C45_A7AEAA_7A8575_9D97A2-64px.png",
+      "outlineColor": "#A7AEAA"
+    },
+    {
+      "id": "4f4f4f-9c9c9c-121212-7c7c7c",
+      "name": "Graphite 13",
+      "path": "/assets/matcaps/unnamed/4F4F4F_9C9C9C_121212_7C7C7C-64px.png",
+      "outlineColor": "#9C9C9C"
+    },
+    {
+      "id": "4f4f4f-a1a1a1-8c8c8c-848484",
+      "name": "Pewter 23",
+      "path": "/assets/matcaps/unnamed/4F4F4F_A1A1A1_8C8C8C_848484-64px.png",
+      "outlineColor": "#A1A1A1"
+    },
+    {
+      "id": "4f5246-8c8d84-7b7c74-131611",
+      "name": "Charcoal 10",
+      "path": "/assets/matcaps/unnamed/4F5246_8C8D84_7B7C74_131611-64px.png",
+      "outlineColor": "#8C8D84"
+    },
+    {
+      "id": "4fe34f-2bb02b-3cd03c-1c861c",
+      "name": "Emerald 3",
+      "path": "/assets/matcaps/unnamed/4FE34F_2BB02B_3CD03C_1C861C-64px.png",
+      "outlineColor": "#2BB02B"
+    },
+    {
+      "id": "50332c-d98d79-955f52-aa7c6c",
+      "name": "Brick 2",
+      "path": "/assets/matcaps/unnamed/50332C_D98D79_955F52_AA7C6C-64px.png",
+      "outlineColor": "#D98D79"
+    },
+    {
+      "id": "503522-c38254-9f6b45-845838",
+      "name": "Terracotta 6",
+      "path": "/assets/matcaps/unnamed/503522_C38254_9F6B45_845838-64px.png",
+      "outlineColor": "#C38254"
+    },
+    {
+      "id": "504d3c-979c9d-81837d-9c998a",
+      "name": "Pewter 24",
+      "path": "/assets/matcaps/unnamed/504D3C_979C9D_81837D_9C998A-64px.png",
+      "outlineColor": "#979C9D"
+    },
+    {
+      "id": "513a11-cdbeb5-c8811c-9a733f",
+      "name": "Sienna 3",
+      "path": "/assets/matcaps/unnamed/513A11_CDBEB5_C8811C_9A733F-64px.png",
+      "outlineColor": "#CDBEB5"
+    },
+    {
+      "id": "51462b-dfca7e-948050-a49874",
+      "name": "Sienna 4",
+      "path": "/assets/matcaps/unnamed/51462B_DFCA7E_948050_A49874-64px.png",
+      "outlineColor": "#DFCA7E"
+    },
+    {
+      "id": "515151-dcdcdc-b7b7b7-9b9b9b",
+      "name": "Silver 1",
+      "path": "/assets/matcaps/unnamed/515151_DCDCDC_B7B7B7_9B9B9B-64px.png",
+      "outlineColor": "#DCDCDC"
+    },
+    {
+      "id": "515341-9a9c86-16180d-838474",
+      "name": "Steel 16",
+      "path": "/assets/matcaps/unnamed/515341_9A9C86_16180D_838474-64px.png",
+      "outlineColor": "#9A9C86"
+    },
+    {
+      "id": "517919-659623-34460c-3e5813",
+      "name": "Moss 3",
+      "path": "/assets/matcaps/unnamed/517919_659623_34460C_3E5813-64px.png",
+      "outlineColor": "#659623"
+    },
+    {
+      "id": "519c8d-83dac7-9dede0-2b5b4c",
+      "name": "Cerulean 7",
+      "path": "/assets/matcaps/unnamed/519C8D_83DAC7_9DEDE0_2B5B4C-64px.png",
+      "outlineColor": "#83DAC7"
+    },
+    {
+      "id": "522221-91343b-7f6f6b-744960",
+      "name": "Cerulean 8",
+      "path": "/assets/matcaps/unnamed/522221_91343B_7F6F6B_744960-64px.png",
+      "outlineColor": "#91343B"
+    },
+    {
+      "id": "522a1a-94543a-c3896f-ab7d66",
+      "name": "Terracotta 7",
+      "path": "/assets/matcaps/unnamed/522A1A_94543A_C3896F_AB7D66-64px.png",
+      "outlineColor": "#94543A"
+    },
+    {
+      "id": "525050-d4d3d3-959393-acacac",
+      "name": "Silver 2",
+      "path": "/assets/matcaps/unnamed/525050_D4D3D3_959393_ACACAC-64px.png",
+      "outlineColor": "#D4D3D3"
+    },
+    {
+      "id": "533b33-af9998-866965-9c7e7b",
+      "name": "Steel 17",
+      "path": "/assets/matcaps/unnamed/533B33_AF9998_866965_9C7E7B-64px.png",
+      "outlineColor": "#AF9998"
+    },
+    {
+      "id": "535a2f-cdca91-91915b-a4ac6f",
+      "name": "Mustard 2",
+      "path": "/assets/matcaps/unnamed/535A2F_CDCA91_91915B_A4AC6F-64px.png",
+      "outlineColor": "#CDCA91"
+    },
+    {
+      "id": "535f6b-a6bdc8-8fa3b4-7f91a2",
+      "name": "Brushed Metal 5",
+      "path": "/assets/matcaps/unnamed/535F6B_A6BDC8_8FA3B4_7F91A2-64px.png",
+      "outlineColor": "#A6BDC8"
+    },
+    {
+      "id": "537387-75bbb9-152e5b-0e85e8",
+      "name": "Horizon 11",
+      "path": "/assets/matcaps/unnamed/537387_75BBB9_152E5B_0E85E8-64px.png",
+      "outlineColor": "#75BBB9"
+    },
+    {
+      "id": "54584e-b1bac5-818b91-a7aca3",
+      "name": "Pewter 25",
+      "path": "/assets/matcaps/unnamed/54584E_B1BAC5_818B91_A7ACA3-64px.png",
+      "outlineColor": "#B1BAC5"
+    },
+    {
+      "id": "545b4d-d8ddc8-a0a792-b2c1a3",
+      "name": "Brushed Metal 6",
+      "path": "/assets/matcaps/unnamed/545B4D_D8DDC8_A0A792_B2C1A3-64px.png",
+      "outlineColor": "#D8DDC8"
+    },
+    {
+      "id": "54c104-bbfa0f-97ef04-7ae104",
+      "name": "Fern 10",
+      "path": "/assets/matcaps/unnamed/54C104_BBFA0F_97EF04_7AE104-64px.png",
+      "outlineColor": "#BBFA0F"
+    },
+    {
+      "id": "55382f-78554e-271a16-6c4c44",
+      "name": "Maroon 4",
+      "path": "/assets/matcaps/unnamed/55382F_78554E_271A16_6C4C44-64px.png",
+      "outlineColor": "#78554E"
+    },
+    {
+      "id": "555555-c8c8c8-8b8b8b-a4a4a4",
+      "name": "Pewter 26",
+      "path": "/assets/matcaps/unnamed/555555_C8C8C8_8B8B8B_A4A4A4-64px.png",
+      "outlineColor": "#C8C8C8"
+    },
+    {
+      "id": "556f42-112817-81927f-223e24",
+      "name": "Sage 6",
+      "path": "/assets/matcaps/unnamed/556F42_112817_81927F_223E24-64px.png",
+      "outlineColor": "#112817"
+    },
+    {
+      "id": "55c404-bcfa0e-97f004-7ae104",
+      "name": "Fern 11",
+      "path": "/assets/matcaps/unnamed/55C404_BCFA0E_97F004_7AE104-64px.png",
+      "outlineColor": "#BCFA0E"
+    },
+    {
+      "id": "562d2a-2e1615-7e4945-703c3c",
+      "name": "Maroon 5",
+      "path": "/assets/matcaps/unnamed/562D2A_2E1615_7E4945_703C3C-64px.png",
+      "outlineColor": "#2E1615"
+    },
+    {
+      "id": "56352f-1e110f-311c19-3c231c",
+      "name": "Maroon 6",
+      "path": "/assets/matcaps/unnamed/56352F_1E110F_311C19_3C231C-64px.png",
+      "outlineColor": "#1E110F"
+    },
+    {
+      "id": "57553f-c6c3af-8c8768-868c8c",
+      "name": "Brushed Metal 7",
+      "path": "/assets/matcaps/unnamed/57553F_C6C3AF_8C8768_868C8C-64px.png",
+      "outlineColor": "#C6C3AF"
+    },
+    {
+      "id": "57583e-969788-292920-848474",
+      "name": "Steel 18",
+      "path": "/assets/matcaps/unnamed/57583E_969788_292920_848474-64px.png",
+      "outlineColor": "#969788"
+    },
+    {
+      "id": "579241-b5d25d-0e1d2d-97c284",
+      "name": "Sage 7",
+      "path": "/assets/matcaps/unnamed/579241_B5D25D_0E1D2D_97C284-64px.png",
+      "outlineColor": "#B5D25D"
+    },
+    {
+      "id": "582410-83381a-1f0c04-30140a",
+      "name": "Mahogany 5",
+      "path": "/assets/matcaps/unnamed/582410_83381A_1F0C04_30140A-64px.png",
+      "outlineColor": "#83381A"
+    },
+    {
+      "id": "583629-2e1810-765648-3c1c14",
+      "name": "Mahogany 6",
+      "path": "/assets/matcaps/unnamed/583629_2E1810_765648_3C1C14-64px.png",
+      "outlineColor": "#2E1810"
+    },
+    {
+      "id": "584f3a-bec3bd-c5a57d-a39073",
+      "name": "Ochre 3",
+      "path": "/assets/matcaps/unnamed/584F3A_BEC3BD_C5A57D_A39073-64px.png",
+      "outlineColor": "#BEC3BD"
+    },
+    {
+      "id": "586a51-ccd5aa-8c9675-8dbbb7",
+      "name": "Sage 8",
+      "path": "/assets/matcaps/unnamed/586A51_CCD5AA_8C9675_8DBBB7-64px.png",
+      "outlineColor": "#CCD5AA"
+    },
+    {
+      "id": "593e2c-e5d8a9-bc9f79-9f8a68",
+      "name": "Sienna 5",
+      "path": "/assets/matcaps/unnamed/593E2C_E5D8A9_BC9F79_9F8A68-64px.png",
+      "outlineColor": "#E5D8A9"
+    },
+    {
+      "id": "595356-cdbfc6-aa9da3-bbb3bc",
+      "name": "Silver 3",
+      "path": "/assets/matcaps/unnamed/595356_CDBFC6_AA9DA3_BBB3BC-64px.png",
+      "outlineColor": "#CDBFC6"
+    },
+    {
+      "id": "59554f-171716-847c74-2c2c24",
+      "name": "Charcoal 11",
+      "path": "/assets/matcaps/unnamed/59554F_171716_847C74_2C2C24-64px.png",
+      "outlineColor": "#171716"
+    },
+    {
+      "id": "596773-b3c6ce-98afb9-879aa8",
+      "name": "Brushed Metal 8",
+      "path": "/assets/matcaps/unnamed/596773_B3C6CE_98AFB9_879AA8-64px.png",
+      "outlineColor": "#B3C6CE"
+    },
+    {
+      "id": "597c3f-254319-6c9668-7c9b53",
+      "name": "Fern 12",
+      "path": "/assets/matcaps/unnamed/597C3F_254319_6C9668_7C9B53-64px.png",
+      "outlineColor": "#254319"
+    },
+    {
+      "id": "5a492b-dec583-987d4d-ac9c74",
+      "name": "Sienna 6",
+      "path": "/assets/matcaps/unnamed/5A492B_DEC583_987D4D_AC9C74-64px.png",
+      "outlineColor": "#DEC583"
+    },
+    {
+      "id": "5a643b-454d2c-393f25-202315",
+      "name": "Olive",
+      "path": "/assets/matcaps/unnamed/5A643B_454D2C_393F25_202315-64px.png",
+      "outlineColor": "#454D2C"
+    },
+    {
+      "id": "5b4cbc-b59af2-9b84eb-8f78e4",
+      "name": "Lavender 1",
+      "path": "/assets/matcaps/unnamed/5B4CBC_B59AF2_9B84EB_8F78E4-64px.png",
+      "outlineColor": "#B59AF2"
+    },
+    {
+      "id": "5b5428-c5a052-a28b46-ada752",
+      "name": "Ochre 4",
+      "path": "/assets/matcaps/unnamed/5B5428_C5A052_A28B46_ADA752-64px.png",
+      "outlineColor": "#C5A052"
+    },
+    {
+      "id": "5b574e-586967-807c6f-6a746c",
+      "name": "Graphite 14",
+      "path": "/assets/matcaps/unnamed/5B574E_586967_807C6F_6A746C-64px.png",
+      "outlineColor": "#586967"
+    },
+    {
+      "id": "5c045c-bd0dbd-930493-a404a4",
+      "name": "Magenta 1",
+      "path": "/assets/matcaps/unnamed/5C045C_BD0DBD_930493_A404A4-64px.png",
+      "outlineColor": "#BD0DBD"
+    },
+    {
+      "id": "5c2e0c-c36924-9f4f14-834114",
+      "name": "Terracotta 8",
+      "path": "/assets/matcaps/unnamed/5C2E0C_C36924_9F4F14_834114-64px.png",
+      "outlineColor": "#C36924"
+    },
+    {
+      "id": "5c4e41-cccdd6-9b979b-b1afb0",
+      "name": "Silver 4",
+      "path": "/assets/matcaps/unnamed/5C4E41_CCCDD6_9B979B_B1AFB0-64px.png",
+      "outlineColor": "#CCCDD6"
+    },
+    {
+      "id": "5c5743-262418-393727-342c20",
+      "name": "Copper 3",
+      "path": "/assets/matcaps/unnamed/5C5743_262418_393727_342C20-64px.png",
+      "outlineColor": "#262418"
+    },
+    {
+      "id": "5c5c04-bdbd0d-939304-a4a404",
+      "name": "Gold 1",
+      "path": "/assets/matcaps/unnamed/5C5C04_BDBD0D_939304_A4A404-64px.png",
+      "outlineColor": "#BDBD0D"
+    },
+    {
+      "id": "5c5c5c-a2a2a2-8c8c8c-848484",
+      "name": "Pewter 27",
+      "path": "/assets/matcaps/unnamed/5C5C5C_A2A2A2_8C8C8C_848484-64px.png",
+      "outlineColor": "#A2A2A2"
+    },
+    {
+      "id": "5d5854-1a1714-373330-2c2424",
+      "name": "Obsidian 4",
+      "path": "/assets/matcaps/unnamed/5D5854_1A1714_373330_2C2424-64px.png",
+      "outlineColor": "#1A1714"
+    },
+    {
+      "id": "5d5d5d-cdcdcd-232323-acacac",
+      "name": "Pewter 28",
+      "path": "/assets/matcaps/unnamed/5D5D5D_CDCDCD_232323_ACACAC-64px.png",
+      "outlineColor": "#CDCDCD"
+    },
+    {
+      "id": "5d5e5a-a1a29b-2a2927-8b948c",
+      "name": "Graphite 15",
+      "path": "/assets/matcaps/unnamed/5D5E5A_A1A29B_2A2927_8B948C-64px.png",
+      "outlineColor": "#A1A29B"
+    },
+    {
+      "id": "5e423a-8c6e69-382416-745d64",
+      "name": "Fern 13",
+      "path": "/assets/matcaps/unnamed/5E423A_8C6E69_382416_745D64-64px.png",
+      "outlineColor": "#8C6E69"
+    },
+    {
+      "id": "5e5049-cdc2be-9c8e88-b7aca4",
+      "name": "Brushed Metal 9",
+      "path": "/assets/matcaps/unnamed/5E5049_CDC2BE_9C8E88_B7ACA4-64px.png",
+      "outlineColor": "#CDC2BE"
+    },
+    {
+      "id": "5e5855-c6c4cd-c89b67-8f8e98",
+      "name": "Brushed Metal 10",
+      "path": "/assets/matcaps/unnamed/5E5855_C6C4CD_C89B67_8F8E98-64px.png",
+      "outlineColor": "#C6C4CD"
+    },
+    {
+      "id": "5e5f62-a7b2be-211c17-939ca3",
+      "name": "Steel 19",
+      "path": "/assets/matcaps/unnamed/5E5F62_A7B2BE_211C17_939CA3-64px.png",
+      "outlineColor": "#A7B2BE"
+    },
+    {
+      "id": "5ecba4-bcfae7-92eed0-a1f4dc",
+      "name": "Aqua 1",
+      "path": "/assets/matcaps/unnamed/5ECBA4_BCFAE7_92EED0_A1F4DC-64px.png",
+      "outlineColor": "#BCFAE7"
+    },
+    {
+      "id": "5f1827-9b4a60-1f0404-340406",
+      "name": "Midnight",
+      "path": "/assets/matcaps/unnamed/5F1827_9B4A60_1F0404_340406-64px.png",
+      "outlineColor": "#9B4A60"
+    },
+    {
+      "id": "5f4c4b-a07c7d-a8afbf-868185",
+      "name": "Brushed Metal 11",
+      "path": "/assets/matcaps/unnamed/5F4C4B_A07C7D_A8AFBF_868185-64px.png",
+      "outlineColor": "#A07C7D"
+    },
+    {
+      "id": "5f4f50-a18e8e-8c7c7b-211a1a",
+      "name": "Graphite 16",
+      "path": "/assets/matcaps/unnamed/5F4F50_A18E8E_8C7C7B_211A1A-64px.png",
+      "outlineColor": "#A18E8E"
+    },
+    {
+      "id": "5f5f5f-bdbdbd-a4a4a4-9c9c9c",
+      "name": "Pewter 29",
+      "path": "/assets/matcaps/unnamed/5F5F5F_BDBDBD_A4A4A4_9C9C9C-64px.png",
+      "outlineColor": "#BDBDBD"
+    },
+    {
+      "id": "604a30-dc9065-212c14-ac9c92",
+      "name": "Sienna 7",
+      "path": "/assets/matcaps/unnamed/604A30_DC9065_212C14_AC9C92-64px.png",
+      "outlineColor": "#DC9065"
+    },
+    {
+      "id": "60534a-211813-9b948e-8e837d",
+      "name": "Steel 20",
+      "path": "/assets/matcaps/unnamed/60534A_211813_9B948E_8E837D-64px.png",
+      "outlineColor": "#211813"
+    },
+    {
+      "id": "605352-e9ccc5-c7a8a3-a89291",
+      "name": "Brick 3",
+      "path": "/assets/matcaps/unnamed/605352_E9CCC5_C7A8A3_A89291-64px.png",
+      "outlineColor": "#E9CCC5"
+    },
+    {
+      "id": "606857-9ba894-8c9c83-8c9483",
+      "name": "Pewter 30",
+      "path": "/assets/matcaps/unnamed/606857_9BA894_8C9C83_8C9483-64px.png",
+      "outlineColor": "#9BA894"
+    },
+    {
+      "id": "613f04-d68c04-a45f04-1f0f04",
+      "name": "Rust 1",
+      "path": "/assets/matcaps/unnamed/613F04_D68C04_A45F04_1F0F04-64px.png",
+      "outlineColor": "#D68C04"
+    },
+    {
+      "id": "61583e-252314-928972-342c1c",
+      "name": "Copper 4",
+      "path": "/assets/matcaps/unnamed/61583E_252314_928972_342C1C-64px.png",
+      "outlineColor": "#252314"
+    },
+    {
+      "id": "617586-23304c-1b1e30-4988cf",
+      "name": "Denim 7",
+      "path": "/assets/matcaps/unnamed/617586_23304C_1B1E30_4988CF-64px.png",
+      "outlineColor": "#23304C"
+    },
+    {
+      "id": "622f19-885934-9a7748-94603a",
+      "name": "Terracotta 9",
+      "path": "/assets/matcaps/unnamed/622F19_885934_9A7748_94603A-64px.png",
+      "outlineColor": "#885934"
+    },
+    {
+      "id": "623622-a1756f-986353-89645b",
+      "name": "Brick 4",
+      "path": "/assets/matcaps/unnamed/623622_A1756F_986353_89645B-64px.png",
+      "outlineColor": "#A1756F"
+    },
+    {
+      "id": "624541-fcd0c6-e4a19a-fcbcb4",
+      "name": "Rose Quartz 1",
+      "path": "/assets/matcaps/unnamed/624541_FCD0C6_E4A19A_FCBCB4-64px.png",
+      "outlineColor": "#FCD0C6"
+    },
+    {
+      "id": "626262-9e9e9e-848484-262626",
+      "name": "Graphite 17",
+      "path": "/assets/matcaps/unnamed/626262_9E9E9E_848484_262626-64px.png",
+      "outlineColor": "#9E9E9E"
+    },
+    {
+      "id": "626262-a8a8a8-949494-1f1f1f",
+      "name": "Graphite 18",
+      "path": "/assets/matcaps/unnamed/626262_A8A8A8_949494_1F1F1F-64px.png",
+      "outlineColor": "#A8A8A8"
+    },
+    {
+      "id": "626a57-3b3f33-7d8973-444c3c",
+      "name": "Steel 21",
+      "path": "/assets/matcaps/unnamed/626A57_3B3F33_7D8973_444C3C-64px.png",
+      "outlineColor": "#3B3F33"
+    },
+    {
+      "id": "626d5c-b8c2bb-1b230f-a4aca3",
+      "name": "Steel 22",
+      "path": "/assets/matcaps/unnamed/626D5C_B8C2BB_1B230F_A4ACA3-64px.png",
+      "outlineColor": "#B8C2BB"
+    },
+    {
+      "id": "627d72-a6caaa-202c28-b4d4b4",
+      "name": "Teal 10",
+      "path": "/assets/matcaps/unnamed/627D72_A6CAAA_202C28_B4D4B4-64px.png",
+      "outlineColor": "#A6CAAA"
+    },
+    {
+      "id": "630463-c30cc3-9b049b-ac04ac",
+      "name": "Magenta 2",
+      "path": "/assets/matcaps/unnamed/630463_C30CC3_9B049B_AC04AC-64px.png",
+      "outlineColor": "#C30CC3"
+    },
+    {
+      "id": "63533b-aa9472-1c1108-9b8c68",
+      "name": "Sienna 8",
+      "path": "/assets/matcaps/unnamed/63533B_AA9472_1C1108_9B8C68-64px.png",
+      "outlineColor": "#AA9472"
+    },
+    {
+      "id": "63584b-e6e0d6-a8a092-bfb6a8",
+      "name": "Brushed Metal 12",
+      "path": "/assets/matcaps/unnamed/63584B_E6E0D6_A8A092_BFB6A8-64px.png",
+      "outlineColor": "#E6E0D6"
+    },
+    {
+      "id": "635d52-a9bcc0-b1aea0-819598",
+      "name": "Brushed Metal 13",
+      "path": "/assets/matcaps/unnamed/635D52_A9BCC0_B1AEA0_819598-64px.png",
+      "outlineColor": "#A9BCC0"
+    },
+    {
+      "id": "636363-aaaaaa-949494-252525",
+      "name": "Graphite 19",
+      "path": "/assets/matcaps/unnamed/636363_AAAAAA_949494_252525-64px.png",
+      "outlineColor": "#AAAAAA"
+    },
+    {
+      "id": "636d6c-d4e7ed-abbcc4-9ba4a8",
+      "name": "Chrome 1",
+      "path": "/assets/matcaps/unnamed/636D6C_D4E7ED_ABBCC4_9BA4A8-64px.png",
+      "outlineColor": "#D4E7ED"
+    },
+    {
+      "id": "637598-b7c4d3-22293a-9bacbf",
+      "name": "Denim 8",
+      "path": "/assets/matcaps/unnamed/637598_B7C4D3_22293A_9BACBF-64px.png",
+      "outlineColor": "#B7C4D3"
+    },
+    {
+      "id": "64554d-d1c9c1-abada0-0e0c0a",
+      "name": "Steel 23",
+      "path": "/assets/matcaps/unnamed/64554D_D1C9C1_ABADA0_0E0C0A-64px.png",
+      "outlineColor": "#D1C9C1"
+    },
+    {
+      "id": "64686f-bdc0c4-161718-a4a7ab",
+      "name": "Graphite 20",
+      "path": "/assets/matcaps/unnamed/64686F_BDC0C4_161718_A4A7AB-64px.png",
+      "outlineColor": "#BDC0C4"
+    },
+    {
+      "id": "647171-1f3349-2a475c-87a5ad",
+      "name": "Horizon 12",
+      "path": "/assets/matcaps/unnamed/647171_1F3349_2A475C_87A5AD-64px.png",
+      "outlineColor": "#1F3349"
+    },
+    {
+      "id": "647686-23292e-333c44-404b55",
+      "name": "Dark Steel 3",
+      "path": "/assets/matcaps/unnamed/647686_23292E_333C44_404B55-64px.png",
+      "outlineColor": "#23292E"
+    },
+    {
+      "id": "656662-9b9b99-393b31-8b8c8c",
+      "name": "Graphite 21",
+      "path": "/assets/matcaps/unnamed/656662_9B9B99_393B31_8B8C8C-64px.png",
+      "outlineColor": "#9B9B99"
+    },
+    {
+      "id": "657274-2a2f30-a0a7b0-363c44",
+      "name": "Graphite 22",
+      "path": "/assets/matcaps/unnamed/657274_2A2F30_A0A7B0_363C44-64px.png",
+      "outlineColor": "#2A2F30"
+    },
+    {
+      "id": "65a0ba-c3e4f1-a7d5e6-97cadf",
+      "name": "Ice Blue 3",
+      "path": "/assets/matcaps/unnamed/65A0BA_C3E4F1_A7D5E6_97CADF-64px.png",
+      "outlineColor": "#C3E4F1"
+    },
+    {
+      "id": "65a0c7-c3e4f8-a7d5ef-97cae9",
+      "name": "Ice Blue 4",
+      "path": "/assets/matcaps/unnamed/65A0C7_C3E4F8_A7D5EF_97CAE9-64px.png",
+      "outlineColor": "#C3E4F8"
+    },
+    {
+      "id": "660505-f2b090-dd4d37-aa1914",
+      "name": "Ruby 1",
+      "path": "/assets/matcaps/unnamed/660505_F2B090_DD4D37_AA1914-64px.png",
+      "outlineColor": "#F2B090"
+    },
+    {
+      "id": "66605e-939198-2e261f-3c332a",
+      "name": "Steel 24",
+      "path": "/assets/matcaps/unnamed/66605E_939198_2E261F_3C332A-64px.png",
+      "outlineColor": "#939198"
+    },
+    {
+      "id": "666864-b3b4ab-2f2f2c-9ca49b",
+      "name": "Graphite 23",
+      "path": "/assets/matcaps/unnamed/666864_B3B4AB_2F2F2C_9CA49B-64px.png",
+      "outlineColor": "#B3B4AB"
+    },
+    {
+      "id": "673b2a-99735c-99593a-3a160e",
+      "name": "Terracotta 10",
+      "path": "/assets/matcaps/unnamed/673B2A_99735C_99593A_3A160E-64px.png",
+      "outlineColor": "#99735C"
+    },
+    {
+      "id": "677e93-36444d-99a9ba-435464",
+      "name": "Horizon 13",
+      "path": "/assets/matcaps/unnamed/677E93_36444D_99A9BA_435464-64px.png",
+      "outlineColor": "#36444D"
+    },
+    {
+      "id": "678e67-c4d9c4-acc8ac-98b898",
+      "name": "Jade 1",
+      "path": "/assets/matcaps/unnamed/678E67_C4D9C4_ACC8AC_98B898-64px.png",
+      "outlineColor": "#C4D9C4"
+    },
+    {
+      "id": "68049f-c90de6-a404cf-b304dc",
+      "name": "Amethyst 2",
+      "path": "/assets/matcaps/unnamed/68049F_C90DE6_A404CF_B304DC-64px.png",
+      "outlineColor": "#C90DE6"
+    },
+    {
+      "id": "683f2d-9f736d-431d06-966152",
+      "name": "Terracotta 11",
+      "path": "/assets/matcaps/unnamed/683F2D_9F736D_431D06_966152-64px.png",
+      "outlineColor": "#9F736D"
+    },
+    {
+      "id": "68493e-b2aaa9-978c8c-130907",
+      "name": "Brick 5",
+      "path": "/assets/matcaps/unnamed/68493E_B2AAA9_978C8C_130907-64px.png",
+      "outlineColor": "#B2AAA9"
+    },
+    {
+      "id": "684c40-776e69-9b7765-758d96",
+      "name": "Steel 25",
+      "path": "/assets/matcaps/unnamed/684C40_776E69_9B7765_758D96-64px.png",
+      "outlineColor": "#776E69"
+    },
+    {
+      "id": "685b57-beb1b1-9b99a4-1e1d1d",
+      "name": "Graphite 24",
+      "path": "/assets/matcaps/unnamed/685B57_BEB1B1_9B99A4_1E1D1D-64px.png",
+      "outlineColor": "#BEB1B1"
+    },
+    {
+      "id": "686464-cccac7-a4a19f-bcb4b4",
+      "name": "Silver 5",
+      "path": "/assets/matcaps/unnamed/686464_CCCAC7_A4A19F_BCB4B4-64px.png",
+      "outlineColor": "#CCCAC7"
+    },
+    {
+      "id": "686b73-2a2b2d-d5d9dd-b0b3bc",
+      "name": "Pewter 31",
+      "path": "/assets/matcaps/unnamed/686B73_2A2B2D_D5D9DD_B0B3BC-64px.png",
+      "outlineColor": "#2A2B2D"
+    },
+    {
+      "id": "686e55-353c2f-869b7f-444434",
+      "name": "Steel 26",
+      "path": "/assets/matcaps/unnamed/686E55_353C2F_869B7F_444434-64px.png",
+      "outlineColor": "#353C2F"
+    },
+    {
+      "id": "696347-98b0a2-28261e-362b22",
+      "name": "Steel 27",
+      "path": "/assets/matcaps/unnamed/696347_98B0A2_28261E_362B22-64px.png",
+      "outlineColor": "#98B0A2"
+    },
+    {
+      "id": "696969-a0a0a0-949494-8c8c8c",
+      "name": "Pewter 32",
+      "path": "/assets/matcaps/unnamed/696969_A0A0A0_949494_8C8C8C-64px.png",
+      "outlineColor": "#A0A0A0"
+    },
+    {
+      "id": "6a3c15-efc898-d59d59-b38346",
+      "name": "Ember 2",
+      "path": "/assets/matcaps/unnamed/6A3C15_EFC898_D59D59_B38346-64px.png",
+      "outlineColor": "#EFC898"
+    },
+    {
+      "id": "6a5338-1c120b-c5975f-96886c",
+      "name": "Sienna 9",
+      "path": "/assets/matcaps/unnamed/6A5338_1C120B_C5975F_96886C-64px.png",
+      "outlineColor": "#1C120B"
+    },
+    {
+      "id": "6a8287-405153-839ebe-424c5c",
+      "name": "Horizon 14",
+      "path": "/assets/matcaps/unnamed/6A8287_405153_839EBE_424C5C-64px.png",
+      "outlineColor": "#405153"
+    },
+    {
+      "id": "6b3822-a65d48-824e48-401e0c",
+      "name": "Brick 6",
+      "path": "/assets/matcaps/unnamed/6B3822_A65D48_824E48_401E0C-64px.png",
+      "outlineColor": "#A65D48"
+    },
+    {
+      "id": "6bbd6b-c8f3c8-a3e2a3-b4ecb4",
+      "name": "Jade 2",
+      "path": "/assets/matcaps/unnamed/6BBD6B_C8F3C8_A3E2A3_B4ECB4-64px.png",
+      "outlineColor": "#C8F3C8"
+    },
+    {
+      "id": "6c52aa-c9a6ea-a681d6-b494e2",
+      "name": "Lavender 2",
+      "path": "/assets/matcaps/unnamed/6C52AA_C9A6EA_A681D6_B494E2-64px.png",
+      "outlineColor": "#C9A6EA"
+    },
+    {
+      "id": "6c5dc3-352d66-5c4cab-544ca5",
+      "name": "Indigo 2",
+      "path": "/assets/matcaps/unnamed/6C5DC3_352D66_5C4CAB_544CA5-64px.png",
+      "outlineColor": "#352D66"
+    },
+    {
+      "id": "6c6f76-cbd1d7-b2bdc7-a6b0bf",
+      "name": "Chrome 2",
+      "path": "/assets/matcaps/unnamed/6C6F76_CBD1D7_B2BDC7_A6B0BF-64px.png",
+      "outlineColor": "#CBD1D7"
+    },
+    {
+      "id": "6c8996-14223f-b9dedd-2e445c",
+      "name": "Horizon 15",
+      "path": "/assets/matcaps/unnamed/6C8996_14223F_B9DEDD_2E445C-64px.png",
+      "outlineColor": "#14223F"
+    },
+    {
+      "id": "6d1616-e6cdba-de2b24-230f0f",
+      "name": "Brick 7",
+      "path": "/assets/matcaps/unnamed/6D1616_E6CDBA_DE2B24_230F0F-64px.png",
+      "outlineColor": "#E6CDBA"
+    },
+    {
+      "id": "6d3b1c-895638-502a0d-844c31",
+      "name": "Terracotta 12",
+      "path": "/assets/matcaps/unnamed/6D3B1C_895638_502A0D_844C31-64px.png",
+      "outlineColor": "#895638"
+    },
+    {
+      "id": "6d6050-c8c2b9-a2998e-b4aa9f",
+      "name": "Brushed Metal 14",
+      "path": "/assets/matcaps/unnamed/6D6050_C8C2B9_A2998E_B4AA9F-64px.png",
+      "outlineColor": "#C8C2B9"
+    },
+    {
+      "id": "6d6d6d-3e3e3e-c0c0c0-949494",
+      "name": "Pewter 33",
+      "path": "/assets/matcaps/unnamed/6D6D6D_3E3E3E_C0C0C0_949494-64px.png",
+      "outlineColor": "#3E3E3E"
+    },
+    {
+      "id": "6e2e36-d3a1a0-bd7175-c78c8b",
+      "name": "Cerulean 9",
+      "path": "/assets/matcaps/unnamed/6E2E36_D3A1A0_BD7175_C78C8B-64px.png",
+      "outlineColor": "#D3A1A0"
+    },
+    {
+      "id": "6e5137-e8ca90-271912-b99c74",
+      "name": "Sienna 10",
+      "path": "/assets/matcaps/unnamed/6E5137_E8CA90_271912_B99C74-64px.png",
+      "outlineColor": "#E8CA90"
+    },
+    {
+      "id": "6e524d-8496c5-af6624-100b11",
+      "name": "Teal 11",
+      "path": "/assets/matcaps/unnamed/6E524D_8496C5_AF6624_100B11-64px.png",
+      "outlineColor": "#8496C5"
+    },
+    {
+      "id": "6e6d69-d0ece9-aac7c6-200c0c",
+      "name": "Fern 14",
+      "path": "/assets/matcaps/unnamed/6E6D69_D0ECE9_AAC7C6_200C0C-64px.png",
+      "outlineColor": "#D0ECE9"
+    },
+    {
+      "id": "6e7181-d1cfdf-abafc7-b4bcce",
+      "name": "Chrome 3",
+      "path": "/assets/matcaps/unnamed/6E7181_D1CFDF_ABAFC7_B4BCCE-64px.png",
+      "outlineColor": "#D1CFDF"
+    },
+    {
+      "id": "6e8c48-b8cda7-344018-a8bc94",
+      "name": "Fern 15",
+      "path": "/assets/matcaps/unnamed/6E8C48_B8CDA7_344018_A8BC94-64px.png",
+      "outlineColor": "#B8CDA7"
+    },
+    {
+      "id": "6ec66e-c9f8c9-a3e8a3-b4f1b4",
+      "name": "Jade 3",
+      "path": "/assets/matcaps/unnamed/6EC66E_C9F8C9_A3E8A3_B4F1B4-64px.png",
+      "outlineColor": "#C9F8C9"
+    },
+    {
+      "id": "6f503e-d59a70-221812-b0a899",
+      "name": "Terracotta 13",
+      "path": "/assets/matcaps/unnamed/6F503E_D59A70_221812_B0A899-64px.png",
+      "outlineColor": "#D59A70"
+    },
+    {
+      "id": "705b4b-312821-af927b-44342c",
+      "name": "Terracotta 14",
+      "path": "/assets/matcaps/unnamed/705B4B_312821_AF927B_44342C-64px.png",
+      "outlineColor": "#312821"
+    },
+    {
+      "id": "706962-24211e-bcb6af-aca494",
+      "name": "Graphite 25",
+      "path": "/assets/matcaps/unnamed/706962_24211E_BCB6AF_ACA494-64px.png",
+      "outlineColor": "#24211E"
+    },
+    {
+      "id": "713a28-a87661-3a160d-9b6454",
+      "name": "Brick 8",
+      "path": "/assets/matcaps/unnamed/713A28_A87661_3A160D_9B6454-64px.png",
+      "outlineColor": "#A87661"
+    },
+    {
+      "id": "714c30-ead7c5-cc9265-e2b48f",
+      "name": "Terracotta 15",
+      "path": "/assets/matcaps/unnamed/714C30_EAD7C5_CC9265_E2B48F-64px.png",
+      "outlineColor": "#EAD7C5"
+    },
+    {
+      "id": "716049-d1c8b9-3f160c-baa6a9",
+      "name": "Sage 9",
+      "path": "/assets/matcaps/unnamed/716049_D1C8B9_3F160C_BAA6A9-64px.png",
+      "outlineColor": "#D1C8B9"
+    },
+    {
+      "id": "71623b-ecde8c-30250a-aba69a",
+      "name": "Sienna 11",
+      "path": "/assets/matcaps/unnamed/71623B_ECDE8C_30250A_ABA69A-64px.png",
+      "outlineColor": "#ECDE8C"
+    },
+    {
+      "id": "72625b-f0dfd0-d9baa5-c3a595",
+      "name": "Salmon 1",
+      "path": "/assets/matcaps/unnamed/72625B_F0DFD0_D9BAA5_C3A595-64px.png",
+      "outlineColor": "#F0DFD0"
+    },
+    {
+      "id": "726f5b-a09c88-8b8c7b-94907c",
+      "name": "Pewter 34",
+      "path": "/assets/matcaps/unnamed/726F5B_A09C88_8B8C7B_94907C-64px.png",
+      "outlineColor": "#A09C88"
+    },
+    {
+      "id": "727167-2f2f2b-a3a6a2-44443c",
+      "name": "Graphite 26",
+      "path": "/assets/matcaps/unnamed/727167_2F2F2B_A3A6A2_44443C-64px.png",
+      "outlineColor": "#2F2F2B"
+    },
+    {
+      "id": "728473-534c40-7bcec8-7bb9b6",
+      "name": "Sage 10",
+      "path": "/assets/matcaps/unnamed/728473_534C40_7BCEC8_7BB9B6-64px.png",
+      "outlineColor": "#534C40"
+    },
+    {
+      "id": "736655-d9d8d5-2f281f-b1aeab",
+      "name": "Brushed Metal 15",
+      "path": "/assets/matcaps/unnamed/736655_D9D8D5_2F281F_B1AEAB-64px.png",
+      "outlineColor": "#D9D8D5"
+    },
+    {
+      "id": "745359-bfaea8-9b8384-ac9392",
+      "name": "Brushed Metal 16",
+      "path": "/assets/matcaps/unnamed/745359_BFAEA8_9B8384_AC9392-64px.png",
+      "outlineColor": "#BFAEA8"
+    },
+    {
+      "id": "746761-291c19-ab9385-3c2b27",
+      "name": "Terracotta 16",
+      "path": "/assets/matcaps/unnamed/746761_291C19_AB9385_3C2B27-64px.png",
+      "outlineColor": "#291C19"
+    },
+    {
+      "id": "747a6f-292e2a-aca79f-45453b",
+      "name": "Graphite 27",
+      "path": "/assets/matcaps/unnamed/747A6F_292E2A_ACA79F_45453B-64px.png",
+      "outlineColor": "#292E2A"
+    },
+    {
+      "id": "74a192-041b0d-194c33-235b4c",
+      "name": "Deep Sea 2",
+      "path": "/assets/matcaps/unnamed/74A192_041B0D_194C33_235B4C-64px.png",
+      "outlineColor": "#041B0D"
+    },
+    {
+      "id": "75322b-96463f-51201a-3d1814",
+      "name": "Maroon 7",
+      "path": "/assets/matcaps/unnamed/75322B_96463F_51201A_3D1814-64px.png",
+      "outlineColor": "#96463F"
+    },
+    {
+      "id": "75723e-c0c3a0-2a1e0e-afae77",
+      "name": "Ochre 5",
+      "path": "/assets/matcaps/unnamed/75723E_C0C3A0_2A1E0E_AFAE77-64px.png",
+      "outlineColor": "#C0C3A0"
+    },
+    {
+      "id": "75746f-333330-a2a1a9-444444",
+      "name": "Graphite 28",
+      "path": "/assets/matcaps/unnamed/75746F_333330_A2A1A9_444444-64px.png",
+      "outlineColor": "#333330"
+    },
+    {
+      "id": "758391-bac2ca-435263-a1acbc",
+      "name": "Brushed Metal 17",
+      "path": "/assets/matcaps/unnamed/758391_BAC2CA_435263_A1ACBC-64px.png",
+      "outlineColor": "#BAC2CA"
+    },
+    {
+      "id": "763b28-d0bdb8-ada39e-1e1d1d",
+      "name": "Brick 9",
+      "path": "/assets/matcaps/unnamed/763B28_D0BDB8_ADA39E_1E1D1D-64px.png",
+      "outlineColor": "#D0BDB8"
+    },
+    {
+      "id": "763c39-431510-210504-55241c",
+      "name": "Maroon 8",
+      "path": "/assets/matcaps/unnamed/763C39_431510_210504_55241C-64px.png",
+      "outlineColor": "#431510"
+    },
+    {
+      "id": "764739-d0917b-2a1611-b37c68",
+      "name": "Brick 10",
+      "path": "/assets/matcaps/unnamed/764739_D0917B_2A1611_B37C68-64px.png",
+      "outlineColor": "#D0917B"
+    },
+    {
+      "id": "765938-1f1009-a59c7c-c9a382",
+      "name": "Sienna 12",
+      "path": "/assets/matcaps/unnamed/765938_1F1009_A59C7C_C9A382-64px.png",
+      "outlineColor": "#1F1009"
+    },
+    {
+      "id": "766554-c1bebb-2a1a0e-b4abac",
+      "name": "Sage 11",
+      "path": "/assets/matcaps/unnamed/766554_C1BEBB_2A1A0E_B4ABAC-64px.png",
+      "outlineColor": "#C1BEBB"
+    },
+    {
+      "id": "76787c-2f3031-a5a9b8-444446",
+      "name": "Graphite 29",
+      "path": "/assets/matcaps/unnamed/76787C_2F3031_A5A9B8_444446-64px.png",
+      "outlineColor": "#2F3031"
+    },
+    {
+      "id": "767989-323437-b6c4ee-343c44",
+      "name": "Denim 9",
+      "path": "/assets/matcaps/unnamed/767989_323437_B6C4EE_343C44-64px.png",
+      "outlineColor": "#323437"
+    },
+    {
+      "id": "771a1f-d2939e-b6595d-9d4b54",
+      "name": "Brick 11",
+      "path": "/assets/matcaps/unnamed/771A1F_D2939E_B6595D_9D4B54-64px.png",
+      "outlineColor": "#D2939E"
+    },
+    {
+      "id": "773012-ae5124-4d1908-340f04",
+      "name": "Mahogany 7",
+      "path": "/assets/matcaps/unnamed/773012_AE5124_4D1908_340F04-64px.png",
+      "outlineColor": "#AE5124"
+    },
+    {
+      "id": "776045-d2ccc3-281910-bbb5aa",
+      "name": "Sienna 13",
+      "path": "/assets/matcaps/unnamed/776045_D2CCC3_281910_BBB5AA-64px.png",
+      "outlineColor": "#D2CCC3"
+    },
+    {
+      "id": "776a5c-ba9a89-302c26-443c34",
+      "name": "Steel 28",
+      "path": "/assets/matcaps/unnamed/776A5C_BA9A89_302C26_443C34-64px.png",
+      "outlineColor": "#BA9A89"
+    },
+    {
+      "id": "776c62-292622-474039-3c342c",
+      "name": "Dark Steel 4",
+      "path": "/assets/matcaps/unnamed/776C62_292622_474039_3C342C-64px.png",
+      "outlineColor": "#292622"
+    },
+    {
+      "id": "777c61-333727-babfa1-a5ac8c",
+      "name": "Steel 29",
+      "path": "/assets/matcaps/unnamed/777C61_333727_BABFA1_A5AC8C-64px.png",
+      "outlineColor": "#333727"
+    },
+    {
+      "id": "777d7d-bdcad2-3e3c2e-b1b8b6",
+      "name": "Brushed Metal 18",
+      "path": "/assets/matcaps/unnamed/777D7D_BDCAD2_3E3C2E_B1B8B6-64px.png",
+      "outlineColor": "#BDCAD2"
+    },
+    {
+      "id": "787165-dad9cd-9dc0ce-36302a",
+      "name": "Brushed Metal 19",
+      "path": "/assets/matcaps/unnamed/787165_DAD9CD_9DC0CE_36302A-64px.png",
+      "outlineColor": "#DAD9CD"
+    },
+    {
+      "id": "7877ee-d87fc5-75d9c7-1c78c0",
+      "name": "Cobalt 4",
+      "path": "/assets/matcaps/unnamed/7877EE_D87FC5_75D9C7_1C78C0-64px.png",
+      "outlineColor": "#D87FC5"
+    },
+    {
+      "id": "794e40-361612-4c2a21-441b1b",
+      "name": "Maroon 9",
+      "path": "/assets/matcaps/unnamed/794E40_361612_4C2A21_441B1B-64px.png",
+      "outlineColor": "#361612"
+    },
+    {
+      "id": "795038-c2856b-533320-ac7c61",
+      "name": "Terracotta 17",
+      "path": "/assets/matcaps/unnamed/795038_C2856B_533320_AC7C61-64px.png",
+      "outlineColor": "#C2856B"
+    },
+    {
+      "id": "796d6b-ded3cb-c6bab1-ada09b",
+      "name": "Chrome 4",
+      "path": "/assets/matcaps/unnamed/796D6B_DED3CB_C6BAB1_ADA09B-64px.png",
+      "outlineColor": "#DED3CB"
+    },
+    {
+      "id": "796f52-36413a-c9b48c-b6a77f",
+      "name": "Mustard 3",
+      "path": "/assets/matcaps/unnamed/796F52_36413A_C9B48C_B6A77F-64px.png",
+      "outlineColor": "#36413A"
+    },
+    {
+      "id": "797367-302e29-aba3a0-443c35",
+      "name": "Graphite 30",
+      "path": "/assets/matcaps/unnamed/797367_302E29_ABA3A0_443C35-64px.png",
+      "outlineColor": "#302E29"
+    },
+    {
+      "id": "7a6959-2d271d-c1b5a9-b4a393",
+      "name": "Steel 30",
+      "path": "/assets/matcaps/unnamed/7A6959_2D271D_C1B5A9_B4A393-64px.png",
+      "outlineColor": "#2D271D"
+    },
+    {
+      "id": "7a736f-463f33-575046-4b463d",
+      "name": "Steel 31",
+      "path": "/assets/matcaps/unnamed/7A736F_463F33_575046_4B463D-64px.png",
+      "outlineColor": "#463F33"
+    },
+    {
+      "id": "7a7a7a-d0d0d0-bcbcbc-b4b4b4",
+      "name": "Silver 6",
+      "path": "/assets/matcaps/unnamed/7A7A7A_D0D0D0_BCBCBC_B4B4B4-64px.png",
+      "outlineColor": "#D0D0D0"
+    },
+    {
+      "id": "7a7a7a-d9d9d9-bcbcbc-b4b4b4",
+      "name": "Silver 7",
+      "path": "/assets/matcaps/unnamed/7A7A7A_D9D9D9_BCBCBC_B4B4B4-64px.png",
+      "outlineColor": "#D9D9D9"
+    },
+    {
+      "id": "7a7c63-625531-665b3f-5b4b29",
+      "name": "Ochre 6",
+      "path": "/assets/matcaps/unnamed/7A7C63_625531_665B3F_5B4B29-64px.png",
+      "outlineColor": "#625531"
+    },
+    {
+      "id": "7a9196-485c64-425459-c1e4e7",
+      "name": "Horizon 16",
+      "path": "/assets/matcaps/unnamed/7A9196_485C64_425459_C1E4E7-64px.png",
+      "outlineColor": "#485C64"
+    },
+    {
+      "id": "7b5254-e9dcc7-b19986-c8ac91",
+      "name": "Sage 12",
+      "path": "/assets/matcaps/unnamed/7B5254_E9DCC7_B19986_C8AC91-64px.png",
+      "outlineColor": "#E9DCC7"
+    },
+    {
+      "id": "7b6857-383028-bca38f-4c3c34",
+      "name": "Terracotta 18",
+      "path": "/assets/matcaps/unnamed/7B6857_383028_BCA38F_4C3C34-64px.png",
+      "outlineColor": "#383028"
+    },
+    {
+      "id": "7b6e5b-c5cacc-b1b2ae-322415",
+      "name": "Brushed Metal 20",
+      "path": "/assets/matcaps/unnamed/7B6E5B_C5CACC_B1B2AE_322415-64px.png",
+      "outlineColor": "#C5CACC"
+    },
+    {
+      "id": "7b7e82-343536-a0b1c8-44444c",
+      "name": "Graphite 31",
+      "path": "/assets/matcaps/unnamed/7B7E82_343536_A0B1C8_44444C-64px.png",
+      "outlineColor": "#343536"
+    },
+    {
+      "id": "7c584c-27140d-b3765c-3d2318",
+      "name": "Terracotta 19",
+      "path": "/assets/matcaps/unnamed/7C584C_27140D_B3765C_3D2318-64px.png",
+      "outlineColor": "#27140D"
+    },
+    {
+      "id": "7c7c71-353630-adafaf-444444",
+      "name": "Graphite 32",
+      "path": "/assets/matcaps/unnamed/7C7C71_353630_ADAFAF_444444-64px.png",
+      "outlineColor": "#353630"
+    },
+    {
+      "id": "7d6651-f8e3bf-cea987-e7c29c",
+      "name": "Tangerine 1",
+      "path": "/assets/matcaps/unnamed/7D6651_F8E3BF_CEA987_E7C29C-64px.png",
+      "outlineColor": "#F8E3BF"
+    },
+    {
+      "id": "7d7673-353230-aea7b0-4c4444",
+      "name": "Graphite 33",
+      "path": "/assets/matcaps/unnamed/7D7673_353230_AEA7B0_4C4444-64px.png",
+      "outlineColor": "#353230"
+    },
+    {
+      "id": "7da1ba-a4cce8-5d7a8b-5e7c94",
+      "name": "Horizon 17",
+      "path": "/assets/matcaps/unnamed/7DA1BA_A4CCE8_5D7A8B_5E7C94-64px.png",
+      "outlineColor": "#A4CCE8"
+    },
+    {
+      "id": "7e5344-22120e-ccab9c-8d919d",
+      "name": "Mustard 4",
+      "path": "/assets/matcaps/unnamed/7E5344_22120E_CCAB9C_8D919D-64px.png",
+      "outlineColor": "#22120E"
+    },
+    {
+      "id": "7e5e57-ad9794-612d1d-c9997d",
+      "name": "Brick 12",
+      "path": "/assets/matcaps/unnamed/7E5E57_AD9794_612D1D_C9997D-64px.png",
+      "outlineColor": "#AD9794"
+    },
+    {
+      "id": "7e8174-39444d-cecaa7-b3b49b",
+      "name": "Brushed Metal 21",
+      "path": "/assets/matcaps/unnamed/7E8174_39444D_CECAA7_B3B49B-64px.png",
+      "outlineColor": "#39444D"
+    },
+    {
+      "id": "7f5134-22120a-452110-9f7d5f",
+      "name": "Mahogany 8",
+      "path": "/assets/matcaps/unnamed/7F5134_22120A_452110_9F7D5F-64px.png",
+      "outlineColor": "#22120A"
+    },
+    {
+      "id": "7f8896-3b3936-bbcfe9-4b4b4d",
+      "name": "Steel 32",
+      "path": "/assets/matcaps/unnamed/7F8896_3B3936_BBCFE9_4B4B4D-64px.png",
+      "outlineColor": "#3B3936"
+    },
+    {
+      "id": "803537-310f10-c35a5d-d89093",
+      "name": "Brick 13",
+      "path": "/assets/matcaps/unnamed/803537_310F10_C35A5D_D89093-64px.png",
+      "outlineColor": "#310F10"
+    },
+    {
+      "id": "807068-c3b0ab-443e3b-ac9c94",
+      "name": "Brushed Metal 22",
+      "path": "/assets/matcaps/unnamed/807068_C3B0AB_443E3B_AC9C94-64px.png",
+      "outlineColor": "#C3B0AB"
+    },
+    {
+      "id": "80726c-dcdbd7-9aa6c2-b7bfca",
+      "name": "Chrome 5",
+      "path": "/assets/matcaps/unnamed/80726C_DCDBD7_9AA6C2_B7BFCA-64px.png",
+      "outlineColor": "#DCDBD7"
+    },
+    {
+      "id": "808a5b-e0e1d4-2c4304-c5c7b0",
+      "name": "Mustard 5",
+      "path": "/assets/matcaps/unnamed/808A5B_E0E1D4_2C4304_C5C7B0-64px.png",
+      "outlineColor": "#E0E1D4"
+    },
+    {
+      "id": "80a6b4-d5e9ef-b2d0d9-c1dce4",
+      "name": "Ice Blue 5",
+      "path": "/assets/matcaps/unnamed/80A6B4_D5E9EF_B2D0D9_C1DCE4-64px.png",
+      "outlineColor": "#D5E9EF"
+    },
+    {
+      "id": "80ca23-b7ee37-d5fa4c-a3e434",
+      "name": "Gold 2",
+      "path": "/assets/matcaps/unnamed/80CA23_B7EE37_D5FA4C_A3E434-64px.png",
+      "outlineColor": "#B7EE37"
+    },
+    {
+      "id": "812828-521818-c94141-ab3737",
+      "name": "Brick 14",
+      "path": "/assets/matcaps/unnamed/812828_521818_C94141_AB3737-64px.png",
+      "outlineColor": "#521818"
+    },
+    {
+      "id": "812e39-551c24-381117-9e3c49",
+      "name": "Brick 15",
+      "path": "/assets/matcaps/unnamed/812E39_551C24_381117_9E3C49-64px.png",
+      "outlineColor": "#551C24"
+    },
+    {
+      "id": "815c41-f6c99a-d39f77-bb9474",
+      "name": "Terracotta 20",
+      "path": "/assets/matcaps/unnamed/815C41_F6C99A_D39F77_BB9474-64px.png",
+      "outlineColor": "#F6C99A"
+    },
+    {
+      "id": "815f54-decbc6-301813-c5a8a0",
+      "name": "Brick 16",
+      "path": "/assets/matcaps/unnamed/815F54_DECBC6_301813_C5A8A0-64px.png",
+      "outlineColor": "#DECBC6"
+    },
+    {
+      "id": "8194ab-d6dfeb-c0cede-b0bfd1",
+      "name": "Sky 2",
+      "path": "/assets/matcaps/unnamed/8194AB_D6DFEB_C0CEDE_B0BFD1-64px.png",
+      "outlineColor": "#D6DFEB"
+    },
+    {
+      "id": "81adb3-d6ecee-bfdee1-afd1d7",
+      "name": "Ice Blue 6",
+      "path": "/assets/matcaps/unnamed/81ADB3_D6ECEE_BFDEE1_AFD1D7-64px.png",
+      "outlineColor": "#D6ECEE"
+    },
+    {
+      "id": "81baba-d5f3f3-bbe4e4-abdcdc",
+      "name": "Aqua 2",
+      "path": "/assets/matcaps/unnamed/81BABA_D5F3F3_BBE4E4_ABDCDC-64px.png",
+      "outlineColor": "#D5F3F3"
+    },
+    {
+      "id": "825c4d-a08175-97746c-613b2f",
+      "name": "Brick 17",
+      "path": "/assets/matcaps/unnamed/825C4D_A08175_97746C_613B2F-64px.png",
+      "outlineColor": "#A08175"
+    },
+    {
+      "id": "826a59-e0c9b9-cbad99-3d2615",
+      "name": "Terracotta 21",
+      "path": "/assets/matcaps/unnamed/826A59_E0C9B9_CBAD99_3D2615-64px.png",
+      "outlineColor": "#E0C9B9"
+    },
+    {
+      "id": "827c87-4f3937-605457-534c4e",
+      "name": "Graphite 34",
+      "path": "/assets/matcaps/unnamed/827C87_4F3937_605457_534C4E-64px.png",
+      "outlineColor": "#4F3937"
+    },
+    {
+      "id": "834741-4c281d-be8f8c-ae6a65",
+      "name": "Brick 18",
+      "path": "/assets/matcaps/unnamed/834741_4C281D_BE8F8C_AE6A65-64px.png",
+      "outlineColor": "#4C281D"
+    },
+    {
+      "id": "835984-39273a-4c334c-593d5a",
+      "name": "Mauve 1",
+      "path": "/assets/matcaps/unnamed/835984_39273A_4C334C_593D5A-64px.png",
+      "outlineColor": "#39273A"
+    },
+    {
+      "id": "837667-dcd4c8-c5baac-3c2e22",
+      "name": "Sienna 14",
+      "path": "/assets/matcaps/unnamed/837667_DCD4C8_C5BAAC_3C2E22-64px.png",
+      "outlineColor": "#DCD4C8"
+    },
+    {
+      "id": "846556-503e33-61493d-5c4434",
+      "name": "Terracotta 22",
+      "path": "/assets/matcaps/unnamed/846556_503E33_61493D_5C4434-64px.png",
+      "outlineColor": "#503E33"
+    },
+    {
+      "id": "848679-363630-aabbb7-4b4b44",
+      "name": "Graphite 35",
+      "path": "/assets/matcaps/unnamed/848679_363630_AABBB7_4B4B44-64px.png",
+      "outlineColor": "#363630"
+    },
+    {
+      "id": "855d08-dac31b-bf9b0c-af860c",
+      "name": "Caramel 1",
+      "path": "/assets/matcaps/unnamed/855D08_DAC31B_BF9B0C_AF860C-64px.png",
+      "outlineColor": "#DAC31B"
+    },
+    {
+      "id": "85694c-d1a67a-3c2f22-ebbf8f",
+      "name": "Sienna 15",
+      "path": "/assets/matcaps/unnamed/85694C_D1A67A_3C2F22_EBBF8F-64px.png",
+      "outlineColor": "#D1A67A"
+    },
+    {
+      "id": "857b61-ace5d4-593d28-5b4334",
+      "name": "Mustard 6",
+      "path": "/assets/matcaps/unnamed/857B61_ACE5D4_593D28_5B4334-64px.png",
+      "outlineColor": "#ACE5D4"
+    },
+    {
+      "id": "858362-9f9f80-9c9673-70714b",
+      "name": "Steel 33",
+      "path": "/assets/matcaps/unnamed/858362_9F9F80_9C9673_70714B-64px.png",
+      "outlineColor": "#9F9F80"
+    },
+    {
+      "id": "85b9d3-c9eaf9-417277-528789",
+      "name": "Horizon 18",
+      "path": "/assets/matcaps/unnamed/85B9D3_C9EAF9_417277_528789-64px.png",
+      "outlineColor": "#C9EAF9"
+    },
+    {
+      "id": "866c5b-544237-b29b8c-ac8f7c",
+      "name": "Terracotta 23",
+      "path": "/assets/matcaps/unnamed/866C5B_544237_B29B8C_AC8F7C-64px.png",
+      "outlineColor": "#544237"
+    },
+    {
+      "id": "872f2d-ab403e-682421-581f1c",
+      "name": "Brick 19",
+      "path": "/assets/matcaps/unnamed/872F2D_AB403E_682421_581F1C-64px.png",
+      "outlineColor": "#AB403E"
+    },
+    {
+      "id": "877b70-34302b-cbb3a4-524c44",
+      "name": "Steel 34",
+      "path": "/assets/matcaps/unnamed/877B70_34302B_CBB3A4_524C44-64px.png",
+      "outlineColor": "#34302B"
+    },
+    {
+      "id": "877c72-b6acbb-36322d-4c443b",
+      "name": "Steel 35",
+      "path": "/assets/matcaps/unnamed/877C72_B6ACBB_36322D_4C443B-64px.png",
+      "outlineColor": "#B6ACBB"
+    },
+    {
+      "id": "878787-4c4c4c-646464-5c5c5c",
+      "name": "Graphite 36",
+      "path": "/assets/matcaps/unnamed/878787_4C4C4C_646464_5C5C5C-64px.png",
+      "outlineColor": "#4C4C4C"
+    },
+    {
+      "id": "887153-e5c188-433729-c1a484",
+      "name": "Sienna 16",
+      "path": "/assets/matcaps/unnamed/887153_E5C188_433729_C1A484-64px.png",
+      "outlineColor": "#E5C188"
+    },
+    {
+      "id": "888d8f-515454-646a6c-6c6c6d",
+      "name": "Graphite 37",
+      "path": "/assets/matcaps/unnamed/888D8F_515454_646A6C_6C6C6D-64px.png",
+      "outlineColor": "#515454"
+    },
+    {
+      "id": "89204b-17080d-da4377-f780b5",
+      "name": "Fuchsia 1",
+      "path": "/assets/matcaps/unnamed/89204B_17080D_DA4377_F780B5-64px.png",
+      "outlineColor": "#17080D"
+    },
+    {
+      "id": "8955d0-744cc4-ea4aef-954da4",
+      "name": "Violet 1",
+      "path": "/assets/matcaps/unnamed/8955D0_744CC4_EA4AEF_954DA4-64px.png",
+      "outlineColor": "#744CC4"
+    },
+    {
+      "id": "8a3b3d-da5f62-461f20-bc7f81",
+      "name": "Brick 20",
+      "path": "/assets/matcaps/unnamed/8A3B3D_DA5F62_461F20_BC7F81-64px.png",
+      "outlineColor": "#DA5F62"
+    },
+    {
+      "id": "8a3da1-d77ce4-c263d4-b75ac9",
+      "name": "Violet 2",
+      "path": "/assets/matcaps/unnamed/8A3DA1_D77CE4_C263D4_B75AC9-64px.png",
+      "outlineColor": "#D77CE4"
+    },
+    {
+      "id": "8a5b34-f3bd7c-da9758-be7e45",
+      "name": "Terracotta 24",
+      "path": "/assets/matcaps/unnamed/8A5B34_F3BD7C_DA9758_BE7E45-64px.png",
+      "outlineColor": "#F3BD7C"
+    },
+    {
+      "id": "8a6565-2e214d-d48a5f-ada59c",
+      "name": "Mustard 7",
+      "path": "/assets/matcaps/unnamed/8A6565_2E214D_D48A5F_ADA59C-64px.png",
+      "outlineColor": "#2E214D"
+    },
+    {
+      "id": "8a7666-3c332c-c6aea2-54443c",
+      "name": "Steel 36",
+      "path": "/assets/matcaps/unnamed/8A7666_3C332C_C6AEA2_54443C-64px.png",
+      "outlineColor": "#3C332C"
+    },
+    {
+      "id": "8a7968-3c342d-c6b3a5-54443b",
+      "name": "Steel 37",
+      "path": "/assets/matcaps/unnamed/8A7968_3C342D_C6B3A5_54443B-64px.png",
+      "outlineColor": "#3C342D"
+    },
+    {
+      "id": "8b7469-443e39-c7a797-544443",
+      "name": "Steel 38",
+      "path": "/assets/matcaps/unnamed/8B7469_443E39_C7A797_544443-64px.png",
+      "outlineColor": "#443E39"
+    },
+    {
+      "id": "8b795f-291504-efe5d4-4a3518",
+      "name": "Sienna 17",
+      "path": "/assets/matcaps/unnamed/8B795F_291504_EFE5D4_4A3518-64px.png",
+      "outlineColor": "#291504"
+    },
+    {
+      "id": "8b892c-d4e856-475e2d-47360a",
+      "name": "Mustard 8",
+      "path": "/assets/matcaps/unnamed/8B892C_D4E856_475E2D_47360A-64px.png",
+      "outlineColor": "#D4E856"
+    },
+    {
+      "id": "8c5945-d4c0b6-c3a49c-430504",
+      "name": "Brick 21",
+      "path": "/assets/matcaps/unnamed/8C5945_D4C0B6_C3A49C_430504-64px.png",
+      "outlineColor": "#D4C0B6"
+    },
+    {
+      "id": "8caebc-3a4443-506463-daefef",
+      "name": "Cerulean 10",
+      "path": "/assets/matcaps/unnamed/8CAEBC_3A4443_506463_DAEFEF-64px.png",
+      "outlineColor": "#3A4443"
+    },
+    {
+      "id": "8d553d-3c2419-5d3727-aa766c",
+      "name": "Terracotta 25",
+      "path": "/assets/matcaps/unnamed/8D553D_3C2419_5D3727_AA766C-64px.png",
+      "outlineColor": "#3C2419"
+    },
+    {
+      "id": "8d8d8d-dddddd-cccccc-b7b7b7",
+      "name": "Platinum 1",
+      "path": "/assets/matcaps/unnamed/8D8D8D_DDDDDD_CCCCCC_B7B7B7-64px.png",
+      "outlineColor": "#DDDDDD"
+    },
+    {
+      "id": "8e6767-d9c4c4-c8acac-b89898",
+      "name": "Rose Quartz 2",
+      "path": "/assets/matcaps/unnamed/8E6767_D9C4C4_C8ACAC_B89898-64px.png",
+      "outlineColor": "#D9C4C4"
+    },
+    {
+      "id": "8e7c67-e2c6a5-3b332a-c3ab94",
+      "name": "Sienna 18",
+      "path": "/assets/matcaps/unnamed/8E7C67_E2C6A5_3B332A_C3AB94-64px.png",
+      "outlineColor": "#E2C6A5"
+    },
+    {
+      "id": "8e907c-b1b5a7-d7dbd0-cccfba",
+      "name": "Chrome 6",
+      "path": "/assets/matcaps/unnamed/8E907C_B1B5A7_D7DBD0_CCCFBA-64px.png",
+      "outlineColor": "#B1B5A7"
+    },
+    {
+      "id": "8f4277-361530-bf538e-52274c",
+      "name": "Mauve 2",
+      "path": "/assets/matcaps/unnamed/8F4277_361530_BF538E_52274C-64px.png",
+      "outlineColor": "#361530"
+    },
+    {
+      "id": "8f4e20-e8b06b-391a08-cc8944",
+      "name": "Terracotta 26",
+      "path": "/assets/matcaps/unnamed/8F4E20_E8B06B_391A08_CC8944-64px.png",
+      "outlineColor": "#E8B06B"
+    },
+    {
+      "id": "8f5d3c-5b3b26-382416-70482e",
+      "name": "Mahogany 9",
+      "path": "/assets/matcaps/unnamed/8F5D3C_5B3B26_382416_70482E-64px.png",
+      "outlineColor": "#5B3B26"
+    },
+    {
+      "id": "8f7b61-d6b892-4e4436-c3ac86",
+      "name": "Sienna 19",
+      "path": "/assets/matcaps/unnamed/8F7B61_D6B892_4E4436_C3AC86-64px.png",
+      "outlineColor": "#D6B892"
+    },
+    {
+      "id": "8f894e-dad79b-c9c384-c4be7b",
+      "name": "Ochre 7",
+      "path": "/assets/matcaps/unnamed/8F894E_DAD79B_C9C384_C4BE7B-64px.png",
+      "outlineColor": "#DAD79B"
+    },
+    {
+      "id": "903b2a-ec9888-d96747-58190d",
+      "name": "Ruby 2",
+      "path": "/assets/matcaps/unnamed/903B2A_EC9888_D96747_58190D-64px.png",
+      "outlineColor": "#EC9888"
+    },
+    {
+      "id": "906867-c7b6bc-5d2e26-bea4a3",
+      "name": "Fern 16",
+      "path": "/assets/matcaps/unnamed/906867_C7B6BC_5D2E26_BEA4A3-64px.png",
+      "outlineColor": "#C7B6BC"
+    },
+    {
+      "id": "908887-3c3229-c7c6d0-554a45",
+      "name": "Steel 39",
+      "path": "/assets/matcaps/unnamed/908887_3C3229_C7C6D0_554A45-64px.png",
+      "outlineColor": "#3C3229"
+    },
+    {
+      "id": "908e8e-292828-454444-595757",
+      "name": "Charcoal 12",
+      "path": "/assets/matcaps/unnamed/908E8E_292828_454444_595757-64px.png",
+      "outlineColor": "#292828"
+    },
+    {
+      "id": "909473-555d4b-c2cca2-645b3c",
+      "name": "Mustard 9",
+      "path": "/assets/matcaps/unnamed/909473_555D4B_C2CCA2_645B3C-64px.png",
+      "outlineColor": "#555D4B"
+    },
+    {
+      "id": "910e5a-e127c3-cf1ca3-c1158f",
+      "name": "Magenta 3",
+      "path": "/assets/matcaps/unnamed/910E5A_E127C3_CF1CA3_C1158F-64px.png",
+      "outlineColor": "#E127C3"
+    },
+    {
+      "id": "926b48-4c2d0d-5f3913-aa8874",
+      "name": "Terracotta 27",
+      "path": "/assets/matcaps/unnamed/926B48_4C2D0D_5F3913_AA8874-64px.png",
+      "outlineColor": "#4C2D0D"
+    },
+    {
+      "id": "927253-eecea7-d8b792-c7a883",
+      "name": "Sienna 20",
+      "path": "/assets/matcaps/unnamed/927253_EECEA7_D8B792_C7A883-64px.png",
+      "outlineColor": "#EECEA7"
+    },
+    {
+      "id": "935555-f6dad9-d39393-593333",
+      "name": "Brick 22",
+      "path": "/assets/matcaps/unnamed/935555_F6DAD9_D39393_593333-64px.png",
+      "outlineColor": "#F6DAD9"
+    },
+    {
+      "id": "936451-c29a8f-5f3a2b-361d14",
+      "name": "Terracotta 28",
+      "path": "/assets/matcaps/unnamed/936451_C29A8F_5F3A2B_361D14-64px.png",
+      "outlineColor": "#C29A8F"
+    },
+    {
+      "id": "938c8d-403731-ceced8-554c4c",
+      "name": "Pewter 35",
+      "path": "/assets/matcaps/unnamed/938C8D_403731_CECED8_554C4C-64px.png",
+      "outlineColor": "#403731"
+    },
+    {
+      "id": "942967-d292b5-c76e9e-551a4c",
+      "name": "Dusty Rose",
+      "path": "/assets/matcaps/unnamed/942967_D292B5_C76E9E_551A4C-64px.png",
+      "outlineColor": "#D292B5"
+    },
+    {
+      "id": "945d43-e5aaa0-351f14-cc8b78",
+      "name": "Terracotta 29",
+      "path": "/assets/matcaps/unnamed/945D43_E5AAA0_351F14_CC8B78-64px.png",
+      "outlineColor": "#E5AAA0"
+    },
+    {
+      "id": "94615b-daced1-c3b9a4-ccabaa",
+      "name": "Lime 1",
+      "path": "/assets/matcaps/unnamed/94615B_DACED1_C3B9A4_CCABAA-64px.png",
+      "outlineColor": "#DACED1"
+    },
+    {
+      "id": "94624f-573529-24110c-733424",
+      "name": "Maroon 10",
+      "path": "/assets/matcaps/unnamed/94624F_573529_24110C_733424-64px.png",
+      "outlineColor": "#573529"
+    },
+    {
+      "id": "9650ca-46236a-7239a6-633492",
+      "name": "Violet 3",
+      "path": "/assets/matcaps/unnamed/9650CA_46236A_7239A6_633492-64px.png",
+      "outlineColor": "#46236A"
+    },
+    {
+      "id": "965146-2b191d-df7a5c-bfd6e1",
+      "name": "Teal 12",
+      "path": "/assets/matcaps/unnamed/965146_2B191D_DF7A5C_BFD6E1-64px.png",
+      "outlineColor": "#2B191D"
+    },
+    {
+      "id": "96785d-b8a398-63452c-6c5435",
+      "name": "Terracotta 30",
+      "path": "/assets/matcaps/unnamed/96785D_B8A398_63452C_6C5435-64px.png",
+      "outlineColor": "#B8A398"
+    },
+    {
+      "id": "975337-eebe98-4b211c-d88659",
+      "name": "Terracotta 31",
+      "path": "/assets/matcaps/unnamed/975337_EEBE98_4B211C_D88659-64px.png",
+      "outlineColor": "#EEBE98"
+    },
+    {
+      "id": "977970-e1d9d8-dac8c1-c4b2ad",
+      "name": "Chrome 7",
+      "path": "/assets/matcaps/unnamed/977970_E1D9D8_DAC8C1_C4B2AD-64px.png",
+      "outlineColor": "#E1D9D8"
+    },
+    {
+      "id": "98332e-4a100d-691a16-a85a5b",
+      "name": "Fern 17",
+      "path": "/assets/matcaps/unnamed/98332E_4A100D_691A16_A85A5B-64px.png",
+      "outlineColor": "#4A100D"
+    },
+    {
+      "id": "989784-665542-bfece5-6d644c",
+      "name": "Mustard 10",
+      "path": "/assets/matcaps/unnamed/989784_665542_BFECE5_6D644C-64px.png",
+      "outlineColor": "#665542"
+    },
+    {
+      "id": "9a5a55-31110d-582a24-703c34",
+      "name": "Brick 23",
+      "path": "/assets/matcaps/unnamed/9A5A55_31110D_582A24_703C34-64px.png",
+      "outlineColor": "#31110D"
+    },
+    {
+      "id": "9a7467-d2c2bf-662d22-ccb2a5",
+      "name": "Brick 24",
+      "path": "/assets/matcaps/unnamed/9A7467_D2C2BF_662D22_CCB2A5-64px.png",
+      "outlineColor": "#D2C2BF"
+    },
+    {
+      "id": "9aa8b6-313133-4e5055-d7ebf8",
+      "name": "Denim 10",
+      "path": "/assets/matcaps/unnamed/9AA8B6_313133_4E5055_D7EBF8-64px.png",
+      "outlineColor": "#313133"
+    },
+    {
+      "id": "9b4816-e8a138-cc7421-dc8827",
+      "name": "Terracotta 32",
+      "path": "/assets/matcaps/unnamed/9B4816_E8A138_CC7421_DC8827-64px.png",
+      "outlineColor": "#E8A138"
+    },
+    {
+      "id": "9b9994-e1e0db-474643-544c4c",
+      "name": "Pewter 36",
+      "path": "/assets/matcaps/unnamed/9B9994_E1E0DB_474643_544C4C-64px.png",
+      "outlineColor": "#E1E0DB"
+    },
+    {
+      "id": "9b9b9b-1e1e1e-5c5c5c-444444",
+      "name": "Charcoal 13",
+      "path": "/assets/matcaps/unnamed/9B9B9B_1E1E1E_5C5C5C_444444-64px.png",
+      "outlineColor": "#1E1E1E"
+    },
+    {
+      "id": "9c5b3b-49200a-e9c8ab-ddab7d",
+      "name": "Terracotta 33",
+      "path": "/assets/matcaps/unnamed/9C5B3B_49200A_E9C8AB_DDAB7D-64px.png",
+      "outlineColor": "#49200A"
+    },
+    {
+      "id": "9cc338-4e671a-799f27-8cac2c",
+      "name": "Mustard 11",
+      "path": "/assets/matcaps/unnamed/9CC338_4E671A_799F27_8CAC2C-64px.png",
+      "outlineColor": "#4E671A"
+    },
+    {
+      "id": "9d282a-38191d-dfc6cd-d6495a",
+      "name": "Brick 25",
+      "path": "/assets/matcaps/unnamed/9D282A_38191D_DFC6CD_D6495A-64px.png",
+      "outlineColor": "#38191D"
+    },
+    {
+      "id": "9d4343-e38989-d37474-ce6c6c",
+      "name": "Brick 26",
+      "path": "/assets/matcaps/unnamed/9D4343_E38989_D37474_CE6C6C-64px.png",
+      "outlineColor": "#E38989"
+    },
+    {
+      "id": "9d602e-e4c363-d5a64f-c38a44",
+      "name": "Sienna 21",
+      "path": "/assets/matcaps/unnamed/9D602E_E4C363_D5A64F_C38A44-64px.png",
+      "outlineColor": "#E4C363"
+    },
+    {
+      "id": "9d7f6e-c6dad4-6d4c4b-c6bbbc",
+      "name": "Brushed Metal 23",
+      "path": "/assets/matcaps/unnamed/9D7F6E_C6DAD4_6D4C4B_C6BBBC-64px.png",
+      "outlineColor": "#C6DAD4"
+    },
+    {
+      "id": "9d8f84-5d4544-d9d3c9-62555a",
+      "name": "Brushed Metal 24",
+      "path": "/assets/matcaps/unnamed/9D8F84_5D4544_D9D3C9_62555A-64px.png",
+      "outlineColor": "#5D4544"
+    },
+    {
+      "id": "9d9d9d-4e4e4e-646464-6c6c6c",
+      "name": "Graphite 38",
+      "path": "/assets/matcaps/unnamed/9D9D9D_4E4E4E_646464_6C6C6C-64px.png",
+      "outlineColor": "#4E4E4E"
+    },
+    {
+      "id": "9e7c7e-ddcbd0-351d20-683b38",
+      "name": "Indigo 3",
+      "path": "/assets/matcaps/unnamed/9E7C7E_DDCBD0_351D20_683B38-64px.png",
+      "outlineColor": "#DDCBD0"
+    },
+    {
+      "id": "9e9c77-6e6f4e-7c7c54-c7bf96",
+      "name": "Ochre 8",
+      "path": "/assets/matcaps/unnamed/9E9C77_6E6F4E_7C7C54_C7BF96-64px.png",
+      "outlineColor": "#6E6F4E"
+    },
+    {
+      "id": "9f1a27-f1af7f-cd5845-d08441",
+      "name": "Emerald 4",
+      "path": "/assets/matcaps/unnamed/9F1A27_F1AF7F_CD5845_D08441-64px.png",
+      "outlineColor": "#F1AF7F"
+    },
+    {
+      "id": "9f4738-ce958d-4f0c0a-c0837c",
+      "name": "Brick 27",
+      "path": "/assets/matcaps/unnamed/9F4738_CE958D_4F0C0A_C0837C-64px.png",
+      "outlineColor": "#CE958D"
+    },
+    {
+      "id": "9f7d30-b69f75-b9b7be-cb9c4d",
+      "name": "Fern 18",
+      "path": "/assets/matcaps/unnamed/9F7D30_B69F75_B9B7BE_CB9C4D-64px.png",
+      "outlineColor": "#B69F75"
+    },
+    {
+      "id": "9f886d-362f25-e8c9a4-5c4c3c",
+      "name": "Sienna 22",
+      "path": "/assets/matcaps/unnamed/9F886D_362F25_E8C9A4_5C4C3C-64px.png",
+      "outlineColor": "#362F25"
+    },
+    {
+      "id": "9f9f9f-e4e4e4-d4d4d4-cccccc",
+      "name": "Platinum 2",
+      "path": "/assets/matcaps/unnamed/9F9F9F_E4E4E4_D4D4D4_CCCCCC-64px.png",
+      "outlineColor": "#E4E4E4"
+    },
+    {
+      "id": "a05f31-d5c2bc-d9996f-42230e",
+      "name": "Terracotta 34",
+      "path": "/assets/matcaps/unnamed/A05F31_D5C2BC_D9996F_42230E-64px.png",
+      "outlineColor": "#D5C2BC"
+    },
+    {
+      "id": "a0a8b0-424336-e7e9ef-545c5c",
+      "name": "Brushed Metal 25",
+      "path": "/assets/matcaps/unnamed/A0A8B0_424336_E7E9EF_545C5C-64px.png",
+      "outlineColor": "#424336"
+    },
+    {
+      "id": "a1824f-4a2a06-f7e29f-b3a598",
+      "name": "Sienna 23",
+      "path": "/assets/matcaps/unnamed/A1824F_4A2A06_F7E29F_B3A598-64px.png",
+      "outlineColor": "#4A2A06"
+    },
+    {
+      "id": "a27216-e9d036-d0ab24-dcb927",
+      "name": "Caramel 2",
+      "path": "/assets/matcaps/unnamed/A27216_E9D036_D0AB24_DCB927-64px.png",
+      "outlineColor": "#E9D036"
+    },
+    {
+      "id": "a28766-e4d6c3-d6c4aa-cab598",
+      "name": "Tangerine 2",
+      "path": "/assets/matcaps/unnamed/A28766_E4D6C3_D6C4AA_CAB598-64px.png",
+      "outlineColor": "#E4D6C3"
+    },
+    {
+      "id": "a3b2a4-3b3e3d-676f6a-535c57",
+      "name": "Graphite 39",
+      "path": "/assets/matcaps/unnamed/A3B2A4_3B3E3D_676F6A_535C57-64px.png",
+      "outlineColor": "#3B3E3D"
+    },
+    {
+      "id": "a48da4-e8dde8-c9b7c9-d4c2d4",
+      "name": "Chrome 8",
+      "path": "/assets/matcaps/unnamed/A48DA4_E8DDE8_C9B7C9_D4C2D4-64px.png",
+      "outlineColor": "#E8DDE8"
+    },
+    {
+      "id": "a49994-695244-c4c2cf-76645c",
+      "name": "Brushed Metal 26",
+      "path": "/assets/matcaps/unnamed/A49994_695244_C4C2CF_76645C-64px.png",
+      "outlineColor": "#695244"
+    },
+    {
+      "id": "a67362-36150c-5e2e1e-f6c3bf",
+      "name": "Brick 28",
+      "path": "/assets/matcaps/unnamed/A67362_36150C_5E2E1E_F6C3BF-64px.png",
+      "outlineColor": "#36150C"
+    },
+    {
+      "id": "a84337-611d18-3f110f-7c2a22",
+      "name": "Brick 29",
+      "path": "/assets/matcaps/unnamed/A84337_611D18_3F110F_7C2A22-64px.png",
+      "outlineColor": "#611D18"
+    },
+    {
+      "id": "a88c77-dad2c7-623532-956229",
+      "name": "Terracotta 35",
+      "path": "/assets/matcaps/unnamed/A88C77_DAD2C7_623532_956229-64px.png",
+      "outlineColor": "#DAD2C7"
+    },
+    {
+      "id": "a95e4d-57261a-6e3223-773c24",
+      "name": "Brick 30",
+      "path": "/assets/matcaps/unnamed/A95E4D_57261A_6E3223_773C24-64px.png",
+      "outlineColor": "#57261A"
+    },
+    {
+      "id": "a971a9-e8cbe8-d4a8d4-dcb3dc",
+      "name": "Lilac 1",
+      "path": "/assets/matcaps/unnamed/A971A9_E8CBE8_D4A8D4_DCB3DC-64px.png",
+      "outlineColor": "#E8CBE8"
+    },
+    {
+      "id": "a98d6a-f2d3ab-fbe6be-695332",
+      "name": "Sienna 24",
+      "path": "/assets/matcaps/unnamed/A98D6A_F2D3AB_FBE6BE_695332-64px.png",
+      "outlineColor": "#F2D3AB"
+    },
+    {
+      "id": "a9a2a0-2f211c-544440-6d5e5a",
+      "name": "Steel 40",
+      "path": "/assets/matcaps/unnamed/A9A2A0_2F211C_544440_6D5E5A-64px.png",
+      "outlineColor": "#2F211C"
+    },
+    {
+      "id": "aa526c-eaa6c9-dc88af-d17ba0",
+      "name": "Blossom 1",
+      "path": "/assets/matcaps/unnamed/AA526C_EAA6C9_DC88AF_D17BA0-64px.png",
+      "outlineColor": "#EAA6C9"
+    },
+    {
+      "id": "ab2c2c-ebb4b3-561212-de8484",
+      "name": "Ruby 3",
+      "path": "/assets/matcaps/unnamed/AB2C2C_EBB4B3_561212_DE8484-64px.png",
+      "outlineColor": "#EBB4B3"
+    },
+    {
+      "id": "ab2d08-c35e5a-c75522-c56c70",
+      "name": "Fern 19",
+      "path": "/assets/matcaps/unnamed/AB2D08_C35E5A_C75522_C56C70-64px.png",
+      "outlineColor": "#C35E5A"
+    },
+    {
+      "id": "ab54a8-ebaae9-df8fdd-d37ed0",
+      "name": "Lilac 2",
+      "path": "/assets/matcaps/unnamed/AB54A8_EBAAE9_DF8FDD_D37ED0-64px.png",
+      "outlineColor": "#EBAAE9"
+    },
+    {
+      "id": "ac171c-fa8593-e84854-d3464e",
+      "name": "Ruby 4",
+      "path": "/assets/matcaps/unnamed/AC171C_FA8593_E84854_D3464E-64px.png",
+      "outlineColor": "#FA8593"
+    },
+    {
+      "id": "ac725c-2e1610-663e31-e78f6b",
+      "name": "Terracotta 36",
+      "path": "/assets/matcaps/unnamed/AC725C_2E1610_663E31_E78F6B-64px.png",
+      "outlineColor": "#2E1610"
+    },
+    {
+      "id": "ac7f84-78463a-c4aabb-885454",
+      "name": "Cerulean 11",
+      "path": "/assets/matcaps/unnamed/AC7F84_78463A_C4AABB_885454-64px.png",
+      "outlineColor": "#78463A"
+    },
+    {
+      "id": "ac8942-432d19-6e4d27-5f3b1c",
+      "name": "Sienna 25",
+      "path": "/assets/matcaps/unnamed/AC8942_432D19_6E4D27_5F3B1C-64px.png",
+      "outlineColor": "#432D19"
+    },
+    {
+      "id": "ac8961-ebdac3-d1b791-dcc2a0",
+      "name": "Tangerine 3",
+      "path": "/assets/matcaps/unnamed/AC8961_EBDAC3_D1B791_DCC2A0-64px.png",
+      "outlineColor": "#EBDAC3"
+    },
+    {
+      "id": "ad9e81-f1e5ce-6b5c3e-5a492a",
+      "name": "Sienna 26",
+      "path": "/assets/matcaps/unnamed/AD9E81_F1E5CE_6B5C3E_5A492A-64px.png",
+      "outlineColor": "#F1E5CE"
+    },
+    {
+      "id": "adc2cd-dff7fa-c9e6f5-c1dbec",
+      "name": "Ice Blue 7",
+      "path": "/assets/matcaps/unnamed/ADC2CD_DFF7FA_C9E6F5_C1DBEC-64px.png",
+      "outlineColor": "#DFF7FA"
+    },
+    {
+      "id": "ae9d99-29303b-585f70-875c33",
+      "name": "Sage 13",
+      "path": "/assets/matcaps/unnamed/AE9D99_29303B_585F70_875C33-64px.png",
+      "outlineColor": "#29303B"
+    },
+    {
+      "id": "af986f-cdb489-9c7c5b-7e6c4d",
+      "name": "Sienna 27",
+      "path": "/assets/matcaps/unnamed/AF986F_CDB489_9C7C5B_7E6C4D-64px.png",
+      "outlineColor": "#CDB489"
+    },
+    {
+      "id": "af987a-2f2416-523f27-6b5331",
+      "name": "Sienna 28",
+      "path": "/assets/matcaps/unnamed/AF987A_2F2416_523F27_6B5331-64px.png",
+      "outlineColor": "#2F2416"
+    },
+    {
+      "id": "af9a72-504718-74652b-e2c2a2",
+      "name": "Sienna 29",
+      "path": "/assets/matcaps/unnamed/AF9A72_504718_74652B_E2C2A2-64px.png",
+      "outlineColor": "#504718"
+    },
+    {
+      "id": "b06932-451b09-7b3e16-150804",
+      "name": "Mahogany 10",
+      "path": "/assets/matcaps/unnamed/B06932_451B09_7B3E16_150804-64px.png",
+      "outlineColor": "#451B09"
+    },
+    {
+      "id": "b09273-7a573d-c7af97-84644c",
+      "name": "Terracotta 37",
+      "path": "/assets/matcaps/unnamed/B09273_7A573D_C7AF97_84644C-64px.png",
+      "outlineColor": "#7A573D"
+    },
+    {
+      "id": "b0a2a8-866a63-e8e9f2-614c4f",
+      "name": "Brushed Metal 27",
+      "path": "/assets/matcaps/unnamed/B0A2A8_866A63_E8E9F2_614C4F-64px.png",
+      "outlineColor": "#866A63"
+    },
+    {
+      "id": "b0b0b0-6e6e6e-848484-8c8c8c",
+      "name": "Pewter 37",
+      "path": "/assets/matcaps/unnamed/B0B0B0_6E6E6E_848484_8C8C8C-64px.png",
+      "outlineColor": "#6E6E6E"
+    },
+    {
+      "id": "b1a395-efe6e1-635a47-786d5d",
+      "name": "Sienna 30",
+      "path": "/assets/matcaps/unnamed/B1A395_EFE6E1_635A47_786D5D-64px.png",
+      "outlineColor": "#EFE6E1"
+    },
+    {
+      "id": "b2674b-552913-7c442f-733919",
+      "name": "Terracotta 38",
+      "path": "/assets/matcaps/unnamed/B2674B_552913_7C442F_733919-64px.png",
+      "outlineColor": "#552913"
+    },
+    {
+      "id": "b26f52-4b2e2b-79493a-663b32",
+      "name": "Brick 31",
+      "path": "/assets/matcaps/unnamed/B26F52_4B2E2B_79493A_663B32-64px.png",
+      "outlineColor": "#4B2E2B"
+    },
+    {
+      "id": "b27744-5a2804-f6c488-ebb27d",
+      "name": "Terracotta 39",
+      "path": "/assets/matcaps/unnamed/B27744_5A2804_F6C488_EBB27D-64px.png",
+      "outlineColor": "#5A2804"
+    },
+    {
+      "id": "b38b76-40251d-745042-5f3a30",
+      "name": "Terracotta 40",
+      "path": "/assets/matcaps/unnamed/B38B76_40251D_745042_5F3A30-64px.png",
+      "outlineColor": "#40251D"
+    },
+    {
+      "id": "b3aa93-f4efd7-e1ddc2-dcd3bb",
+      "name": "Amber 1",
+      "path": "/assets/matcaps/unnamed/B3AA93_F4EFD7_E1DDC2_DCD3BB-64px.png",
+      "outlineColor": "#F4EFD7"
+    },
+    {
+      "id": "b47a5b-301e14-704a31-633c23",
+      "name": "Terracotta 41",
+      "path": "/assets/matcaps/unnamed/B47A5B_301E14_704A31_633C23-64px.png",
+      "outlineColor": "#301E14"
+    },
+    {
+      "id": "b4b29d-442d0d-604e2a-736542",
+      "name": "Sienna 31",
+      "path": "/assets/matcaps/unnamed/B4B29D_442D0D_604E2A_736542-64px.png",
+      "outlineColor": "#442D0D"
+    },
+    {
+      "id": "b5987e-f8e4dc-6f5939-e9ccba",
+      "name": "Salmon 2",
+      "path": "/assets/matcaps/unnamed/B5987E_F8E4DC_6F5939_E9CCBA-64px.png",
+      "outlineColor": "#F8E4DC"
+    },
+    {
+      "id": "b5bbb5-3b4026-6e745d-5c6147",
+      "name": "Steel 41",
+      "path": "/assets/matcaps/unnamed/B5BBB5_3B4026_6E745D_5C6147-64px.png",
+      "outlineColor": "#3B4026"
+    },
+    {
+      "id": "b62d33-e4868b-7e2d34-dd6469",
+      "name": "Brick 32",
+      "path": "/assets/matcaps/unnamed/B62D33_E4868B_7E2D34_DD6469-64px.png",
+      "outlineColor": "#E4868B"
+    },
+    {
+      "id": "b66d59-f0c9b2-e5b49c-daa084",
+      "name": "Salmon 3",
+      "path": "/assets/matcaps/unnamed/B66D59_F0C9B2_E5B49C_DAA084-64px.png",
+      "outlineColor": "#F0C9B2"
+    },
+    {
+      "id": "b67f6b-4b2e2a-6c3a34-f3dbc6",
+      "name": "Brick 33",
+      "path": "/assets/matcaps/unnamed/B67F6B_4B2E2A_6C3A34_F3DBC6-64px.png",
+      "outlineColor": "#4B2E2A"
+    },
+    {
+      "id": "b6b8b1-994a24-315c81-927963",
+      "name": "Fern 20",
+      "path": "/assets/matcaps/unnamed/B6B8B1_994A24_315C81_927963-64px.png",
+      "outlineColor": "#994A24"
+    },
+    {
+      "id": "b76e5e-7f3a2f-ee938c-f8a5a1",
+      "name": "Ruby 5",
+      "path": "/assets/matcaps/unnamed/B76E5E_7F3A2F_EE938C_F8A5A1-64px.png",
+      "outlineColor": "#7F3A2F"
+    },
+    {
+      "id": "b7a763-e6e1cc-554a1e-6c6428",
+      "name": "Ochre 9",
+      "path": "/assets/matcaps/unnamed/B7A763_E6E1CC_554A1E_6C6428-64px.png",
+      "outlineColor": "#E6E1CC"
+    },
+    {
+      "id": "b86137-fbca6f-6f3c37-040404",
+      "name": "Terracotta 42",
+      "path": "/assets/matcaps/unnamed/B86137_FBCA6F_6F3C37_040404-64px.png",
+      "outlineColor": "#FBCA6F"
+    },
+    {
+      "id": "b9896a-5b341b-f4caa3-6c4c2d",
+      "name": "Terracotta 43",
+      "path": "/assets/matcaps/unnamed/B9896A_5B341B_F4CAA3_6C4C2D-64px.png",
+      "outlineColor": "#5B341B"
+    },
+    {
+      "id": "b98a6d-7b4f38-d1a68f-8c5b43",
+      "name": "Terracotta 44",
+      "path": "/assets/matcaps/unnamed/B98A6D_7B4F38_D1A68F_8C5B43-64px.png",
+      "outlineColor": "#7B4F38"
+    },
+    {
+      "id": "b9b37a-f1eed0-e5e4ba-dad6a8",
+      "name": "Amber 2",
+      "path": "/assets/matcaps/unnamed/B9B37A_F1EED0_E5E4BA_DAD6A8-64px.png",
+      "outlineColor": "#F1EED0"
+    },
+    {
+      "id": "b9cdd2-775339-958272-7f6a5e",
+      "name": "Mustard 12",
+      "path": "/assets/matcaps/unnamed/B9CDD2_775339_958272_7F6A5E-64px.png",
+      "outlineColor": "#775339"
+    },
+    {
+      "id": "ba472d-ca6e67-c76150-ca6c59",
+      "name": "Brick 34",
+      "path": "/assets/matcaps/unnamed/BA472D_CA6E67_C76150_CA6C59-64px.png",
+      "outlineColor": "#CA6E67"
+    },
+    {
+      "id": "ba5dba-f2bef2-e69be6-dc8cdc",
+      "name": "Lilac 3",
+      "path": "/assets/matcaps/unnamed/BA5DBA_F2BEF2_E69BE6_DC8CDC-64px.png",
+      "outlineColor": "#F2BEF2"
+    },
+    {
+      "id": "ba864a-5d381e-644422-fbe97a",
+      "name": "Sienna 32",
+      "path": "/assets/matcaps/unnamed/BA864A_5D381E_644422_FBE97A-64px.png",
+      "outlineColor": "#5D381E"
+    },
+    {
+      "id": "ba8979-ddcbca-9a4726-892407",
+      "name": "Brick 35",
+      "path": "/assets/matcaps/unnamed/BA8979_DDCBCA_9A4726_892407-64px.png",
+      "outlineColor": "#DDCBCA"
+    },
+    {
+      "id": "baada8-ece6e7-9a8378-e3dcd3",
+      "name": "Chrome 9",
+      "path": "/assets/matcaps/unnamed/BAADA8_ECE6E7_9A8378_E3DCD3-64px.png",
+      "outlineColor": "#ECE6E7"
+    },
+    {
+      "id": "bc5b43-95170b-eeac92-db8c7c",
+      "name": "Ruby 6",
+      "path": "/assets/matcaps/unnamed/BC5B43_95170B_EEAC92_DB8C7C-64px.png",
+      "outlineColor": "#95170B"
+    },
+    {
+      "id": "bc928d-f9e2d6-654445-835a51",
+      "name": "Fern 21",
+      "path": "/assets/matcaps/unnamed/BC928D_F9E2D6_654445_835A51-64px.png",
+      "outlineColor": "#F9E2D6"
+    },
+    {
+      "id": "bd0d0d-970404-7b0404-550404",
+      "name": "Ruby 7",
+      "path": "/assets/matcaps/unnamed/BD0D0D_970404_7B0404_550404-64px.png",
+      "outlineColor": "#970404"
+    },
+    {
+      "id": "bd5345-460f11-732622-edb7b1",
+      "name": "Fern 22",
+      "path": "/assets/matcaps/unnamed/BD5345_460F11_732622_EDB7B1-64px.png",
+      "outlineColor": "#460F11"
+    },
+    {
+      "id": "bdb466-f3edc3-e3dd9f-ece3aa",
+      "name": "Amber 3",
+      "path": "/assets/matcaps/unnamed/BDB466_F3EDC3_E3DD9F_ECE3AA-64px.png",
+      "outlineColor": "#F3EDC3"
+    },
+    {
+      "id": "be5f5f-f4bdbd-eca4a4-e29191",
+      "name": "Rose Quartz 3",
+      "path": "/assets/matcaps/unnamed/BE5F5F_F4BDBD_ECA4A4_E29191-64px.png",
+      "outlineColor": "#F4BDBD"
+    },
+    {
+      "id": "bee2e9-7e6a53-9aa09c-87837e",
+      "name": "Fern 23",
+      "path": "/assets/matcaps/unnamed/BEE2E9_7E6A53_9AA09C_87837E-64px.png",
+      "outlineColor": "#7E6A53"
+    },
+    {
+      "id": "bf7051-994c2d-e99a7b-de8c74",
+      "name": "Terracotta 45",
+      "path": "/assets/matcaps/unnamed/BF7051_994C2D_E99A7B_DE8C74-64px.png",
+      "outlineColor": "#994C2D"
+    },
+    {
+      "id": "bf7745-f5d08e-e5ae6b-ecbc7c",
+      "name": "Tangerine 4",
+      "path": "/assets/matcaps/unnamed/BF7745_F5D08E_E5AE6B_ECBC7C-64px.png",
+      "outlineColor": "#F5D08E"
+    },
+    {
+      "id": "bf8e78-e5ccbf-753e32-4a261e",
+      "name": "Terracotta 46",
+      "path": "/assets/matcaps/unnamed/BF8E78_E5CCBF_753E32_4A261E-64px.png",
+      "outlineColor": "#E5CCBF"
+    },
+    {
+      "id": "bfaa83-f5ead6-e1d0b1-ebddc0",
+      "name": "Tangerine 5",
+      "path": "/assets/matcaps/unnamed/BFAA83_F5EAD6_E1D0B1_EBDDC0-64px.png",
+      "outlineColor": "#F5EAD6"
+    },
+    {
+      "id": "bfb5a4-dedccb-d7d4cc-dcd3c2",
+      "name": "Tangerine 6",
+      "path": "/assets/matcaps/unnamed/BFB5A4_DEDCCB_D7D4CC_DCD3C2-64px.png",
+      "outlineColor": "#DEDCCB"
+    },
+    {
+      "id": "c05429-ed6129-94492a-834729",
+      "name": "Terracotta 47",
+      "path": "/assets/matcaps/unnamed/C05429_ED6129_94492A_834729-64px.png",
+      "outlineColor": "#ED6129"
+    },
+    {
+      "id": "c09e5c-dad2b9-654429-81582d",
+      "name": "Sienna 33",
+      "path": "/assets/matcaps/unnamed/C09E5C_DAD2B9_654429_81582D-64px.png",
+      "outlineColor": "#DAD2B9"
+    },
+    {
+      "id": "c1aa92-ad6e29-737889-ced1d7",
+      "name": "Sage 14",
+      "path": "/assets/matcaps/unnamed/C1AA92_AD6E29_737889_CED1D7-64px.png",
+      "outlineColor": "#AD6E29"
+    },
+    {
+      "id": "c1b3a1-f6eee5-e1d7c7-ece4d3",
+      "name": "Tangerine 7",
+      "path": "/assets/matcaps/unnamed/C1B3A1_F6EEE5_E1D7C7_ECE4D3-64px.png",
+      "outlineColor": "#F6EEE5"
+    },
+    {
+      "id": "c21338-920c24-e71c54-f34a7d",
+      "name": "Ruby 8",
+      "path": "/assets/matcaps/unnamed/C21338_920C24_E71C54_F34A7D-64px.png",
+      "outlineColor": "#920C24"
+    },
+    {
+      "id": "c28e4e-845119-0b0805-713c0c",
+      "name": "Rust 2",
+      "path": "/assets/matcaps/unnamed/C28E4E_845119_0B0805_713C0C-64px.png",
+      "outlineColor": "#845119"
+    },
+    {
+      "id": "c2a391-523728-785741-694836",
+      "name": "Terracotta 48",
+      "path": "/assets/matcaps/unnamed/C2A391_523728_785741_694836-64px.png",
+      "outlineColor": "#523728"
+    },
+    {
+      "id": "c2a584-363b41-71665b-8c7367",
+      "name": "Steel 42",
+      "path": "/assets/matcaps/unnamed/C2A584_363B41_71665B_8C7367-64px.png",
+      "outlineColor": "#363B41"
+    },
+    {
+      "id": "c2ab7d-4a412e-7a6b4e-f9edbe",
+      "name": "Sienna 34",
+      "path": "/assets/matcaps/unnamed/C2AB7D_4A412E_7A6B4E_F9EDBE-64px.png",
+      "outlineColor": "#4A412E"
+    },
+    {
+      "id": "c30c0c-9f0404-830404-5c0404",
+      "name": "Ruby 9",
+      "path": "/assets/matcaps/unnamed/C30C0C_9F0404_830404_5C0404-64px.png",
+      "outlineColor": "#9F0404"
+    },
+    {
+      "id": "c33829-48171a-752523-942923",
+      "name": "Fern 24",
+      "path": "/assets/matcaps/unnamed/C33829_48171A_752523_942923-64px.png",
+      "outlineColor": "#48171A"
+    },
+    {
+      "id": "c345ec-5f1daa-9f31db-872ccd",
+      "name": "Amethyst 3",
+      "path": "/assets/matcaps/unnamed/C345EC_5F1DAA_9F31DB_872CCD-64px.png",
+      "outlineColor": "#5F1DAA"
+    },
+    {
+      "id": "c35c04-f9c30c-ee9f04-e08304",
+      "name": "Ember 3",
+      "path": "/assets/matcaps/unnamed/C35C04_F9C30C_EE9F04_E08304-64px.png",
+      "outlineColor": "#F9C30C"
+    },
+    {
+      "id": "c3ccd4-5f3b23-948a7b-a9a49a",
+      "name": "Mustard 13",
+      "path": "/assets/matcaps/unnamed/C3CCD4_5F3B23_948A7B_A9A49A-64px.png",
+      "outlineColor": "#5F3B23"
+    },
+    {
+      "id": "c47004-f9d00c-edaf04-e09704",
+      "name": "Ember 4",
+      "path": "/assets/matcaps/unnamed/C47004_F9D00C_EDAF04_E09704-64px.png",
+      "outlineColor": "#F9D00C"
+    },
+    {
+      "id": "c4a591-635448-f2d9d5-856d5b",
+      "name": "Terracotta 49",
+      "path": "/assets/matcaps/unnamed/C4A591_635448_F2D9D5_856D5B-64px.png",
+      "outlineColor": "#635448"
+    },
+    {
+      "id": "c4c6c6-4d5756-646463-7a8080",
+      "name": "Pewter 38",
+      "path": "/assets/matcaps/unnamed/C4C6C6_4D5756_646463_7A8080-64px.png",
+      "outlineColor": "#4D5756"
+    },
+    {
+      "id": "c4dede-97b5b5-eaf9f9-abc4c4",
+      "name": "Aqua 3",
+      "path": "/assets/matcaps/unnamed/C4DEDE_97B5B5_EAF9F9_ABC4C4-64px.png",
+      "outlineColor": "#97B5B5"
+    },
+    {
+      "id": "c5a292-635247-f2d7d6-846a5b",
+      "name": "Terracotta 50",
+      "path": "/assets/matcaps/unnamed/C5A292_635247_F2D7D6_846A5B-64px.png",
+      "outlineColor": "#635247"
+    },
+    {
+      "id": "c5bbb6-f8f4f1-e2dad6-ece3df",
+      "name": "Salmon 4",
+      "path": "/assets/matcaps/unnamed/C5BBB6_F8F4F1_E2DAD6_ECE3DF-64px.png",
+      "outlineColor": "#F8F4F1"
+    },
+    {
+      "id": "c75f55-f8bda9-eb9484-f4a494",
+      "name": "Rose Quartz 4",
+      "path": "/assets/matcaps/unnamed/C75F55_F8BDA9_EB9484_F4A494-64px.png",
+      "outlineColor": "#F8BDA9"
+    },
+    {
+      "id": "c7938d-e0dbe1-d1bbbc-d5cccb",
+      "name": "Aqua 4",
+      "path": "/assets/matcaps/unnamed/C7938D_E0DBE1_D1BBBC_D5CCCB-64px.png",
+      "outlineColor": "#E0DBE1"
+    },
+    {
+      "id": "c7b9a1-f8f1e4-eee4d2-e4d8c4",
+      "name": "Tangerine 8",
+      "path": "/assets/matcaps/unnamed/C7B9A1_F8F1E4_EEE4D2_E4D8C4-64px.png",
+      "outlineColor": "#F8F1E4"
+    },
+    {
+      "id": "c7c0ac-2e181b-543b30-6b6270",
+      "name": "Cerulean 12",
+      "path": "/assets/matcaps/unnamed/C7C0AC_2E181B_543B30_6B6270-64px.png",
+      "outlineColor": "#2E181B"
+    },
+    {
+      "id": "c7c7d7-4c4e5a-818393-6c6c74",
+      "name": "Pewter 39",
+      "path": "/assets/matcaps/unnamed/C7C7D7_4C4E5A_818393_6C6C74-64px.png",
+      "outlineColor": "#4C4E5A"
+    },
+    {
+      "id": "c87157-f8cbae-e9a582-f2b394",
+      "name": "Salmon 5",
+      "path": "/assets/matcaps/unnamed/C87157_F8CBAE_E9A582_F2B394-64px.png",
+      "outlineColor": "#F8CBAE"
+    },
+    {
+      "id": "c88467-5b3333-875c5a-7a3822",
+      "name": "Brick 36",
+      "path": "/assets/matcaps/unnamed/C88467_5B3333_875C5A_7A3822-64px.png",
+      "outlineColor": "#5B3333"
+    },
+    {
+      "id": "c8af84-f9ecd7-efdebf-e6d1af",
+      "name": "Tangerine 9",
+      "path": "/assets/matcaps/unnamed/C8AF84_F9ECD7_EFDEBF_E6D1AF-64px.png",
+      "outlineColor": "#F9ECD7"
+    },
+    {
+      "id": "c8c8c8-3f3f3f-787878-5c5c5c",
+      "name": "Graphite 40",
+      "path": "/assets/matcaps/unnamed/C8C8C8_3F3F3F_787878_5C5C5C-64px.png",
+      "outlineColor": "#3F3F3F"
+    },
+    {
+      "id": "c8d1dc-575b62-818892-6e747b",
+      "name": "Brushed Metal 28",
+      "path": "/assets/matcaps/unnamed/C8D1DC_575B62_818892_6E747B-64px.png",
+      "outlineColor": "#575B62"
+    },
+    {
+      "id": "c98d7f-3b0b0b-a97667-94433f",
+      "name": "Brick 37",
+      "path": "/assets/matcaps/unnamed/C98D7F_3B0B0B_A97667_94433F-64px.png",
+      "outlineColor": "#3B0B0B"
+    },
+    {
+      "id": "c99a8b-491b0e-6e4136-8a4d28",
+      "name": "Terracotta 51",
+      "path": "/assets/matcaps/unnamed/C99A8B_491B0E_6E4136_8A4D28-64px.png",
+      "outlineColor": "#491B0E"
+    },
+    {
+      "id": "c9c7be-55514b-888279-7b6e5f",
+      "name": "Pewter 40",
+      "path": "/assets/matcaps/unnamed/C9C7BE_55514B_888279_7B6E5F-64px.png",
+      "outlineColor": "#55514B"
+    },
+    {
+      "id": "ca4fe1-6b2398-a337c7-9334bc",
+      "name": "Amethyst 4",
+      "path": "/assets/matcaps/unnamed/CA4FE1_6B2398_A337C7_9334BC-64px.png",
+      "outlineColor": "#6B2398"
+    },
+    {
+      "id": "ca8892-f9d7dc-ebb8c0-f3c4cc",
+      "name": "Rose Quartz 5",
+      "path": "/assets/matcaps/unnamed/CA8892_F9D7DC_EBB8C0_F3C4CC-64px.png",
+      "outlineColor": "#F9D7DC"
+    },
+    {
+      "id": "caa094-875343-956255-eadedc",
+      "name": "Brick 38",
+      "path": "/assets/matcaps/unnamed/CAA094_875343_956255_EADEDC-64px.png",
+      "outlineColor": "#875343"
+    },
+    {
+      "id": "caa78a-f9e7d7-ead0b9-f3dcc3",
+      "name": "Salmon 6",
+      "path": "/assets/matcaps/unnamed/CAA78A_F9E7D7_EAD0B9_F3DCC3-64px.png",
+      "outlineColor": "#F9E7D7"
+    },
+    {
+      "id": "caac80-faebd5-f2debf-ead1af",
+      "name": "Tangerine 10",
+      "path": "/assets/matcaps/unnamed/CAAC80_FAEBD5_F2DEBF_EAD1AF-64px.png",
+      "outlineColor": "#FAEBD5"
+    },
+    {
+      "id": "cab094-f9ecdd-efdec8-e8d4bd",
+      "name": "Tangerine 11",
+      "path": "/assets/matcaps/unnamed/CAB094_F9ECDD_EFDEC8_E8D4BD-64px.png",
+      "outlineColor": "#F9ECDD"
+    },
+    {
+      "id": "cab79d-f9f1e3-f1e5d1-e9dac6",
+      "name": "Tangerine 12",
+      "path": "/assets/matcaps/unnamed/CAB79D_F9F1E3_F1E5D1_E9DAC6-64px.png",
+      "outlineColor": "#F9F1E3"
+    },
+    {
+      "id": "cae24e-6c9a23-a3c737-b3d43c",
+      "name": "Gold 3",
+      "path": "/assets/matcaps/unnamed/CAE24E_6C9A23_A3C737_B3D43C-64px.png",
+      "outlineColor": "#6C9A23"
+    },
+    {
+      "id": "cb4934-fb9971-f07554-f68464",
+      "name": "Ruby 10",
+      "path": "/assets/matcaps/unnamed/CB4934_FB9971_F07554_F68464-64px.png",
+      "outlineColor": "#FB9971"
+    },
+    {
+      "id": "cb4e88-f99ad6-f384c3-ed75b9",
+      "name": "Blossom 2",
+      "path": "/assets/matcaps/unnamed/CB4E88_F99AD6_F384C3_ED75B9-64px.png",
+      "outlineColor": "#F99AD6"
+    },
+    {
+      "id": "cb5e3b-fabc7a-ef965e-f4a46c",
+      "name": "Terracotta 52",
+      "path": "/assets/matcaps/unnamed/CB5E3B_FABC7A_EF965E_F4A46C-64px.png",
+      "outlineColor": "#FABC7A"
+    },
+    {
+      "id": "cb7146-551d0f-7c270d-e5ab9c",
+      "name": "Ruby 11",
+      "path": "/assets/matcaps/unnamed/CB7146_551D0F_7C270D_E5AB9C-64px.png",
+      "outlineColor": "#551D0F"
+    },
+    {
+      "id": "cb7846-753c22-ab5c32-b46c3c",
+      "name": "Terracotta 53",
+      "path": "/assets/matcaps/unnamed/CB7846_753C22_AB5C32_B46C3C-64px.png",
+      "outlineColor": "#753C22"
+    },
+    {
+      "id": "cb919b-f9dde1-ecc0c8-f4ccd4",
+      "name": "Rose Quartz 6",
+      "path": "/assets/matcaps/unnamed/CB919B_F9DDE1_ECC0C8_F4CCD4-64px.png",
+      "outlineColor": "#F9DDE1"
+    },
+    {
+      "id": "cbcbcb-595959-8c8c8c-747474",
+      "name": "Pewter 41",
+      "path": "/assets/matcaps/unnamed/CBCBCB_595959_8C8C8C_747474-64px.png",
+      "outlineColor": "#595959"
+    },
+    {
+      "id": "cc7c5f-a15436-b26346-af5c3c",
+      "name": "Terracotta 54",
+      "path": "/assets/matcaps/unnamed/CC7C5F_A15436_B26346_AF5C3C-64px.png",
+      "outlineColor": "#A15436"
+    },
+    {
+      "id": "cc9a7e-8a5249-c06a3e-dadada",
+      "name": "Brick 39",
+      "path": "/assets/matcaps/unnamed/CC9A7E_8A5249_C06A3E_DADADA-64px.png",
+      "outlineColor": "#8A5249"
+    },
+    {
+      "id": "ccc5c9-3b2b2b-67585b-7f7375",
+      "name": "Graphite 41",
+      "path": "/assets/matcaps/unnamed/CCC5C9_3B2B2B_67585B_7F7375-64px.png",
+      "outlineColor": "#3B2B2B"
+    },
+    {
+      "id": "ccf6fa-9dd9eb-82c5d9-acd4e4",
+      "name": "Ice Blue 8",
+      "path": "/assets/matcaps/unnamed/CCF6FA_9DD9EB_82C5D9_ACD4E4-64px.png",
+      "outlineColor": "#9DD9EB"
+    },
+    {
+      "id": "cdc3b8-5a3f3c-67545a-8d7769",
+      "name": "Steel 43",
+      "path": "/assets/matcaps/unnamed/CDC3B8_5A3F3C_67545A_8D7769-64px.png",
+      "outlineColor": "#5A3F3C"
+    },
+    {
+      "id": "cdcbc8-444342-696765-81807e",
+      "name": "Pewter 42",
+      "path": "/assets/matcaps/unnamed/CDCBC8_444342_696765_81807E-64px.png",
+      "outlineColor": "#444342"
+    },
+    {
+      "id": "ce8c15-eac79b-ddab57-f9c962",
+      "name": "Ember 5",
+      "path": "/assets/matcaps/unnamed/CE8C15_EAC79B_DDAB57_F9C962-64px.png",
+      "outlineColor": "#EAC79B"
+    },
+    {
+      "id": "ce8f3d-f0d2b0-f3c77d-e6b278",
+      "name": "Tangerine 13",
+      "path": "/assets/matcaps/unnamed/CE8F3D_F0D2B0_F3C77D_E6B278-64px.png",
+      "outlineColor": "#F0D2B0"
+    },
+    {
+      "id": "ceb299-6b5c4c-887564-746355",
+      "name": "Terracotta 55",
+      "path": "/assets/matcaps/unnamed/CEB299_6B5C4C_887564_746355-64px.png",
+      "outlineColor": "#6B5C4C"
+    },
+    {
+      "id": "d04444-af2f2f-8b2424-9b2c2c",
+      "name": "Brick 40",
+      "path": "/assets/matcaps/unnamed/D04444_AF2F2F_8B2424_9B2C2C-64px.png",
+      "outlineColor": "#AF2F2F"
+    },
+    {
+      "id": "d07e3f-fbbd1f-8d2840-24120c",
+      "name": "Emerald 5",
+      "path": "/assets/matcaps/unnamed/D07E3F_FBBD1F_8D2840_24120C-64px.png",
+      "outlineColor": "#FBBD1F"
+    },
+    {
+      "id": "d0cccb-524d50-928891-727581",
+      "name": "Pewter 43",
+      "path": "/assets/matcaps/unnamed/D0CCCB_524D50_928891_727581-64px.png",
+      "outlineColor": "#524D50"
+    },
+    {
+      "id": "d0d3be-816854-998366-685146",
+      "name": "Sienna 35",
+      "path": "/assets/matcaps/unnamed/D0D3BE_816854_998366_685146-64px.png",
+      "outlineColor": "#816854"
+    },
+    {
+      "id": "d1ac04-f8e50a-edd004-b38d04",
+      "name": "Caramel 3",
+      "path": "/assets/matcaps/unnamed/D1AC04_F8E50A_EDD004_B38D04-64px.png",
+      "outlineColor": "#F8E50A"
+    },
+    {
+      "id": "d3caab-8c866e-c0b89a-aea68a",
+      "name": "Ochre 10",
+      "path": "/assets/matcaps/unnamed/D3CAAB_8C866E_C0B89A_AEA68A-64px.png",
+      "outlineColor": "#8C866E"
+    },
+    {
+      "id": "d4855f-92512d-ae6742-a75c2c",
+      "name": "Terracotta 56",
+      "path": "/assets/matcaps/unnamed/D4855F_92512D_AE6742_A75C2C-64px.png",
+      "outlineColor": "#92512D"
+    },
+    {
+      "id": "d54c2b-5f1105-f39382-f08375",
+      "name": "Ruby 12",
+      "path": "/assets/matcaps/unnamed/D54C2B_5F1105_F39382_F08375-64px.png",
+      "outlineColor": "#5F1105"
+    },
+    {
+      "id": "d5b5b4-9e6c6f-f5e9ef-a57986",
+      "name": "Lavender 3",
+      "path": "/assets/matcaps/unnamed/D5B5B4_9E6C6F_F5E9EF_A57986-64px.png",
+      "outlineColor": "#9E6C6F"
+    },
+    {
+      "id": "d5d5d5-929292-acacac-b4b4b4",
+      "name": "Silver 8",
+      "path": "/assets/matcaps/unnamed/D5D5D5_929292_ACACAC_B4B4B4-64px.png",
+      "outlineColor": "#929292"
+    },
+    {
+      "id": "d64480-e27497-ea9bb1-cd156f",
+      "name": "Fuchsia 2",
+      "path": "/assets/matcaps/unnamed/D64480_E27497_EA9BB1_CD156F-64px.png",
+      "outlineColor": "#E27497"
+    },
+    {
+      "id": "d7d7c3-aaaa92-f5f5ea-bcbca4",
+      "name": "Citrine 1",
+      "path": "/assets/matcaps/unnamed/D7D7C3_AAAA92_F5F5EA_BCBCA4-64px.png",
+      "outlineColor": "#AAAA92"
+    },
+    {
+      "id": "d7dfdb-aab5af-f5faf7-bcc4c4",
+      "name": "Chrome 10",
+      "path": "/assets/matcaps/unnamed/D7DFDB_AAB5AF_F5FAF7_BCC4C4-64px.png",
+      "outlineColor": "#AAB5AF"
+    },
+    {
+      "id": "d8388b-230a14-fcc8fc-fc71e1",
+      "name": "Magenta 4",
+      "path": "/assets/matcaps/unnamed/D8388B_230A14_FCC8FC_FC71E1-64px.png",
+      "outlineColor": "#230A14"
+    },
+    {
+      "id": "d8c949-f5f19e-6b7855-9a9858",
+      "name": "Mustard 14",
+      "path": "/assets/matcaps/unnamed/D8C949_F5F19E_6B7855_9A9858-64px.png",
+      "outlineColor": "#F5F19E"
+    },
+    {
+      "id": "d8d8e5-9d9daf-b4b4c4-b4b4cc",
+      "name": "Chrome 11",
+      "path": "/assets/matcaps/unnamed/D8D8E5_9D9DAF_B4B4C4_B4B4CC-64px.png",
+      "outlineColor": "#9D9DAF"
+    },
+    {
+      "id": "da5788-de94bd-e078a3-dd83b4",
+      "name": "Blossom 3",
+      "path": "/assets/matcaps/unnamed/DA5788_DE94BD_E078A3_DD83B4-64px.png",
+      "outlineColor": "#DE94BD"
+    },
+    {
+      "id": "dbdbbb-f7f7e4-afaf89-c4c49c",
+      "name": "Citrine 2",
+      "path": "/assets/matcaps/unnamed/DBDBBB_F7F7E4_AFAF89_C4C49C-64px.png",
+      "outlineColor": "#F7F7E4"
+    },
+    {
+      "id": "dc3e04-b52604-fc7d20-f85f04",
+      "name": "Terracotta 57",
+      "path": "/assets/matcaps/unnamed/DC3E04_B52604_FC7D20_F85F04-64px.png",
+      "outlineColor": "#B52604"
+    },
+    {
+      "id": "de9261-86361e-a85a37-944c2c",
+      "name": "Terracotta 58",
+      "path": "/assets/matcaps/unnamed/DE9261_86361E_A85A37_944C2C-64px.png",
+      "outlineColor": "#86361E"
+    },
+    {
+      "id": "dedec4-b5b597-f9f9ea-c4c4ab",
+      "name": "Citrine 3",
+      "path": "/assets/matcaps/unnamed/DEDEC4_B5B597_F9F9EA_C4C4AB-64px.png",
+      "outlineColor": "#B5B597"
+    },
+    {
+      "id": "dee3e8-a6aeb5-bcc4cc-bcc4c4",
+      "name": "Chrome 12",
+      "path": "/assets/matcaps/unnamed/DEE3E8_A6AEB5_BCC4CC_BCC4C4-64px.png",
+      "outlineColor": "#A6AEB5"
+    },
+    {
+      "id": "dee8de-a6b5a6-bcccbc-bcc4bc",
+      "name": "Chrome 13",
+      "path": "/assets/matcaps/unnamed/DEE8DE_A6B5A6_BCCCBC_BCC4BC-64px.png",
+      "outlineColor": "#A6B5A6"
+    },
+    {
+      "id": "dee8e8-a6b5b5-bccccc-bac4c4",
+      "name": "Chrome 14",
+      "path": "/assets/matcaps/unnamed/DEE8E8_A6B5B5_BCCCCC_BAC4C4-64px.png",
+      "outlineColor": "#A6B5B5"
+    },
+    {
+      "id": "dfd9c2-b5ae92-f9f7ea-c4c4a4",
+      "name": "Amber 4",
+      "path": "/assets/matcaps/unnamed/DFD9C2_B5AE92_F9F7EA_C4C4A4-64px.png",
+      "outlineColor": "#B5AE92"
+    },
+    {
+      "id": "dfdbb7-f9f8e3-b5af86-bcbc8c",
+      "name": "Amber 5",
+      "path": "/assets/matcaps/unnamed/DFDBB7_F9F8E3_B5AF86_BCBC8C-64px.png",
+      "outlineColor": "#F9F8E3"
+    },
+    {
+      "id": "dfdfca-4d2d07-6b5224-857145",
+      "name": "Sienna 36",
+      "path": "/assets/matcaps/unnamed/DFDFCA_4D2D07_6B5224_857145-64px.png",
+      "outlineColor": "#4D2D07"
+    },
+    {
+      "id": "dfdfd6-58544e-81766a-989288",
+      "name": "Pewter 44",
+      "path": "/assets/matcaps/unnamed/DFDFD6_58544E_81766A_989288-64px.png",
+      "outlineColor": "#58544E"
+    },
+    {
+      "id": "e1e1d4-777c7b-9fa19a-898f8d",
+      "name": "Silver 9",
+      "path": "/assets/matcaps/unnamed/E1E1D4_777C7B_9FA19A_898F8D-64px.png",
+      "outlineColor": "#777C7B"
+    },
+    {
+      "id": "e1e1e0-363636-989897-747472",
+      "name": "Pewter 45",
+      "path": "/assets/matcaps/unnamed/E1E1E0_363636_989897_747472-64px.png",
+      "outlineColor": "#363636"
+    },
+    {
+      "id": "e2d3bc-867255-b39e7f-96836c",
+      "name": "Sienna 37",
+      "path": "/assets/matcaps/unnamed/E2D3BC_867255_B39E7F_96836C-64px.png",
+      "outlineColor": "#867255"
+    },
+    {
+      "id": "e2e2e7-aeaeb5-c4c4cc-c4c4c4",
+      "name": "Platinum 3",
+      "path": "/assets/matcaps/unnamed/E2E2E7_AEAEB5_C4C4CC_C4C4C4-64px.png",
+      "outlineColor": "#AEAEB5"
+    },
+    {
+      "id": "e42e12-f35132-f86949-b71b0a",
+      "name": "Ruby 13",
+      "path": "/assets/matcaps/unnamed/E42E12_F35132_F86949_B71B0A-64px.png",
+      "outlineColor": "#F35132"
+    },
+    {
+      "id": "e5ded7-afa69d-c4bcb4-c3baab",
+      "name": "Chrome 15",
+      "path": "/assets/matcaps/unnamed/E5DED7_AFA69D_C4BCB4_C3BAAB-64px.png",
+      "outlineColor": "#AFA69D"
+    },
+    {
+      "id": "e6bf3c-5a4719-977726-fcfc82",
+      "name": "Caramel 4",
+      "path": "/assets/matcaps/unnamed/E6BF3C_5A4719_977726_FCFC82-64px.png",
+      "outlineColor": "#5A4719"
+    },
+    {
+      "id": "e6e3e3-b5afaf-ccc4c4-c4c4c4",
+      "name": "Platinum 4",
+      "path": "/assets/matcaps/unnamed/E6E3E3_B5AFAF_CCC4C4_C4C4C4-64px.png",
+      "outlineColor": "#B5AFAF"
+    },
+    {
+      "id": "e6e6e6-aaaaaa-c4c4c4-cccccc",
+      "name": "Platinum 5",
+      "path": "/assets/matcaps/unnamed/E6E6E6_AAAAAA_C4C4C4_CCCCCC-64px.png",
+      "outlineColor": "#AAAAAA"
+    },
+    {
+      "id": "e7632f-fba06b-bb2905-fb865e",
+      "name": "Terracotta 59",
+      "path": "/assets/matcaps/unnamed/E7632F_FBA06B_BB2905_FB865E-64px.png",
+      "outlineColor": "#FBA06B"
+    },
+    {
+      "id": "e7e2d8-b1aa9d-c9c2b3-bcb4ac",
+      "name": "Chrome 16",
+      "path": "/assets/matcaps/unnamed/E7E2D8_B1AA9D_C9C2B3_BCB4AC-64px.png",
+      "outlineColor": "#B1AA9D"
+    },
+    {
+      "id": "e80404-b50404-cb0404-fc3333",
+      "name": "Ruby 14",
+      "path": "/assets/matcaps/unnamed/E80404_B50404_CB0404_FC3333-64px.png",
+      "outlineColor": "#B50404"
+    },
+    {
+      "id": "e804e8-b504b5-cc04cc-fc33fc",
+      "name": "Magenta 5",
+      "path": "/assets/matcaps/unnamed/E804E8_B504B5_CC04CC_FC33FC-64px.png",
+      "outlineColor": "#B504B5"
+    },
+    {
+      "id": "e8dee1-b5a6aa-ccbcc1-c4bbbc",
+      "name": "Chrome 17",
+      "path": "/assets/matcaps/unnamed/E8DEE1_B5A6AA_CCBCC1_C4BBBC-64px.png",
+      "outlineColor": "#B5A6AA"
+    },
+    {
+      "id": "e8e5de-b5afa6-ccc5bc-c4c4bb",
+      "name": "Chrome 18",
+      "path": "/assets/matcaps/unnamed/E8E5DE_B5AFA6_CCC5BC_C4C4BB-64px.png",
+      "outlineColor": "#B5AFA6"
+    },
+    {
+      "id": "e8e8de-b5b5a6-ccccbc-c4c4ba",
+      "name": "Chrome 19",
+      "path": "/assets/matcaps/unnamed/E8E8DE_B5B5A6_CCCCBC_C4C4BA-64px.png",
+      "outlineColor": "#B5B5A6"
+    },
+    {
+      "id": "e9cca1-a63106-df8c3b-621304",
+      "name": "Terracotta 60",
+      "path": "/assets/matcaps/unnamed/E9CCA1_A63106_DF8C3B_621304-64px.png",
+      "outlineColor": "#A63106"
+    },
+    {
+      "id": "ea783e-6d4830-905837-fcdc6c",
+      "name": "Terracotta 61",
+      "path": "/assets/matcaps/unnamed/EA783E_6D4830_905837_FCDC6C-64px.png",
+      "outlineColor": "#6D4830"
+    },
+    {
+      "id": "ead8d6-b59a97-ccb4b0-c9abab",
+      "name": "Rose Quartz 7",
+      "path": "/assets/matcaps/unnamed/EAD8D6_B59A97_CCB4B0_C9ABAB-64px.png",
+      "outlineColor": "#B59A97"
+    },
+    {
+      "id": "eaeaea-b5b5b5-cccccc-d4d4d4",
+      "name": "Platinum 6",
+      "path": "/assets/matcaps/unnamed/EAEAEA_B5B5B5_CCCCCC_D4D4D4-64px.png",
+      "outlineColor": "#B5B5B5"
+    },
+    {
+      "id": "eaeaea-b6b6b6-cccccc-c4c4c4",
+      "name": "Platinum 7",
+      "path": "/assets/matcaps/unnamed/EAEAEA_B6B6B6_CCCCCC_C4C4C4-64px.png",
+      "outlineColor": "#B6B6B6"
+    },
+    {
+      "id": "ed4630-791a0e-a42716-501009",
+      "name": "Ruby 15",
+      "path": "/assets/matcaps/unnamed/ED4630_791A0E_A42716_501009-64px.png",
+      "outlineColor": "#791A0E"
+    },
+    {
+      "id": "ed5087-fac3d0-1c0b0c-fc84cc",
+      "name": "Fuchsia 3",
+      "path": "/assets/matcaps/unnamed/ED5087_FAC3D0_1C0B0C_FC84CC-64px.png",
+      "outlineColor": "#FAC3D0"
+    },
+    {
+      "id": "ed7f04-fcd60e-7e2d04-b73e04",
+      "name": "Ember 6",
+      "path": "/assets/matcaps/unnamed/ED7F04_FCD60E_7E2D04_B73E04-64px.png",
+      "outlineColor": "#FCD60E"
+    },
+    {
+      "id": "eded06-b5b504-cccc04-d4d404",
+      "name": "Gold 4",
+      "path": "/assets/matcaps/unnamed/EDED06_B5B504_CCCC04_D4D404-64px.png",
+      "outlineColor": "#B5B504"
+    },
+    {
+      "id": "ee4128-fc8e82-9a0704-bf0f05",
+      "name": "Ruby 16",
+      "path": "/assets/matcaps/unnamed/EE4128_FC8E82_9A0704_BF0F05-64px.png",
+      "outlineColor": "#FC8E82"
+    },
+    {
+      "id": "eeecfb-bfb6d5-d0c8eb-ccc4dc",
+      "name": "Lavender 4",
+      "path": "/assets/matcaps/unnamed/EEECFB_BFB6D5_D0C8EB_CCC4DC-64px.png",
+      "outlineColor": "#BFB6D5"
+    },
+    {
+      "id": "f0d504-fbfad3-b98609-cda204",
+      "name": "Caramel 5",
+      "path": "/assets/matcaps/unnamed/F0D504_FBFAD3_B98609_CDA204-64px.png",
+      "outlineColor": "#FBFAD3"
+    },
+    {
+      "id": "f75f0b-461604-9a3004-fb9d2f",
+      "name": "Terracotta 62",
+      "path": "/assets/matcaps/unnamed/F75F0B_461604_9A3004_FB9D2F-64px.png",
+      "outlineColor": "#461604"
+    },
+    {
+      "id": "f77777-fbe1e1-fab2b2-fbc4c4",
+      "name": "Rose Quartz 8",
+      "path": "/assets/matcaps/unnamed/F77777_FBE1E1_FAB2B2_FBC4C4-64px.png",
+      "outlineColor": "#FBE1E1"
+    },
+    {
+      "id": "f79686-fccbd4-e76644-e76b56",
+      "name": "Lime 2",
+      "path": "/assets/matcaps/unnamed/F79686_FCCBD4_E76644_E76B56-64px.png",
+      "outlineColor": "#FCCBD4"
+    },
+    {
+      "id": "f9e6c7-fcf7df-edd3aa-f1d4b4",
+      "name": "Tangerine 14",
+      "path": "/assets/matcaps/unnamed/F9E6C7_FCF7DF_EDD3AA_F1D4B4-64px.png",
+      "outlineColor": "#FCF7DF"
+    },
+    {
+      "id": "fbb43f-fbe993-fb552e-fcdd65",
+      "name": "Tangerine 15",
+      "path": "/assets/matcaps/unnamed/FBB43F_FBE993_FB552E_FCDD65-64px.png",
+      "outlineColor": "#FBE993"
+    },
+    {
+      "id": "fbb82d-fbedbf-fbde7d-fb7e05",
+      "name": "Tangerine 16",
+      "path": "/assets/matcaps/unnamed/FBB82D_FBEDBF_FBDE7D_FB7E05-64px.png",
+      "outlineColor": "#FBEDBF"
+    }
+  ]
+}

@@ -8,6 +8,7 @@ import { SearchPage } from './components/search/SearchPage.tsx';
 import { GraphPage } from './components/graph/GraphPage.tsx';
 import { GamesPage } from './components/games/GamesPage.tsx';
 import { GameDetailView } from './components/games/GameDetailView.tsx';
+import { GameConsolePage } from './components/games/GameConsolePage.tsx';
 import { GameRoomPage } from './components/games/GameRoomPage.tsx';
 import { useBibleSearchParam } from './hooks/useBibleSearchParam.ts';
 import { useBackendHealth } from './hooks/useBackendHealth.ts';
@@ -77,8 +78,9 @@ function MainApp() {
           <Route path="objections" element={<ObjectionsPage />} />
           <Route path="search"     element={<SearchPage />} />
           <Route path="graph"       element={<GraphPage />} />
-          <Route path="games"       element={<GamesPage />} />
-          <Route path="games/:slug" element={<GameDetailView />} />
+          <Route path="games"                         element={<GamesPage />} />
+          <Route path="games/:slug"                  element={<GameDetailView />} />
+          <Route path="games/:slug/console/:roomId"  element={<GameConsolePage />} />
           <Route path="references" element={<Placeholder title="Références" />} />
           <Route path="sources"    element={<Placeholder title="Sources" />} />
         </Route>
