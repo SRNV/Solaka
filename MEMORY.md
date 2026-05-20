@@ -81,6 +81,7 @@ front/src/
       useControllerRoom.ts   ← Synchronisation état manette (Master, Phase)
     lib/metel/
       Metel.tsx              ← Console de jeu (Vue "Serveur")
+      MetelGame.tsx          ← Scène R3F complète (Physics cannon.js, TileGrid, spheres, effets)
       MetelController.tsx    ← Déclinaison manette pour Métel
   hooks/
     useApi.ts                ← fetch simple via fetchOnce
@@ -269,6 +270,13 @@ STOMP WebSocket (`ws://{host}/stomp`) :
 - **GeoJSON** : ne jamais importer en statique côté front — toujours passer par `/api/geomap/:id`.
 - **`activeVerseUuids`** : type `ReadonlySet<string>` dans le store (pas `Set<string>`).
 - **Communication inter-composants** : `GlobalPlayerComponent` et `BibleMapFeature` sont frères, aucune prop partagée — uniquement via stores Zustand.
+
+### cannon.js / @react-three/cannon
+
+- **Resize via `key=`** : quand un corps physique est recrée (`key={radius}`), tout `useRef` local à ce composant repart de zéro. Les refs qui doivent survivre (ex. invincibilité, position sauvegardée) doivent vivre dans le composant parent et être passés en prop.
+- **Pénétration initiale au spawn** : lors du spawn ou resize, forcer `py = max(py, TILE_THICK + radius + 0.15)` et `vy = 0` pour éviter le bond causé par la résolution de collision cannon.js au premier frame.
+- **Effet visuel d'invincibilité** : clignoter le mesh via `ref.current.visible = Math.floor(now/120) % 2 === 0` dans `useFrame` — ne pas passer par un état React.
+- **Détection atterrissage** : utiliser un ref `justLanded` mis à `true` dans `onCollide` (si `airborne` était `true`) et consommé dans `useFrame` — `onCollide` et `useFrame` ne s'exécutent pas dans le même tick.
 
 ---
 
