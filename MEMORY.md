@@ -69,6 +69,19 @@ front/src/
     BibleMap.tsx             ← globe 3D, boutons projection GeoJSON
     scene.ts                 ← Three.js : caméra ortho, matcap, GPU picking, projection, labels 2D canvas
     borders.ts               ← LineSegments GeoJSON, computeFeatureCentroids
+  lib/games/src/             ← Framework de mini-jeux multijoueurs
+    components/
+      Gamepad3D.tsx          ← Point d'entrée manette unifiée (SVG ou procédurale)
+      svgGamepad/
+        SvgGamepadScene.tsx  ← Scène R3F haute performance, boucle imperative
+      GameLobby.tsx          ← Ecran d'accueil (QR Code + liste joueurs)
+    hooks/
+      useSvgZones.ts         ← Parser SVG dynamique (type:slot)
+      useGamepadInput.ts     ← Gestionnaire d'input throttlé sans re-render
+      useControllerRoom.ts   ← Synchronisation état manette (Master, Phase)
+    lib/metel/
+      Metel.tsx              ← Console de jeu (Vue "Serveur")
+      MetelController.tsx    ← Déclinaison manette pour Métel
   hooks/
     useApi.ts                ← fetch simple via fetchOnce
     usePaginatedAllApi.ts    ← fetch toutes les pages (limit=50000), via fetchOnce
@@ -277,3 +290,38 @@ STOMP WebSocket (`ws://{host}/stomp`) :
 - **CORS / Origins** : Les serveurs (`back` Bun et `games-server` C#) sont configurés pour accepter plusieurs origines via les variables d'environnement `CORS_ORIGIN` et `ALLOWED_ORIGINS` dans le `docker-compose.yml`. 
 - **⚠️ Accès Mobile** : Pour tester sur téléphone via le réseau local, il est **impératif** d'ajouter l'IP locale de la machine hôte (ex: `http://192.168.1.XX:5173`) dans ces listes d'origines autorisées.
 - **Game Server** : Le serveur de jeux est en C# (port 5000), supporte STOMP, et utilise `/room/:name/:uuid` ainsi que `/user/queue/user/manette/:uuid`.
+
+---
+
+## Gamepad Framework (SVG & 3D)
+
+### Architecture Modulaire et Dynamique
+- **Infrastructure unifiée** : Le composant `Gamepad3D.tsx` est l'unique point d'entrée pour toutes les manettes. Il gère l'alternance intelligente entre un layout basé sur un fichier SVG (chargé via `svgUrl`) et un layout procédural de secours (`computeZones`).
+- **Parsing SVG sémantique** : `useSvgZones.ts` implémente une grammaire stricte pour les IDs d'éléments SVG : `/^\((type[:slot])\)name/`.
+    - **Types** : `joystick` (axe 2D), `button` (impulsion + durée), `boolean` (état on/off pur).
+    - **Slots de Thème** : Permettent de mapper une forme SVG aux couleurs du thème (`diamond-right` pour le bouton A, `diamond-bottom` pour B, `center` pour les boutons de menu).
+    - **Validation** : Le système rejette (avec message d'erreur UI) toute manette SVG ayant des noms d'entrée (`name`) dupliqués.
+
+### Optimisations de Haute Performance (Cible : 100+ Joueurs)
+Pour supporter des flux massifs d'entrées (60 messages/sec par joueur) sans saturer le thread principal :
+- **Politique "Zero React per-input"** : Les entrées réseau ne déclenchent **aucun re-render React**. Les données sont stockées dans des `useRef`.
+- **Boucle de rendu Impérative** : `SvgGamepadScene.tsx` utilise `useFrame` pour synchroniser la scène 3D.
+    - **Calculs sans allocation** : Utilisation systématique d'objets pré-alloués (`THREE.Vector3`, etc.) pour éviter la pression sur le Garbage Collector.
+    - **Throttling de la Console** : Le composant `Metel.tsx` (console de jeu) rafraîchit l'affichage des cartes de joueurs à **30Hz** maximum via un timer indépendant, divisant par deux l'overhead CPU de l'UI.
+- **Bufferisation STOMP** : Les messages d'entrée sont traités "at-rate" (au rythme du rafraîchissement écran), garantissant que la charge de calcul reste proportionnelle au FPS et non au volume de messages reçus.
+
+### Fidélité Visuelle et Physique 3D
+- **Joystick Asset-based** : Abandon des géométries procédurales au profit de `joystick.glb`.
+    - **Pivot & Orientation** : Le modèle doit avoir son pivot à la base. L'orientation est calculée via un `lookAt` dynamique vers la position du doigt dans l'espace monde.
+    - **Facteur d'inclinaison** : Intensité fixée à **1.203** pour une sensation mécanique accentuée.
+    - **Echelle Proportionnelle** : Le corps et la tête du joystick sont à **0.85** du rayon défini dans le SVG, tandis que la base ("le pied") reste à **1.0** pour ancrer visuellement l'objet.
+- **Système de Matériaux** :
+    - **Garantie de Thème** : Injection forcée via une procédure de `traverse` sur les modèles GLB. Chaque mesh reçoit le matériau du thème actuel (MatCap ou Standard avec émissivité).
+    - **Persistance** : Le thème et la texture MatCap sont sauvegardés en `localStorage` et réappliqués instantanément au montage du composant.
+- **Post-processing** : Utilisation d'un `OutlinePass` haute fidélité synchronisé avec la couleur d'accentuation du thème.
+
+### Logique métier et UX Gamepad
+- **Rôle Master** : Identification automatique de la première manette connectée comme "Master" via un flag serveur, visualisée par une LED verte (`masterIndicator`).
+- **Résilience Réseau** : Lors d'une reconnexion, la manette synchronise son état UI avec la `phase` actuelle de la partie (waiting/playing) transmise par le serveur.
+- **Mode Développeur** : Bouton "Ouvrir une manette" présent dans le lobby uniquement si `import.meta.env.DEV` est vrai.
+- **Interaction** : Le retour haptique visuel (explosions de particules, tremblement de scène `shakeRef`) est déclenché par les événements `onButtonDown` pour renforcer l'immersion.
