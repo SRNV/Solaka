@@ -1,0 +1,12 @@
+[
+  {
+    "title": "Metel",
+    "description": "Description partagée",
+    "slug": "metel-game"
+  },
+  {
+    "title": "Verse Battle",
+    "description": "Repoussez les sphères ennemies avant qu'elles atteignent votre zone !",
+    "slug": "verse-battle"
+  }
+]
