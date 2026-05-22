@@ -83,11 +83,20 @@ namespace GameServer.Services
                     _controllerTimers.TryRemove(key, out _);
                     _logger.LogInformation("Controller {ControllerId} ghosted from room {RoomId}", controllerId, roomId);
                     _ = ControllerGhosted?.Invoke(roomId, controllerId);
-                    if (!room.HasAnyConnected())
+                    // Never auto-close a room that has already started
+                    if (!room.Started && !room.HasAnyConnected())
                         StartRoomTimer(roomId);
                 }
                 catch (OperationCanceledException) { }
             });
+        }
+
+        public void StartRoom(string roomId)
+        {
+            if (!_rooms.TryGetValue(roomId, out var room)) return;
+            room.Start();
+            CancelRoomTimer(roomId); // never auto-close a started room
+            _logger.LogInformation("Room {RoomId} marked as started", roomId);
         }
 
         public void UpdateControllerSeen(string roomId, string controllerId)

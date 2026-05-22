@@ -195,23 +195,20 @@ namespace GameServer.Services
                         break;
                     }
 
-                    // Inputs: TTL check — discard stale frames
-                    if (sendDest.EndsWith("/input"))
+                    // Intercept game_started to persist room state
+                    if (sendDest.StartsWith("/topic/room/"))
                     {
                         try
                         {
                             using var doc = JsonDocument.Parse(frame.Body);
-                            if (doc.RootElement.TryGetProperty("t", out var tProp))
+                            if (doc.RootElement.TryGetProperty("type", out var typeProp) &&
+                                typeProp.GetString() == "game_started")
                             {
-                                var latency = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - tProp.GetInt64();
-                                if (latency > 500)
-                                {
-                                    _logger.LogDebug("Discarding stale input: latency={Latency}ms", latency);
-                                    break;
-                                }
+                                var roomId = sendDest["/topic/room/".Length..];
+                                _roomService.StartRoom(roomId);
                             }
                         }
-                        catch { /* malformed body — let it through */ }
+                        catch { /* ignore parse errors */ }
                     }
 
                     await BroadcastToDestinationAsync(sendDest, frame.Body);
@@ -325,7 +322,13 @@ namespace GameServer.Services
             foreach (var sub in session.Subscriptions)
             {
                 if (_subscriptions.TryGetValue(sub.Value.Dest, out var destSubs))
-                    destSubs.TryRemove(sub.Value.CompositeKey, out _);
+                {
+                    // Only remove if it's still our session (don't kill a reconnected session's sub)
+                    if (destSubs.TryGetValue(sub.Value.CompositeKey, out var current) && current.SessionId == sessionId)
+                    {
+                        destSubs.TryRemove(sub.Value.CompositeKey, out _);
+                    }
+                }
             }
 
             // Notify lifecycle if this session was a registered controller

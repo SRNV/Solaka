@@ -5,6 +5,7 @@ import {
   GetKings, GetPeriods, GetEvents,
   GetRelations, GetRelationsByUuids,
   SearchBible, SearchBibleHits,
+  GetRandomVerses,
 } from '../../application/useCases/BibleUseCases';
 import bookOrderData from '../../data/book-order.json';
 
@@ -22,6 +23,7 @@ export default function bibleRouter(repo: IBibleRepository): Router {
   const getRelsByUuids     = new GetRelationsByUuids(repo);
   const searchBible        = new SearchBible(repo);
   const searchBibleHits    = new SearchBibleHits(repo);
+  const getRandomVerses    = new GetRandomVerses(repo);
 
   const getPagination = (req: any) => ({
     limit:  parseInt(req.query.limit  as string) || 50,
@@ -78,6 +80,12 @@ export default function bibleRouter(repo: IBibleRepository): Router {
   router.get('/events', (req, res) => {
     const { limit, offset } = getPagination(req);
     res.json(getEvents.execute(limit, offset));
+  });
+
+  // GET /api/bible/random?count=60
+  router.get('/random', (req, res) => {
+    const count = Math.min(500, Math.max(1, parseInt(req.query.count as string) || 60));
+    res.json(getRandomVerses.execute(count));
   });
 
   // GET /api/bible/search?q=word

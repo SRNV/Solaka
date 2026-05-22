@@ -6,6 +6,7 @@ import { usePseudo } from '../../lib/games/src/hooks/usePseudo.ts';
 import { GAME_REGISTRY } from '../../lib/games/src/components/games/GameRegistry.ts';
 import { findTheme } from '../../lib/games/src/components/gamepad3d/themes.ts';
 import { PseudoModal } from './PseudoModal.tsx';
+import { DebugOverlay } from './DebugOverlay.tsx';
 import styles from './GameRoomPage.module.css';
 
 export function GameRoomPage() {
@@ -19,7 +20,7 @@ export function GameRoomPage() {
     return findTheme(saved);
   }, []);
 
-  const { phase, status, registered, error, controllerId, isMaster, clearError } =
+  const { phase, status, registered, error, controllerId, isMaster, clearError, reconnect } =
     useControllerRoom(roomId!, pendingPseudo, pseudoConfirmed);
 
   // Fullscreen when game starts
@@ -85,8 +86,10 @@ export function GameRoomPage() {
             controllerId={controllerId}
             active={phase === 'playing'}
             isMaster={isMaster}
+            onReconnect={reconnect}
           />
         </Suspense>
+        {import.meta.env.DEV && <DebugOverlay controllerId={controllerId} roomId={roomId} />}
       </div>
     );
   }

@@ -54,3 +54,8 @@ export class SearchBibleHits {
   constructor(private repo: IBibleRepository) {}
   execute(query: string) { return this.repo.searchHits(query); }
 }
+
+export class GetRandomVerses {
+  constructor(private repo: IBibleRepository) {}
+  execute(count: number) { return this.repo.getRandomVerses(count); }
+}

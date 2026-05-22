@@ -23,6 +23,8 @@ export interface IBibleRepository {
   search(query: string, limit?: number, offset?: number): PaginatedResponse<VerseSearchResult>;
   searchHits(query: string): SearchHit[];
 
+  getRandomVerses(count: number): Array<{ uuid: string; bookName: string; chapterNumber: number; verseNumber: number; content: string }>;
+
   iterRelations(trads: Set<'c' | 'p'>, q?: string, from?: string): Iterable<RelRow>;
   searchAll(q: string): Iterable<VerseSearchResult>;
 

@@ -2,6 +2,14 @@ import { fetchOnce } from './apiCache.ts';
 import type { PaginatedResponse } from '@/models/bible';
 import type { BibleBookMeta, King, HistoricalPeriod, BibleEvent } from '@/models/bible';
 
+export interface GameVerse {
+  uuid: string;
+  bookName: string;
+  chapterNumber: number;
+  verseNumber: number;
+  content: string;
+}
+
 // ── helpers ────────────────────────────────────────────────────────────────
 
 async function fetchAllPages<T>(baseUrl: string): Promise<T[]> {
@@ -40,4 +48,7 @@ export const bibleStore = {
     fetchOnce<unknown>(
       `/api/bible/search?q=${encodeURIComponent(q)}&limit=${limit}&offset=${offset}`,
     ),
+
+  randomVerses: (count = 60) =>
+    fetchOnce<GameVerse[]>(`/api/bible/random?count=${count}`),
 };
