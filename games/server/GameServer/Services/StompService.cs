@@ -211,6 +211,8 @@ namespace GameServer.Services
                         catch { /* ignore parse errors */ }
                     }
 
+                    // BROADCAST TO ALL SESSIONS SUBSCRIBED TO THIS DESTINATION
+                    // We don't check if the sender is subscribed; STOMP allows SEND without SUBSCRIBE.
                     await BroadcastToDestinationAsync(sendDest, frame.Body);
                     break;
 

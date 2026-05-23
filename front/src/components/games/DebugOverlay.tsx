@@ -4,7 +4,7 @@ const MAX_LINES = 40;
 
 export function DebugOverlay({ controllerId, roomId }: { controllerId?: string; roomId?: string } = {}) {
   const [lines, setLines] = useState<string[]>([]);
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const originalDebug = useRef<typeof console.debug>(console.debug);
 
