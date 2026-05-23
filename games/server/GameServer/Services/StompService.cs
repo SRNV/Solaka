@@ -195,6 +195,9 @@ namespace GameServer.Services
                         break;
                     }
 
+                    _logger.LogInformation("SEND from {SessionId} (Ctrl={ControllerId}) to {Dest}: {Body}", 
+                        sessionId, session.ControllerId ?? "none", sendDest, frame.Body);
+
                     // Intercept game_started to persist room state
                     if (sendDest.StartsWith("/topic/room/"))
                     {
@@ -253,11 +256,21 @@ namespace GameServer.Services
                     var subId = kvp.Key;
                     var (dest, oldKey) = kvp.Value;
                     var newKey = $"{controllerId}:{subId}";
-                    if (oldKey == newKey) continue;
-
+                    
                     if (_subscriptions.TryGetValue(dest, out var destSubs))
                     {
-                        destSubs.TryRemove(oldKey, out _);
+                        // TAKEOVER: If this sub key was owned by another session, we evict it
+                        if (destSubs.TryGetValue(newKey, out var existing) && existing.Item1 != sessionId)
+                        {
+                            _logger.LogInformation("Evicting old session {OldSessionId} for controller {ControllerId}", existing.Item1, controllerId);
+                            if (_sessions.TryGetValue(existing.Item1, out var oldSess))
+                            {
+                                // We don't await CloseAsync to avoid blocking the current registration
+                                _ = oldSess.WebSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Replaced by new session", CancellationToken.None);
+                            }
+                        }
+
+                        if (oldKey != newKey) destSubs.TryRemove(oldKey, out _);
                         destSubs[newKey] = (sessionId, subId);
                     }
                     session.Subscriptions[subId] = (dest, newKey);
@@ -300,18 +313,25 @@ namespace GameServer.Services
 
         private async Task BroadcastToDestinationAsync(string destination, string body)
         {
-            if (!_subscriptions.TryGetValue(destination, out var destSubs)) return;
+            if (!_subscriptions.TryGetValue(destination, out var destSubs)) 
+            {
+                _logger.LogInformation("No subscribers for {Dest}", destination);
+                return;
+            }
 
             var msgId = Guid.NewGuid().ToString();
             var tasks = new List<Task>();
+            int count = 0;
             foreach (var sub in destSubs)
             {
                 var (sid, originalSubId) = sub.Value;
                 if (_sessions.TryGetValue(sid, out var sess))
-                    // On envoie le subId ORIGINAL dans le frame MESSAGE pour que
-                    // @stomp/stompjs côté client route vers le bon callback
+                {
                     tasks.Add(sess.SendAsync(StompFrame.Message(destination, originalSubId, body, msgId)));
+                    count++;
+                }
             }
+            _logger.LogInformation("Broadcasted to {Count} sessions on {Dest}", count, destination);
             await Task.WhenAll(tasks);
         }
 

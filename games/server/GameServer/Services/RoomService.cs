@@ -10,7 +10,7 @@ namespace GameServer.Services
         private readonly ConcurrentDictionary<string, CancellationTokenSource> _roomTimers = new();
         private readonly ILogger<RoomService> _logger;
 
-        private static readonly TimeSpan GhostDelay = TimeSpan.FromMinutes(3);
+        private static readonly TimeSpan GhostDelay = TimeSpan.FromMinutes(10);
 
         // Events raised so StompService can broadcast without circular dependency
         public event Func<string, ControllerInfo, bool, Task>? ControllerJoined;   // roomId, info, isReconnect

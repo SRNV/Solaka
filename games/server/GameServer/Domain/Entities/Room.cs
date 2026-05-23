@@ -27,13 +27,16 @@ namespace GameServer.Domain.Entities
             {
                 LastActivity = DateTimeOffset.UtcNow;
 
-                // 1. Même controllerId → reconnexion directe
+                // 1. Même controllerId → reconnexion directe (Takeover si déjà connecté)
                 if (_controllers.TryGetValue(controllerId, out var existing))
                 {
+                    // Si déjà connecté sur une autre session, on signale qu'on remplace
+                    // (StompService s'occupera de fermer l'ancienne session si besoin)
                     existing.Pseudo = pseudo;
                     existing.IsConnected = true;
                     existing.DisconnectedAt = null;
                     existing.LastSeen = DateTimeOffset.UtcNow;
+                    var oldSessionId = existing.SessionId;
                     existing.SessionId = sessionId;
                     return (ControllerAddResult.Reconnected, existing, null);
                 }
