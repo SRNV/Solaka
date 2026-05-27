@@ -78,7 +78,7 @@ front/src/
     hooks/
       useSvgZones.ts         ← Parser SVG dynamique (type:slot)
       useGamepadInput.ts     ← Gestionnaire d'input throttlé sans re-render
-      useControllerRoom.ts   ← Synchronisation état manette (Master, Phase)
+      useControllerRoom.ts   ← Synchronisation état manette (Master, Phase, persistance localStorage)
     lib/metel/
       Metel.tsx              ← Console de jeu (Vue "Serveur")
       MetelGame.tsx          ← Scène R3F complète (Physics cannon.js, TileGrid, spheres, effets)
@@ -227,9 +227,12 @@ GET  /api/geomap/:id                           → GeoJSON FeatureCollection
 POST /api/geomap/batch                         → GeoJSON[]
 ```
 
-STOMP WebSocket (`ws://{host}/stomp`) :
+STOMP WebSocket Bible (`ws://{host}/stomp`) :
 - `/user/queue/relations?trad=c,p&q=…` — relations filtrées par tradition + query
 - `/user/queue/search?q=…` — résultats de recherche
+
+STOMP WebSocket Games (`ws://{host}:5000/stomp`) :
+- `/topic/room/{roomId}` — Topic unifié (Inputs + Événements de room)
 
 ---
 
@@ -297,7 +300,11 @@ STOMP WebSocket (`ws://{host}/stomp`) :
 
 - **CORS / Origins** : Les serveurs (`back` Bun et `games-server` C#) sont configurés pour accepter plusieurs origines via les variables d'environnement `CORS_ORIGIN` et `ALLOWED_ORIGINS` dans le `docker-compose.yml`. 
 - **⚠️ Accès Mobile** : Pour tester sur téléphone via le réseau local, il est **impératif** d'ajouter l'IP locale de la machine hôte (ex: `http://192.168.1.XX:5173`) dans ces listes d'origines autorisées.
-- **Game Server** : Le serveur de jeux est en C# (port 5000), supporte STOMP, et utilise `/room/:name/:uuid` ainsi que `/user/queue/user/manette/:uuid`.
+- **Game Server** : Le serveur de jeux est en C# (port 5000), supporte STOMP via un topic unifié `/topic/room/{roomId}`. Les manettes s'identifient via un en-tête `x-controller-id` lors de la souscription et incluent `type: 'input'` dans leurs messages `SEND`.
+- **Persistance** : Le `controllerId` est stocké dans le `localStorage` du navigateur pour permettre la reprise de session (Takeover) après fermeture d'onglet ou déconnexion réseau.
+- **Synchronisation** : Pas de contrôle de dérive temporelle (latency check) sur le serveur pour accommoder les horloges client variées. Le nettoyage des sessions cible uniquement le `SessionId` spécifique pour éviter les race conditions lors des reconnexions rapides.
+- **Assets** : Utilisation de `apng_to_sheet.py` pour convertir les animations APNG en spritesheets horizontaux optimisés.
+- **Animations** : `SpriteAnim.tsx` supporte `randomRotation: true`. `HIT_ANIM` et `WRONG_ANSWER_ANIM` utilisent cette rotation et des spritesheets (`2_sheet.png`, `sheet.png`). Introduction de `HitAnimService.tsx` pour des séquences d'impact multi-couches gérées par GSAP.
 
 ---
 
