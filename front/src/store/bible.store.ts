@@ -49,6 +49,11 @@ export const bibleStore = {
       `/api/bible/search?q=${encodeURIComponent(q)}&limit=${limit}&offset=${offset}`,
     ),
 
-  randomVerses: (count = 60) =>
-    fetchOnce<GameVerse[]>(`/api/bible/random?count=${count}`),
+  randomVerses: (count = 60, books?: string[] | 'all') => {
+    let url = `/api/bible/random?count=${count}`;
+    if (books && books !== 'all' && books.length > 0)
+      url += `&books=${books.map(b => encodeURIComponent(b)).join(',')}`;
+    // Never cache: each call must return a fresh random draw.
+    return fetch(url).then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json() as Promise<GameVerse[]>; });
+  },
 };

@@ -82,10 +82,12 @@ export default function bibleRouter(repo: IBibleRepository): Router {
     res.json(getEvents.execute(limit, offset));
   });
 
-  // GET /api/bible/random?count=60
+  // GET /api/bible/random?count=60[&books=Genèse,Exode]
   router.get('/random', (req, res) => {
     const count = Math.min(500, Math.max(1, parseInt(req.query.count as string) || 60));
-    res.json(getRandomVerses.execute(count));
+    const booksParam = req.query.books as string | undefined;
+    const books = booksParam ? booksParam.split(',').map(b => b.trim()).filter(Boolean) : undefined;
+    res.json(getRandomVerses.execute(count, books));
   });
 
   // GET /api/bible/search?q=word

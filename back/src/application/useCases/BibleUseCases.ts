@@ -57,5 +57,5 @@ export class SearchBibleHits {
 
 export class GetRandomVerses {
   constructor(private repo: IBibleRepository) {}
-  execute(count: number) { return this.repo.getRandomVerses(count); }
+  execute(count: number, books?: string[]) { return this.repo.getRandomVerses(count, books); }
 }

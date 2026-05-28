@@ -421,14 +421,21 @@ export class JsonBibleStore implements IBibleRepository {
     return { book: { name: book.name, number: book.number }, chapter: { number: ch.number, summary: ch.summary, verses } };
   }
 
-  getRandomVerses(count: number) {
-    const keys = Array.from(this.verseIndex.keys());
-    // Fisher-Yates shuffle — only up to `count` iterations
+  getRandomVerses(count: number, books?: string[]) {
+    let keys = Array.from(this.verseIndex.keys());
+    if (books && books.length > 0) {
+      const bookSet = new Set(books);
+      keys = keys.filter(uuid => {
+        const v = this.getVerse(uuid);
+        return v ? bookSet.has(v.bookName) : false;
+      });
+    }
+    // Fisher-Yates partial shuffle — only iterate up to `count` positions
     for (let i = keys.length - 1; i > 0 && i > keys.length - count - 1; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [keys[i], keys[j]] = [keys[j], keys[i]];
     }
-    return keys.slice(keys.length - count).flatMap(uuid => {
+    return keys.slice(Math.max(0, keys.length - count)).flatMap(uuid => {
       const v = this.getVerse(uuid);
       if (!v) return [];
       return [{ uuid, bookName: v.bookName, chapterNumber: v.chapterNumber, verseNumber: v.number, content: v.content }];

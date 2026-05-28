@@ -343,3 +343,15 @@ Pour supporter des flux massifs d'entrées (60 messages/sec par joueur) sans sat
 - **Résilience Réseau** : Lors d'une reconnexion, la manette synchronise son état UI avec la `phase` actuelle de la partie (waiting/playing) transmise par le serveur.
 - **Mode Développeur** : Bouton "Ouvrir une manette" présent dans le lobby uniquement si `import.meta.env.DEV` est vrai.
 - **Interaction** : Le retour haptique visuel (explosions de particules, tremblement de scène `shakeRef`) est déclenché par les événements `onButtonDown` pour renforcer l'immersion.
+
+---
+
+## Verse Battle — Fixes techniques
+
+### Branches volantes (Flying Branches)
+- **Problème** : Les branches restaient statiques en coordonnées monde après leur spawn, alors que le terrain (roll, yaw, bumps) continuait de se déformer dynamiquement.
+- **Solution** : Recalcul de `wx`, `wy` et de l'orientation (`surfaceQuat`) à chaque frame dans `useFrame`. Les branches suivent désormais parfaitement les ondulations du terrain.
+
+### Wobble / Jitter (Vibrations)
+- **Problème** : Micro-décalages entre l'intégration de `delta` pour la position `z` et le temps absolu `t` utilisé par les shaders pour les ondes du terrain.
+- **Solution** : Synchronisation absolue. On stocke `spawnT` et `spawnZ`, et on dérive `z` directement : `s.z = spawnZ + vz * (t - spawnT)`. Cela élimine toute dérive temporelle et "colle" les objets aux crêtes de vagues du terrain.
